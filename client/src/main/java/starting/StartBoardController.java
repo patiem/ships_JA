@@ -1,7 +1,6 @@
 package starting;
 
 import connection.Client;
-import connection.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
