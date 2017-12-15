@@ -18,7 +18,7 @@ public class PositionValidatorTest {
 
     @Test(dataProvider = "incorrect positions")
     public void givenIncorrectPositionWhenIsValidThenReturnFalse(int position) {
-        PositionValidator validator = new PositionValidator(new Fleet());
+        PositionValidator validator = new PositionValidator(new CustomFleet());
         assertFalse(validator.isValid(position));
     }
 
@@ -29,13 +29,13 @@ public class PositionValidatorTest {
 
     @Test(dataProvider = "correct positions")
     public void givenCorrectPositionWhenIsValidThenReturnTrue(int position) {
-        PositionValidator validator = new PositionValidator(new Fleet());
+        PositionValidator validator = new PositionValidator(new CustomFleet());
         assertTrue(validator.isValid(position));
     }
 
     @Test
     public void givenOccupiedIndexPositionWhenIsValidReturnFalse() {
-        Fleet fleet = new Fleet();
+        CustomFleet fleet = new CustomFleet();
         PositionValidator positionValidator = new PositionValidator(fleet);
         int position = 0;
 

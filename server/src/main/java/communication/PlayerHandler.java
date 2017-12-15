@@ -40,7 +40,7 @@ public class PlayerHandler {
     }
 
     private void addPlayer(Player player) {
-        if(players.isEmpty())
+        if (players.isEmpty())
             currentPlayer = player;
 
         players.add(player);
