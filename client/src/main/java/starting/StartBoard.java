@@ -1,13 +1,16 @@
 package starting;
 
+import connection.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import playing.PlayBoardController;
 
 public class StartBoard extends Application {
 
@@ -15,6 +18,11 @@ public class StartBoard extends Application {
     private final double SCENE_HEIGHT = 600;
     private final String START_BOARD_URL = "/fxmls/startBoard.fxml";
     private final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+
+
+    Client client = new Client();
+    AnchorPane playBoard;
+    AnchorPane startBoard;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -28,12 +36,18 @@ public class StartBoard extends Application {
         Scene playScene = new Scene(playRoot, SCENE_WIDTH, SCENE_HEIGHT);
 
         FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
-        AnchorPane startBoard = startLoader.load();
+        StartBoardController startBoardController = new StartBoardController(client);
+        startLoader.setController(startBoardController);
+
+        startBoard = startLoader.load();
+
         addNextButtonToStartBoard(stage, playScene, startBoard);
         startRoot.getChildren().addAll(startBoard);
 
         FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-        AnchorPane playBoard = playLoader.load(); //TODO to uruchamia drugi wątek!!!!
+        PlayBoardController playBoardController = new PlayBoardController(client);
+        playLoader.setController(playBoardController);
+        playBoard = playLoader.load();
         playRoot.getChildren().addAll(playBoard);
 
         stage.setTitle("FXML Welcome");
@@ -43,6 +57,12 @@ public class StartBoard extends Application {
     private void addNextButtonToStartBoard(Stage stage, Scene playScene, AnchorPane startBoard) {
         Button buttonNext = new Button("Next");
         buttonNext.setOnAction(event -> stage.setScene(playScene));
+        buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
+            String userName = ((TextField)startBoard.lookup("#userName")).getText();
+            ((TextField)playBoard.lookup("#userName")).setText(userName);
+            stage.setScene(playScene);
+        });
+        client.putObserverForConnection(buttonNext);
         VBox connectPanel = (VBox) startBoard.lookup("#connectPanel");
         connectPanel.getChildren().add(buttonNext);
     }

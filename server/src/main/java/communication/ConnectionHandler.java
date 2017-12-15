@@ -12,6 +12,7 @@ import java.net.Socket;
 class ConnectionHandler {
     private PlayerHandler playerHandler = new PlayerHandler();
     private LanguageVersion languageVersion = new LanguageVersion();
+    Socket currentSocket;
 
     void acceptConnections(int port) {
 
@@ -27,14 +28,12 @@ class ConnectionHandler {
         }
     }
 
-
-
     void handleGameEvent() {
 
-        Socket currentSocket = playerHandler.getCurrentSocket();
+        currentSocket = playerHandler.getCurrentSocket();
 
-        sendFireNotification(currentSocket, "Your turn. Provide the target");
-        sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Wait for opponent's move");
+//        sendFireNotification(currentSocket, "Your turn. Provide the target");
+//        sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Wait for opponent's move");
 
         MessageReceiver messageReceiver = new MessageReceiver();
         String message = "";
@@ -52,19 +51,18 @@ class ConnectionHandler {
         HitChecker hitChecker = new HitChecker(fleet);
         ShotState shotState = hitChecker.checkShot(toMark);
 
+        showInfoAboutCurrentShot(message, shotState);
+        playerHandler.sendMessageToCurrentPlayer(shotState.toString());
 
-        sendFireNotification(currentSocket, shotState.toString());
-
-        if (shotState == ShotState.HIT) {
-
-            sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Your opponent hit the target. Please wait");
-            sendFireNotification(currentSocket, "You hit the target, please continue shooting");
-        } else {
-            sendFireNotification(currentSocket, "You missed, it's your opponent's turn ");
-            sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Your turn. Provide the target");
-
+        if (!(shotState == ShotState.HIT)) {
             playerHandler.switchPlayers();
         }
+    }
+
+    private void showInfoAboutCurrentShot(String message, ShotState shotState) {
+        System.out.println(playerHandler.currentPlayerName());
+        System.out.println(message);
+        System.out.println(shotState);
     }
 
     private void registerPlayer(ServerSocket serverSocket) throws IOException {
@@ -80,7 +78,6 @@ class ConnectionHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         messageSender.send(printWriter, messageToSend);
     }
 }

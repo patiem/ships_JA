@@ -1,5 +1,9 @@
 package connection;
 
+import javafx.scene.control.Button;
+import playing.SeaField;
+import starting.ConnectEvent;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -7,9 +11,11 @@ public class Client {
 
     static final String CHARSET = "UTF-8";
 
-    Connector connector;
-    Sender out;
-    Receiver in;
+    private Connector connector;
+    private Sender out;
+    private Receiver in;
+    private Button nextButton;
+    private SeaField lastField;
 
     public void setup(String host, String port) {
         try {
@@ -23,6 +29,27 @@ public class Client {
 
     public void sendMessage(String message)  {
         out.sendMessage(message);
+    }
+
+    public void sendMessage(int value)  {
+        out.sendMessage(value);
+    }
+
+    public void reactOnMessage() {
+        String message = in.readMessage();
+        switch (message) {
+            case "CON":
+                System.out.println(message);
+                System.out.println(nextButton.getText());
+                nextButton.fireEvent(new ConnectEvent("CON"));
+                break;
+            case "HIT":
+                lastField.hit();
+                break;
+            case "MISSED":
+                lastField.missed();
+                break;
+        }
     }
 
     private static boolean loopCondition = true;
@@ -60,5 +87,15 @@ public class Client {
 
             isMyTurn = response2.contains("Your turn");
         }
+    }
+
+    public void putObserverForConnection(Button button) {
+        System.out.println(button.getText());
+        this.nextButton = button;
+    }
+
+    public void reactOnMessage(SeaField lastField) {
+        this.lastField = lastField;
+        reactOnMessage();
     }
 }

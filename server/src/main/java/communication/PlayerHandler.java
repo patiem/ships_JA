@@ -26,17 +26,22 @@ public class PlayerHandler {
 
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            String playerName = messageReceiver.receiveMessage(reader);
+            Player newPlayer = new Player(playerName, socket);
+            addPlayer(newPlayer);
+            System.out.println("Player added: " + playerName); //TODO: add Logger
+            sendNotification(socket);
         } catch (IOException e) {
             e.printStackTrace(); //TODO: ExceptionHandler
         }
+    }
 
-        String playerName = messageReceiver.receiveMessage(reader);
-        Player newPlayer = new Player(playerName, socket);
-        addPlayer(newPlayer);
+    public void sendMessageToCurrentPlayer(String message) {
+        currentPlayer.sendMessage(message);
+    }
 
-        System.out.println("Player added: " + playerName); //TODO: add Logger
-
-        sendNotification(socket);
+    public void sendMessageToOtherPlayer(String message) {
+        players.get(1).sendMessage(message);
     }
 
     private void addPlayer(Player player) {
@@ -55,8 +60,9 @@ public class PlayerHandler {
             e.printStackTrace();
         }
 
-        String messageToSend = LanguageVersion.CONFIRM_CONNECTION;  //TODO: add message :wait for second communication.Player"
-        messageSender.send(printWriter, messageToSend);
+//        String messageToSend = LanguageVersion.CONFIRM_CONNECTION;  //TODO: add message :wait for second communication.Player"
+        String message = "CON";
+        messageSender.send(printWriter, message);
     }
 
     public Socket getCurrentSocket() {
@@ -74,6 +80,10 @@ public class PlayerHandler {
     public void switchPlayers() {
         Collections.reverse(players);
         currentPlayer = players.get(0);
+    }
+
+    public String currentPlayerName() {
+        return currentPlayer.getName();
     }
 }
 
