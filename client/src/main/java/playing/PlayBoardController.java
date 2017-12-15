@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class PlayBoardController implements Initializable {
@@ -15,6 +16,10 @@ public class PlayBoardController implements Initializable {
 
     @FXML
     GridPane shipBoard;
+
+    public PlayBoardController(Client client) {
+        this.client = client;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

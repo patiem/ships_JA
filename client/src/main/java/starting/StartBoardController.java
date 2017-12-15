@@ -27,10 +27,13 @@ public class StartBoardController implements Initializable {
 
     String playerName;
 
+    public StartBoardController(Client client) {
+        this.client = client;
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        client = new Client();
         userName.setText(USER_NAME_VALUE);
         ipNumber.setText(IP_NUMBER_VALUE);
         client.setup(IP_NUMBER_VALUE, PORT_VALUE);
