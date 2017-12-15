@@ -2,6 +2,7 @@ package communication;
 
 import fleet.Fleet;
 import fleet.HardcodedFleet;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,10 +19,11 @@ public class JsonGeneratorTest {
 
         String actualJson = jsonGenerator.createJson(fleet);
 
-        assertThat(actualJson.contains(shipsJsonPart));
-        assertThat(actualJson.contains(fleetPositionsJsonPart));
-        assertThat(actualJson.contains(hitFieldsJsonPart));
-        assertThat(actualJson.contains(sizeJsonPart));
+        SoftAssertions softly = new SoftAssertions();
+        softly.assertThat(actualJson.contains(shipsJsonPart));
+        softly.assertThat(actualJson.contains(fleetPositionsJsonPart));
+        softly.assertThat(actualJson.contains(hitFieldsJsonPart));
+        softly.assertThat(actualJson.contains(sizeJsonPart));
     }
 
 }

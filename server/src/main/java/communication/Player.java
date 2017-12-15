@@ -1,6 +1,5 @@
 package communication;
 
-import fleet.CustomFleet;
 import fleet.Fleet;
 import fleet.HardcodedFleet;
 
