@@ -24,6 +24,7 @@ public class JsonGeneratorTest {
         softly.assertThat(actualJson.contains(fleetPositionsJsonPart));
         softly.assertThat(actualJson.contains(hitFieldsJsonPart));
         softly.assertThat(actualJson.contains(sizeJsonPart));
+        softly.assertAll();
     }
 
 }

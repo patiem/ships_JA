@@ -1,16 +1,30 @@
 package communication;
 
-public class Position {
+class Position {
 
+    private int index;
+    private int column;
+    private int row;
 
-    int index;
-
-    public Position(int index) {
+    Position(int index) {
         this.index = index;
     }
 
+    Position(int column, int row) {
+        this.column = column;
+        this.row = row;
+    }
 
-    public int getIndex() {
+
+    int getIndex() {
         return index;
+    }
+
+    int getColumn() {
+        return column;
+    }
+
+    int getRow() {
+        return row;
     }
 }

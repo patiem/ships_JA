@@ -1,11 +1,16 @@
 package communication;
 
-public class PositionAdapter {
+class PositionAdapter {
 
-
-
-    public static Position createPositionFromTwoCoordinates(int x, int y) {
-        int index = x*y;
+    static Position createPositionFromCoordinates(int column, int row) {
+        int index = row * 10 + column;
         return new Position(index);
+    }
+
+    static Position createPositionFromIndex(int providedIndex) {
+        int column = providedIndex % 10;
+        int row = providedIndex / 10;
+
+        return new Position(column, row);
     }
 }
