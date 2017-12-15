@@ -1,11 +1,9 @@
 package communication;
 
+import fleet.CustomFleet;
 import fleet.Fleet;
 import fleet.HardcodedFleet;
 
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class Player {

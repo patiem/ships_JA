@@ -1,5 +1,6 @@
 package communication;
 
+import fleet.CustomFleet;
 import fleet.Fleet;
 
 import java.io.BufferedReader;
