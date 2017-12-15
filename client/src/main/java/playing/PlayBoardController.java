@@ -25,8 +25,6 @@ public class PlayBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        client = new Client();
-        client.setup("localhost", "5000");
         populateSeaWithSeaFields();
     }
 

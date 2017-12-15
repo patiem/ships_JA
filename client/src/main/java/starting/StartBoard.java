@@ -40,9 +40,8 @@ public class StartBoard extends Application {
         startLoader.setController(startBoardController);
         startBoard = startLoader.load();
         startRoot.getChildren().addAll(startBoard);
-
         addNextButtonToStartBoard(stage, playScene, startBoard);
-        
+
         FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
         PlayBoardController playBoardController = new PlayBoardController(client);
         playLoader.setController(playBoardController);
@@ -55,7 +54,7 @@ public class StartBoard extends Application {
 
     private void addNextButtonToStartBoard(Stage stage, Scene playScene, AnchorPane startBoard) {
         Button buttonNext = new Button("Next");
-        buttonNext.setOnAction(event -> stage.setScene(playScene));
+        //buttonNext.setOnAction(event -> stage.setScene(playScene));
         buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
             String userName = ((TextField)startBoard.lookup("#userName")).getText();
             ((TextField)playBoard.lookup("#userName")).setText(userName);

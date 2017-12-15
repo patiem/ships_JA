@@ -39,7 +39,6 @@ public class Client {
         String message = in.readMessage();
         switch (message) {
             case "CON":
-                System.out.println(nextButton);
                 nextButton.fireEvent(new ConnectEvent("CON"));
                 break;
             case "HIT":
