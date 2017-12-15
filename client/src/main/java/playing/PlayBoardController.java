@@ -18,8 +18,6 @@ public class PlayBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        client = new Client();
-        client.setup("localhost", "5000");
         populateSeaWithSeaFields();
     }
 
@@ -43,7 +41,15 @@ public class PlayBoardController implements Initializable {
     }
 
     private FieldPosition makePosition(SeaField seaField) {
-        return new FieldPosition(seaField.getX(), seaField.getY());
+        return new FieldPosition((int) seaField.getX(), (int) seaField.getY());
     }
+
+    public void setClient(Client client) {
+        if (this.client == null) {
+            this.client = client;
+        }
+    }
+
+
 }
 

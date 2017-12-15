@@ -38,16 +38,8 @@ public class StartBoardController implements Initializable {
 
     @FXML
     void connect(MouseEvent event) {
-
         playerName = userName.getText();
         System.out.println(playerName);
         client.sendMessage(playerName);
-
-    }
-
-    void setConnection(Client client) {
-        client.setup(ipNumber.getText(), PORT_VALUE);
-        String userNameValue = userName.getText();
-        client.sendMessage(userNameValue);
     }
 }

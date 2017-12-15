@@ -6,8 +6,8 @@ import javafx.scene.shape.Rectangle;
 
 public class SeaField extends Rectangle implements Field {
 
-    SeaField(int i, int n) {
-        super(i, n, 30, 30);
+    SeaField(int xPosition, int yPosition) {
+        super(xPosition, yPosition, 30, 30);
         setFill(Color.AZURE);
         setStroke(Color.GRAY);
     }

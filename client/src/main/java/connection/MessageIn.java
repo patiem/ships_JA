@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class MessageIn implements Receiver {
 
-    BufferedReader scanner;
+    private final BufferedReader scanner;
 
-    public static MessageIn from(Connector connector) throws IOException {
+    static MessageIn from(Connector connector) throws IOException {
         return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream())));
     }
 
@@ -22,9 +22,8 @@ public class MessageIn implements Receiver {
         try {
             return scanner.readLine();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: add exception handler
         }
-
         return "";
     }
 

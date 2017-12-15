@@ -33,7 +33,7 @@ public class StartBoard extends Application {
         startRoot.getChildren().addAll(startBoard);
 
         FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-        AnchorPane playBoard = playLoader.load(); //TODO to uruchamia drugi wątek!!!!
+        AnchorPane playBoard = playLoader.load();
         playRoot.getChildren().addAll(playBoard);
 
         stage.setTitle("FXML Welcome");

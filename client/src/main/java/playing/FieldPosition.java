@@ -6,7 +6,7 @@ public class FieldPosition {
     private final Integer x;
     private final Integer y;
 
-    FieldPosition(double x, double y) {
+    FieldPosition(int x, int y) {
         this.x = (int) x;
         this.y = (int) y;
     }

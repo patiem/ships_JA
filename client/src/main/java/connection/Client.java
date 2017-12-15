@@ -7,9 +7,9 @@ public class Client {
 
     static final String CHARSET = "UTF-8";
 
-    Connector connector;
-    Sender out;
-    Receiver in;
+    private Connector connector;
+    private Sender out;
+    private Receiver in;
 
     public void setup(String host, String port) {
         try {
@@ -17,7 +17,7 @@ public class Client {
             in = MessageIn.from(connector);
             out = MessageOut.from(connector);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: Add exception handler
         }
     }
 
@@ -27,22 +27,23 @@ public class Client {
 
     private static boolean loopCondition = true;
 
+    //Dummy console GUI for testing
     public static void run() throws IOException {
+
+        String HOST = "localhost"; //For testing change this to host IP
+        Integer PORT = 5000;
 
         System.out.println("Welcome to the battleships game, please provide your name");
         Scanner scan = new Scanner(System.in);
         String name = scan.nextLine();
 
-        Connector connector = SocketConnector.from("localhost", 5000);
+        Connector connector = SocketConnector.from(HOST, PORT);
         Receiver messegaScannerOne = MessageIn.from(connector);
         Sender writer = MessageOut.from(connector);
         writer.sendMessage(name);
 
         String response = messegaScannerOne.readMessage();
         System.out.println(response);
-
-
-
         String response2 = messegaScannerOne.readMessage();
         System.out.println(response2);
 
