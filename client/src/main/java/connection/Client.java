@@ -39,8 +39,7 @@ public class Client {
         String message = in.readMessage();
         switch (message) {
             case "CON":
-                System.out.println(message);
-                System.out.println(nextButton.getText());
+                System.out.println(nextButton);
                 nextButton.fireEvent(new ConnectEvent("CON"));
                 break;
             case "HIT":
@@ -68,8 +67,6 @@ public class Client {
         String response = messegaScannerOne.readMessage();
         System.out.println(response);
 
-
-
         String response2 = messegaScannerOne.readMessage();
         System.out.println(response2);
 
@@ -90,7 +87,6 @@ public class Client {
     }
 
     public void putObserverForConnection(Button button) {
-        System.out.println(button.getText());
         this.nextButton = button;
     }
 

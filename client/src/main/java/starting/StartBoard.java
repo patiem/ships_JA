@@ -38,12 +38,11 @@ public class StartBoard extends Application {
         FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
         StartBoardController startBoardController = new StartBoardController(client);
         startLoader.setController(startBoardController);
-
         startBoard = startLoader.load();
-
-        addNextButtonToStartBoard(stage, playScene, startBoard);
         startRoot.getChildren().addAll(startBoard);
 
+        addNextButtonToStartBoard(stage, playScene, startBoard);
+        
         FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
         PlayBoardController playBoardController = new PlayBoardController(client);
         playLoader.setController(playBoardController);
@@ -62,9 +61,9 @@ public class StartBoard extends Application {
             ((TextField)playBoard.lookup("#userName")).setText(userName);
             stage.setScene(playScene);
         });
-        client.putObserverForConnection(buttonNext);
         VBox connectPanel = (VBox) startBoard.lookup("#connectPanel");
         connectPanel.getChildren().add(buttonNext);
+        client.putObserverForConnection(buttonNext);
     }
 
     public static void run(String[] args) {
