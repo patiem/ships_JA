@@ -10,17 +10,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="727.0"
-            xmlns="http://javafx.com/javafx/8.0.141"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="starting.StartBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="starting.StartBoardController">
    <children>
-      <ImageView fitHeight="381.0" fitWidth="662.0" layoutX="33.0" layoutY="136.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="381.0" fitWidth="662.0" layoutX="33.0" layoutY="188.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bb35.png" />
          </image>
       </ImageView>
-      <VBox layoutX="476.0" layoutY="39.0" prefHeight="342.0" prefWidth="214.0">
+      <VBox fx:id="connectPanel" layoutX="476.0" layoutY="39.0" prefHeight="342.0" prefWidth="214.0">
          <children>
             <Label text="Name">
                <padding>
@@ -37,26 +34,26 @@
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </Label>
-            <TextField fx:id="ipNumber" layoutX="10.0" layoutY="26.0">
+            <TextField fx:id="ipNumber" layoutX="10.0" layoutY="26.0" text="10.30.1.65">
                <padding>
                   <Insets bottom="10.0" top="10.0" />
                </padding>
             </TextField>
-            <Label layoutX="10.0" layoutY="52.0" text="Port">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </Label>
-            <TextField fx:id="portNumber" layoutX="10.0" layoutY="68.0">
-               <padding>
-                  <Insets bottom="10.0" top="10.0" />
-               </padding>
-            </TextField>
-            <Button fx:id="connectButton" contentDisplay="CENTER" mnemonicParsing="false" text="Connect" onMouseClicked="#connect">
+            <Button fx:id="connectButton" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#connect" text="Connect">
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </Button>
+            <TextField fx:id="portNumber" layoutX="10.0" layoutY="68.0" text="5000" visible="false">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </TextField>
+            <Label layoutX="10.0" layoutY="52.0" text="Port" visible="false">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding>
+            </Label>
          </children>
       </VBox>
       <TextField editable="false" layoutX="51.0" layoutY="67.0" prefHeight="69.0" prefWidth="313.0" text="Battleships">

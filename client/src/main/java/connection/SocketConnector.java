@@ -13,7 +13,7 @@ public class SocketConnector implements Connector{
         return new SocketConnector(new Socket(host, port));
     }
 
-    public SocketConnector(Socket socket) throws IOException {
+    public SocketConnector(Socket socket) {
         this.socket = socket;
     }
 

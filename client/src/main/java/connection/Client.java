@@ -8,23 +8,21 @@ public class Client {
     static final String CHARSET = "UTF-8";
 
     Connector connector;
-    Sender sender;
-    Receiver reader;
-    Receiver readerOne;
-    Receiver readerTwo;
+    Sender out;
+    Receiver in;
 
     public void setup(String host, String port) {
         try {
             connector = SocketConnector.from(host, Integer.valueOf(port));
-            reader = MessageReciver.from(connector);
-            sender = MessageWriter.from(connector);
+            in = MessageIn.from(connector);
+            out = MessageOut.from(connector);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void sendMessage(String message)  {
-        sender.sendMessage(message);
+        out.sendMessage(message);
     }
 
     private static boolean loopCondition = true;
@@ -36,8 +34,8 @@ public class Client {
         String name = scan.nextLine();
 
         Connector connector = SocketConnector.from("localhost", 5000);
-        Receiver messegaScannerOne = MessageReciver.from(connector);
-        Sender writer = MessageWriter.from(connector);
+        Receiver messegaScannerOne = MessageIn.from(connector);
+        Sender writer = MessageOut.from(connector);
         writer.sendMessage(name);
 
         String response = messegaScannerOne.readMessage();
