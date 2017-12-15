@@ -22,8 +22,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <!--mainClass>Main</mainClass-->
-                            <mainClass>ClientConsole</mainClass> <!--Dummy console GUI -->
+                            <mainClass>Main</mainClass> <!--Dummy console GUI -->
                         </manifest>
                     </archive>
                 </configuration>
