@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.testng.Assert.assertEquals;
-
 public class JsonGeneratorTest {
 
     @Test
@@ -20,8 +17,6 @@ public class JsonGeneratorTest {
                 .limit(10)
                 .collect(Collectors.toList());
 
-        System.out.println(dummyObjectPositions);
-
         DummyObject dummyObject = new DummyObject(dummyObjectName, dummyObjectAge, dummyObjectPositions);
 
         String nameJsonPart = "\"name\":\"" + dummyObjectName + "\"";
@@ -30,14 +25,10 @@ public class JsonGeneratorTest {
 
         String actualJson = jsonGenerator.createJson(dummyObject);
 
-        System.out.println(actualJson);
-
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(actualJson).contains(nameJsonPart);
         softly.assertThat(actualJson).contains(ageJsonPart);
         softly.assertThat(actualJson).contains(positionsJsonPart);
         softly.assertAll();
     }
-
-
 }
