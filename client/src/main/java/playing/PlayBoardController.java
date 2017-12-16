@@ -14,10 +14,9 @@ public class PlayBoardController implements Initializable {
     private Client client;
 
     @FXML
-    GridPane shipBoard;
+    private GridPane shipBoard;
 
-
-    SeaField lastTarget;
+    private SeaField lastTarget;
 
     public PlayBoardController(Client client) {
         this.client = client;

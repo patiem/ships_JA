@@ -35,7 +35,7 @@ public class Player {
         return socket;
     }
 
-    public void sendMessage(String message) {
+    public void sendMessageToPlayer(String message) {
         try {
             writer.write(message);
             writer.newLine();

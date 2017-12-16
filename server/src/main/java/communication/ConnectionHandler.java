@@ -1,31 +1,30 @@
 package communication;
 
-        import com.google.common.collect.MultimapBuilder;
-        import com.google.common.collect.SetMultimap;
-        import fleet.Fleet;
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.SetMultimap;
+import fleet.Fleet;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-
-        import java.io.BufferedReader;
-        import java.io.IOException;
-        import java.io.InputStreamReader;
-        import java.io.PrintWriter;
-        import java.net.ServerSocket;
-        import java.net.Socket;
 
 class ConnectionHandler {
-    private PlayerHandler playerHandler = new PlayerHandler();
-    private LanguageVersion languageVersion = new LanguageVersion();
-    Socket currentSocket;
+    private PlayerHandler playerHandler;
+    private LanguageVersion languageVersion;
+    private SetMultimap<Socket, String> allHits;
 
-    SetMultimap<Socket, String> allHits =
-            MultimapBuilder.hashKeys().hashSetValues(50).build();
+    public ConnectionHandler() {
+        playerHandler = new PlayerHandler();
+        languageVersion = new LanguageVersion();
+        allHits = MultimapBuilder.hashKeys().hashSetValues(50).build();
+    }
 
     void acceptConnections(int port) {
-
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println(languageVersion.getServerRunning());
-
             registerPlayer(serverSocket);
             registerPlayer(serverSocket);
 
@@ -36,7 +35,7 @@ class ConnectionHandler {
 
     void handleGameEvent() {
         MessageReceiver messageReceiver = new MessageReceiver();
-        int i = 0;
+        int roundCounter = 0; //TODO: to remove after implement rest of gameplay
 
         while(true) {
             Socket currentSocket = playerHandler.getCurrentSocket();
@@ -46,6 +45,7 @@ class ConnectionHandler {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
             String hit = messageReceiver.receiveMessage(bufferedReader);
             if(!(allHits.containsEntry(currentSocket, hit))) {
                 allHits.put(currentSocket, hit);
@@ -55,12 +55,13 @@ class ConnectionHandler {
                 HitChecker hitChecker = new HitChecker(fleet);
                 ShotState shotState = hitChecker.checkShot(toMark);
 
-                showInfoAboutCurrentShot(hit, shotState, i);
+                showInfoAboutCurrentShot(hit, shotState, roundCounter);
                 playerHandler.sendMessageToCurrentPlayer(shotState.toString());
                 if (!(shotState == ShotState.HIT)) {
                     playerHandler.switchPlayers();
+                    //TODO: send message to other player that this is his turn
                 }
-                i++;
+                roundCounter++; //TODO: to remove after implement rest of gameplay
             }
         }
     }
@@ -73,16 +74,5 @@ class ConnectionHandler {
         Socket socket = serverSocket.accept();
         allHits.put(socket, "100");
         playerHandler.registerPlayer(socket);
-    }
-
-    private void sendFireNotification(Socket socket, String messageToSend) {
-        MessageSender messageSender = new MessageSender();
-        PrintWriter printWriter = null;
-        try {
-            printWriter = new PrintWriter(socket.getOutputStream(), true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        messageSender.send(printWriter, messageToSend);
     }
 }

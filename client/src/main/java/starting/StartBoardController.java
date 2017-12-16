@@ -18,15 +18,15 @@ public class StartBoardController implements Initializable {
     private Client client;
 
     @FXML
-    TextField userName;
+    private TextField userName;
 
     @FXML
-    TextField ipNumber;
+    private TextField ipNumber;
 
     @FXML
-    Button connectButton;
+    private Button connectButton;
 
-    String playerName;
+    private String playerName;
 
     public StartBoardController(Client client) {
         this.client = client;
@@ -38,15 +38,6 @@ public class StartBoardController implements Initializable {
         ipNumber.setText(IP_NUMBER_VALUE);
         client.setup(IP_NUMBER_VALUE, PORT_VALUE);
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickConnect);
-    }
-
-    @FXML
-    void connect(MouseEvent event) {
-
-        playerName = userName.getText();
-        System.out.println(playerName);
-        client.sendMessage(playerName);
-
     }
 
     void setConnection(Client client) {
