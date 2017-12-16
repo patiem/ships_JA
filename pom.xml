@@ -3,20 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>com.javacademy</groupId>
     <artifactId>statki</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <url>https://github.com/EmiliaCiastek/Ships</url>
+    <url>https://github.com/patiem/ships_JA</url>
 
     <modules>
         <module>client</module>
         <module>server</module>
+        <module>utils</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jacocoVersion>0.7.9</jacocoVersion>
+        <testngVersion>6.11</testngVersion>
+        <assertJVersion>3.8.0</assertJVersion>
+        <mockitoVersion>1.10.19</mockitoVersion>
+        <jacksonCoreVersion>2.9.3</jacksonCoreVersion>
+        <jacksonDatabindVersion>2.9.3</jacksonDatabindVersion>
+        <jsonVersion>20151123</jsonVersion>
+        <findbugsVersion>3.0.5</findbugsVersion>
+        <checkstyleVersion>2.17</checkstyleVersion>
+        <mavenjxrVersion>2.3</mavenjxrVersion>
+        <mavenCompiler>3.6.2</mavenCompiler>
+        <mavenReports>2.7</mavenReports>
+        <mavenJar>3.0.2</mavenJar>
     </properties>
 
     <build>
@@ -24,24 +37,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.6.2</version>
-
+                <version>${mavenCompiler}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.7</version>
+                <version>${mavenReports}</version>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
+                <version>${jacocoVersion}</version>
                 <configuration>
                     <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
@@ -69,33 +79,35 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>6.11</version>
+            <version>${testngVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.8.0</version>
+            <version>${assertJVersion}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <version>${mockitoVersion}</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
-            <version>2.9.2</version>
+            <version>${jacksonCoreVersion}</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.6.0</version>
+            <version>${jacksonDatabindVersion}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>${jsonVersion}</version>
+        </dependency>
     </dependencies>
 
     <reporting>
@@ -103,25 +115,23 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
+                <version>${findbugsVersion}</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <!-- Optional directory to put findbugs xdoc xml report -->
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
+                <version>${checkstyleVersion}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
+                <version>${mavenjxrVersion}</version>
             </plugin>
-
         </plugins>
     </reporting>
 </project>

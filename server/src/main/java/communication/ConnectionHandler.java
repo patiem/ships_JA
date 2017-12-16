@@ -1,5 +1,6 @@
 package communication;
 
+import fleet.CustomFleet;
 import fleet.Fleet;
 
 import java.io.BufferedReader;
@@ -56,7 +57,6 @@ class ConnectionHandler {
         sendFireNotification(currentSocket, shotState.toString());
 
         if (shotState == ShotState.HIT) {
-
             sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Your opponent hit the target. Please wait");
             sendFireNotification(currentSocket, "You hit the target, please continue shooting");
         } else {
