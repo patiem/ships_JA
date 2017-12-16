@@ -5,7 +5,9 @@ package communication;
         import fleet.Fleet;
 
 
+        import java.io.BufferedReader;
         import java.io.IOException;
+        import java.io.InputStreamReader;
         import java.io.PrintWriter;
         import java.net.ServerSocket;
         import java.net.Socket;
@@ -38,7 +40,13 @@ class ConnectionHandler {
 
         while(true) {
             Socket currentSocket = playerHandler.getCurrentSocket();
-            String hit = messageReceiver.receiveMessage(currentSocket);
+            BufferedReader bufferedReader = null;
+            try {
+                bufferedReader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream(), "UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String hit = messageReceiver.receiveMessage(bufferedReader);
             if(!(allHits.containsEntry(currentSocket, hit))) {
                 allHits.put(currentSocket, hit);
                 Integer toMark = Integer.parseInt(hit);
