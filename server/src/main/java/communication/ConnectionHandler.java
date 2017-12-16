@@ -1,18 +1,22 @@
 package communication;
 
-import fleet.Fleet;
+        import com.google.common.collect.MultimapBuilder;
+        import com.google.common.collect.SetMultimap;
+        import fleet.Fleet;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+
+        import java.io.IOException;
+        import java.io.PrintWriter;
+        import java.net.ServerSocket;
+        import java.net.Socket;
 
 class ConnectionHandler {
     private PlayerHandler playerHandler = new PlayerHandler();
     private LanguageVersion languageVersion = new LanguageVersion();
     Socket currentSocket;
+
+    SetMultimap<Socket, String> allHits =
+            MultimapBuilder.hashKeys().hashSetValues(50).build();
 
     void acceptConnections(int port) {
 
@@ -29,44 +33,37 @@ class ConnectionHandler {
     }
 
     void handleGameEvent() {
-
-        currentSocket = playerHandler.getCurrentSocket();
-
-//        sendFireNotification(currentSocket, "Your turn. Provide the target");
-//        sendFireNotification(playerHandler.getWaitingPlayerSocket(), "Wait for opponent's move");
-
         MessageReceiver messageReceiver = new MessageReceiver();
-        String message = "";
+        int i = 0;
 
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream(), "UTF-8"));
-            message = messageReceiver.receiveMessage(reader);
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: ExceptionHandler
-        }
+        while(true) {
+            Socket currentSocket = playerHandler.getCurrentSocket();
+            String hit = messageReceiver.receiveMessage(currentSocket);
+            if(!(allHits.containsEntry(currentSocket, hit))) {
+                allHits.put(currentSocket, hit);
+                Integer toMark = Integer.parseInt(hit);
+                Fleet fleet = playerHandler.getCurrentFleet();
 
-        Integer toMark = Integer.parseInt(message);
-        Fleet fleet = playerHandler.getCurrentFleet();
+                HitChecker hitChecker = new HitChecker(fleet);
+                ShotState shotState = hitChecker.checkShot(toMark);
 
-        HitChecker hitChecker = new HitChecker(fleet);
-        ShotState shotState = hitChecker.checkShot(toMark);
-
-        showInfoAboutCurrentShot(message, shotState);
-        playerHandler.sendMessageToCurrentPlayer(shotState.toString());
-
-        if (!(shotState == ShotState.HIT)) {
-            playerHandler.switchPlayers();
+                showInfoAboutCurrentShot(hit, shotState, i);
+                playerHandler.sendMessageToCurrentPlayer(shotState.toString());
+                if (!(shotState == ShotState.HIT)) {
+                    playerHandler.switchPlayers();
+                }
+                i++;
+            }
         }
     }
 
-    private void showInfoAboutCurrentShot(String message, ShotState shotState) {
-        System.out.println(playerHandler.currentPlayerName());
-        System.out.println(message);
-        System.out.println(shotState);
+    private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
+        System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerHandler.currentPlayerName(), hit, shotState));
     }
 
     private void registerPlayer(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
+        allHits.put(socket, "100");
         playerHandler.registerPlayer(socket);
     }
 
