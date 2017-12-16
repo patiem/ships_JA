@@ -15,11 +15,11 @@ public class JsonParserTest {
         int expectedAge = 156;
         List<Integer> expectedPositions = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        DummyObject dummyObject = jsonParser.parse(jsonMessage, DummyObject.class);
+        DummyTestObject dummyTestObject = jsonParser.parse(jsonMessage, DummyTestObject.class);
 
-        String actualName = dummyObject.getName();
-        int actualAge = dummyObject.getAge();
-        List<Integer> actualPositions = dummyObject.getPositions();
+        String actualName = dummyTestObject.getName();
+        int actualAge = dummyTestObject.getAge();
+        List<Integer> actualPositions = dummyTestObject.getPositions();
 
         SoftAssertions softly = new SoftAssertions();
         softly.assertThat(actualName).isEqualTo(expectedName);

@@ -3,7 +3,7 @@ package fleet;
 class PositionValidator {
     private static final int MIN_POSITION_INDEX = 0;
     private static final int MAX_POSITION_INDEX = 99;
-    private CustomFleet fleet;
+    private final CustomFleet fleet;
 
     public PositionValidator(CustomFleet fleet) {
         this.fleet = fleet;

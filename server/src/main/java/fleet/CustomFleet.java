@@ -1,12 +1,14 @@
 package fleet;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFleet implements Fleet {
-    private List<Ship> ships;
-    protected List<Integer> fleetPositions;
-    private List<Integer> hitFields;
+    private final List<Ship> ships;
+    private final List<Integer> fleetPositions;
+    private final List<Integer> hitFields;
 
     public CustomFleet() {
         ships = new ArrayList<>();
@@ -34,7 +36,8 @@ public class CustomFleet implements Fleet {
     }
 
     public void hit(int position) {
-    } //TODO: to be implemented
+        throw new NotImplementedException();
+    }
 
     public List<Integer> getHitFields() {
         return hitFields;

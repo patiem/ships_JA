@@ -2,18 +2,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonGenerator {
-    String createJson(Object object) {
-
+    String createJson(Object object) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = "";
-
-        try {
-            jsonString = mapper.writeValueAsString(object);
-            //TODO: this.objectMapper.setVisibility(PropertyAccessor.SETTER, JsonAutoDetect.Visibility.NON_PRIVATE);
-
-        } catch (JsonProcessingException e) {
-            e.printStackTrace(); //TODO : exception handler
-        }
+        String jsonString = mapper.writeValueAsString(object);
 
         return jsonString;
     }
