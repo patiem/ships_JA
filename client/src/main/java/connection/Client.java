@@ -4,12 +4,9 @@ import javafx.scene.control.Button;
 import playing.SeaField;
 import starting.ConnectEvent;
 
-import java.io.*;
-import java.util.Scanner;
+import java.io.IOException;
 
 public class Client {
-
-    static final String CHARSET = "UTF-8";
 
     private Connector connector;
     private Sender out;
@@ -35,7 +32,7 @@ public class Client {
         out.sendMessage(value);
     }
 
-    public void reactOnMessage() {
+    public void reactOnMessage() {          //TODO: change string to enum
         String message = in.readMessage();
         switch (message) {
             case "CON":
@@ -47,41 +44,8 @@ public class Client {
             case "MISSED":
                 lastField.missed();
                 break;
-        }
-    }
-
-    private static boolean loopCondition = true;
-
-    public static void run() throws IOException {
-
-        System.out.println("Welcome to the battleships game, please provide your name");
-        Scanner scan = new Scanner(System.in);
-        String name = scan.nextLine();
-
-        Connector connector = SocketConnector.from("localhost", 5000);
-        Receiver messegaScannerOne = MessageIn.from(connector);
-        Sender writer = MessageOut.from(connector);
-        writer.sendMessage(name);
-
-        String response = messegaScannerOne.readMessage();
-        System.out.println(response);
-
-        String response2 = messegaScannerOne.readMessage();
-        System.out.println(response2);
-
-        boolean isMyTurn = response2.contains("Your turn");
-        System.out.println("turn: " + isMyTurn);
-
-        while (loopCondition) {
-            if (isMyTurn){
-                String firedShot = scan.nextLine();
-                writer.sendMessage(firedShot);
-            }
-
-            String nextStepMessage = messegaScannerOne.readMessage();
-            System.out.println(nextStepMessage);
-
-            isMyTurn = response2.contains("Your turn");
+            case "HIT_AGAIN":
+                break;
         }
     }
 

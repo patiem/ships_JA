@@ -14,6 +14,7 @@ public class HitChecker {
         if (fleet.getHitFields().contains(position)) {
             return ShotState.HIT_AGAIN;
         } else if (fleet.fleetPositions().contains(position)) {
+//            fleet.hit(position);
             return ShotState.HIT;
         } else {
             return ShotState.MISSED;

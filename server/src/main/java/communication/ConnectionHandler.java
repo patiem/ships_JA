@@ -1,24 +1,28 @@
 package communication;
 
-import com.google.common.collect.MultimapBuilder;
-import com.google.common.collect.SetMultimap;
 import fleet.Fleet;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 class ConnectionHandler {
     private PlayerHandler playerHandler;
     private LanguageVersion languageVersion;
-    private SetMultimap<Socket, String> allHits;
+    private Map<Socket, List<String>> allHits;
+    private Socket currentSocket;
 
     public ConnectionHandler() {
         playerHandler = new PlayerHandler();
         languageVersion = new LanguageVersion();
-        allHits = MultimapBuilder.hashKeys().hashSetValues(50).build();
+        allHits = new HashMap<>();
     }
 
     void acceptConnections(int port) {
@@ -38,7 +42,7 @@ class ConnectionHandler {
         int roundCounter = 0; //TODO: to remove after implement rest of gameplay
 
         while(true) {
-            Socket currentSocket = playerHandler.getCurrentSocket();
+            currentSocket = playerHandler.getCurrentSocket();
             BufferedReader bufferedReader = null;
             try {
                 bufferedReader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream(), "UTF-8"));
@@ -47,8 +51,8 @@ class ConnectionHandler {
             }
 
             String hit = messageReceiver.receiveMessage(bufferedReader);
-            if(!(allHits.containsEntry(currentSocket, hit))) {
-                allHits.put(currentSocket, hit);
+            if(!isShootAlreadyDone(hit)) {
+                addShootToList(hit);
                 Integer toMark = Integer.parseInt(hit);
                 Fleet fleet = playerHandler.getCurrentFleet();
 
@@ -66,13 +70,24 @@ class ConnectionHandler {
         }
     }
 
+    private void addShootToList(String hit) {
+        List<String> playerShots = allHits.get(currentSocket);
+        playerShots.add(hit);
+    }
+
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
         System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerHandler.currentPlayerName(), hit, shotState));
     }
 
     private void registerPlayer(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
-        allHits.put(socket, "100");
+        List<String> hits = new ArrayList<>();
+        allHits.put(socket, hits);
         playerHandler.registerPlayer(socket);
+    }
+
+    private boolean isShootAlreadyDone(String shoot) {
+        List<String> playerShots = allHits.get(currentSocket);
+        return playerShots.contains(shoot);
     }
 }

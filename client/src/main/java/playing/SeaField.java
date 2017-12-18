@@ -22,7 +22,7 @@ public class SeaField extends Rectangle implements Field {
         System.out.println(getY());
     }
 
-    public Integer caluclateListPosition() {
+    public Integer calculateListPosition() {
         return (int) (getX() + getY() * 10);
     }
 
