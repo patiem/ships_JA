@@ -41,7 +41,7 @@ class ConnectionHandler {
         MessageReceiver messageReceiver = new MessageReceiver();
         int roundCounter = 0; //TODO: to remove after implement rest of gameplay
 
-        while(true) {
+        while (true) {
             currentSocket = playerHandler.getCurrentSocket();
             BufferedReader bufferedReader = null;
             try {
@@ -51,7 +51,7 @@ class ConnectionHandler {
             }
 
             String hit = messageReceiver.receiveMessage(bufferedReader);
-            if(!isShootAlreadyDone(hit)) {
+            if (!isShootAlreadyDone(hit)) {
                 addShootToList(hit);
                 Integer toMark = Integer.parseInt(hit);
                 Fleet fleet = playerHandler.getCurrentFleet();
@@ -74,6 +74,7 @@ class ConnectionHandler {
         List<String> playerShots = allHits.get(currentSocket);
         playerShots.add(hit);
     }
+
 
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
         System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerHandler.currentPlayerName(), hit, shotState));

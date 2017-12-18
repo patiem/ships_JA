@@ -2,19 +2,20 @@ package communication;
 
 import fleet.Fleet;
 import fleet.HardcodedFleet;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+
 import java.net.Socket;
 
-public class Player {
+class Player {
 
     private final BufferedWriter writer;
     private String name;
     private Socket socket;
     private final Fleet fleet;
+
+    //TODO: add builder for Player to remove IOEx in constructor
 
     public Player(String name, Socket socket) throws IOException {
         this.name = name;
@@ -23,15 +24,15 @@ public class Player {
         this.writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
     }
 
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public Fleet getFleet() {
+    Fleet getFleet() {
         return fleet;
     }
 
-    public Socket getSocket() {
+    Socket getSocket() {
         return socket;
     }
 

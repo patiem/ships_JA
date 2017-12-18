@@ -45,16 +45,6 @@
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </Button>
-            <!--<TextField fx:id="portNumber" layoutX="10.0" layoutY="68.0" text="5000" visible="false">-->
-               <!--<padding>-->
-                  <!--<Insets bottom="10.0" top="10.0" />-->
-               <!--</padding>-->
-            <!--</TextField>-->
-            <!--<Label layoutX="10.0" layoutY="52.0" text="Port" visible="false">-->
-               <!--<padding>-->
-                  <!--<Insets bottom="10.0" top="10.0" />-->
-               <!--</padding>-->
-            <!--</Label>-->
          </children>
       </VBox>
       <TextField editable="false" layoutX="51.0" layoutY="67.0" prefHeight="69.0" prefWidth="313.0" text="Battleships">

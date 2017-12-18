@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class PlayBoardController implements Initializable {
@@ -51,5 +52,13 @@ public class PlayBoardController implements Initializable {
     private FieldPosition makePosition(SeaField seaField) {
         return new FieldPosition((int) seaField.getX(), (int) seaField.getY());
     }
+
+    public void setClient(Client client) {
+        if (this.client == null) {
+            this.client = client;
+        }
+    }
+
+
 }
 

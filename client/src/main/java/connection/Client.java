@@ -14,13 +14,14 @@ public class Client {
     private Button nextButton;
     private SeaField lastField;
 
+
     public void setup(String host, String port) {
         try {
             connector = SocketConnector.from(host, Integer.valueOf(port));
             in = MessageIn.from(connector);
             out = MessageOut.from(connector);
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: Add exception handler
         }
     }
 
