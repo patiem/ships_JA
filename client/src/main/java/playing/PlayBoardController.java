@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.SeaField;
 
 import java.net.URL;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class PlayBoardController implements Initializable {
