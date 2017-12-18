@@ -29,8 +29,7 @@ public class CustomFleet implements Fleet {
     }
 
     public List<Integer> getFleetPositions() {
-        ships.stream()
-                .forEach(ship -> fleetPositions.addAll(ship.getFields()));
+        ships.forEach(ship -> fleetPositions.addAll(ship.getFields()));
 
         return fleetPositions;
     }
