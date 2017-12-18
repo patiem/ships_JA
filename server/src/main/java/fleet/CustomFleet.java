@@ -1,7 +1,5 @@
 package fleet;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class CustomFleet implements Fleet {
     }
 
     public void hit(int position) {
-        throw new NotImplementedException();
+        hitFields.add(position);
     }
 
     public List<Integer> getHitFields() {

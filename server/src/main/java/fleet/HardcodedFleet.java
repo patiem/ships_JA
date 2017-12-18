@@ -41,10 +41,5 @@ public class HardcodedFleet implements Fleet {
     public List<Ship> getShips() {
         return new ArrayList<>();
     }
-/*
-    @Override
-    public boolean isSunk() {
-        return hitFields.containsAll(fleetPositions);
-    }
-*/
+
 }
