@@ -45,7 +45,7 @@ public class PlayBoardController implements Initializable {
     }
 
     private void sendPositionToServer(SeaField seaField) {
-        client.sendMessage(seaField.caluclateListPosition());
+        client.sendMessage(seaField.calculateListPosition());
     }
 
     private FieldPosition makePosition(SeaField seaField) {
