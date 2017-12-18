@@ -1,6 +1,6 @@
 package communication;
 
-import communication.rename.Game;
+import communication.engine.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;

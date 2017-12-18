@@ -1,4 +1,4 @@
-package communication.rename;
+package communication.engine;
 
 import communication.HitChecker;
 import communication.MessageReceiver;
@@ -19,28 +19,37 @@ public class Game {
     private PlayerHandler playerHandler;
     private Socket currentSocket;
     private Map<Socket, List<String>> allHits;
+    private GameState gameState;
+    private MessageReceiver messageReceiver;
 
 
     public Game(PlayerHandler playerHandler, Map<Socket, List<String>> allHits) {
         this.playerHandler = playerHandler;
         this.allHits = allHits;
+        gameState = GameState.ACTIVE;
+        messageReceiver = new MessageReceiver();
     }
 
 
     public void handleGameEvent() {
-        MessageReceiver messageReceiver = new MessageReceiver();
         int roundCounter = 0;
 
-        while (true) {
+        while (gameState == GameState.ACTIVE) {
             currentSocket = playerHandler.getCurrentSocket();
-            BufferedReader bufferedReader = null;
-            try {
-                bufferedReader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream(), "UTF-8"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            String hit = messageReceiver.receiveMessage(bufferedReader);
+            messageReceiver.receiveGameEvent(currentSocket);
+
+//            BufferedReader bufferedReader = null;
+//            try {
+//                bufferedReader = new BufferedReader(new InputStreamReader(currentSocket.getInputStream(), "UTF-8"));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+
+
+            String hit = messageReceiver.receiveMessage();
+
+
             if (!isShootAlreadyDone(hit)) {
                 addShootToList(hit);
                 Integer toMark = Integer.parseInt(hit);
@@ -74,6 +83,10 @@ public class Game {
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
         System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerHandler.currentPlayerName(), hit, shotState));
     }
+
+
+
+
 
 
 }

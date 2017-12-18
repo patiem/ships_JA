@@ -7,7 +7,6 @@ public class Server {
     public void runServer() {
         ConnectionHandler connectionHandler = new ConnectionHandler();
         connectionHandler.acceptConnections(PORT);
-//        connectionHandler.handleGameEvent();
         }
     }
 
