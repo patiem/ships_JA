@@ -1,6 +1,7 @@
 package starting;
 
 import connection.Client;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -17,32 +18,38 @@ public class StartBoardController implements Initializable {
     private Client client;
 
     @FXML
-    TextField userName;
+    private TextField userName;
 
     @FXML
-    TextField ipNumber;
+    private TextField ipNumber;
 
     @FXML
-    Button connectButton;
+    private Button connectButton;
 
-    String playerName;
+    private String playerName;
 
     public StartBoardController(Client client) {
         this.client = client;
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userName.setText(USER_NAME_VALUE);
         ipNumber.setText(IP_NUMBER_VALUE);
         client.setup(IP_NUMBER_VALUE, PORT_VALUE);
+        connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, onMouseClickConnect);
     }
 
-    @FXML
-    void connect(MouseEvent event) {
+    void setConnection(Client client) {
+        client.setup(ipNumber.getText(), PORT_VALUE);
+        String userNameValue = userName.getText();
+        client.sendMessage(userNameValue);
+    }
+
+    EventHandler<MouseEvent> onMouseClickConnect = e -> {
         playerName = userName.getText();
         System.out.println(playerName);
         client.sendMessage(playerName);
-    }
+        client.reactOnMessage();
+    };
 }

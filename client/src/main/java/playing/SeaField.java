@@ -12,9 +12,21 @@ public class SeaField extends Rectangle implements Field {
         setStroke(Color.GRAY);
     }
 
-    void hit() {
+    public void hit() {
         setFill(Color.RED);
+    }
+
+    public void marked() {
+        setFill(Color.GREEN);
         System.out.println(getX());
         System.out.println(getY());
+    }
+
+    public Integer calculateListPosition() {
+        return (int) (getX() + getY() * 10);
+    }
+
+    public void missed() {
+        setFill(Color.BLACK);
     }
 }

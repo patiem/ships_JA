@@ -15,7 +15,9 @@ public class PlayBoardController implements Initializable {
     private Client client;
 
     @FXML
-    GridPane shipBoard;
+    private GridPane shipBoard;
+
+    private SeaField lastTarget;
 
     public PlayBoardController(Client client) {
         this.client = client;
@@ -27,13 +29,15 @@ public class PlayBoardController implements Initializable {
     }
 
     private void populateSeaWithSeaFields() {
-        for(int i = 0; i < 10; i++) {
-            for(int n = 0; n < 10; n++) {
-                SeaField field = new SeaField(i,n);
+        for (int i = 0; i < 10; i++) {
+            for (int n = 0; n < 10; n++) {
+                SeaField field = new SeaField(i, n);
                 field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                        sendPositionToServer(field);
-                        field.hit();
-                        sendPositionToServer(field);
+                    lastTarget = field;
+                    sendPositionToServer(field);
+                    field.marked();
+                    sendPositionToServer(field);
+                    client.reactOnMessage(field);
                 });
                 shipBoard.getChildren().add(field);
                 GridPane.setConstraints(field, i, n);
@@ -41,8 +45,8 @@ public class PlayBoardController implements Initializable {
         }
     }
 
-    private void sendPositionToServer(SeaField seaField)  {
-        client.sendMessage("x" + String.valueOf(seaField.getX()) + "y" + String.valueOf(seaField.getX()));
+    private void sendPositionToServer(SeaField seaField) {
+        client.sendMessage(seaField.calculateListPosition());
     }
 
     private FieldPosition makePosition(SeaField seaField) {

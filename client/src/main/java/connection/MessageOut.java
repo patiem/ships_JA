@@ -21,4 +21,10 @@ public class MessageOut implements Sender {
         writer.println(message);
         writer.flush();
     }
+
+    @Override
+    public void sendMessage(int value) {
+        writer.println(value);
+        writer.flush();
+    }
 }

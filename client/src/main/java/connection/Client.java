@@ -1,15 +1,19 @@
 package connection;
 
-import java.io.*;
-import java.util.Scanner;
+import javafx.scene.control.Button;
+import playing.SeaField;
+import starting.ConnectEvent;
+
+import java.io.IOException;
 
 public class Client {
-
-    static final String CHARSET = "UTF-8";
 
     private Connector connector;
     private Sender out;
     private Receiver in;
+    private Button nextButton;
+    private SeaField lastField;
+
 
     public void setup(String host, String port) {
         try {
@@ -25,41 +29,33 @@ public class Client {
         out.sendMessage(message);
     }
 
-    private static boolean loopCondition = true;
+    public void sendMessage(int value)  {
+        out.sendMessage(value);
+    }
 
-    //Dummy console GUI for testing
-    public static void run() throws IOException {
-
-        String HOST = "localhost"; //For testing change this to host IP
-        Integer PORT = 5000;
-
-        System.out.println("Welcome to the battleships game, please provide your name");
-        Scanner scan = new Scanner(System.in);
-        String name = scan.nextLine();
-
-        Connector connector = SocketConnector.from(HOST, PORT);
-        Receiver messegaScannerOne = MessageIn.from(connector);
-        Sender writer = MessageOut.from(connector);
-        writer.sendMessage(name);
-
-        String response = messegaScannerOne.readMessage();
-        System.out.println(response);
-        String response2 = messegaScannerOne.readMessage();
-        System.out.println(response2);
-
-        boolean isMyTurn = response2.contains("Your turn");
-        System.out.println("turn: " + isMyTurn);
-
-        while (loopCondition) {
-            if (isMyTurn){
-                String firedShot = scan.nextLine();
-                writer.sendMessage(firedShot);
-            }
-
-            String nextStepMessage = messegaScannerOne.readMessage();
-            System.out.println(nextStepMessage);
-
-            isMyTurn = response2.contains("Your turn");
+    public void reactOnMessage() {          //TODO: change string to enum
+        String message = in.readMessage();
+        switch (message) {
+            case "CON":
+                nextButton.fireEvent(new ConnectEvent("CON"));
+                break;
+            case "HIT":
+                lastField.hit();
+                break;
+            case "MISSED":
+                lastField.missed();
+                break;
+            case "HIT_AGAIN":
+                break;
         }
+    }
+
+    public void putObserverForConnection(Button button) {
+        this.nextButton = button;
+    }
+
+    public void reactOnMessage(SeaField lastField) {
+        this.lastField = lastField;
+        reactOnMessage();
     }
 }

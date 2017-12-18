@@ -10,7 +10,6 @@ public class MessageReceiver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "";
     }
 }

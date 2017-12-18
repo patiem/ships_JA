@@ -1,9 +1,9 @@
 package connection;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class MessageIn implements Receiver {
 
@@ -20,7 +20,9 @@ public class MessageIn implements Receiver {
     @Override
     public String readMessage() {
         try {
-            return scanner.readLine();
+            String message = scanner.readLine();
+            System.out.println(message);
+            return message;
         } catch (IOException e) {
             e.printStackTrace(); //TODO: add exception handler
         }
