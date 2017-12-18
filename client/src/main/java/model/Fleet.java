@@ -26,7 +26,6 @@ public class Fleet {
         shipThatIsBuild = ship;
         fleet.add(ship);
         createNewMast(mast);
-
     }
 
     private void createNewMast(Mast mast) {
