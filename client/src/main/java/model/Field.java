@@ -1,13 +1,13 @@
 package model;
 
 public interface Field {
+    
+    Integer SIZE = 30;
 
-    double getX();
-    double getY();
+    int getColumn();
+    int getRow();
 
     default Position position() {
-        return new Position((int) getX(), (int) getY());
+        return new Position(getColumn(), getRow());
     }
-
-
 }

@@ -4,20 +4,20 @@ import java.util.Objects;
 
 public class Position {
 
-    Integer x;
-    Integer y;
+    private final Integer column;
+    private final Integer row;
 
-    public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Position(int posX, int posY) {
+        this.column = posX;
+        this.row = posY;
     }
 
-    public Integer getX() {
-        return x;
+    public Integer getColumn() {
+        return column;
     }
 
-    public Integer getY() {
-        return y;
+    public Integer getRow() {
+        return row;
     }
 
     @Override
@@ -25,36 +25,36 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
-        return Objects.equals(x, position.x) &&
-                Objects.equals(y, position.y);
+        return Objects.equals(column, position.column) &&
+                Objects.equals(row, position.row);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(column, row);
     }
 
     @Override
     public String toString() {
         return "Position{" +
-                "x=" + x +
-                ", y=" + y +
+                "column=" + column +
+                ", row=" + row +
                 '}';
     }
 
     static Position up(Position position) {
-        return new Position(position.x, position.y -1);
+        return new Position(position.column, position.row -1);
     }
 
     static Position down(Position position) {
-        return new Position(position.x, position.y +1);
+        return new Position(position.column, position.row +1);
     }
 
     static Position right(Position position) {
-        return new Position(position.x + 1, position.y);
+        return new Position(position.column + 1, position.row);
     }
 
     static Position left(Position position) {
-        return new Position(position.x - 1, position.y);
+        return new Position(position.column - 1, position.row);
     }
 }

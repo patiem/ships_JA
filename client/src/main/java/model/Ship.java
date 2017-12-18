@@ -8,16 +8,18 @@ import java.util.stream.Collectors;
 
 public class Ship {
 
-    private Mast[] masts;
-    private int length;
+    private static final int START_SIZE = 1;
+
+    private final Mast[] masts;
+    private final int length;
     private int buildLength;
 
 
     public Ship(Mast mast) {
-        length = mast.getLength();
+        length = mast.getShipLength();
         masts = new Mast[length];
         masts[0] = mast;
-        buildLength = 1;
+        buildLength = START_SIZE;
     }
 
     boolean isShipDone() {
@@ -28,16 +30,16 @@ public class Ship {
         if (!isShipDone()) masts[buildLength++] = mast;
     }
 
-    public List<Position> getMastsPositions() {
+    public List<Position> possibleMastsPositions() {
         return Arrays.stream(masts).map(m -> m.position()).collect(Collectors.toList());
     }
 
-    public Set<Position> getBoundPositions() {
-        Set<Position> boundries = new HashSet<>();
+    public Set<Position> calculateShipBoundariesPositions() {
+        Set<Position> boundaries = new HashSet<>();
         for (Mast mast : masts) {
-            boundries.addAll(new BoundariesPosition(mast).countBoundariesForMast());
+            boundaries.addAll(new BoundariesPosition(mast).countBoundariesForMast());
         }
-        boundries.removeAll(getMastsPositions());
-        return boundries;
+        boundaries.removeAll(possibleMastsPositions());
+        return boundaries;
     }
 }

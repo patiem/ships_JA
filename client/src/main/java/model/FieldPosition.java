@@ -2,20 +2,19 @@ package model;
 
 public class FieldPosition {
 
+    private final Integer positionX;
+    private final Integer positionY;
 
-    private final Integer x;
-    private final Integer y;
-
-    public FieldPosition(double x, double y) {
-        this.x = (int) x;
-        this.y = (int) y;
+    public FieldPosition(int positionX, int positionY) {
+        this.positionX = positionX;
+        this.positionY = positionY;
     }
 
     public Integer getX() {
-        return x;
+        return positionX;
     }
 
     public Integer getY() {
-        return y;
+        return positionY;
     }
 }
