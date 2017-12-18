@@ -5,10 +5,6 @@ import communication.MessageReceiver;
 import communication.PlayerHandler;
 import communication.ShotState;
 import fleet.Fleet;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +20,11 @@ public class Game {
     private int roundCounter = 0;
 
 
-    public Game(PlayerHandler playerHandler, Map<Socket, List<String>> allHits) {
+    public Game(PlayerHandler playerHandler, Map<Socket, List<String>> allHits, MessageReceiver messageReceiver) {
         this.playerHandler = playerHandler;
         this.allHits = allHits;
         gameState = GameState.ACTIVE;
-        messageReceiver = new MessageReceiver();
+        this.messageReceiver = messageReceiver;
     }
 
 
