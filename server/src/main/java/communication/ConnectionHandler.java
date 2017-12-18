@@ -1,6 +1,6 @@
 package communication;
 
-import communication.engine.Game;
+import engine.Game;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -16,6 +16,7 @@ class ConnectionHandler {
     private PlayerHandler playerHandler;
     private LanguageVersion languageVersion;
     private Map<Socket, List<String>> allHits;
+    private MessageReceiver messageReceiver = new MessageReceiver();
 
 
     public ConnectionHandler() {
@@ -40,8 +41,7 @@ class ConnectionHandler {
 
 
     private void createGame() {
-
-        Game game = new Game(playerHandler, allHits);
+        Game game = new Game(playerHandler, allHits, messageReceiver);
         game.handleGameEvent();
     }
 

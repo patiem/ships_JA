@@ -1,6 +1,4 @@
-package communication.engine;
-
-import static org.testng.Assert.*;
+package engine;
 
 public class GameTest {
 

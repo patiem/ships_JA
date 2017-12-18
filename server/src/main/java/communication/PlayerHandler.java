@@ -2,10 +2,7 @@ package communication;
 
 import fleet.Fleet;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.ServerSocket;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,24 +10,26 @@ import java.util.List;
 
 public class PlayerHandler {
 
-    private List<Player> players = new ArrayList<>();
-    private Player currentPlayer;
+    private List<Client> clients = new ArrayList<>();
+    private Client currentClient;
+    private MessageReceiver messageReceiver = new MessageReceiver();
 
-    public List<Player> getPlayers() {
-        return players;
+    public List<Client> getClients() {
+        return clients;
     }
 
 
     public void registerPlayer(Socket socket) {
         String playerIsConnected = "CON";
-        MessageReceiver messageReceiver = new MessageReceiver();
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
             String playerName = messageReceiver.receiveMessage(reader);
-            Player newPlayer = Player.playerBuilder(playerName, socket);
-            addPlayer(newPlayer);
-            newPlayer.sendMessageToPlayer(playerIsConnected);
-            System.out.println("Player added: " + playerName);
+            Client newClient = new Client(playerName, socket, writer, reader);
+            addPlayer(newClient);
+            newClient.sendMessageToPlayer(playerIsConnected);
+            System.out.println("Client added: " + playerName);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,38 +38,43 @@ public class PlayerHandler {
 
 
     public void sendMessageToCurrentPlayer(String message) {
-        currentPlayer.sendMessageToPlayer(message);
+        currentClient.sendMessageToPlayer(message);
     }
 
     public void sendMessageToOtherPlayer(String message) {
-        players.get(1).sendMessageToPlayer(message);
+        clients.get(1).sendMessageToPlayer(message);
     }
 
-    private void addPlayer(Player player) {
-        if (players.isEmpty())
-            currentPlayer = player;
-        players.add(player);
+    private void addPlayer(Client client) {
+        if (clients.isEmpty())
+            currentClient = client;
+        clients.add(client);
     }
 
     public Socket getCurrentSocket() {
-        return currentPlayer.getSocket();
+        return currentClient.getSocket();
     }
 
     public Fleet getCurrentFleet() {
-        return currentPlayer.getFleet();
+        return currentClient.getFleet();
     }
 
     public Socket getWaitingPlayerSocket() {
-        return players.get(1).getSocket();
+        return clients.get(1).getSocket();
     }
 
     public void switchPlayers() {
-        Collections.reverse(players);
-        currentPlayer = players.get(0);
+        Collections.reverse(clients);
+        currentClient = clients.get(0);
     }
 
     public String currentPlayerName() {
-        return currentPlayer.getName();
+        return currentClient.getName();
+    }
+
+
+    public Client getCurrentClient() {
+        return currentClient;
     }
 }
 

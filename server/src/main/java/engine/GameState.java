@@ -1,4 +1,4 @@
-package communication.engine;
+package engine;
 
 public enum GameState {
 

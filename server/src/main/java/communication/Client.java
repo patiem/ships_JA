@@ -7,7 +7,7 @@ import java.io.*;
 
 import java.net.Socket;
 
-public class Player {
+public class Client {
 
     private BufferedReader reader;
     private final BufferedWriter writer;
@@ -15,12 +15,12 @@ public class Player {
     private Socket socket;
     private final Fleet fleet;
 
-//    public static Player playerBuilder(String name, Socket socket) throws IOException {
+//    public static Client playerBuilder(String name, Socket socket) throws IOException {
 //            BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
-//            return new Player(name, socket, writer);
+//            return new Client(name, socket, writer);
 //    }
 
-     Player(String name, Socket socket, BufferedWriter writer, BufferedReader reader) {
+     Client(String name, Socket socket, BufferedWriter writer, BufferedReader reader) {
         this.name = name;
         this.socket = socket;
         this.fleet = new HardcodedFleet();
