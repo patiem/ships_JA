@@ -42,4 +42,8 @@ public class Fleet {
         lastShip.addMast(mast);
         createNewMast(mast);
     }
+
+    public List<Ship> getShips() {
+        return fleet;
+    }
 }

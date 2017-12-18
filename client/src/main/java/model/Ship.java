@@ -42,4 +42,8 @@ public class Ship {
         boundaries.removeAll(possibleMastsPositions());
         return boundaries;
     }
+
+    public Mast[] getMasts() {
+        return masts;
+    }
 }
