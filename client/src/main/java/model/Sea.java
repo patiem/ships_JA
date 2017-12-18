@@ -11,9 +11,7 @@ public class Sea {
     private List<SeaField> wholeSea;
 
     public Sea() {
-
         this.wholeSea = new ArrayList<>();
-
     }
 
     public void addSeaField(SeaField seaField) {
@@ -36,7 +34,7 @@ public class Sea {
     }
 
     public void makeBoundaries(Ship lastShip) {
-        lastShip.getBoundPositions()
+        lastShip.calculateShipBoundariesPositions()
                 .stream()
                 .forEach(m -> getSeaFieldByPosition(m).setIsMarkedAsBound(true));
     }
