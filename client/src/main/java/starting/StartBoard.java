@@ -48,7 +48,6 @@ public class StartBoard extends Application {
         PlayBoardController playBoardController = new PlayBoardController(client);
         playLoader.setController(playBoardController);
         playBoard = playLoader.load();
-        AnchorPane playBoard = playLoader.load();
         playRoot.getChildren().addAll(playBoard);
     }
 
@@ -67,6 +66,7 @@ public class StartBoard extends Application {
         buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
             String userName = ((TextField)startBoard.lookup("#userName")).getText();
             ((TextField)playBoard.lookup("#userName")).setText(userName);
+            stage.setScene(playScene);
         });
         VBox connectPanel = (VBox) startBoard.lookup("#connectPanel");
         connectPanel.getChildren().add(buttonNext);
