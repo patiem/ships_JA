@@ -10,13 +10,13 @@ public class Ship {
 
     private static final int START_SIZE = 1;
 
-    private final Mast[] masts;
+    private Mast[] masts;
     private final int length;
     private int buildLength;
 
 
-    public Ship(Mast mast) {
-        length = mast.getShipLength();
+    public Ship(Mast mast, int shipLength) {
+        length = shipLength;
         masts = new Mast[length];
         masts[0] = mast;
         buildLength = START_SIZE;
