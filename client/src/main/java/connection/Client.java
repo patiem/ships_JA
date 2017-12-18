@@ -1,7 +1,7 @@
 package connection;
 
 import javafx.scene.control.Button;
-import playing.SeaField;
+import model.SeaField;
 import starting.ConnectEvent;
 
 import java.io.IOException;
