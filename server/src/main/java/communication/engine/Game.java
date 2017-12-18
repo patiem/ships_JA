@@ -21,6 +21,7 @@ public class Game {
     private Map<Socket, List<String>> allHits;
     private GameState gameState;
     private MessageReceiver messageReceiver;
+    private int roundCounter = 0;
 
 
     public Game(PlayerHandler playerHandler, Map<Socket, List<String>> allHits) {
@@ -32,7 +33,6 @@ public class Game {
 
 
     public void handleGameEvent() {
-        int roundCounter = 0;
 
         while (gameState == GameState.ACTIVE) {
             currentSocket = playerHandler.getCurrentSocket();
@@ -47,24 +47,46 @@ public class Game {
 //            }
 
 
-            String hit = messageReceiver.receiveMessage();
+            checkShot();
 
+//            String hit = messageReceiver.receiveMessage();
+//
+//
+//            if (!isShootAlreadyDone(hit)) {
+//                addShootToList(hit);
+//                Integer toMark = Integer.parseInt(hit);
+//                Fleet fleet = playerHandler.getCurrentFleet();
+//
+//                HitChecker hitChecker = new HitChecker(fleet);
+//                ShotState shotState = hitChecker.checkShot(toMark);
+//
+//                showInfoAboutCurrentShot(hit, shotState, roundCounter);
+//                playerHandler.sendMessageToCurrentPlayer(shotState.toString());
+//                if (!(shotState == ShotState.HIT)) {
+//                    playerHandler.switchPlayers();
+//                }
+//                roundCounter++;
+//            }
+        }
+    }
 
-            if (!isShootAlreadyDone(hit)) {
-                addShootToList(hit);
-                Integer toMark = Integer.parseInt(hit);
-                Fleet fleet = playerHandler.getCurrentFleet();
+    public void checkShot() {
+        String hit = messageReceiver.receiveMessage();
 
-                HitChecker hitChecker = new HitChecker(fleet);
-                ShotState shotState = hitChecker.checkShot(toMark);
+        if (!isShootAlreadyDone(hit)) {
+            addShootToList(hit);
+            Integer toMark = Integer.parseInt(hit);
+            Fleet fleet = playerHandler.getCurrentFleet();
 
-                showInfoAboutCurrentShot(hit, shotState, roundCounter);
-                playerHandler.sendMessageToCurrentPlayer(shotState.toString());
-                if (!(shotState == ShotState.HIT)) {
-                    playerHandler.switchPlayers();
-                }
-                roundCounter++;
+            HitChecker hitChecker = new HitChecker(fleet);
+            ShotState shotState = hitChecker.checkShot(toMark);
+
+            showInfoAboutCurrentShot(hit, shotState, roundCounter);
+            playerHandler.sendMessageToCurrentPlayer(shotState.toString());
+            if (!(shotState == ShotState.HIT)) {
+                playerHandler.switchPlayers();
             }
+            roundCounter++;
         }
     }
 
