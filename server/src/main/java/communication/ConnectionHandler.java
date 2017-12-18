@@ -33,13 +33,13 @@ class ConnectionHandler {
             registerPlayer(serverSocket);
 
         } catch (IOException e) {
-            e.printStackTrace(); //TODO: add ExceptionHandler
+            e.printStackTrace();
         }
     }
 
     void handleGameEvent() {
         MessageReceiver messageReceiver = new MessageReceiver();
-        int roundCounter = 0; //TODO: to remove after implement rest of gameplay
+        int roundCounter = 0;
 
         while (true) {
             currentSocket = playerHandler.getCurrentSocket();
@@ -63,9 +63,8 @@ class ConnectionHandler {
                 playerHandler.sendMessageToCurrentPlayer(shotState.toString());
                 if (!(shotState == ShotState.HIT)) {
                     playerHandler.switchPlayers();
-                    //TODO: send message to other player that this is his turn
                 }
-                roundCounter++; //TODO: to remove after implement rest of gameplay
+                roundCounter++;
             }
         }
     }

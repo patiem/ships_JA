@@ -15,13 +15,16 @@ class Player {
     private Socket socket;
     private final Fleet fleet;
 
-    //TODO: add builder for Player to remove IOEx in constructor
+    public static Player playerBuilder(String name, Socket socket) throws IOException {
+            BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
+            return new Player(name, socket, writer);
+    }
 
-    public Player(String name, Socket socket) throws IOException {
+    private Player(String name, Socket socket, BufferedWriter writer) {
         this.name = name;
         this.socket = socket;
         this.fleet = new HardcodedFleet();
-        this.writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
+        this.writer = writer;
     }
 
     String getName() {

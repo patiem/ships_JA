@@ -25,13 +25,13 @@ public class PlayerHandler {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
             String playerName = messageReceiver.receiveMessage(reader);
-            Player newPlayer = new Player(playerName, socket);
+            Player newPlayer = Player.playerBuilder(playerName, socket);
             addPlayer(newPlayer);
             newPlayer.sendMessageToPlayer(playerIsConnected);
-            System.out.println("Player added: " + playerName); //TODO: add Logger
+            System.out.println("Player added: " + playerName);
 
         } catch (IOException e) {
-            e.printStackTrace(); //TODO: ExceptionHandler
+            e.printStackTrace();
         }
     }
 
