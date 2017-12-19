@@ -25,26 +25,54 @@ public class FleetDropController implements Initializable {
     private static final int GRID_SIZE = 10;
 
     @FXML
-    GridPane shipBoard;
+    public GridPane shipBoard;
 
     @FXML
     public Pane port;
 
     @FXML
-    public Rectangle ship4, ship3, ship3a, ship2, ship2a, ship2b, ship1, ship1a, ship1b, ship1c;
+    public Rectangle ship4;
+
+    @FXML
+    public Rectangle ship3;
+
+    @FXML
+    public Rectangle ship3a;
+
+    @FXML
+    public Rectangle ship2;
+
+    @FXML
+    public Rectangle ship2a;
+
+    @FXML
+    public Rectangle ship2b;
+
+    @FXML
+    public Rectangle ship1;
+
+    @FXML
+    public Rectangle ship1a;
+
+    @FXML
+    public Rectangle ship1b;
+
+    @FXML
+    public Rectangle ship1c;
 
     private Rectangle buildShip;
 
-    Fleet fleet;
-    Sea sea = new Sea();
+    private Fleet fleet;
+
+    private final Sea sea = new Sea();
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        for (int i = 0; i < GRID_SIZE; i++) {
-            for (int n = 0; n < GRID_SIZE; n++) {
-                SeaField field = new SeaField(i, n);
+        for (int column = 0; column < GRID_SIZE; column++) {
+            for (int row = 0; row < GRID_SIZE; row++) {
+                SeaField field = new SeaField(column, row);
 
                 field.setOnDragEntered(changeColorwhenDragEntered);
                 field.setOnDragExited(resetColorWhenDragExited);
@@ -54,7 +82,7 @@ public class FleetDropController implements Initializable {
                 field.isMarkedAsBoundProperty().addListener(boundIsSetOnSea);
 
                 shipBoard.getChildren().add(field);
-                GridPane.setConstraints(field, i, n);
+                GridPane.setConstraints(field, column, row);
                 sea.addSeaField(field);
             }
         }
@@ -132,7 +160,7 @@ public class FleetDropController implements Initializable {
                 buildShip = (Rectangle) event.getSource();
                 Dragboard db = buildShip.startDragAndDrop(TransferMode.COPY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString("Hello!");
+                content.putString("Ship");
                 db.setContent(content);
                 buildShip.setFill(Color.DARKBLUE);
                 event.consume();

@@ -10,7 +10,7 @@ public class Ship {
 
     private static final int START_SIZE = 1;
 
-    private Mast[] masts;
+    private final Mast[] masts;
     private final int length;
     private int buildLength;
 

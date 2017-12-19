@@ -17,10 +17,10 @@ public class FleetDrop extends Application {
         stage.setTitle("Build Board");
         stage.setResizable(false);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
-        AnchorPane playBoard = loader.load();
+        final FXMLLoader loader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
+        final AnchorPane playBoard = loader.load();
 
-        Scene scene = new Scene(playBoard, SCENE_WIDTH, SCENE_HEIGHT);
+        final Scene scene = new Scene(playBoard, SCENE_WIDTH, SCENE_HEIGHT);
         stage.setTitle("Playing");
         stage.setScene(scene);
         stage.show();
