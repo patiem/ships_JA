@@ -1,9 +1,6 @@
 package model;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Ship {
@@ -11,23 +8,27 @@ public class Ship {
     private static final int START_SIZE = 1;
 
     private final Mast[] masts;
-    private final int length;
+    private final int shipLength;
     private int buildLength;
-
+    private List<Integer> positions;
 
     public Ship(Mast mast, int shipLength) {
-        length = shipLength;
-        masts = new Mast[length];
+        this.shipLength = shipLength;
+        masts = new Mast[this.shipLength];
         masts[0] = mast;
+        positions = new ArrayList<>(mast.positionAsInteger());
         buildLength = START_SIZE;
     }
 
     boolean isShipDone() {
-        return buildLength == length;
+        return buildLength == shipLength;
     }
 
     void addMast(Mast mast) {
-        if (!isShipDone()) masts[buildLength++] = mast;
+        if (!isShipDone()){
+            masts[buildLength++] = mast;
+            positions.add(mast.positionAsInteger());
+        }
     }
 
     public List<Position> possibleMastsPositions() {
@@ -41,5 +42,9 @@ public class Ship {
         }
         boundaries.removeAll(possibleMastsPositions());
         return boundaries;
+    }
+
+    public List<Integer> getPositions(){
+        return positions;
     }
 }
