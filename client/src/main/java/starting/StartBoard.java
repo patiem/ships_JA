@@ -1,5 +1,6 @@
 package starting;
 
+import building.FleetDropController;
 import connection.Client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,16 +13,21 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import playing.PlayBoardController;
 
+import java.io.IOException;
+
 public class StartBoard extends Application {
 
     private final double SCENE_WIDTH = 800;
     private final double SCENE_HEIGHT = 600;
     private final String START_BOARD_URL = "/fxmls/startBoard.fxml";
     private final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+    private final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
+
 
     private Client client = new Client();
     private Stage stage;
     private AnchorPane playBoard;
+    private AnchorPane buildBoard;
     private AnchorPane startBoard;
 
     @Override
@@ -30,12 +36,15 @@ public class StartBoard extends Application {
         stage.setResizable(false);
 
         Group startRoot = new Group();
+        Group buildRoot = new Group();
         Group playRoot = new Group();
 
         Scene startScene = new Scene(startRoot, SCENE_WIDTH, SCENE_HEIGHT);
+        Scene buildScene = new Scene(buildRoot, SCENE_WIDTH, SCENE_HEIGHT);
         Scene playScene = new Scene(playRoot, SCENE_WIDTH, SCENE_HEIGHT);
 
-        createStartBoard(startRoot, playScene);
+        createStartBoard(startRoot, buildScene);
+        createBuildBoard(buildRoot, playScene);
         createPlayBoard(playRoot);
 
         stage.setTitle("FXML Welcome");
@@ -43,7 +52,7 @@ public class StartBoard extends Application {
         stage.show();
     }
 
-    private void createPlayBoard(Group playRoot) throws java.io.IOException {
+    private void createPlayBoard(Group playRoot) throws IOException {
         FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
         PlayBoardController playBoardController = new PlayBoardController(client);
         playLoader.setController(playBoardController);
@@ -51,7 +60,15 @@ public class StartBoard extends Application {
         playRoot.getChildren().addAll(playBoard);
     }
 
-    private void createStartBoard(Group startRoot, Scene playScene) throws java.io.IOException {
+    private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
+        FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
+        FleetDropController fleetDropController = new FleetDropController(client);
+        buildLoader.setController(fleetDropController);
+        buildBoard = buildLoader.load();
+        buildRoot.getChildren().addAll(buildBoard);
+    }
+
+    private void createStartBoard(Group startRoot, Scene playScene) throws IOException {
         StartBoardController startBoardController = new StartBoardController(client);
         FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
         startLoader.setController(startBoardController);

@@ -1,5 +1,6 @@
 package building;
 
+import connection.Client;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -61,11 +62,14 @@ public class FleetDropController implements Initializable {
     public Rectangle ship1c;
 
     private Rectangle buildShip;
-
     private Fleet fleet;
-
     private final Sea sea = new Sea();
+    private final Client client;
 
+
+    public FleetDropController(Client client) {
+        this.client = client;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
