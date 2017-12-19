@@ -11,9 +11,7 @@ public class FleetMapper {
 
         List<Ship> shipsToMap = fleetToMap.getShips();
 
-        for (Ship ship:shipsToMap) {
-            ships.add(shipMapper.mapToModel(ship));
-        }
+        shipsToMap.forEach(ship -> ships.add(shipMapper.mapToModel(ship)));
 
         return new FleetModel(ships);
     }

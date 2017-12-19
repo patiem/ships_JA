@@ -8,20 +8,20 @@ public class Ship {
     private static final int START_SIZE = 1;
 
     private final Mast[] masts;
-    private final int length;
+    private final int shipLength;
     private int buildLength;
     private List<Integer> positions;
 
     public Ship(Mast mast, int shipLength) {
-        length = shipLength;
-        masts = new Mast[length];
+        this.shipLength = shipLength;
+        masts = new Mast[this.shipLength];
         masts[0] = mast;
         positions = new ArrayList<>(mast.positionAsInteger());
         buildLength = START_SIZE;
     }
 
     boolean isShipDone() {
-        return buildLength == length;
+        return buildLength == shipLength;
     }
 
     void addMast(Mast mast) {
