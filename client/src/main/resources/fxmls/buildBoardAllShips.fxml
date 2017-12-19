@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,12 +9,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="whole" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0"
-            prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.141"
-            xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="whole" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane fx:id="port" layoutX="57.0" layoutY="379.0" prefHeight="160.0" prefWidth="300.0">
          <children>
@@ -56,6 +56,9 @@
         </rowConstraints>
 
       </GridPane>
+
+       <Button fx:id="connectButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false" text="Play!">
+       </Button>
       <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image fx:id="jpg" url="@../images/bb35.png" />
@@ -66,5 +69,6 @@
             <Font name="FreeMono Bold" size="18.0" />
          </font>
       </TextField>
+      <VBox fx:id="connectPanel" layoutX="593.0" layoutY="37.0" prefHeight="200.0" prefWidth="100.0" />
    </children>
 </AnchorPane>
