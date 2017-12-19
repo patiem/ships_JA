@@ -1,10 +1,11 @@
 package fleet;
 
+import model.ShipModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFleet implements Fleet {
-    private final List<Ship> ships;
+    private final List<ShipModel> ships;
     private final List<Integer> fleetPositions;
     private final List<Integer> hitFields;
 
@@ -18,11 +19,11 @@ public class CustomFleet implements Fleet {
         return ships.size();
     }
 
-    public void addShip(Ship ship) {
+    public void addShip(ShipModel ship) {
         ships.add(ship);
     }
 
-    public List<Ship> getShips() {
+    public List<ShipModel> getShips() {
         return ships;
     }
 
