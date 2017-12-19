@@ -3,10 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShipMapper {
+class ShipMapper {
     private static final int NUMBER_OF_COLUMNS = 10;
 
-    public ShipModel mapToModel(Ship ship) {
+    ShipModel mapToModel(Ship ship) {
         List<Integer> fields = new ArrayList<>();
 
         Mast[] masts = ship.getMasts();
