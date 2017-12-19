@@ -15,7 +15,7 @@ class ShipMapper {
             fields.add(index);
         }
 
-        return new ShipModel(fields);
+        return new ShipModelImpl(fields);
     }
 
     private Integer calculateIndexFromCoordinates(int column, int row) {
