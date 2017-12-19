@@ -1,6 +1,8 @@
 package communication;
 
 import fleet.Fleet;
+import json.CustomerJsonParser;
+import json.InitMessage;
 
 import java.io.*;
 import java.net.Socket;
@@ -24,8 +26,15 @@ public class PlayerTracker {
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-
             String playerName = messageReceiver.receiveMessage(reader);
+
+
+//            String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+//            CustomerJsonParser jsonParser = new CustomerJsonParser();
+//            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+//            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader);
+
+
             PlayerClient newPlayerClient = new PlayerClient(playerName, socket, reader);
 
             addPlayer(newPlayerClient);

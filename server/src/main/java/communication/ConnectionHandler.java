@@ -32,6 +32,8 @@ class ConnectionHandler {
             createAListOfHits(serverSocket);
             createAListOfHits(serverSocket);
 
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,7 +43,7 @@ class ConnectionHandler {
 
     private void createGame() {
         Game game = new Game(playerTracker, allHits, messageReceiver);
-        game.handleGameEvent();
+        game.runGame();
     }
 
 

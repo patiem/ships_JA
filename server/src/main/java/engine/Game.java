@@ -31,7 +31,7 @@ public class Game {
     }
 
 
-    public void handleGameEvent() {
+    public void runGame() {
 
         while (gameState == GameState.ACTIVE) {
             currentSocket = playerTracker.getCurrentSocket();

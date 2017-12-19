@@ -9,12 +9,12 @@ import java.net.Socket;
 
 public class MessageReceiver {
 
-    public Fleet receiveFleet(BufferedReader reader) {
-
-
-        return null;
-
-    }
+//    public Fleet receiveFleet(BufferedReader reader) {
+//
+//
+//        return null;
+//
+//    }
 
 
     public String receiveMessage(BufferedReader bufferedReader) {
