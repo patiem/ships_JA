@@ -1,5 +1,6 @@
 package communication;
 
+import fleet.CustomFleet;
 import fleet.Fleet;
 import json.CustomerJsonParser;
 import json.InitMessage;
@@ -29,16 +30,14 @@ public class PlayerTracker {
             String playerName = messageReceiver.receiveMessage(reader);
 
 
-//            String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-//            CustomerJsonParser jsonParser = new CustomerJsonParser();
-//            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
-//            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader);
+            String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+            CustomerJsonParser jsonParser = new CustomerJsonParser();
+            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+            Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
+            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader, playerFleet);
 
-
-            PlayerClient newPlayerClient = new PlayerClient(playerName, socket, reader);
-
-            addPlayer(newPlayerClient);
-            newPlayerClient.sendMessageToPlayer(playerIsConnected);
+            addPlayer(playerClient);
+            playerClient.sendMessageToPlayer(playerIsConnected);
             System.out.println("PlayerClient added: " + playerName);
 
 
