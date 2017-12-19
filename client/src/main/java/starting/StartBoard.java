@@ -78,24 +78,11 @@ public class StartBoard extends Application {
         playRoot.getChildren().addAll(playBoard);
     }
 
-//    private void addNextButtonToStartBoard(Scene playScene, AnchorPane startBoard) {
-//        Button buttonNext = new Button("Next");
-//        buttonNext.setVisible(false);
-//        buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
-//            String userName = ((TextField)startBoard.lookup("#userName")).getText();
-//            ((TextField)playBoard.lookup("#userName")).setText(userName);
-//            stage.setScene(playScene);
-//        });
-//        VBox connectPanel = (VBox) startBoard.lookup("#connectPanel");
-//        connectPanel.getChildren().add(buttonNext);
-//        client.putObserverForConnection(buttonNext);
-//    }
-
     private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {
         Button next = (Button) startBoard.lookup("#connectButton");
         next.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             String userName = ((TextField) startBoard.lookup("#userName")).getText();
-//            ((TextField) buildBoard.lookup("#userName")).setText(userName);
+            ((TextField) buildBoard.lookup("#userName")).setText(userName);
             stage.setScene(buildScene);
         });
     }

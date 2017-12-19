@@ -8,6 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -65,6 +66,9 @@ public class FleetDropController implements Initializable {
     @FXML
     private Rectangle ship1c;
 
+    @FXML
+    private TextField userName;
+
     private Rectangle buildShip;
     private Fleet fleet;
     private final Sea sea = new Sea();
@@ -97,7 +101,7 @@ public class FleetDropController implements Initializable {
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             connectButton.setVisible(false);
             client.run();
-            client.sendMessage("AAAA");
+            client.sendMessage(userName.getText());
             client.reactOnMessage();
         });
 
