@@ -12,8 +12,8 @@ public class Ship {
     private int buildLength;
     private List<Integer> positions;
 
-    public Ship(Mast mast) {
-        length = mast.getShipLength();
+    public Ship(Mast mast, int shipLength) {
+        length = shipLength;
         masts = new Mast[length];
         masts[0] = mast;
         positions = new ArrayList<>(mast.positionAsInteger());

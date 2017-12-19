@@ -43,4 +43,5 @@ public class HardcodedFleet implements Fleet {
     public List<ShipModel> getShips() {
         return new ArrayList<>();
     }
+
 }

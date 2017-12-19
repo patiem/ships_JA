@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="whole" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="727.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="building.FleetDropController">
+   <children>
+      <Pane fx:id="port" layoutX="57.0" layoutY="379.0" prefHeight="160.0" prefWidth="300.0">
+         <children>
+            <Rectangle fx:id="ship4" arcHeight="5.0" arcWidth="1.0" fill="#1e2a36" height="120.0" layoutX="9.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship3" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="90.0" layoutX="47.0" layoutY="10.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship3a" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="90.0" layoutX="86.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship2" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="60.0" layoutX="126.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship2a" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="60.0" layoutX="167.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship2b" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="60.0" layoutX="207.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship1" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="30.0" layoutX="249.0" layoutY="9.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship1a" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="30.0" layoutX="249.0" layoutY="46.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship1b" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="30.0" layoutX="249.0" layoutY="83.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+            <Rectangle fx:id="ship1c" arcHeight="5.0" arcWidth="5.0" fill="#1e2a36" height="30.0" layoutX="249.0" layoutY="121.0" stroke="#e8a1a1" strokeType="INSIDE" strokeWidth="2.0" width="30.0" />
+         </children></Pane>
+      <GridPane fx:id="shipBoard" gridLinesVisible="true" layoutX="56.0" layoutY="60.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="30.0" minWidth="10.0" prefWidth="30.0" />
+
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+
+      </GridPane>
+      <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image fx:id="jpg" url="@../images/bb35.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="targer" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0" text="Battleships">
+         <font>
+            <Font name="FreeMono Bold" size="18.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

@@ -2,7 +2,12 @@ package fleet;
 
 import org.testng.annotations.Test;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.testng.Assert.assertTrue;
 
 public class HardcodedFleetTest {
 
@@ -22,6 +27,18 @@ public class HardcodedFleetTest {
         hardcodedFleet.hit(position);
 
         assertThat(hardcodedFleet.getHitFields()).containsExactlyInAnyOrder(position);
+    }
+
+    @Test
+    public void givenSunkFleetWhenIsSunkThenTrue(){
+        HardcodedFleet sunkFleet = new HardcodedFleet();
+        List<Integer> hitsSequence = sunkFleet.getFleetPositions();
+        Collections.shuffle(hitsSequence);
+
+        hitsSequence.forEach(sunkFleet::hit);
+        boolean actualState = sunkFleet.isSunk();
+
+        assertTrue(actualState);
     }
 
 }
