@@ -1,11 +1,14 @@
 package building;
 
+import connection.Client;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
@@ -25,51 +28,59 @@ public class FleetDropController implements Initializable {
     private static final int GRID_SIZE = 10;
 
     @FXML
-    public GridPane shipBoard;
+    private Button connectButton;
 
     @FXML
-    public Pane port;
+    private GridPane shipBoard;
 
     @FXML
-    public Rectangle ship4;
+    private Pane port;
 
     @FXML
-    public Rectangle ship3;
+    private Rectangle ship4;
 
     @FXML
-    public Rectangle ship3a;
+    private Rectangle ship3;
 
     @FXML
-    public Rectangle ship2;
+    private Rectangle ship3a;
 
     @FXML
-    public Rectangle ship2a;
+    private Rectangle ship2;
 
     @FXML
-    public Rectangle ship2b;
+    private Rectangle ship2a;
 
     @FXML
-    public Rectangle ship1;
+    private Rectangle ship2b;
 
     @FXML
-    public Rectangle ship1a;
+    private Rectangle ship1;
 
     @FXML
-    public Rectangle ship1b;
+    private Rectangle ship1a;
 
     @FXML
-    public Rectangle ship1c;
+    private Rectangle ship1b;
+
+    @FXML
+    private Rectangle ship1c;
+
+    @FXML
+    private TextField userName;
 
     private Rectangle buildShip;
-
     private Fleet fleet;
-
     private final Sea sea = new Sea();
+    private final Client client;
 
+
+    public FleetDropController(Client client) {
+        this.client = client;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         for (int column = 0; column < GRID_SIZE; column++) {
             for (int row = 0; row < GRID_SIZE; row++) {
                 SeaField field = new SeaField(column, row);
@@ -86,6 +97,13 @@ public class FleetDropController implements Initializable {
                 sea.addSeaField(field);
             }
         }
+
+        connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            connectButton.setVisible(false);
+            client.run();
+            client.sendMessage(userName.getText());
+            client.reactOnMessage();
+        });
 
         fleet = new Fleet(sea);
         List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a, ship2b, ship1, ship1a, ship1b, ship1c);
