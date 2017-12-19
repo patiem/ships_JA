@@ -1,12 +1,11 @@
 package fleet;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import model.ShipModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFleet implements Fleet {
-    private final List<Ship> ships;
+    private final List<ShipModel> ships;
     private final List<Integer> fleetPositions;
     private final List<Integer> hitFields;
 
@@ -20,23 +19,22 @@ public class CustomFleet implements Fleet {
         return ships.size();
     }
 
-    public void addShip(Ship ship) {
+    public void addShip(ShipModel ship) {
         ships.add(ship);
     }
 
-    public List<Ship> getShips() {
+    public List<ShipModel> getShips() {
         return ships;
     }
 
     public List<Integer> getFleetPositions() {
-        ships.stream()
-                .forEach(ship -> fleetPositions.addAll(ship.getFields()));
+        ships.forEach(ship -> fleetPositions.addAll(ship.getFields()));
 
         return fleetPositions;
     }
 
     public void hit(int position) {
-        throw new NotImplementedException();
+        hitFields.add(position);
     }
 
     public List<Integer> getHitFields() {
