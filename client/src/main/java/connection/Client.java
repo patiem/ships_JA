@@ -8,16 +8,19 @@ import java.io.IOException;
 
 public class Client {
 
+    private static final Integer port = 5000;
+
     private Connector connector;
     private Sender out;
     private Receiver in;
     private Button nextButton;
     private SeaField lastField;
+    private String host;
 
 
-    public void setup(String host, String port) {
+    public void run() {
         try {
-            connector = SocketConnector.from(host, Integer.valueOf(port));
+            connector = SocketConnector.from(host, port);
             in = MessageIn.from(connector);
             out = MessageOut.from(connector);
         } catch (IOException e) {
@@ -25,12 +28,12 @@ public class Client {
         }
     }
 
-    public void sendMessage(String message)  {
-        out.sendMessage(message);
+    public void setup(String host) {
+        this.host = host;
     }
 
-    public void sendMessage(int value)  {
-        out.sendMessage(value);
+    public void sendMessage(String message)  {
+        out.sendMessage(message);
     }
 
     public void reactOnMessage() {          //TODO: change string to enum
