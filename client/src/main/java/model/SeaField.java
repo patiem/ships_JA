@@ -25,8 +25,6 @@ public class SeaField extends Rectangle implements Field {
 
     public void hit() {
         setFill(Color.RED);
-        System.out.println(getX());
-        System.out.println(getY());
     }
 
     public void reset() {

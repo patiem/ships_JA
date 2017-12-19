@@ -13,4 +13,8 @@ public interface Fleet {
     int getSize();
 
     List<Ship> getShips();
+
+    default boolean isSunk(){
+        return getHitFields().containsAll(getFleetPositions());
+    }
 }

@@ -8,7 +8,7 @@ public class Fleet {
     private final List<Mast> masts;
     private final Sea sea;
     private final List<Ship> fleet;
-    private Ship lastShip;
+    private Ship shipThatIsBuild;
 
     public Fleet(Sea sea) {
         this.sea = sea;
@@ -16,30 +16,30 @@ public class Fleet {
         fleet = new ArrayList<>();
     }
 
-    private void addFirstMastToShip(Mast mast) {
+    private void addFirstMastToFleet(Mast mast) {
         masts.add(mast);
     }
 
-    public void startToBuilOneShip(Mast mast) {
-        addFirstMastToShip(mast);
-        Ship ship = new Ship(mast);
-        lastShip = ship;
+    public void startToBuildOneShip(Mast mast, int shipLength) {
+        addFirstMastToFleet(mast);
+        Ship ship = new Ship(mast, shipLength);
+        shipThatIsBuild = ship;
         fleet.add(ship);
-        if(lastShip.isShipDone()) {
-            sea.clearSea();
-            sea.makeBoundaries(lastShip);
-        } else {
-            createNewMast(mast);
-        }
+        createNewMast(mast);
     }
 
     private void createNewMast(Mast mast) {
+        if (shipThatIsBuild.isShipDone()) {
+            sea.clearSea();
+            sea.makeBoundaries(shipThatIsBuild);
+            return;
+        }
         PossiblePosition possible = new PossiblePosition(mast, sea);
         possible.showPossibleMastPosition();
     }
 
     public void addNextMastToShip(Mast mast) {
-        lastShip.addMast(mast);
+        shipThatIsBuild.addMast(mast);
         createNewMast(mast);
     }
 }
