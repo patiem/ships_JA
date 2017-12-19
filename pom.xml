@@ -10,7 +10,7 @@
     <url>https://github.com/patiem/ships_JA</url>
 
     <modules>
-        <module>client</module>
+        <module>playerClient</module>
         <module>server</module>
         <module>utils</module>
     </modules>

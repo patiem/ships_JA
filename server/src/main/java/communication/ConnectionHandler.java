@@ -13,14 +13,14 @@ import java.util.Map;
 
 class ConnectionHandler {
 
-    private PlayerHandler playerHandler;
+    private PlayerTracker playerTracker;
     private LanguageVersion languageVersion;
     private Map<Socket, List<String>> allHits;
     private MessageReceiver messageReceiver = new MessageReceiver();
 
 
     public ConnectionHandler() {
-        playerHandler = new PlayerHandler();
+        playerTracker = new PlayerTracker();
         languageVersion = new LanguageVersion();
         allHits = new HashMap<>();
     }
@@ -31,7 +31,6 @@ class ConnectionHandler {
             System.out.println(languageVersion.getServerRunning());
             createAListOfHits(serverSocket);
             createAListOfHits(serverSocket);
-//            receiveFleet();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,9 +39,8 @@ class ConnectionHandler {
         createGame();
     }
 
-
     private void createGame() {
-        Game game = new Game(playerHandler, allHits, messageReceiver);
+        Game game = new Game(playerTracker, allHits, messageReceiver);
         game.handleGameEvent();
     }
 
@@ -52,7 +50,7 @@ class ConnectionHandler {
         Socket socket = serverSocket.accept();
         List<String> hits = new ArrayList<>();
         allHits.put(socket, hits);
-        playerHandler.registerPlayer(socket);
+        playerTracker.registerPlayer(socket);
     }
 
 

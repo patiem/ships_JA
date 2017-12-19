@@ -2,7 +2,7 @@ package engine;
 
 import communication.HitChecker;
 import communication.MessageReceiver;
-import communication.PlayerHandler;
+import communication.PlayerTracker;
 import communication.ShotState;
 import fleet.Fleet;
 
@@ -14,7 +14,7 @@ import java.util.Map;
 public class Game {
 
 
-    private PlayerHandler playerHandler;
+    private PlayerTracker playerTracker;
     private Socket currentSocket;
     private Map<Socket, List<String>> allHits;
     private GameState gameState;
@@ -23,8 +23,8 @@ public class Game {
     private BufferedReader currentReader;
 
 
-    public Game(PlayerHandler playerHandler, Map<Socket, List<String>> allHits, MessageReceiver messageReceiver) {
-        this.playerHandler = playerHandler;
+    public Game(PlayerTracker playerTracker, Map<Socket, List<String>> allHits, MessageReceiver messageReceiver) {
+        this.playerTracker = playerTracker;
         this.allHits = allHits;
         gameState = GameState.ACTIVE;
         this.messageReceiver = messageReceiver;
@@ -34,10 +34,9 @@ public class Game {
     public void handleGameEvent() {
 
         while (gameState == GameState.ACTIVE) {
-            currentSocket = playerHandler.getCurrentSocket();
-            currentReader = playerHandler.getCurrentClient().getReader();
+            currentSocket = playerTracker.getCurrentSocket();
+            currentReader = playerTracker.getCurrentPlayerClient().getReader();
             checkShot();
-
         }
     }
 
@@ -47,13 +46,13 @@ public class Game {
         if (!isShootAlreadyDone(hit)) {
             addShootToList(hit);
             Integer toMark = Integer.parseInt(hit);
-            Fleet fleet = playerHandler.getCurrentFleet();
+            Fleet fleet = playerTracker.getCurrentFleet();
             HitChecker hitChecker = new HitChecker(fleet);
             ShotState shotState = hitChecker.checkShot(toMark);
             showInfoAboutCurrentShot(hit, shotState, roundCounter);
-            playerHandler.sendMessageToCurrentPlayer(shotState.toString());
+            playerTracker.sendMessageToCurrentPlayer(shotState.toString());
             if (!(shotState == ShotState.HIT)) {
-                playerHandler.switchPlayers();
+                playerTracker.switchPlayers();
             }
             roundCounter++;
         }
@@ -72,7 +71,7 @@ public class Game {
 
 
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
-        System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerHandler.currentPlayerName(), hit, shotState));
+        System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerTracker.currentPlayerName(), hit, shotState));
     }
 
 

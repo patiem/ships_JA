@@ -7,29 +7,26 @@ import java.io.*;
 
 import java.net.Socket;
 
-public class Client {
+public class PlayerClient {
 
-    private BufferedReader reader;
-    private final BufferedWriter writer;
-    private String name;
-    private Socket socket;
+    private final BufferedReader reader;
+
+    private final Socket socket;
     private final Fleet fleet;
+    private String playerName;
 
-//    public static Client playerBuilder(String name, Socket socket) throws IOException {
-//            BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
-//            return new Client(name, socket, writer);
-//    }
 
-     Client(String name, Socket socket, BufferedWriter writer, BufferedReader reader) {
-        this.name = name;
+    public PlayerClient(String playerName, Socket socket, BufferedReader reader) {
+        this.playerName = playerName;
+
         this.socket = socket;
         this.fleet = new HardcodedFleet();
-        this.writer = writer;
         this.reader = reader;
     }
 
+
     String getName() {
-        return name;
+        return playerName;
     }
 
     Fleet getFleet() {
@@ -42,9 +39,12 @@ public class Client {
 
     public void sendMessageToPlayer(String message) {
         try {
+            BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
+
             writer.write(message);
             writer.newLine();
             writer.flush();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,4 @@ public class Client {
         return reader;
     }
 
-    public BufferedWriter getWriter() {
-        return writer;
-    }
 }
