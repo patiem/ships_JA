@@ -11,7 +11,7 @@ public class InitMessage {
     private FleetModel fleetModel;
 
     @JsonCreator
-    InitMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {
+    public InitMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {
         this.name = name;
         this.fleetModel = fleetModel;
     }

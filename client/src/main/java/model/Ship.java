@@ -10,13 +10,13 @@ public class Ship {
     private final Mast[] masts;
     private final int shipLength;
     private int buildLength;
-    private List<Integer> positions;
+    private List<Integer> positions = new ArrayList<>();
 
     public Ship(Mast mast, int shipLength) {
         this.shipLength = shipLength;
         masts = new Mast[this.shipLength];
         masts[0] = mast;
-        positions = new ArrayList<>(mast.positionAsInteger());
+        positions.add(mast.positionAsInteger());
         buildLength = START_SIZE;
     }
 
