@@ -31,6 +31,7 @@ class ConnectionHandler {
             System.out.println(languageVersion.getServerRunning());
             createAListOfHits(serverSocket);
             createAListOfHits(serverSocket);
+//            receiveFleet();
 
         } catch (IOException e) {
             e.printStackTrace();
