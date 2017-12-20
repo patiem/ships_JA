@@ -17,11 +17,8 @@ public class PlayerTracker {
     private PlayerClient currentPlayerClient;
     private MessageReceiver messageReceiver = new MessageReceiver();
 
-    public List<PlayerClient> getPlayerClients() {
-        return playerClients;
-    }
 
-    public void registerPlayer(Socket socket) {
+    void registerPlayer(Socket socket) {
         String playerIsConnected = "CON";
 
         try {
@@ -30,9 +27,9 @@ public class PlayerTracker {
             String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
             System.out.println(gameStartingObjectAsString); //TODO: change to Logger
             CustomerJsonParser jsonParser = new CustomerJsonParser();
-            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+            InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
             Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
-            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader, playerFleet);
+            PlayerClient playerClient = new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
 
             addPlayer(playerClient);
             playerClient.sendMessageToPlayer(playerIsConnected);
@@ -49,9 +46,6 @@ public class PlayerTracker {
         currentPlayerClient.sendMessageToPlayer(message);
     }
 
-    public void sendMessageToOtherPlayer(String message) {
-        playerClients.get(1).sendMessageToPlayer(message);
-    }
 
     private void addPlayer(PlayerClient playerClient) {
         if (playerClients.isEmpty())
@@ -67,9 +61,6 @@ public class PlayerTracker {
         return currentPlayerClient.getFleet();
     }
 
-    public Socket getWaitingPlayerSocket() {
-        return playerClients.get(1).getSocket();
-    }
 
     public void switchPlayers() {
         Collections.reverse(playerClients);

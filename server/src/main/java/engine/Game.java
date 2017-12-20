@@ -11,17 +11,15 @@ import fleet.Fleet;
 import java.io.BufferedReader;
 import java.net.Socket;
 
-
 public class Game {
 
-
-    private PlayerTracker playerTracker;
+    private final PlayerTracker playerTracker;
     private Socket currentSocket;
-    private GameState gameState;
-    private MessageReceiver messageReceiver;
+    private final GameState gameState;
+    private final MessageReceiver messageReceiver;
     private int roundCounter = 0;
     private BufferedReader currentReader;
-    private SetMultimap<Socket, String> allHits;
+    private final SetMultimap<Socket, String> allHits;
 
 
     public Game(PlayerTracker playerTracker, MessageReceiver messageReceiver) {
@@ -31,11 +29,7 @@ public class Game {
         this.messageReceiver = messageReceiver;
     }
 
-
     public void runGame() {
-
-//        prepareWhileCondition();
-
         while (gameState == GameState.ACTIVE) {
             currentSocket = playerTracker.getCurrentSocket();
             currentReader = playerTracker.getCurrentPlayerClient().getReader();
@@ -43,19 +37,10 @@ public class Game {
         }
     }
 
-//    private void prepareWhileCondition() {
-//        String impossibleShotValue = "100";
-//        allHits.put(currentSocket, impossibleShotValue);
-//        playerTracker.switchPlayers();
-//        allHits.put(currentSocket, impossibleShotValue);
-//        playerTracker.switchPlayers();
-//
-//    }
-
-    public void checkShot() {
+    private void checkShot() {
         String hit = messageReceiver.receiveMessage(currentReader);
 
-        if(!(allHits.containsEntry(currentSocket, hit))) {
+        if (!(allHits.containsEntry(currentSocket, hit))) {
             allHits.put(currentSocket, hit);
             Integer toMark = Integer.parseInt(hit);
             Fleet fleet = playerTracker.getCurrentFleet();
@@ -70,21 +55,7 @@ public class Game {
         }
     }
 
-
-//    private void addShootToList(String hit) {
-//        List<String> playerShots = allHits.get(currentSocket);
-//        playerShots.add(hit);
-//    }
-//
-//    private boolean isShootAlreadyDone(String shoot) {
-//        List<String> playerShots = allHits.get(currentSocket);
-//        return playerShots.contains(shoot);
-//    }
-
-
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
         System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerTracker.currentPlayerName(), hit, shotState));
     }
-
-
 }

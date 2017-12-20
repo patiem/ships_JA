@@ -5,10 +5,6 @@ import engine.Game;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 class ConnectionHandler {
@@ -31,7 +27,6 @@ class ConnectionHandler {
             createAListOfHits(serverSocket);
 
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +39,6 @@ class ConnectionHandler {
         game.runGame();
     }
 
-    // TODO: move this method elsewhere
     void createAListOfHits(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         playerTracker.registerPlayer(socket);
