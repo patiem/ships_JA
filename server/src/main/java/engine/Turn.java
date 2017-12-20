@@ -16,7 +16,7 @@ public class Turn {
     private final SetMultimap<Socket, String> allHits = MultimapBuilder.hashKeys().hashSetValues(50).build();
     private final PlayerTracker playerTracker;
     private Referee referee = new Referee();
-    GameState gameState;
+    GameState gameState = GameState.ACTIVE;
 
     public Turn(PlayerTracker playerTracker) {
         this.playerTracker = playerTracker;
