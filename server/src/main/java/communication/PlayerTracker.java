@@ -30,14 +30,14 @@ public class PlayerTracker {
             String playerName = messageReceiver.receiveMessage(reader);
             System.out.println(playerName);
 
-//            String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-//            CustomerJsonParser jsonParser = new CustomerJsonParser();
-//            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
-//            Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
-//            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader, playerFleet);
-//
-//            addPlayer(playerClient);
-//            playerClient.sendMessageToPlayer(playerIsConnected);
+            String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+            CustomerJsonParser jsonParser = new CustomerJsonParser();
+            InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+            Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
+            PlayerClient playerClient = new PlayerClient(initMessage.getName(),socket,reader, playerFleet);
+
+            addPlayer(playerClient);
+            playerClient.sendMessageToPlayer(playerIsConnected);
             System.out.println("PlayerClient added: " + playerName);
 
 

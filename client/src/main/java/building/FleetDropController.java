@@ -107,15 +107,7 @@ public class FleetDropController implements Initializable {
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             connectButton.setVisible(false);
             client.run();
-            FleetMapper fleetMapper = new FleetMapper();
-            FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
-            InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
-            CustomerJsonGenerator jsonGenerator = new CustomerJsonGenerator();
-            try {
-                client.sendMessage(jsonGenerator.createJson(messageWithFleet));
-            } catch (JsonProcessingException e1) {
-                e1.printStackTrace();
-            }
+            sendFleetToServer();
             client.reactOnMessage();
         });
 
@@ -129,6 +121,18 @@ public class FleetDropController implements Initializable {
                 theShip.setFill(Color.BLACK);
                 event.consume();
             });
+        }
+    }
+
+    private void sendFleetToServer() {
+        FleetMapper fleetMapper = new FleetMapper();
+        FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
+        InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
+        CustomerJsonGenerator jsonGenerator = new CustomerJsonGenerator();
+        try {
+            client.sendMessage(jsonGenerator.createJson(messageWithFleet));
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
         }
     }
 
