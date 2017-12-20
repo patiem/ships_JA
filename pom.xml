@@ -30,6 +30,7 @@
         <mavenCompiler>3.6.2</mavenCompiler>
         <mavenReports>2.7</mavenReports>
         <mavenJar>3.0.2</mavenJar>
+        <guavaVersion>20.0</guavaVersion>
     </properties>
 
     <build>
@@ -115,6 +116,7 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>${testngVersion}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
@@ -128,31 +130,6 @@
             <version>${mockitoVersion}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>20.0</version>
-        </dependency>
-        <!--dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jacksonVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jacksonVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jacksonVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${jsonVersion}</version>
-        </dependency-->
     </dependencies>
 
     <reporting>
@@ -163,7 +140,6 @@
                 <version>${findbugsVersion}</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put findbugs xdoc xml report -->
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
                 </configuration>
             </plugin>
