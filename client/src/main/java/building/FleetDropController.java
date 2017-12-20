@@ -2,6 +2,7 @@ package building;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import connection.Client;
+import connection.MessageReactor;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -76,10 +77,12 @@ public class FleetDropController implements Initializable {
     private Fleet fleet;
     private final Sea sea = new Sea();
     private final Client client;
+    private MessageReactor reactor;
 
 
-    public FleetDropController(Client client) {
+    public FleetDropController(Client client, MessageReactor reactor) {
         this.client = client;
+        this.reactor = reactor;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class FleetDropController implements Initializable {
             connectButton.setVisible(false);
             client.run();
             sendFleetToServer();
-            client.reactOnMessage();
+            reactor.reactOnMessage(client.getMessage());
         });
 
         List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a, ship2b, ship1, ship1a, ship1b, ship1c);

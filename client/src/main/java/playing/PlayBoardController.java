@@ -1,6 +1,7 @@
 package playing;
 
 import connection.Client;
+import connection.MessageReactor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -13,14 +14,16 @@ import java.util.ResourceBundle;
 public class PlayBoardController implements Initializable {
 
     private final Client client;
+    private final MessageReactor reactor;
 
     @FXML
     private GridPane shipBoard;
 
     private SeaField lastTarget;
 
-    public PlayBoardController(Client client) {
+    public PlayBoardController(Client client, MessageReactor reactor) {
         this.client = client;
+        this.reactor = reactor;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class PlayBoardController implements Initializable {
                     lastTarget = field;
                     sendPositionToServer(field);
                     field.marked();
-                    client.reactOnMessage(field);
+                    reactor.reactOnMessage(field, client.getMessage());
                 });
                 shipBoard.getChildren().add(field);
                 GridPane.setConstraints(field, i, n);

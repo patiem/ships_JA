@@ -54,7 +54,6 @@ public class Game {
 
             if (!(shotState == ShotState.HIT)) {
                 playerTracker.switchPlayers();
-                playerTracker.sendMessageToCurrentPlayer("PLAY");
             }
             roundCounter++;
         }
