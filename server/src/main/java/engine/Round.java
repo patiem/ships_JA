@@ -33,7 +33,7 @@ public class Round {
             String messageToSend;
             allHits.put(currentSocket, hit);
             Integer toMark = Integer.parseInt(hit);
-            Fleet fleet = playerTracker.getCurrentFleet();
+            Fleet fleet = playerTracker.getFleetUnderFire();
             HitChecker hitChecker = new HitChecker(fleet);
             ShotState shotState = hitChecker.checkShot(toMark);
             showInfoAboutCurrentShot(hit, shotState, roundCounter);
