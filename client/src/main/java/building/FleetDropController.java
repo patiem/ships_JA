@@ -2,7 +2,7 @@ package building;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import connection.Client;
-import connection.MessageReactor;
+import model.MessageReactor;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

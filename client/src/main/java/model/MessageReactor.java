@@ -1,8 +1,7 @@
-package connection;
+package model;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.SeaField;
 import starting.ConnectEvent;
 
 public class MessageReactor {
@@ -26,7 +25,7 @@ public class MessageReactor {
                 break;
             case "WIN":
                 lastField.hit();
-                System.out.println("WIN");
+                textField.setText("You won");
                 break;
         }
     }
