@@ -21,16 +21,14 @@ public class PlayerTracker {
         return playerClients;
     }
 
-
     public void registerPlayer(Socket socket) {
         String playerIsConnected = "CON";
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-            String playerName = messageReceiver.receiveMessage(reader);
-            System.out.println(playerName);
 
             String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+            System.out.println(gameStartingObjectAsString); //TODO: change to Logger
             CustomerJsonParser jsonParser = new CustomerJsonParser();
             InitMessage initMessage =jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
             Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
@@ -38,11 +36,11 @@ public class PlayerTracker {
 
             addPlayer(playerClient);
             playerClient.sendMessageToPlayer(playerIsConnected);
-            System.out.println("PlayerClient added: " + playerName);
+            System.out.println("PlayerClient added: " + playerClient.getName()); //TODO: change to Logger
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //TODO: add ExceptionHandling
         }
     }
 

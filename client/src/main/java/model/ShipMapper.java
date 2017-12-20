@@ -9,6 +9,6 @@ class ShipMapper {
         List<Integer> positions = new ArrayList<>();
         positions.addAll(ship.getPositions());
 
-        return new ShipModelImpl(positions);
+        return new ShipModel(positions);
     }
 }
