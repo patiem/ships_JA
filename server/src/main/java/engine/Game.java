@@ -20,6 +20,7 @@ public class Game {
     private int roundCounter = 0;
     private BufferedReader currentReader;
     private final SetMultimap<Socket, String> allHits;
+    private final Referee referee = new Referee();
 
 
     public Game(PlayerTracker playerTracker, MessageReceiver messageReceiver) {
@@ -48,6 +49,8 @@ public class Game {
             ShotState shotState = hitChecker.checkShot(toMark);
             showInfoAboutCurrentShot(hit, shotState, roundCounter);
             playerTracker.sendMessageToCurrentPlayer(shotState.toString());
+            if (referee.isVictory(fleet)) playerTracker.sendMessageToCurrentPlayer("WIN");
+
             if (!(shotState == ShotState.HIT)) {
                 playerTracker.switchPlayers();
             }
