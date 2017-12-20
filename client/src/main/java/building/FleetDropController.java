@@ -1,5 +1,6 @@
 package building;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import connection.Client;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -15,6 +16,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import json.CustomerJsonGenerator;
+import json.InitMessage;
 import model.*;
 
 import java.net.URL;
@@ -98,14 +101,16 @@ public class FleetDropController implements Initializable {
             }
         }
 
+
+        fleet = new Fleet(sea);
+
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             connectButton.setVisible(false);
             client.run();
-            client.sendMessage(userName.getText());
+            sendFleetToServer();
             client.reactOnMessage();
         });
 
-        fleet = new Fleet(sea);
         List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a, ship2b, ship1, ship1a, ship1b, ship1c);
 
         for (Rectangle theShip : ships) {
@@ -116,6 +121,18 @@ public class FleetDropController implements Initializable {
                 theShip.setFill(Color.BLACK);
                 event.consume();
             });
+        }
+    }
+
+    private void sendFleetToServer() {
+        FleetMapper fleetMapper = new FleetMapper();
+        FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
+        InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
+        CustomerJsonGenerator jsonGenerator = new CustomerJsonGenerator();
+        try {
+            client.sendMessage(jsonGenerator.createJson(messageWithFleet));
+        } catch (JsonProcessingException e1) {
+            e1.printStackTrace();
         }
     }
 

@@ -1,7 +1,6 @@
 package fleet;
 
 import model.ShipModel;
-import model.ShipModelImpl;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -28,7 +27,7 @@ public class CustomFleetTest {
         CustomFleet fleet = new CustomFleet();
         int initialFleetSize = fleet.getSize();
         int expectedFleetSize = initialFleetSize + 1;
-        ShipModel ship = new ShipModelImpl(Arrays.asList(0));
+        ShipModel ship = new ShipModel(Arrays.asList(0));
 
         fleet.addShip(ship);
 
@@ -62,23 +61,23 @@ public class CustomFleetTest {
     @Test
     public void givenFleetWithTwoShipsWhenGetAllFleetPositionsThenReturnAllPositions() {
         CustomFleet fleet = new CustomFleet();
-        fleet.addShip(new ShipModelImpl(Arrays.asList(0)));
-        fleet.addShip(new ShipModelImpl(Arrays.asList(1, 2)));
+        fleet.addShip(new ShipModel(Arrays.asList(0)));
+        fleet.addShip(new ShipModel(Arrays.asList(1, 2)));
 
         assertThat(fleet.getFleetPositions()).containsExactly(0, 1, 2);
     }
 
-    private ShipModelImpl generateOneMastShip() {
+    private ShipModel generateOneMastShip() {
         Random random = new Random();
         Integer[] positions = {random.nextInt(11)};
 
-        return new ShipModelImpl(new ArrayList<>(Arrays.asList(positions)));
+        return new ShipModel(new ArrayList<>(Arrays.asList(positions)));
     }
 
-    private ShipModelImpl generateTwoMastShip() {
+    private ShipModel generateTwoMastShip() {
         Random random = new Random();
         Integer[] positions = {random.nextInt(11), random.nextInt(11)};
 
-        return new ShipModelImpl(new ArrayList<>(Arrays.asList(positions)));
+        return new ShipModel(new ArrayList<>(Arrays.asList(positions)));
     }
 }

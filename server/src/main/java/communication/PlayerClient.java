@@ -16,11 +16,11 @@ public class PlayerClient {
     private String playerName;
 
 
-    public PlayerClient(String playerName, Socket socket, BufferedReader reader) {
+    public PlayerClient(String playerName, Socket socket, BufferedReader reader, Fleet playerFleet) {
         this.playerName = playerName;
 
         this.socket = socket;
-        this.fleet = new HardcodedFleet();
+        this.fleet = playerFleet;
         this.reader = reader;
     }
 
