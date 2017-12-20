@@ -1,5 +1,8 @@
 package communication;
 
+import engine.HitChecker;
+import engine.ShotState;
+
 import fleet.Fleet;
 import fleet.HardcodedFleet;
 import org.testng.annotations.Test;

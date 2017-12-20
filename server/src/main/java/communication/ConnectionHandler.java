@@ -1,6 +1,7 @@
 package communication;
 
 import engine.Game;
+import engine.Turn;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,10 +12,8 @@ class ConnectionHandler {
 
     private PlayerTracker playerTracker;
     private LanguageVersion languageVersion;
-    private MessageReceiver messageReceiver = new MessageReceiver();
 
-
-    public ConnectionHandler() {
+    ConnectionHandler() {
         playerTracker = new PlayerTracker();
         languageVersion = new LanguageVersion();
     }
@@ -23,9 +22,8 @@ class ConnectionHandler {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println(languageVersion.getServerRunning());
-            createAListOfHits(serverSocket);
-            createAListOfHits(serverSocket);
-
+            acceptPlayer(serverSocket);
+            acceptPlayer(serverSocket);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,11 +33,12 @@ class ConnectionHandler {
     }
 
     private void createGame() {
-        Game game = new Game(playerTracker, messageReceiver);
+        Turn turn = new Turn(playerTracker);
+        Game game = new Game(turn);
         game.runGame();
     }
 
-    void createAListOfHits(ServerSocket serverSocket) throws IOException {
+    private void acceptPlayer(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         playerTracker.registerPlayer(socket);
     }
