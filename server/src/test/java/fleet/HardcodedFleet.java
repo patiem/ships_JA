@@ -1,8 +1,8 @@
 package fleet;
 
-import model.ShipModel;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * This class is used for HitChecker and Referee
