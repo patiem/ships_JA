@@ -49,7 +49,6 @@ public class PlayerClient {
         }
     }
 
-
     public BufferedReader getReader() {
         return reader;
     }

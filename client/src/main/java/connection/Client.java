@@ -50,6 +50,9 @@ public class Client {
                 break;
             case "HIT_AGAIN":
                 break;
+            case "WIN":
+                System.out.println("WIN");
+                break;
         }
     }
 

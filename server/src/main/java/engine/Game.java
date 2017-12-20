@@ -40,6 +40,7 @@ public class Game {
 
     private void checkShot() {
         String hit = messageReceiver.receiveMessage(currentReader);
+        System.out.println(hit);
 
         if (!(allHits.containsEntry(currentSocket, hit))) {
             allHits.put(currentSocket, hit);
@@ -53,6 +54,7 @@ public class Game {
 
             if (!(shotState == ShotState.HIT)) {
                 playerTracker.switchPlayers();
+                playerTracker.sendMessageToCurrentPlayer("PLAY");
             }
             roundCounter++;
         }

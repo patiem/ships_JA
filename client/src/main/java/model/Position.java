@@ -43,18 +43,18 @@ public class Position {
     }
 
     static Position up(Position position) {
-        return new Position(position.column, position.row -1);
+        return new Position(position.getColumn(), position.getRow() -1);
     }
 
     static Position down(Position position) {
-        return new Position(position.column, position.row +1);
+        return new Position(position.getColumn(), position.getRow() +1);
     }
 
     static Position right(Position position) {
-        return new Position(position.column + 1, position.row);
+        return new Position(position.getColumn() + 1, position.getRow());
     }
 
     static Position left(Position position) {
-        return new Position(position.column - 1, position.row);
+        return new Position(position.getColumn() - 1, position.getRow());
     }
 }

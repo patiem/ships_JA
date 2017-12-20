@@ -101,7 +101,6 @@ public class FleetDropController implements Initializable {
             }
         }
 
-
         fleet = new Fleet(sea);
 
         connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {

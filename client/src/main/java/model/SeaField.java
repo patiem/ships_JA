@@ -8,8 +8,8 @@ import javafx.scene.shape.Rectangle;
 
 public class SeaField extends Rectangle implements Field {
 
-    SimpleBooleanProperty isMarkedAsMast;
-    SimpleBooleanProperty isMarkedAsBound;
+    private SimpleBooleanProperty isMarkedAsMast;
+    private SimpleBooleanProperty isMarkedAsBound;
     private final Integer column;
     private final Integer row;
 

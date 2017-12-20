@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 public class PlayBoardController implements Initializable {
 
-    private Client client;
+    private final Client client;
 
     @FXML
     private GridPane shipBoard;
@@ -36,7 +36,6 @@ public class PlayBoardController implements Initializable {
                     lastTarget = field;
                     sendPositionToServer(field);
                     field.marked();
-                    sendPositionToServer(field);
                     client.reactOnMessage(field);
                 });
                 shipBoard.getChildren().add(field);
@@ -48,17 +47,5 @@ public class PlayBoardController implements Initializable {
     private void sendPositionToServer(SeaField seaField) {
         client.sendMessage(seaField.calculateListPosition().toString());
     }
-
-    private FieldPosition makePosition(SeaField seaField) {
-        return new FieldPosition((int) seaField.getX(), (int) seaField.getY());
-    }
-
-    public void setClient(Client client) {
-        if (this.client == null) {
-            this.client = client;
-        }
-    }
-
-
 }
 

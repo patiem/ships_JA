@@ -24,7 +24,7 @@ public class StartBoard extends Application {
     private final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
 
 
-    private Client client = new Client();
+    private final Client client = new Client();
     private Stage stage;
     private AnchorPane playBoard;
     private AnchorPane buildBoard;

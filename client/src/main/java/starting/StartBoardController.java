@@ -11,7 +11,7 @@ public class StartBoardController implements Initializable {
     private final String USER_NAME_VALUE = "Your name";
     private final String IP_NUMBER_VALUE = "localhost";
 
-    private Client client;
+    private final Client client;
 
     @FXML
     private TextField userName;
