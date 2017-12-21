@@ -9,7 +9,7 @@ import fleet.Fleet;
 import java.io.BufferedReader;
 import java.net.Socket;
 
-public class Turn {
+public class Round {
 
     private int roundCounter = 0;
     private final MessageReceiver messageReceiver = new MessageReceiver();
@@ -18,7 +18,7 @@ public class Turn {
     private Referee referee = new Referee();
     GameState gameState = GameState.ACTIVE;
 
-    public Turn(PlayerTracker playerTracker) {
+    public Round(PlayerTracker playerTracker) {
         this.playerTracker = playerTracker;
     }
 
@@ -29,11 +29,10 @@ public class Turn {
 
         String hit = messageReceiver.receiveMessage(currentReader);
 
-        if (!(allHits.containsEntry(currentSocket, hit))) {
             String messageToSend;
             allHits.put(currentSocket, hit);
             Integer toMark = Integer.parseInt(hit);
-            Fleet fleet = playerTracker.getCurrentFleet();
+            Fleet fleet = playerTracker.getFleetUnderFire();
             HitChecker hitChecker = new HitChecker(fleet);
             ShotState shotState = hitChecker.checkShot(toMark);
             showInfoAboutCurrentShot(hit, shotState, roundCounter);
@@ -49,7 +48,6 @@ public class Turn {
                 playerTracker.switchPlayers();
             }
             roundCounter++;
-        }
     }
 
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
