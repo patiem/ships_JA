@@ -1,6 +1,8 @@
 package communication;
 
-import fleet.CustomFleet;
+import engine.HitChecker;
+import engine.ShotState;
+
 import fleet.Fleet;
 import fleet.HardcodedFleet;
 import org.testng.annotations.Test;
@@ -19,7 +21,7 @@ public class HitCheckerTest {
     }
 
     @Test
-    public void givenHardcodedFleetIncorrectMastPositionWhenIsHitReturnMissed(){
+    public void givenHardcodedFleetIncorrectMastPositionWhenIsHitReturnMissed() {
         HitChecker hitChecker = new HitChecker(new HardcodedFleet());
         int position = 10;
 
@@ -28,7 +30,7 @@ public class HitCheckerTest {
     }
 
     @Test
-    public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain(){
+    public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain() {
         Fleet fleet = new HardcodedFleet();
 
         HitChecker hitChecker = new HitChecker(fleet);

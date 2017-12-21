@@ -1,6 +1,7 @@
 package communication;
 
-import engine.Game;
+import engine.GameRunner;
+import engine.Round;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,37 +10,27 @@ import java.net.Socket;
 
 class ConnectionHandler {
 
-    private PlayerTracker playerTracker;
-    private LanguageVersion languageVersion;
-    private MessageReceiver messageReceiver = new MessageReceiver();
+    private PlayerTracker playerTracker = new PlayerTracker();
 
-
-    public ConnectionHandler() {
-        playerTracker = new PlayerTracker();
-        languageVersion = new LanguageVersion();
-    }
-
-    void acceptConnections(int port) {
+    void acceptConnections(ServerSocket serverSocket) {
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println(languageVersion.getServerRunning());
-            createAListOfHits(serverSocket);
-            createAListOfHits(serverSocket);
-
+            acceptPlayer(serverSocket);
+            acceptPlayer(serverSocket);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(); //LOGER
         }
 
         createGame();
     }
 
     private void createGame() {
-        Game game = new Game(playerTracker, messageReceiver);
-        game.runGame();
+        Round round = new Round(playerTracker);
+        GameRunner gameRunner = new GameRunner(round);
+        gameRunner.runGame();
     }
 
-    void createAListOfHits(ServerSocket serverSocket) throws IOException {
+    private void acceptPlayer(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         playerTracker.registerPlayer(socket);
     }

@@ -1,6 +1,5 @@
 package fleet;
 
-import model.ShipModel;
 import java.util.List;
 
 public interface Fleet {
@@ -11,11 +10,7 @@ public interface Fleet {
 
     List<Integer> getHitFields();
 
-    int getSize();
-
-    List<ShipModel> getShips();
-
-    default boolean isSunk(){
+    default boolean isSunk() {
         return getHitFields().containsAll(getFleetPositions());
     }
 }

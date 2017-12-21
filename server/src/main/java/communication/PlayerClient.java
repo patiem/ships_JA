@@ -1,7 +1,6 @@
 package communication;
 
 import fleet.Fleet;
-import fleet.HardcodedFleet;
 
 import java.io.*;
 
@@ -49,7 +48,6 @@ public class PlayerClient {
             e.printStackTrace();
         }
     }
-
 
     public BufferedReader getReader() {
         return reader;

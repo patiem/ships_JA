@@ -7,19 +7,16 @@ import json.InitMessage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class PlayerTracker {
 
-    private List<PlayerClient> playerClients = new ArrayList<>();
-    private PlayerClient currentPlayerClient;
+    private Deque<PlayerClient> players = new ArrayDeque<>();
     private MessageReceiver messageReceiver = new MessageReceiver();
 
 
     void registerPlayer(Socket socket) {
-        String playerIsConnected = "CON";
+        final String playerIsConnected = "CON";
 
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
@@ -43,37 +40,34 @@ public class PlayerTracker {
 
 
     public void sendMessageToCurrentPlayer(String message) {
-        currentPlayerClient.sendMessageToPlayer(message);
+        players.peekFirst().sendMessageToPlayer(message);
     }
 
-
     private void addPlayer(PlayerClient playerClient) {
-        if (playerClients.isEmpty())
-            currentPlayerClient = playerClient;
-        playerClients.add(playerClient);
+        players.add(playerClient);
     }
 
     public Socket getCurrentSocket() {
-        return currentPlayerClient.getSocket();
+        return players.peekFirst().getSocket();
     }
 
-    public Fleet getCurrentFleet() {
-        return currentPlayerClient.getFleet();
+    public Fleet getFleetUnderFire() {
+        return players.peekLast().getFleet();
     }
 
 
     public void switchPlayers() {
-        Collections.reverse(playerClients);
-        currentPlayerClient = playerClients.get(0);
+        PlayerClient current = players.pollFirst();
+        players.addLast(current);
     }
 
     public String currentPlayerName() {
-        return currentPlayerClient.getName();
+        return players.peekFirst().getName();
     }
 
 
     public PlayerClient getCurrentPlayerClient() {
-        return currentPlayerClient;
+        return players.peekFirst();
     }
 }
 

@@ -8,10 +8,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class StartBoardController implements Initializable {
-    private final String USER_NAME_VALUE = "Your name";
-    private final String IP_NUMBER_VALUE = "localhost";
 
-    private Client client;
+    private final Client client;
 
     @FXML
     private TextField userName;
@@ -26,10 +24,10 @@ public class StartBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        String USER_NAME_VALUE = "Your name";
         userName.setText(USER_NAME_VALUE);
+        String IP_NUMBER_VALUE = "localhost";
         ipNumber.setText(IP_NUMBER_VALUE);
         client.setup(IP_NUMBER_VALUE);
     }
-
-
 }
