@@ -2,7 +2,7 @@ package starting;
 
 import building.FleetDropController;
 import connection.Client;
-import connection.MessageReactor;
+import model.MessageReactor;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;

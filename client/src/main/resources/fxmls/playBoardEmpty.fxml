@@ -47,16 +47,13 @@
                   </GridPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="267.0">
-               <children>
-                  <TextField fx:id="winning" layoutX="25.0" layoutY="30.0" prefHeight="85.0" prefWidth="206.0">
-                     <font>
-                        <Font name="Garuda" size="35.0" />
-                     </font>
-                  </TextField>
-               </children></AnchorPane>
         </items>
       </SplitPane>
+       <TextField fx:id="winning" editable="false" layoutX="25.0" layoutY="30.0" prefHeight="85.0" prefWidth="206.0">
+           <font>
+               <Font name="Garuda" size="35.0" />
+           </font>
+       </TextField>
       <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bb35.png" />

@@ -30,6 +30,4 @@ public class StartBoardController implements Initializable {
         ipNumber.setText(IP_NUMBER_VALUE);
         client.setup(IP_NUMBER_VALUE);
     }
-
-
 }

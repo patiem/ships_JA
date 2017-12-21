@@ -1,7 +1,7 @@
 package playing;
 
 import connection.Client;
-import connection.MessageReactor;
+import model.MessageReactor;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
