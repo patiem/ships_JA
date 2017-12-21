@@ -11,9 +11,4 @@ public class Round {
 
         return shotState;
     }
-/*
-    private void showInfoAboutCurrentShot(Integer hit, ShotResult shotState, int i) {
-        System.out.println(System.out.printf("%d. pl: %s, shoot: %s, %s", i, playerTracker.currentPlayerName(), hit, shotState));
-    }
-    */
 }
