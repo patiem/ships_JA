@@ -25,8 +25,8 @@ class ConnectionHandler {
     }
 
     private void createGame() {
-        Round round = new Round(playerTracker);
-        GameRunner gameRunner = new GameRunner(round);
+        Round round = new Round();
+        GameRunner gameRunner = new GameRunner(round, playerTracker);
         gameRunner.runGame();
     }
 
