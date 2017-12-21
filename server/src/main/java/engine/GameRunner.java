@@ -10,6 +10,7 @@ public class GameRunner {
 
     public void runGame() {
         while (round.gameState == GameState.ACTIVE) {
+
             round.checkShot();
         }
     }
