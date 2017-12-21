@@ -1,7 +1,7 @@
 package communication;
 
 import engine.HitChecker;
-import engine.ShotState;
+import engine.ShotResult;
 
 import fleet.Fleet;
 import fleet.HardcodedFleet;
@@ -16,8 +16,8 @@ public class HitCheckerTest {
         HitChecker hitChecker = new HitChecker(new HardcodedFleet());
         int position = 0;
 
-        ShotState actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotState.HIT);
+        ShotResult actualState = hitChecker.checkShot(position);
+        assertEquals(actualState, ShotResult.HIT);
     }
 
     @Test
@@ -25,8 +25,8 @@ public class HitCheckerTest {
         HitChecker hitChecker = new HitChecker(new HardcodedFleet());
         int position = 10;
 
-        ShotState actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotState.MISSED);
+        ShotResult actualState = hitChecker.checkShot(position);
+        assertEquals(actualState, ShotResult.MISSED);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class HitCheckerTest {
 
         fleet.hit(position);
 
-        ShotState actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotState.HIT_AGAIN);
+        ShotResult actualState = hitChecker.checkShot(position);
+        assertEquals(actualState, ShotResult.HIT_AGAIN);
     }
 }

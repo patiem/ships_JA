@@ -3,7 +3,11 @@ package engine;
 import fleet.Fleet;
 
 class Referee {
-    boolean isVictory(Fleet fleet) {
-        return fleet.isSunk();
+
+    GameState isVictory(Fleet fleet) {
+        if(fleet.isSunk())
+            return GameState.WIN;
+
+        return GameState.ACTIVE;
     }
 }

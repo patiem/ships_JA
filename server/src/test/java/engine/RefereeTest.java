@@ -18,23 +18,23 @@ public class RefereeTest {
     }
 
     @Test
-    public void givenAliveFleetWhenIsWonThenReturnFalse(){
+    public void givenAliveFleetWhenIsWonThenReturnGameStateActive(){
         Fleet aliveFleet = new HardcodedFleet();
+        GameState expectedState = GameState.ACTIVE;
 
-        boolean actualResult = referee.isVictory(aliveFleet);
+        GameState actualState = referee.isVictory(aliveFleet);
 
-        assertFalse(actualResult);
+        assertEquals(actualState, expectedState);
     }
 
     @Test
-    public void givenSunkFleetWhenIsVictoryThenReturnTrue(){
+    public void givenSunkFleetWhenIsVictoryThenReturnGameStateActive(){
         Fleet sunkFleet = mock(Fleet.class);
         when(sunkFleet.isSunk()).thenReturn(true);
 
-        boolean actualResult = referee.isVictory(sunkFleet);
+        GameState expectedState = GameState.WIN;
+        GameState actualState = referee.isVictory(sunkFleet);
 
-        assertTrue(actualResult);
+        assertEquals(actualState, expectedState);
     }
-
-
 }

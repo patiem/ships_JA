@@ -47,8 +47,8 @@ public class PlayerTracker {
         players.add(playerClient);
     }
 
-    public Socket getCurrentSocket() {
-        return players.peekFirst().getSocket();
+    public BufferedReader getCurrentReader() {
+        return players.peekFirst().getReader();
     }
 
     public Fleet getFleetUnderFire() {
@@ -64,7 +64,6 @@ public class PlayerTracker {
     public String currentPlayerName() {
         return players.peekFirst().getName();
     }
-
 
     public PlayerClient getCurrentPlayerClient() {
         return players.peekFirst();

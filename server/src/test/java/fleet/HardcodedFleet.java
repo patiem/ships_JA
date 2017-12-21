@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class is used for HitChecker and Referee
+ * This class is used for tests
  */
 public class HardcodedFleet implements Fleet {
 
