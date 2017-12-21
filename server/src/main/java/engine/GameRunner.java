@@ -6,10 +6,10 @@ import fleet.Fleet;
 public class GameRunner {
 
     private final Round round;
-    private PlayerTracker playerTracker;
-    private ShotReceiver shotReceiver = new SocketShotReceiver();
+    private final PlayerTracker playerTracker;
+    private final ShotReceiver shotReceiver = new SocketShotReceiver();
     private GameState gameState = GameState.ACTIVE;
-    Referee referee = new Referee();
+    private final Referee referee = new Referee();
 
 
     public GameRunner(Round round, PlayerTracker playerTracker) {
@@ -24,13 +24,24 @@ public class GameRunner {
             ShotResult result = round.makeShot(fleetUnderFire, shot);
             gameState = referee.isVictory(fleetUnderFire);
 
+            sendMessage(result);
 
-            //send message
-            //change gameState
-
-            //send Message with gamestate if won with shotResult if not won
-
+            playerTracker.switchPlayers();
+            logShotInfo(shot, result);
         }
+    }
 
+    private void sendMessage(ShotResult result) {
+        String message = result.toString();
+
+        if (gameState == GameState.WIN)
+            message = gameState.toString();
+
+        playerTracker.sendMessageToCurrentPlayer(message);
+    }
+
+    private void logShotInfo(Shot shot, ShotResult shotResult) {
+        String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s", playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
+        System.out.println(logMessage); //TODO: add Logger
     }
 }
