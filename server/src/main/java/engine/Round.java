@@ -29,7 +29,6 @@ public class Round {
 
         String hit = messageReceiver.receiveMessage(currentReader);
 
-        //if (!(allHits.containsEntry(currentSocket, hit))) {
             String messageToSend;
             allHits.put(currentSocket, hit);
             Integer toMark = Integer.parseInt(hit);
@@ -49,7 +48,6 @@ public class Round {
                 playerTracker.switchPlayers();
             }
             roundCounter++;
-        //}
     }
 
     private void showInfoAboutCurrentShot(String hit, ShotState shotState, int i) {
