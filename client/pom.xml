@@ -15,7 +15,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${mavenJar}</version>
+                <version>${mavenJarVersion}</version>
                 <configuration>
                     <archive>
                         <manifest>

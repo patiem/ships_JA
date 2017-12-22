@@ -9,7 +9,6 @@ git clone https://github.com/patiem/ships_JA $DIR
 echo repo cloned
 
 cd $DIR
-git ch buildBoard
 mvn clean install
 echo 'tests and install'
 mvn checkstyle:checkstyle
@@ -26,7 +25,6 @@ echo 'Number of tests:'
 grep -roh @Test . | wc -w
 
 echo 'Commits on master:'
-git ch master
 git log --pretty=format:'' | wc -l
 
 echo 'Number of interfaces:'
