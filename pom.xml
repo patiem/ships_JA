@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--suppress ALL -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -28,10 +27,10 @@
         <findbugsVersion>3.0.5</findbugsVersion>
         <checkstyleVersion>2.17</checkstyleVersion>
         <mavenjxrVersion>2.3</mavenjxrVersion>
-        <mavenCompiler>3.6.2</mavenCompiler>
-        <mavenReports>2.7</mavenReports>
-        <mavenJar>3.0.2</mavenJar>
-        <log4J>1.2.17</log4J>
+        <mavenCompilerVersion>3.6.2</mavenCompilerVersion>
+        <mavenReportsVersion>2.9</mavenReportsVersion>
+        <mavenJarVersion>3.0.2</mavenJarVersion>
+        <log4JVersion>1.2.17</log4JVersion>
     </properties>
 
     <build>
@@ -39,7 +38,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${mavenCompiler}</version>
+                <version>${mavenCompilerVersion}</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -57,11 +56,6 @@
                         </manifest>
                     </archive>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${mavenReports}</version>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -87,7 +81,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -116,7 +109,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${log4J}</version>
+            <version>${log4JVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
@@ -159,6 +152,22 @@
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>${mavenjxrVersion}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${mavenReportsVersion}</version>
+                <configuration>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+            </plugin>
         </plugins>
     </reporting>
+
+    <!-- declares a location to distribute site -->
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}</id>
+            <url>file://${basedir}/target</url>
+        </site>
+    </distributionManagement>
 </project>
