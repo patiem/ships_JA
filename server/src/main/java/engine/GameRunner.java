@@ -2,8 +2,6 @@ package engine;
 
 import communication.PlayerTracker;
 import fleet.Fleet;
-import org.apache.log4j.Logger;
-
 
 public class GameRunner {
 
@@ -12,8 +10,6 @@ public class GameRunner {
     private final ShotReceiver shotReceiver = new SocketShotReceiver();
     private GameState gameState = GameState.ACTIVE;
     private final Referee referee = new Referee();
-    private final Logger logger = Logger.getLogger(GameRunner.class);
-
 
     public GameRunner(Round round, PlayerTracker playerTracker) {
         this.round = round;
@@ -29,7 +25,10 @@ public class GameRunner {
 
             sendMessage(result);
 
-            playerTracker.switchPlayers();
+            if(result != ShotResult.HIT) {
+                playerTracker.switchPlayers();
+            }
+
             logShotInfo(shot, result);
         }
     }
@@ -45,6 +44,6 @@ public class GameRunner {
 
     private void logShotInfo(Shot shot, ShotResult shotResult) {
         String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s", playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
-        logger.info(logMessage);
+        System.out.println(logMessage); //TODO: add Logger
     }
 }
