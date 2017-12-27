@@ -30,7 +30,6 @@
         <mavenCompilerVersion>3.6.2</mavenCompilerVersion>
         <mavenReportsVersion>2.9</mavenReportsVersion>
         <mavenJarVersion>3.0.2</mavenJarVersion>
-        <log4JVersion>1.2.17</log4JVersion>
     </properties>
 
     <build>
@@ -106,11 +105,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4JVersion}</version>
-        </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
