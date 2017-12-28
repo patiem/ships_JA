@@ -19,8 +19,6 @@ public class PlayBoardController implements Initializable {
     @FXML
     private GridPane shipBoard;
 
-    private SeaField lastTarget;
-
     public PlayBoardController(Client client, MessageReactor reactor) {
         this.client = client;
         this.reactor = reactor;
@@ -36,7 +34,6 @@ public class PlayBoardController implements Initializable {
             for (int n = 0; n < 10; n++) {
                 SeaField field = new SeaField(i, n);
                 field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                    lastTarget = field;
                     sendPositionToServer(field);
                     field.marked();
                     reactor.reactOnMessage(field, client.getMessage());

@@ -10,7 +10,7 @@ public class MessageIn implements Receiver {
     private final BufferedReader scanner;
 
     static MessageIn from(Connector connector) throws IOException {
-        return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream())));
+        return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream(), "UTF-8")));
     }
 
     private MessageIn(BufferedReader scanner) {

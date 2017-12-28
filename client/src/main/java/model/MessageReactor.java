@@ -27,6 +27,8 @@ public class MessageReactor {
                 lastField.hit();
                 textField.setText("You won");
                 break;
+            default:
+                break;
         }
     }
 
