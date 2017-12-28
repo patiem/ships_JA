@@ -5,20 +5,20 @@ import java.net.ServerSocket;
 
 public class Server {
 
-    private static final int PORT = 5000;
+  private static final int PORT = 5000;
 
-    public void runServer() {
-        System.out.println("Server running ! ");
+  public void runServer() {
+    System.out.println("Server running ! ");
 
-        ConnectionHandler connectionHandler = new ConnectionHandler();
-        try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
-            connectionHandler.acceptConnections(serverSocket);
-        } catch (IOException e) {
-            e.printStackTrace();
-            //Loger
-        }
+    ConnectionHandler connectionHandler = new ConnectionHandler();
+    try {
+      ServerSocket serverSocket = new ServerSocket(PORT);
+      connectionHandler.acceptConnections(serverSocket);
+    } catch (IOException e) {
+      e.printStackTrace();
+      //Loger
     }
+  }
 }
 
 

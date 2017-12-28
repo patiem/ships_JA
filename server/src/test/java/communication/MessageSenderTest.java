@@ -9,23 +9,23 @@ import static org.mockito.Mockito.*;
 
 public class MessageSenderTest {
 
-    @DataProvider(name = "messages to send")
-    public static Object[] messagesToSend() {
-        return new Object[]{
-                LanguageVersion.CONFIRM_CONNECTION,
-                LanguageVersion.WAIT_FOR_SECOND_PLAYER,
-                LanguageVersion.FLEET_RECEIVED
-        };
-    }
+  @DataProvider(name = "messages to send")
+  public static Object[] messagesToSend() {
+    return new Object[] {
+        LanguageVersion.CONFIRM_CONNECTION,
+        LanguageVersion.WAIT_FOR_SECOND_PLAYER,
+        LanguageVersion.FLEET_RECEIVED
+    };
+  }
 
-    @Test (dataProvider = "messages to send")
-    public void shouldSendProvidedMessageToSocket(String messageToSend) {
-        PrintWriter mockedPrintWriter = mock(PrintWriter.class);
-        MessageSender messageSender = new MessageSender();
-        int expectedInvocationNumber = 1;
+  @Test(dataProvider = "messages to send")
+  public void shouldSendProvidedMessageToSocket(String messageToSend) {
+    PrintWriter mockedPrintWriter = mock(PrintWriter.class);
+    MessageSender messageSender = new MessageSender();
+    int expectedInvocationNumber = 1;
 
-        messageSender.send(mockedPrintWriter, messageToSend);
+    messageSender.send(mockedPrintWriter, messageToSend);
 
-        verify(mockedPrintWriter, times(expectedInvocationNumber)).println(messageToSend);
-    }
+    verify(mockedPrintWriter, times(expectedInvocationNumber)).println(messageToSend);
+  }
 }
