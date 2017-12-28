@@ -2,6 +2,7 @@
 
 # This script launches the server and both of the clients
 # The script automatically adjusts to the downloaded jar file version
+
 set -e
 mvn clean install -q
 echo "Server has been intalled, server launch in progress"
