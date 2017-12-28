@@ -1,13 +1,13 @@
 package engine;
 
 public class Shot {
-    private Integer shotPosition;
+  private Integer shotPosition;
 
-    public Shot(Integer shotPosition) {
-        this.shotPosition = shotPosition;
-    }
+  public Shot(Integer shotPosition) {
+    this.shotPosition = shotPosition;
+  }
 
-    public Integer asInteger() {
-        return shotPosition;
-    }
+  public Integer asInteger() {
+    return shotPosition;
+  }
 }

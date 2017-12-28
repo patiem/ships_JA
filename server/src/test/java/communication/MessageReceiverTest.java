@@ -12,28 +12,28 @@ import static org.testng.Assert.assertEquals;
 
 public class MessageReceiverTest {
 
-    @DataProvider(name = "messages to receive")
-    public static Object[] messagesToReceived() {
-        return new Object[]{
-                "one message",
-                "another message",
-                "and one more message"
-        };
+  @DataProvider(name = "messages to receive")
+  public static Object[] messagesToReceived() {
+    return new Object[] {
+        "one message",
+        "another message",
+        "and one more message"
+    };
+  }
+
+  @Test(dataProvider = "messages to receive")
+  public void shouldReceiveMessageFromProvidedSocket(String messageToReceive) {
+    BufferedReader mockedInput = mock(BufferedReader.class);
+    try {
+      when(mockedInput.readLine()).thenReturn(messageToReceive);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    @Test(dataProvider = "messages to receive")
-    public void shouldReceiveMessageFromProvidedSocket(String messageToReceive) {
-        BufferedReader mockedInput = mock(BufferedReader.class);
-        try {
-            when(mockedInput.readLine()).thenReturn(messageToReceive);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    MessageReceiver messageReceiver = new MessageReceiver();
 
-        MessageReceiver messageReceiver = new MessageReceiver();
+    String actualReceivedMessage = messageReceiver.receiveMessage(mockedInput);
 
-        String actualReceivedMessage = messageReceiver.receiveMessage(mockedInput);
-
-        assertEquals(actualReceivedMessage, messageToReceive);
-    }
+    assertEquals(actualReceivedMessage, messageToReceive);
+  }
 }

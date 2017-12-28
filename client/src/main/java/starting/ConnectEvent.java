@@ -4,19 +4,19 @@ import javafx.event.Event;
 import javafx.event.EventTarget;
 import javafx.event.EventType;
 
-public class ConnectEvent extends Event{
+public class ConnectEvent extends Event {
 
-    public static final EventType<ConnectEvent> CONNECT =
-            new EventType<>(Event.ANY, "CON");
+  public static final EventType<ConnectEvent> CONNECT =
+      new EventType<>(Event.ANY, "CON");
 
-    String message;
+  String message;
 
-    public ConnectEvent(String s) {
-        super(CONNECT);
-        message = s;
-    }
+  public ConnectEvent(String s) {
+    super(CONNECT);
+    message = s;
+  }
 
-    public ConnectEvent(Object source, EventTarget target) {
-        super(source, target, CONNECT);
-    }
+  public ConnectEvent(Object source, EventTarget target) {
+    super(source, target, CONNECT);
+  }
 }

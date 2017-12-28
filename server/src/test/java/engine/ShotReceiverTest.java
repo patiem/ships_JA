@@ -12,25 +12,25 @@ import static org.mockito.Mockito.when;
 
 public class ShotReceiverTest {
 
-    @DataProvider (name = "shots input")
-    public Object[] shotsInput(){
-        return new Object[]{
-                "1",
-                "5",
-                "10"
-        };
-    }
+  @DataProvider(name = "shots input")
+  public Object[] shotsInput() {
+    return new Object[] {
+        "1",
+        "5",
+        "10"
+    };
+  }
 
-    @Test (dataProvider = "shots input")
-    public void givenBufferedReaderWhenReadShotThenReturnCorrectShot(String mockedInput) throws IOException {
-        ShotReceiver shotReceiver = new SocketShotReceiver();
-        BufferedReader mockedReader = mock(BufferedReader.class);
-        when(mockedReader.readLine()).thenReturn(mockedInput);
+  @Test(dataProvider = "shots input")
+  public void givenBufferedReaderWhenReadShotThenReturnCorrectShot(String mockedInput) throws IOException {
+    ShotReceiver shotReceiver = new SocketShotReceiver();
+    BufferedReader mockedReader = mock(BufferedReader.class);
+    when(mockedReader.readLine()).thenReturn(mockedInput);
 
-        Shot actualShot = shotReceiver.readShot(mockedReader);
-        Integer expectedValue = Integer.parseInt(mockedInput);
+    Shot actualShot = shotReceiver.readShot(mockedReader);
+    Integer expectedValue = Integer.parseInt(mockedInput);
 
-        assertThat(actualShot.asInteger()).isEqualTo(expectedValue);
-    }
+    assertThat(actualShot.asInteger()).isEqualTo(expectedValue);
+  }
 
 }

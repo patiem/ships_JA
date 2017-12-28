@@ -7,30 +7,30 @@ import java.io.InputStreamReader;
 
 public class MessageIn implements Receiver {
 
-    private final BufferedReader scanner;
+  private final BufferedReader scanner;
 
-    static MessageIn from(Connector connector) throws IOException {
-        return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream())));
+  private MessageIn(BufferedReader scanner) {
+    this.scanner = scanner;
+  }
+
+  static MessageIn from(Connector connector) throws IOException {
+    return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream())));
+  }
+
+  @Override
+  public String readMessage() {
+    try {
+      String message = scanner.readLine();
+      System.out.println(message);
+      return message;
+    } catch (IOException e) {
+      e.printStackTrace(); //TODO: add exception handler
     }
+    return "";
+  }
 
-    private MessageIn(BufferedReader scanner) {
-        this.scanner = scanner;
-    }
+  @Override
+  public void distributeMessage() {
 
-    @Override
-    public String readMessage() {
-        try {
-            String message = scanner.readLine();
-            System.out.println(message);
-            return message;
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: add exception handler
-        }
-        return "";
-    }
-
-    @Override
-    public void distributeMessage() {
-
-    }
+  }
 }
