@@ -2,7 +2,10 @@ package communication;
 
 import fleet.Fleet;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 import java.net.Socket;
 
@@ -12,17 +15,14 @@ public class PlayerClient {
 
     private final Socket socket;
     private final Fleet fleet;
-    private String playerName;
-
+    private final String playerName;
 
     public PlayerClient(String playerName, Socket socket, BufferedReader reader, Fleet playerFleet) {
         this.playerName = playerName;
-
         this.socket = socket;
         this.fleet = playerFleet;
         this.reader = reader;
     }
-
 
     String getName() {
         return playerName;
@@ -32,11 +32,7 @@ public class PlayerClient {
         return fleet;
     }
 
-    Socket getSocket() {
-        return socket;
-    }
-
-    public void sendMessageToPlayer(String message) {
+    public void sendMessageToPlayer(final String message) {
         try {
             BufferedWriter writer = new BufferedWriter(new PrintWriter(socket.getOutputStream(), false));
 
@@ -52,5 +48,4 @@ public class PlayerClient {
     public BufferedReader getReader() {
         return reader;
     }
-
 }
