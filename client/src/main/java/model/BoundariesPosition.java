@@ -24,7 +24,8 @@ public class BoundariesPosition {
       for (int neighbourRowValue = -1; neighbourRowValue <= 1; neighbourRowValue++) {
         int newPositionX = mast.getColumn() + neighbourColumnValue;
         int newPositionY = mast.getRow() + neighbourRowValue;
-        if (newPositionX >= minColumn && newPositionX <= maxColumn && newPositionY >= minRow && newPositionY <= maxRow) {
+        if (newPositionX >= minColumn && newPositionX <= maxColumn
+            && newPositionY >= minRow && newPositionY <= maxRow) {
           boundaries.add(new Position(newPositionX, newPositionY));
         }
       }

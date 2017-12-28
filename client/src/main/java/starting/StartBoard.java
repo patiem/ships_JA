@@ -2,6 +2,7 @@ package starting;
 
 import building.FleetDropController;
 import connection.Client;
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -15,9 +16,13 @@ import javafx.stage.Stage;
 import model.MessageReactor;
 import playing.PlayBoardController;
 
-import java.io.IOException;
-
 public class StartBoard extends Application {
+
+  static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
+  static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
+  static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+
+
 
 
   private final Client client = new Client();
@@ -40,11 +45,11 @@ public class StartBoard extends Application {
     Group buildRoot = new Group();
     Group playRoot = new Group();
 
-    double SCENE_WIDTH = 800;
-    double SCENE_HEIGHT = 600;
-    Scene startScene = new Scene(startRoot, SCENE_WIDTH, SCENE_HEIGHT);
-    Scene buildScene = new Scene(buildRoot, SCENE_WIDTH, SCENE_HEIGHT);
-    Scene playScene = new Scene(playRoot, SCENE_WIDTH, SCENE_HEIGHT);
+    final double sceneWidth = 800;
+    final double sceneHeight = 600;
+    final Scene startScene = new Scene(startRoot, sceneWidth, sceneHeight);
+    final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
+    final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
     reactor = new MessageReactor();
 
@@ -59,7 +64,6 @@ public class StartBoard extends Application {
 
   private void createStartBoard(Group startRoot, Scene buildScene) throws IOException {
     StartBoardController startBoardController = new StartBoardController(client);
-    String START_BOARD_URL = "/fxmls/startBoard.fxml";
     FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
     startLoader.setController(startBoardController);
     startBoard = startLoader.load();
@@ -68,7 +72,6 @@ public class StartBoard extends Application {
   }
 
   private void createBuildBoard(Group buildRoot, Scene playScene, MessageReactor reactor) throws IOException {
-    String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
     FleetDropController fleetDropController = new FleetDropController(client, reactor);
     buildLoader.setController(fleetDropController);
@@ -78,7 +81,6 @@ public class StartBoard extends Application {
   }
 
   private void createPlayBoard(Group playRoot, MessageReactor reactor) throws IOException {
-    String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
     PlayBoardController playBoardController = new PlayBoardController(client, reactor);
     playLoader.setController(playBoardController);

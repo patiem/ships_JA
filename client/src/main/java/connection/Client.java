@@ -17,7 +17,7 @@ public class Client {
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
-      e.printStackTrace(); //TODO: Add exception handler
+      e.printStackTrace();
     }
   }
 

@@ -2,15 +2,14 @@ package communication;
 
 import fleet.CustomFleet;
 import fleet.Fleet;
-import json.CustomerJsonParser;
-import json.InitMessage;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import json.CustomerJsonParser;
+import json.InitMessage;
 
 public class PlayerTracker {
 

@@ -11,10 +11,10 @@ public class PossiblePosition {
   }
 
   void showPossibleMastPosition() {
-    int leftBoundary = 1;
-    int upperBoundary = 1;
-    int rightBoundary = 8;
-    int bottomBoundary = 8;
+    final int leftBoundary = 1;
+    final int upperBoundary = 1;
+    final int rightBoundary = 8;
+    final int bottomBoundary = 8;
     if (mast.getRow() >= leftBoundary) {
       sea.getSeaFieldByPosition(Position.up(mast.position())).makeToClick();
     }

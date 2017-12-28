@@ -45,8 +45,8 @@ public class Position {
       return false;
     }
     Position position = (Position) o;
-    return Objects.equals(column, position.column) &&
-        Objects.equals(row, position.row);
+    return Objects.equals(column, position.column)
+        && Objects.equals(row, position.row);
   }
 
   @Override
@@ -56,9 +56,6 @@ public class Position {
 
   @Override
   public String toString() {
-    return "Position{" +
-        "column=" + column +
-        ", row=" + row +
-        '}';
+    return "column=" + column + ", row=" + row;
   }
 }

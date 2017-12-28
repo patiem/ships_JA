@@ -1,10 +1,10 @@
 package model;
 
-import javafx.scene.input.MouseEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javafx.scene.input.MouseEvent;
+
 
 public class Sea {
 
