@@ -8,16 +8,16 @@ import java.util.List;
 
 public class FleetModel {
 
-    private final List<ShipModel> ships = new ArrayList<>();
+  private final List<ShipModel> ships = new ArrayList<>();
 
-    @JsonCreator
-    public FleetModel(@JsonProperty("ships") List<ShipModel> ships){
-        this.ships.addAll(ships);
-    }
+  @JsonCreator
+  public FleetModel(@JsonProperty("ships") List<ShipModel> ships) {
+    this.ships.addAll(ships);
+  }
 
-    @JsonProperty("ships")
-    public List<ShipModel> getShips() {
-        return ships;
-    }
+  @JsonProperty("ships")
+  public List<ShipModel> getShips() {
+    return ships;
+  }
 
 }

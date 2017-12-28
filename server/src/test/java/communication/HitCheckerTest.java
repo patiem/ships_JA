@@ -2,7 +2,6 @@ package communication;
 
 import engine.HitChecker;
 import engine.ShotResult;
-
 import fleet.Fleet;
 import fleet.HardcodedFleet;
 import org.testng.annotations.Test;
@@ -11,34 +10,34 @@ import static org.testng.Assert.assertEquals;
 
 public class HitCheckerTest {
 
-    @Test
-    public void givenHardcodedFleetAndMastPositionWhenIsHitReturnHit() {
-        HitChecker hitChecker = new HitChecker(new HardcodedFleet());
-        int position = 0;
+  @Test
+  public void givenHardcodedFleetAndMastPositionWhenIsHitReturnHit() {
+    HitChecker hitChecker = new HitChecker(new HardcodedFleet());
+    int position = 0;
 
-        ShotResult actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotResult.HIT);
-    }
+    ShotResult actualState = hitChecker.checkShot(position);
+    assertEquals(actualState, ShotResult.HIT);
+  }
 
-    @Test
-    public void givenHardcodedFleetIncorrectMastPositionWhenIsHitReturnMissed() {
-        HitChecker hitChecker = new HitChecker(new HardcodedFleet());
-        int position = 10;
+  @Test
+  public void givenHardcodedFleetIncorrectMastPositionWhenIsHitReturnMissed() {
+    HitChecker hitChecker = new HitChecker(new HardcodedFleet());
+    int position = 10;
 
-        ShotResult actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotResult.MISSED);
-    }
+    ShotResult actualState = hitChecker.checkShot(position);
+    assertEquals(actualState, ShotResult.MISSED);
+  }
 
-    @Test
-    public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain() {
-        Fleet fleet = new HardcodedFleet();
+  @Test
+  public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain() {
+    Fleet fleet = new HardcodedFleet();
 
-        HitChecker hitChecker = new HitChecker(fleet);
-        int position = 0;
+    HitChecker hitChecker = new HitChecker(fleet);
+    int position = 0;
 
-        fleet.hit(position);
+    fleet.hit(position);
 
-        ShotResult actualState = hitChecker.checkShot(position);
-        assertEquals(actualState, ShotResult.HIT_AGAIN);
-    }
+    ShotResult actualState = hitChecker.checkShot(position);
+    assertEquals(actualState, ShotResult.HIT_AGAIN);
+  }
 }
