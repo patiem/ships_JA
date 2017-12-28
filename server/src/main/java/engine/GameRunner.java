@@ -11,7 +11,7 @@ public class GameRunner {
     private GameState gameState = GameState.ACTIVE;
     private final Referee referee = new Referee();
 
-    public GameRunner(Round round, PlayerTracker playerTracker) {
+    public GameRunner(final Round round, final PlayerTracker playerTracker) {
         this.round = round;
         this.playerTracker = playerTracker;
     }
@@ -25,7 +25,7 @@ public class GameRunner {
 
             sendMessage(result);
 
-            if(result != ShotResult.HIT) {
+            if (result != ShotResult.HIT) {
                 playerTracker.switchPlayers();
             }
 
@@ -33,17 +33,19 @@ public class GameRunner {
         }
     }
 
-    private void sendMessage(ShotResult result) {
+    private void sendMessage(final ShotResult result) {
         String message = result.toString();
 
-        if (gameState == GameState.WIN)
+        if (gameState == GameState.WIN) {
             message = gameState.toString();
+        }
 
         playerTracker.sendMessageToCurrentPlayer(message);
     }
 
-    private void logShotInfo(Shot shot, ShotResult shotResult) {
-        String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s", playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
-        System.out.println(logMessage); //TODO: add Logger
+    private void logShotInfo(final Shot shot, final ShotResult shotResult) {
+        String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s",
+                playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
+        System.out.println(logMessage);
     }
 }

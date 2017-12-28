@@ -6,11 +6,11 @@ public class HitChecker {
 
     private Fleet fleet;
 
-    public HitChecker(Fleet fleet) {
+    public HitChecker(final Fleet fleet) {
         this.fleet = fleet;
     }
 
-    public ShotResult checkShot(int position) {
+    public ShotResult checkShot(final int position) {
         if (fleet.getHitFields().contains(position)) {
             return ShotResult.HIT_AGAIN;
         } else if (fleet.getFleetPositions().contains(position)) {

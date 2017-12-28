@@ -11,7 +11,7 @@ public class CustomFleet implements Fleet {
     private final List<Integer> fleetPositions;
     private final List<Integer> hitFields;
 
-    public CustomFleet(FleetModel fleetModel) {
+    public CustomFleet(final FleetModel fleetModel) {
         this.ships = new ArrayList<>(fleetModel.getShips());
         fleetPositions = new ArrayList<>();
         hitFields = new ArrayList<>();
@@ -24,7 +24,7 @@ public class CustomFleet implements Fleet {
         return fleetPositions;
     }
 
-    public void hit(int position) {
+    public void hit(final int position) {
         hitFields.add(position);
     }
 
