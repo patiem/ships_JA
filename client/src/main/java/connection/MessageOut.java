@@ -1,7 +1,10 @@
 package connection;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 
 public class MessageOut implements Sender {
 
@@ -13,12 +16,11 @@ public class MessageOut implements Sender {
 
   public static MessageOut from(Connector connector) throws IOException {
     Boolean autoflush = true;
-    return new MessageOut(new PrintWriter(connector.getOutStream(), autoflush));
+    return new MessageOut(new PrintWriter(new OutputStreamWriter(connector.getOutStream(), StandardCharsets.UTF_8), autoflush));
   }
 
   @Override
   public void sendMessage(String message) {
-    System.out.println(message);
     writer.println(message);
     writer.flush();
   }
