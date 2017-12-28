@@ -27,7 +27,10 @@ public class MessageReactor {
         lastField.hit();
         textField.setText("You won");
         break;
+      default:
+        break;
     }
+
   }
 
   public void reactOnMessage(SeaField lastField, String message) {
