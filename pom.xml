@@ -6,7 +6,7 @@
     <groupId>com.javacademy</groupId>
     <artifactId>statki</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.5</version>
     <url>https://github.com/patiem/ships_JA</url>
 
     <modules>
@@ -16,8 +16,8 @@
     </modules>
 
     <properties>
+        <mavenDependencyPlugin>3.0.2</mavenDependencyPlugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <jacocoVersion>0.7.9</jacocoVersion>
         <testngVersion>6.11</testngVersion>
         <assertJVersion>3.8.0</assertJVersion>
@@ -31,6 +31,9 @@
         <mavenCompilerVersion>3.6.2</mavenCompilerVersion>
         <mavenReportsVersion>2.9</mavenReportsVersion>
         <mavenJarVersion>3.0.2</mavenJarVersion>
+        <javaVersion>1.8</javaVersion>
+        <mavenJarPlugin>3.0.2</mavenJarPlugin>
+        <mavenEnforcerPlugin>1.4</mavenEnforcerPlugin>
         <!--maven.compiler.source>1.8</maven.compiler.source-->
     </properties>
 
@@ -39,7 +42,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4</version>
+                <version>${mavenEnforcerPlugin}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -55,10 +58,10 @@
                                     </excludes>
                                 </bannedPlugins>
                                 <requireMavenVersion>
-                                    <version>2.0.6</version>
+                                    <version>${mavenCompilerVersion}</version>
                                 </requireMavenVersion>
                                 <requireJavaVersion>
-                                    <version>1.8</version>
+                                    <version>${javaVersion}</version>
                                 </requireJavaVersion>
                                 <requireOS>
                                     <family>unix</family>
@@ -73,14 +76,14 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavenCompilerVersion}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${javaVersion}</source>
+                    <target>${javaVersion}</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version> <!-- to properties -->
+                <version>${mavenJarPlugin}</version> <!-- to properties -->
                 <configuration>
                     <archive>
                         <manifest>
@@ -117,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>${mavenDependencyPlugin}</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
