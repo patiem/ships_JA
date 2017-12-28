@@ -5,7 +5,9 @@ import fleet.Fleet;
 import json.CustomerJsonParser;
 import json.InitMessage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.*;
 
@@ -14,15 +16,15 @@ public class PlayerTracker {
     private Deque<PlayerClient> players = new ArrayDeque<>();
     private MessageReceiver messageReceiver = new MessageReceiver();
 
-
     void registerPlayer(Socket socket) {
         final String playerIsConnected = "CON";
 
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
             String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-            System.out.println(gameStartingObjectAsString); //TODO: change to Logger
+            System.out.println(gameStartingObjectAsString);
             CustomerJsonParser jsonParser = new CustomerJsonParser();
             InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
             Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
@@ -30,14 +32,11 @@ public class PlayerTracker {
 
             addPlayer(playerClient);
             playerClient.sendMessageToPlayer(playerIsConnected);
-            System.out.println("PlayerClient added: " + playerClient.getName()); //TODO: change to Logger
-
-
+            System.out.println("PlayerClient added: " + playerClient.getName());
         } catch (IOException e) {
-            e.printStackTrace(); //TODO: add ExceptionHandling
+            e.printStackTrace();
         }
     }
-
 
     public void sendMessageToCurrentPlayer(String message) {
         players.peekFirst().sendMessageToPlayer(message);
@@ -55,7 +54,6 @@ public class PlayerTracker {
         return players.peekLast().getFleet();
     }
 
-
     public void switchPlayers() {
         PlayerClient current = players.pollFirst();
         players.addLast(current);
@@ -63,10 +61,6 @@ public class PlayerTracker {
 
     public String currentPlayerName() {
         return players.peekFirst().getName();
-    }
-
-    public PlayerClient getCurrentPlayerClient() {
-        return players.peekFirst();
     }
 }
 

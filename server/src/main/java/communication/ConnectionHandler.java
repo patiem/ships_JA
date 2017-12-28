@@ -12,7 +12,7 @@ class ConnectionHandler {
 
     private PlayerTracker playerTracker = new PlayerTracker();
 
-    void acceptConnections(ServerSocket serverSocket) {
+    void acceptConnections(final ServerSocket serverSocket) {
         try {
             acceptPlayer(serverSocket);
             acceptPlayer(serverSocket);
@@ -30,7 +30,7 @@ class ConnectionHandler {
         gameRunner.runGame();
     }
 
-    private void acceptPlayer(ServerSocket serverSocket) throws IOException {
+    private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         playerTracker.registerPlayer(socket);
     }

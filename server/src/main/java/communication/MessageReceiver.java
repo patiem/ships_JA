@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class MessageReceiver {
 
-    public String receiveMessage(BufferedReader bufferedReader) {
+    public String receiveMessage(final BufferedReader bufferedReader) {
         try {
             return bufferedReader.readLine();
         } catch (IOException e) {
