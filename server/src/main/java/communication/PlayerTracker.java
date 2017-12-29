@@ -1,14 +1,18 @@
 package communication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fleet.CustomFleet;
 import fleet.Fleet;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Deque;
-import json.CustomerJsonParser;
+
+import json.JsonParserAdapter;
 import json.InitMessage;
 
 public class PlayerTracker {
@@ -21,12 +25,12 @@ public class PlayerTracker {
 
     try {
       BufferedReader reader = new BufferedReader(
-          new InputStreamReader(socket.getInputStream(), "UTF-8"));
+          new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 
       String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
       System.out.println(gameStartingObjectAsString);
-      CustomerJsonParser jsonParser = new CustomerJsonParser();
-      InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+      JsonParserAdapter jsonParser = new JsonParserAdapter();
+      InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
       Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
       PlayerClient playerClient = new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
 

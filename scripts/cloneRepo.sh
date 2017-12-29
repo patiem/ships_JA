@@ -1,8 +1,11 @@
 #!/bin/bash
 
+
+
 set -e
 echo so it begins....
 DIR=$1
+cd ~
 mkdir $DIR
 echo Dir parameter
 git clone https://github.com/patiem/ships_JA $DIR
@@ -20,7 +23,7 @@ mvn site site:stage
 firefox $PWD/target/site/index.html
 
 
-# show estimates + raports
+# show estimates + reports
 echo 'Number of tests:' 
 grep -roh @Test . | wc -w
 

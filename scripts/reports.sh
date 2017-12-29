@@ -2,6 +2,8 @@
 # Created by Pati Mikulska
 # Shows some numbers for Tomek
 
+echo "Numbers for Tomek \n"
+
 echo 'Number of tests:'
 grep -roh @Test . | wc -w
 
