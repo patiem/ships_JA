@@ -3,7 +3,10 @@ package engine;
 import communication.PlayerTracker;
 import fleet.Fleet;
 
+import java.util.logging.Logger;
+
 public class GameRunner {
+  private static final Logger LOGGER = Logger.getLogger(GameRunner.class.getName());
 
   private final Round round;
   private final PlayerTracker playerTracker;
@@ -46,6 +49,6 @@ public class GameRunner {
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {
     String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s",
         playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
-    System.out.println(logMessage);
+    LOGGER.info(logMessage);
   }
 }

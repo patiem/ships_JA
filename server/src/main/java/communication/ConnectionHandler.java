@@ -6,8 +6,12 @@ import engine.Round;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 class ConnectionHandler {
+  private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
 
   private PlayerTracker playerTracker = new PlayerTracker();
 
@@ -17,7 +21,7 @@ class ConnectionHandler {
       acceptPlayer(serverSocket);
 
     } catch (IOException e) {
-      e.printStackTrace(); //LOGER
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
 
     createGame();

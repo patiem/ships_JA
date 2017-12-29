@@ -14,9 +14,9 @@ public class MessageSenderTest {
   @DataProvider(name = "messages to send")
   public static Object[] messagesToSend() {
     return new Object[] {
-        LanguageVersion.CONFIRM_CONNECTION,
-        LanguageVersion.WAIT_FOR_SECOND_PLAYER,
-        LanguageVersion.FLEET_RECEIVED
+        "You are connected",
+        "You're first PlayerClient.",
+        "Server received your fleet"
     };
   }
 

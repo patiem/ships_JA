@@ -18,7 +18,7 @@ public class StartBoardController implements Initializable {
   @FXML
   private TextField ipNumber;
 
-  public StartBoardController(Client client) {
+  StartBoardController(Client client) {
     this.client = client;
   }
 

@@ -22,9 +22,6 @@ public class StartBoard extends Application {
   static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
   static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
-
-
-
   private final Client client = new Client();
   private MessageReactor reactor;
   private Stage stage;
@@ -101,6 +98,7 @@ public class StartBoard extends Application {
   private void addNextButtonToBuildBoard(Scene playScene, AnchorPane buildBoard) {
     Button buttonNext = new Button("Next");
     buttonNext.setDisable(true);
+    buttonNext.setVisible(false);
     buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
       stage.setScene(playScene);
     });
