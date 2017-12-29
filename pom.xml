@@ -26,7 +26,6 @@
         <assertJVersion>3.8.0</assertJVersion>
         <mockitoVersion>1.10.19</mockitoVersion>
         <jacksonVersion>2.9.3</jacksonVersion>
-        <jacksonDatabindVersion>2.9.3</jacksonDatabindVersion>
         <findbugsVersion>3.0.5</findbugsVersion>
         <checkstyleVersion>2.17</checkstyleVersion>
         <mavenjxrVersion>2.3</mavenjxrVersion>
