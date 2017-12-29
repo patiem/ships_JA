@@ -2,7 +2,6 @@ package communication;
 
 import engine.GameRunner;
 import engine.Round;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
