@@ -16,15 +16,16 @@
     </modules>
 
     <properties>
-        <mavenDependencyPlugin>3.0.2</mavenDependencyPlugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
+        <utilsModuleVersion>1.5</utilsModuleVersion>
+        <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <jacocoVersion>0.7.9</jacocoVersion>
         <testngVersion>6.11</testngVersion>
         <assertJVersion>3.8.0</assertJVersion>
         <mockitoVersion>1.10.19</mockitoVersion>
         <jacksonVersion>2.9.3</jacksonVersion>
-        <jacksonDatabindVersion>2.9.3</jacksonDatabindVersion>
-        <jsonVersion>20151123</jsonVersion>
         <findbugsVersion>3.0.5</findbugsVersion>
         <checkstyleVersion>2.17</checkstyleVersion>
         <mavenjxrVersion>2.3</mavenjxrVersion>
@@ -33,16 +34,18 @@
         <mavenJarVersion>3.0.2</mavenJarVersion>
         <javaVersion>1.8</javaVersion>
         <mavenJarPlugin>3.0.2</mavenJarPlugin>
-        <mavenEnforcerPlugin>1.4</mavenEnforcerPlugin>
+        <mavenEnforcerPluginVersion>1.4</mavenEnforcerPluginVersion>
         <enforcedMavenVersion>2.0</enforcedMavenVersion>
-        <!--maven.compiler.source>1.8</maven.compiler.source-->
+        <sonarSourceVersion>3.4.0.905</sonarSourceVersion>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${mavenEnforcerPlugin}</version>
+                <version>${mavenEnforcerPluginVersion}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -76,15 +79,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavenCompilerVersion}</version>
-                <configuration>
-                    <source>${javaVersion}</source>
-                    <target>${javaVersion}</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${mavenJarPlugin}</version> <!-- to properties -->
+                <version>${mavenJarPlugin}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -110,8 +109,8 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
+                        <id>jacoco-verify</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -121,7 +120,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>${mavenDependencyPlugin}</version>
+                <version>${mavenDependencyPluginVersion}</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
@@ -137,6 +136,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonarSourceVersion}</version>
             </plugin>
         </plugins>
     </build>
@@ -193,6 +197,18 @@
                 <configuration>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacocoVersion}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
         </plugins>
     </reporting>
