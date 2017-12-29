@@ -44,6 +44,4 @@ public class MessageReactor {
   public void putObserverTextFieldForConnection(TextField textField) {
     this.textField = textField;
   }
-
-
 }

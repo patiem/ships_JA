@@ -5,7 +5,6 @@ public interface Field {
   Integer SIZE = 30;
 
   int getColumn();
-
   int getRow();
 
   default Position position() {

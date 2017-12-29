@@ -1,11 +1,12 @@
 package starting;
 
 import connection.Client;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 public class StartBoardController implements Initializable {
@@ -24,10 +25,10 @@ public class StartBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    String userName = "Your name";
-    this.userName.setText(userName);
-    String ipNumber = "localhost";
-    this.ipNumber.setText(ipNumber);
-    client.setup(ipNumber);
+    String name = "Your name";
+    this.userName.setText(name);
+    String localhost = "localhost";
+    this.ipNumber.setText(localhost);
+    client.setup(localhost);
   }
 }

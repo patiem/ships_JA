@@ -1,7 +1,6 @@
 package starting;
 
 import javafx.event.Event;
-import javafx.event.EventTarget;
 import javafx.event.EventType;
 
 public class ConnectEvent extends Event {

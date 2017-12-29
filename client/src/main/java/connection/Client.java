@@ -1,23 +1,25 @@
 package connection;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client {
 
-  private static final Integer port = 5000;
+  private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+  private static final Integer PORT = 5000;
 
-  private Connector connector;
   private Sender out;
   private Receiver in;
   private String host;
 
   public void run() {
     try {
-      connector = SocketConnector.from(host, port);
+      Connector connector = SocketConnector.from(host, PORT);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
@@ -28,7 +30,6 @@ public class Client {
   public void sendMessage(String message) {
     out.sendMessage(message);
   }
-
 
   public String getMessage() {
     return in.readMessage();
