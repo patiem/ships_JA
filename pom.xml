@@ -16,8 +16,10 @@
     </modules>
 
     <properties>
-        <mavenDependencyPlugin>3.0.2</mavenDependencyPlugin>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
+        <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <jacocoVersion>0.7.9</jacocoVersion>
         <testngVersion>6.11</testngVersion>
         <assertJVersion>3.8.0</assertJVersion>
@@ -33,7 +35,7 @@
         <mavenJarVersion>3.0.2</mavenJarVersion>
         <javaVersion>1.8</javaVersion>
         <mavenJarPlugin>3.0.2</mavenJarPlugin>
-        <mavenEnforcerPlugin>1.4</mavenEnforcerPlugin>
+        <mavenEnforcerPluginVersion>1.4</mavenEnforcerPluginVersion>
         <enforcedMavenVersion>2.0</enforcedMavenVersion>
         <!--maven.compiler.source>1.8</maven.compiler.source-->
     </properties>
@@ -42,7 +44,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${mavenEnforcerPlugin}</version>
+                <version>${mavenEnforcerPluginVersion}</version>
                 <executions>
                     <execution>
                         <id>enforce-versions</id>
@@ -121,7 +123,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>${mavenDependencyPlugin}</version>
+                <version>${mavenDependencyPluginVersion}</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
