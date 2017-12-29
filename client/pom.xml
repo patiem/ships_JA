@@ -35,4 +35,10 @@
             <version>1.5</version>
         </dependency>
     </dependencies>
+
+    <description>
+        Module client contains:
+        - client classes for establishing the connection
+        - graphical user interface classes
+    </description>
 </project>
