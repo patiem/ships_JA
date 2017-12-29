@@ -4,10 +4,13 @@
 # The script automatically adjusts to the downloaded jar file version
 
 set -e
+cd ..
 mvn clean install -q
 echo "Server has been intalled, server launch in progress"
-java -jar ./server/target/server*.jar &
+cd scripts
+sh launchserver.sh
 echo "Server started, launching the 1st client"
-java -jar ./client/target/client*.jar &
+sh launchClient.sh
 echo "Launching the 2nd client"
-java -jar ./client/target/client*.jar &
+sh launchClient.sh
+echo "Second client launched"
