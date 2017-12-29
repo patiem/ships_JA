@@ -1,27 +1,8 @@
 #!/bin/bash
+# Created by Pati Mikulska
+# Shows some numbers for Tomek
 
-set -e
-echo so it begins....
-DIR=$1
-mkdir $DIR
-echo Dir parameter
-git clone https://github.com/patiem/ships_JA $DIR
-echo repo cloned
-
-cd $DIR
-mvn clean install
-echo 'tests and install'
-mvn checkstyle:checkstyle
-
-echo checkstyle report generated
-ls
-# mvn site
-mvn site site:stage
-firefox $PWD/target/site/index.html
-
-
-# show estimates + raports
-echo 'Number of tests:' 
+echo 'Number of tests:'
 grep -roh @Test . | wc -w
 
 echo 'Commits on master:'
@@ -44,7 +25,3 @@ grep -r '(.*).*{$' --include=\*.java | grep -v "class\|enum\|interface\|test\|ne
 
 echo 'Number of packages:'
 find -path '*/java/*' -type d | wc -l
-
-
-
-
