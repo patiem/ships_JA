@@ -1,6 +1,9 @@
 #!/bin/bash
 
-
+if [[ $# -eq 0 ]] ; then
+    echo 'Provide catalogue name after script name. Your repo will be cloned to ~/<catalogueName>'
+    exit 0
+fi
 
 set -e
 echo so it begins....
