@@ -3,8 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import javafx.scene.input.MouseEvent;
 
+import javafx.scene.input.MouseEvent;
 
 public class Sea {
 
@@ -23,19 +23,17 @@ public class Sea {
     Optional<SeaField> field = wholeSea.stream()
         .filter(s -> s.position().equals(position))
         .findFirst();
-    return field.get();
+
+    return field.orElseThrow(IndexOutOfBoundsException::new);
   }
 
   public void clearSea() {
-    wholeSea.stream()
-        .forEach(s -> s.removeEventHandler(MouseEvent.MOUSE_CLICKED, s.makeReadyToClick));
-    wholeSea.stream()
-        .forEach(s -> s.reset());
+    wholeSea.forEach(s -> s.removeEventHandler(MouseEvent.MOUSE_CLICKED, s.makeReadyToClick));
+    wholeSea.forEach(SeaField::reset);
   }
 
   public void makeBoundaries(Ship lastShip) {
     lastShip.calculateShipBoundariesPositions()
-        .stream()
         .forEach(m -> getSeaFieldByPosition(m).setIsMarkedAsBound(true));
   }
 }
