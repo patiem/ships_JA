@@ -11,11 +11,14 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import json.InitMessage;
 import json.JsonParserAdapter;
 
 public class PlayerTracker {
+  private static final Logger LOGGER = Logger.getLogger(PlayerTracker.class.getName());
 
   private Deque<PlayerClient> players = new ArrayDeque<>();
   private MessageReceiver messageReceiver = new MessageReceiver();
@@ -28,7 +31,7 @@ public class PlayerTracker {
           new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
 
       String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-      System.out.println(gameStartingObjectAsString);
+      LOGGER.info(gameStartingObjectAsString);
       JsonParserAdapter jsonParser = new JsonParserAdapter();
       InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
       Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
@@ -36,9 +39,9 @@ public class PlayerTracker {
 
       addPlayer(playerClient);
       playerClient.sendMessageToPlayer(playerIsConnected);
-      System.out.println("PlayerClient added: " + playerClient.getName());
+      LOGGER.info("PlayerClient added: " + playerClient.getName());
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 

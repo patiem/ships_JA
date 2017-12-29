@@ -9,11 +9,13 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PlayerClient {
+  private static final Logger LOGGER = Logger.getLogger(PlayerClient.class.getName());
 
   private final BufferedReader reader;
-
   private final Socket socket;
   private final Fleet fleet;
   private final String playerName;
@@ -44,7 +46,7 @@ public class PlayerClient {
       writer.flush();
 
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
