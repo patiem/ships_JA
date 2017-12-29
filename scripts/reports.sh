@@ -23,7 +23,7 @@ echo 'Number of private APIs:'
 grep -r 'private ' --include=\*.java | grep -v "class\|enum\|interface\|test\|new" | grep '(.*).*{$' | wc -l
 
 echo 'Number of package private APIs:'
-grep -r '(.*).*{$' --include=\*.java | grep -v "class\|enum\|interface\|test\|new\|public\|private\|if\|else\|for\|while\|catch\|default\|switch"
+grep -r '(.*).*{$' --include=\*.java | grep -v "class\|enum\|interface\|test\|new\|public\|private\|if\|else\|for\|while\|catch\|default\|switch" | wc -l
 
 echo 'Number of packages:'
 find -path '*/java/*' -type d | wc -l
