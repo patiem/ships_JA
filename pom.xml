@@ -19,6 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
+        <projectVersiom>1.5</projectVersiom>
         <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <jacocoVersion>0.7.9</jacocoVersion>
         <testngVersion>6.11</testngVersion>
@@ -26,7 +27,6 @@
         <mockitoVersion>1.10.19</mockitoVersion>
         <jacksonVersion>2.9.3</jacksonVersion>
         <jacksonDatabindVersion>2.9.3</jacksonDatabindVersion>
-        <jsonVersion>20151123</jsonVersion>
         <findbugsVersion>3.0.5</findbugsVersion>
         <checkstyleVersion>2.17</checkstyleVersion>
         <mavenjxrVersion>2.3</mavenjxrVersion>
@@ -79,10 +79,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavenCompilerVersion}</version>
-                <!--configuration>
-                    <source>${javaVersion}</source>
-                    <target>${javaVersion}</target>
-                </configuration-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
