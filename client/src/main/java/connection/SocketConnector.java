@@ -7,21 +7,14 @@ import java.net.Socket;
 
 public class SocketConnector implements Connector {
 
-  private static final String LOCALHOST = "localhost";
-  private static final Integer PORT = 5000;
-
   private final Socket socket;
 
-  public SocketConnector(Socket socket) {
+  private SocketConnector(Socket socket) {
     this.socket = socket;
   }
 
   public static SocketConnector from(String host, Integer port) throws IOException {
     return new SocketConnector(new Socket(host, port));
-  }
-
-  public static Connector fromLocalhost() throws IOException {
-    return new SocketConnector(new Socket(LOCALHOST, PORT));
   }
 
   @Override

@@ -7,7 +7,7 @@ public class BoundariesPosition {
 
   private Mast mast;
 
-  public BoundariesPosition(Mast mast) {
+  BoundariesPosition(Mast mast) {
     this.mast = mast;
   }
 

@@ -15,8 +15,4 @@ public class ConnectEvent extends Event {
     super(CONNECT);
     message = s;
   }
-
-  public ConnectEvent(Object source, EventTarget target) {
-    super(source, target, CONNECT);
-  }
 }

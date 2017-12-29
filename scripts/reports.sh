@@ -2,13 +2,13 @@
 # Created by Pati Mikulska
 # Shows some numbers for Tomek
 
-echo "Numbers for Tomek \n"
+echo "Numbers for Boss"
 
 echo 'Number of tests:'
 mvn test | grep elapsed | grep -oP 'run: \K[0-9]*' | paste -s -d+ - | bc
 
 echo 'Commits on master:'
-git log --oneline | wc -l
+git rev-list HEAD --count
 
 echo 'Number of interfaces:'
 grep -roh 'public interface' --include=\*.java | wc -l
