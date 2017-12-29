@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.javacademy</groupId>
     <artifactId>statki</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.5</version>
     <url>https://github.com/patiem/ships_JA</url>
 
     <modules>
@@ -17,36 +17,72 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.targetEncoding>UTF-8</project.build.targetEncoding>
+        <utilsModuleVersion>1.5</utilsModuleVersion>
+        <mavenDependencyPluginVersion>3.0.2</mavenDependencyPluginVersion>
         <jacocoVersion>0.7.9</jacocoVersion>
         <testngVersion>6.11</testngVersion>
         <assertJVersion>3.8.0</assertJVersion>
         <mockitoVersion>1.10.19</mockitoVersion>
         <jacksonVersion>2.9.3</jacksonVersion>
-        <jacksonDatabindVersion>2.9.3</jacksonDatabindVersion>
-        <jsonVersion>20151123</jsonVersion>
         <findbugsVersion>3.0.5</findbugsVersion>
         <checkstyleVersion>2.17</checkstyleVersion>
         <mavenjxrVersion>2.3</mavenjxrVersion>
         <mavenCompilerVersion>3.6.2</mavenCompilerVersion>
         <mavenReportsVersion>2.9</mavenReportsVersion>
         <mavenJarVersion>3.0.2</mavenJarVersion>
+        <javaVersion>1.8</javaVersion>
+        <mavenJarPlugin>3.0.2</mavenJarPlugin>
+        <mavenEnforcerPluginVersion>1.4</mavenEnforcerPluginVersion>
+        <enforcedMavenVersion>2.0</enforcedMavenVersion>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${mavenEnforcerPluginVersion}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedPlugins>
+                                    <level>WARN</level>
+                                    <excludes>
+                                        <exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+                                        <exclude>org.codehaus.mojo:findbugs-maven-plugin</exclude>
+                                    </excludes>
+                                </bannedPlugins>
+                                <requireMavenVersion>
+                                    <version>${enforcedMavenVersion}</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${javaVersion}</version>
+                                </requireJavaVersion>
+                                <requireOS>
+                                    <family>unix</family>
+                                </requireOS>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${mavenCompilerVersion}</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>${mavenJarPlugin}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -83,7 +119,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>${mavenDependencyPluginVersion}</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
@@ -100,7 +136,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 
@@ -140,6 +175,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyleVersion}</version>
+                <configuration>
+                    <configLocation>google_checks.xml</configLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -164,4 +202,5 @@
             <url>file://${basedir}/target</url>
         </site>
     </distributionManagement>
+    <!-- pluginMenagment -->
 </project>

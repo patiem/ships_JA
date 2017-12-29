@@ -5,32 +5,32 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class SocketConnector implements Connector{
+public class SocketConnector implements Connector {
 
-    private static final String LOCALHOST = "localhost";
-    private static final Integer PORT = 5000;
+  private static final String LOCALHOST = "localhost";
+  private static final Integer PORT = 5000;
 
-    private final Socket socket;
+  private final Socket socket;
 
-    public static SocketConnector from(String host, Integer port) throws IOException {
-        return new SocketConnector(new Socket(host, port));
-    }
+  public SocketConnector(Socket socket) {
+    this.socket = socket;
+  }
 
-    public static Connector fromLocalhost() throws IOException {
-        return new SocketConnector(new Socket(LOCALHOST, PORT));
-    }
+  public static SocketConnector from(String host, Integer port) throws IOException {
+    return new SocketConnector(new Socket(host, port));
+  }
 
-    public SocketConnector(Socket socket) {
-        this.socket = socket;
-    }
+  public static Connector fromLocalhost() throws IOException {
+    return new SocketConnector(new Socket(LOCALHOST, PORT));
+  }
 
-    @Override
-    public OutputStream getOutStream() throws IOException {
-        return socket.getOutputStream();
-    }
+  @Override
+  public OutputStream getOutStream() throws IOException {
+    return socket.getOutputStream();
+  }
 
-    @Override
-    public InputStream getInStream() throws IOException {
-        return socket.getInputStream();
-    }
+  @Override
+  public InputStream getInStream() throws IOException {
+    return socket.getInputStream();
+  }
 }

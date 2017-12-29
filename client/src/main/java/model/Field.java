@@ -1,18 +1,19 @@
 package model;
 
 public interface Field {
-    
-    Integer SIZE = 30;
 
-    int getColumn();
-    int getRow();
+  Integer SIZE = 30;
 
-    default Position position() {
-        return new Position(getColumn(), getRow());
-    }
+  int getColumn();
 
-    default Integer positionAsInteger(){
-        int numberOfColumns = 10;
-        return  getColumn() + getRow() * numberOfColumns;
-    }
+  int getRow();
+
+  default Position position() {
+    return new Position(getColumn(), getRow());
+  }
+
+  default Integer positionAsInteger() {
+    int numberOfColumns = 10;
+    return getColumn() + getRow() * numberOfColumns;
+  }
 }

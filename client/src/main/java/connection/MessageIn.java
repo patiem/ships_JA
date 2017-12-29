@@ -1,36 +1,31 @@
 package connection;
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class MessageIn implements Receiver {
 
-    private final BufferedReader scanner;
+  private final BufferedReader scanner;
 
-    static MessageIn from(Connector connector) throws IOException {
-        return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream())));
+  static MessageIn from(Connector connector) throws IOException {
+    return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream(), StandardCharsets.UTF_8)));
+  }
+
+  private MessageIn(BufferedReader scanner) {
+    this.scanner = scanner;
+  }
+
+  @Override
+  public String readMessage() {
+    try {
+      String message = scanner.readLine();
+      System.out.println(message);
+      return message;
+    } catch (IOException e) {
+      e.printStackTrace(); //TODO: add exception handler
     }
-
-    private MessageIn(BufferedReader scanner) {
-        this.scanner = scanner;
-    }
-
-    @Override
-    public String readMessage() {
-        try {
-            String message = scanner.readLine();
-            System.out.println(message);
-            return message;
-        } catch (IOException e) {
-            e.printStackTrace(); //TODO: add exception handler
-        }
-        return "";
-    }
-
-    @Override
-    public void distributeMessage() {
-
-    }
+    return "";
+  }
 }

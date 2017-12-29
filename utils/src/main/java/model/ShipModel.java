@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShipModel {
-    private final int numberOfMasts;
-    private final List<Integer> fields = new ArrayList<>();
+  private final int numberOfMasts;
+  private final List<Integer> fields = new ArrayList<>();
 
-    @JsonCreator
-    public ShipModel(@JsonProperty("fields") List<Integer> fields){
-        this.fields.addAll(fields);
-        this.numberOfMasts = this.fields.size();
+  @JsonCreator
+  public ShipModel(@JsonProperty("fields") List<Integer> fields) {
+    this.fields.addAll(fields);
+    this.numberOfMasts = this.fields.size();
 
-    }
+  }
 
-    @JsonProperty("numberOfMasts")
-    public int getNumberOfMasts(){
-        return numberOfMasts;
-    }
+  @JsonProperty("numberOfMasts")
+  public int getNumberOfMasts() {
+    return numberOfMasts;
+  }
 
-    @JsonProperty("fields")
-    public List<Integer> getFields(){
-        return fields;
-    }
+  @JsonProperty("fields")
+  public List<Integer> getFields() {
+    return fields;
+  }
 }

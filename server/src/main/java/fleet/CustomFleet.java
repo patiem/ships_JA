@@ -1,34 +1,34 @@
 package fleet;
 
+import java.util.ArrayList;
+import java.util.List;
 import model.FleetModel;
 import model.ShipModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class CustomFleet implements Fleet {
-    private final List<ShipModel> ships;
-    private final List<Integer> fleetPositions;
-    private final List<Integer> hitFields;
+  private final List<ShipModel> ships;
+  private final List<Integer> fleetPositions;
+  private final List<Integer> hitFields;
 
-    public CustomFleet(FleetModel fleetModel) {
-        this.ships = new ArrayList<>(fleetModel.getShips());
-        fleetPositions = new ArrayList<>();
-        hitFields = new ArrayList<>();
+  public CustomFleet(final FleetModel fleetModel) {
+    this.ships = new ArrayList<>(fleetModel.getShips());
+    fleetPositions = new ArrayList<>();
+    hitFields = new ArrayList<>();
 
-    }
+  }
 
-    public List<Integer> getFleetPositions() {
-        ships.forEach(ship -> fleetPositions.addAll(ship.getFields()));
+  public List<Integer> getFleetPositions() {
+    ships.forEach(ship -> fleetPositions.addAll(ship.getFields()));
 
-        return fleetPositions;
-    }
+    return fleetPositions;
+  }
 
-    public void hit(int position) {
-        hitFields.add(position);
-    }
+  public void hit(final int position) {
+    hitFields.add(position);
+  }
 
-    public List<Integer> getHitFields() {
-        return hitFields;
-    }
+  public List<Integer> getHitFields() {
+    return hitFields;
+  }
 }

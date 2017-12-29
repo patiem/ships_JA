@@ -4,13 +4,13 @@ import java.util.List;
 
 public interface Fleet {
 
-    List<Integer> getFleetPositions();
+  List<Integer> getFleetPositions();
 
-    void hit(int position);
+  void hit(int position);
 
-    List<Integer> getHitFields();
+  List<Integer> getHitFields();
 
-    default boolean isSunk() {
-        return getHitFields().containsAll(getFleetPositions());
-    }
+  default boolean isSunk() {
+    return getHitFields().containsAll(getFleetPositions());
+  }
 }
