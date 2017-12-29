@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 class ConnectionHandler {
 
   private PlayerTracker playerTracker = new PlayerTracker();
