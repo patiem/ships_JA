@@ -12,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import json.JsonParserAdapter;
 import json.InitMessage;
+import json.JsonParserAdapter;
 
 public class PlayerTracker {
 

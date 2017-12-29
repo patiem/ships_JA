@@ -18,7 +18,7 @@ public class PlayerClient {
   private final Fleet fleet;
   private final String playerName;
 
-  public PlayerClient(String playerName, Socket socket, BufferedReader reader, Fleet playerFleet) {
+  PlayerClient(String playerName, Socket socket, BufferedReader reader, Fleet playerFleet) {
     this.playerName = playerName;
     this.socket = socket;
     this.fleet = playerFleet;
@@ -33,11 +33,10 @@ public class PlayerClient {
     return fleet;
   }
 
-  public void sendMessageToPlayer(final String message) {
+  void sendMessageToPlayer(final String message) {
     try {
-      boolean autoFlush = false;
       OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8);
-      PrintWriter printWriter = new PrintWriter(outputStreamWriter, autoFlush);
+      PrintWriter printWriter = new PrintWriter(outputStreamWriter, false);
       BufferedWriter writer = new BufferedWriter(printWriter);
 
       writer.write(message);
@@ -49,7 +48,7 @@ public class PlayerClient {
     }
   }
 
-  public BufferedReader getReader() {
+  BufferedReader getReader() {
     return reader;
   }
 }
