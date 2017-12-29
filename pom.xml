@@ -34,44 +34,44 @@
         <javaVersion>1.8</javaVersion>
         <mavenJarPlugin>3.0.2</mavenJarPlugin>
         <mavenEnforcerPlugin>1.4</mavenEnforcerPlugin>
+        <enforcedMavenVersion>2.0</enforcedMavenVersion>
         <!--maven.compiler.source>1.8</maven.compiler.source-->
     </properties>
-
     <build>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-enforcer-plugin</artifactId>-->
-                <!--<version>${mavenEnforcerPlugin}</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>enforce-versions</id>-->
-                        <!--<goals>-->
-                            <!--<goal>enforce</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<rules>-->
-                                <!--<bannedPlugins>-->
-                                    <!--<level>WARN</level>-->
-                                    <!--<excludes>-->
-                                        <!--<exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>-->
-                                        <!--<exclude>org.codehaus.mojo:findbugs-maven-plugin</exclude>-->
-                                    <!--</excludes>-->
-                                <!--</bannedPlugins>-->
-                                <!--<requireMavenVersion>-->
-                                    <!--<version>${mavenCompilerVersion}</version>-->
-                                <!--</requireMavenVersion>-->
-                                <!--<requireJavaVersion>-->
-                                    <!--<version>${javaVersion}</version>-->
-                                <!--</requireJavaVersion>-->
-                                <!--<requireOS>-->
-                                    <!--<family>unix</family>-->
-                                <!--</requireOS>-->
-                            <!--</rules>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${mavenEnforcerPlugin}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedPlugins>
+                                    <level>WARN</level>
+                                    <excludes>
+                                        <exclude>org.apache.maven.plugins:maven-verifier-plugin</exclude>
+                                        <exclude>org.codehaus.mojo:findbugs-maven-plugin</exclude>
+                                    </excludes>
+                                </bannedPlugins>
+                                <requireMavenVersion>
+                                    <version>${enforcedMavenVersion}</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>${javaVersion}</version>
+                                </requireJavaVersion>
+                                <requireOS>
+                                    <family>unix</family>
+                                </requireOS>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
