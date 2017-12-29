@@ -16,7 +16,7 @@ The tests will be run upon launching the cloneRepo.sh script.
 
 ## Authors
 
-* **Patrycja Mikulska** 
-* **Emilia Ciastek** 
-* **Bartosz Pieczara** 
+* **Patrycja Mikulska - GUI** 
+* **Emilia Ciastek - Backend** 
+* **Bartosz Pieczara - Backend** 
 
