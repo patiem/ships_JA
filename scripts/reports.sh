@@ -5,7 +5,7 @@
 echo "Numbers for Tomek \n"
 
 echo 'Number of tests:'
-grep -roh @Test . | wc -w
+mvn test | grep elapsed | grep -oP 'run: \K[0-9]*' | paste -s -d+ - | bc
 
 echo 'Commits on master:'
 git log --oneline | wc -l
