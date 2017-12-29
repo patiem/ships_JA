@@ -34,4 +34,10 @@
             <version>1.5</version>
         </dependency>
     </dependencies>
+
+    <description>
+        Module server contains:
+        - server classes for establishing the connection
+        - game engine classes
+    </description>
 </project>
