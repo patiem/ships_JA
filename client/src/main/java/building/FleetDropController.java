@@ -1,6 +1,7 @@
 package building;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import java.net.URL;
 import java.util.Arrays;
@@ -24,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import json.CustomerJsonGenerator;
+import json.JsonGeneratorAdapter;
 import json.InitMessage;
 import model.BoundField;
 import model.Fleet;
@@ -127,9 +128,9 @@ public class FleetDropController implements Initializable {
     FleetMapper fleetMapper = new FleetMapper();
     FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
     InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
-    CustomerJsonGenerator jsonGenerator = new CustomerJsonGenerator();
+    JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
     try {
-      client.sendMessage(jsonGenerator.createJson(messageWithFleet));
+      client.sendMessage(jsonGenerator.createJson(messageWithFleet, new ObjectMapper()));
     } catch (JsonProcessingException e1) {
       e1.printStackTrace();
     }

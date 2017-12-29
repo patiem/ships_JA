@@ -1,5 +1,6 @@
 package communication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fleet.CustomFleet;
 import fleet.Fleet;
 
@@ -11,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import json.CustomerJsonParser;
+import json.JsonParserAdapter;
 import json.InitMessage;
 
 public class PlayerTracker {
@@ -28,8 +29,8 @@ public class PlayerTracker {
 
       String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
       System.out.println(gameStartingObjectAsString);
-      CustomerJsonParser jsonParser = new CustomerJsonParser();
-      InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class);
+      JsonParserAdapter jsonParser = new JsonParserAdapter();
+      InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
       Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
       PlayerClient playerClient = new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
 
