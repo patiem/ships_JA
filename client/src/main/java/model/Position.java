@@ -7,7 +7,7 @@ public class Position {
   private final Integer column;
   private final Integer row;
 
-  public Position(int posX, int posY) {
+  Position(int posX, int posY) {
     this.column = posX;
     this.row = posY;
   }
@@ -28,11 +28,11 @@ public class Position {
     return new Position(position.getColumn() - 1, position.getRow());
   }
 
-  public Integer getColumn() {
+  private Integer getColumn() {
     return column;
   }
 
-  public Integer getRow() {
+  private Integer getRow() {
     return row;
   }
 
