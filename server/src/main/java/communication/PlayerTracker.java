@@ -15,6 +15,11 @@ import java.util.Deque;
 import json.JsonParserAdapter;
 import json.InitMessage;
 
+/**
+ * It adds players to the game.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class PlayerTracker {
 
   private Deque<PlayerClient> players = new ArrayDeque<>();

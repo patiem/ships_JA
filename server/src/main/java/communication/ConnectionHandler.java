@@ -7,7 +7,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
+/**
+ * It establishes connections and creates the game object.
+ * @author Bartosz Pieczara
+ * @version 1.5
+ */
 class ConnectionHandler {
 
   private PlayerTracker playerTracker = new PlayerTracker();

@@ -5,7 +5,11 @@ import java.util.List;
 import model.FleetModel;
 import model.ShipModel;
 
-
+/**
+ * It holds information on player's fleet.
+ * @author Emilia Ciastek
+ * @version 1.5
+ */
 public class CustomFleet implements Fleet {
   private final List<ShipModel> ships;
   private final List<Integer> fleetPositions;

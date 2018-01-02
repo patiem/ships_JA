@@ -4,6 +4,11 @@ import communication.MessageReceiver;
 
 import java.io.BufferedReader;
 
+/**
+ * It reads data on the current shot.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class SocketShotReceiver implements ShotReceiver {
   private MessageReceiver messageReceiver = new MessageReceiver();
 

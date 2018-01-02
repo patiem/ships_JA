@@ -10,6 +10,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * It hold a player's name, selected fleet and socket used for communication.
+ * @author Bartosz Pieczara / Emilia Ciastek
+ * @version 1.5
+ */
 public class PlayerClient {
 
   private final BufferedReader reader;

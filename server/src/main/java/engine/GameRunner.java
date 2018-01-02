@@ -3,6 +3,11 @@ package engine;
 import communication.PlayerTracker;
 import fleet.Fleet;
 
+/**
+ * It creates the game events and notifies player accordingly.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class GameRunner {
 
   private final Round round;

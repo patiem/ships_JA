@@ -1,5 +1,10 @@
 package communication;
 
+/**
+ * It holds messages sent to the players in the appropriate language version.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class LanguageVersion {
 
   static final String CONFIRM_CONNECTION = "You are connected";
