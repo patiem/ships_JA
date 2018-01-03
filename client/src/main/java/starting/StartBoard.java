@@ -2,7 +2,6 @@ package starting;
 
 import building.FleetDropController;
 import connection.Client;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -16,21 +15,18 @@ import javafx.stage.Stage;
 import model.MessageReactor;
 import playing.PlayBoardController;
 
+import java.io.IOException;
+
 public class StartBoard extends Application {
 
   static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
   static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
   static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
-
-
-
   private final Client client = new Client();
   private MessageReactor reactor;
   private Stage stage;
-  private AnchorPane playBoard;
   private AnchorPane buildBoard;
-  private AnchorPane startBoard;
 
   public static void run(String[] args) {
     Application.launch(args);
@@ -66,9 +62,9 @@ public class StartBoard extends Application {
     StartBoardController startBoardController = new StartBoardController(client);
     FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
     startLoader.setController(startBoardController);
-    startBoard = startLoader.load();
-    startRoot.getChildren().addAll(startBoard);
-    addNextButtonToStartBoard(buildScene, startBoard);
+    AnchorPane startingBoard = startLoader.load();
+    startRoot.getChildren().addAll(startingBoard);
+    addNextButtonToStartBoard(buildScene, startingBoard);
   }
 
   private void createBuildBoard(Group buildRoot, Scene playScene, MessageReactor reactor) throws IOException {
@@ -84,7 +80,7 @@ public class StartBoard extends Application {
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
     PlayBoardController playBoardController = new PlayBoardController(client, reactor);
     playLoader.setController(playBoardController);
-    playBoard = playLoader.load();
+    AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
     reactor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
   }
@@ -101,9 +97,8 @@ public class StartBoard extends Application {
   private void addNextButtonToBuildBoard(Scene playScene, AnchorPane buildBoard) {
     Button buttonNext = new Button("Next");
     buttonNext.setDisable(true);
-    buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
-      stage.setScene(playScene);
-    });
+    buttonNext.setVisible(false);
+    buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> stage.setScene(playScene));
     VBox connectPanel = (VBox) buildBoard.lookup("#connectPanel");
     connectPanel.getChildren().add(buttonNext);
     reactor.putObserverButtonForConnection(buttonNext);

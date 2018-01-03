@@ -16,7 +16,7 @@ public class Ship {
   private int buildLength;
   private List<Integer> positions = new ArrayList<>();
 
-  public Ship(Mast mast, int shipLength) {
+  Ship(Mast mast, int shipLength) {
     this.shipLength = shipLength;
     masts = new Mast[this.shipLength];
     masts[0] = mast;
@@ -35,8 +35,8 @@ public class Ship {
     }
   }
 
-  public List<Position> possibleMastsPositions() {
-    return Arrays.stream(masts).map(m -> m.position()).collect(Collectors.toList());
+  private List<Position> possibleMastsPositions() {
+    return Arrays.stream(masts).map(Field::position).collect(Collectors.toList());
   }
 
   public Set<Position> calculateShipBoundariesPositions() {

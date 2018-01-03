@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It represents the fleet.
+ * @author Emilia Ciastek
+ * @version 1.5
+ */
 public class FleetModel {
 
   private final List<ShipModel> ships = new ArrayList<>();

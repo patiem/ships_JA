@@ -11,9 +11,7 @@ public class SeaField extends Rectangle implements Field {
   private final Integer column;
   private final Integer row;
   private SimpleBooleanProperty isMarkedAsMast;
-  EventHandler<MouseEvent> makeReadyToClick = event -> {
-    setIsMarkedAsMast(true);
-  };
+  EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
   private SimpleBooleanProperty isMarkedAsBound;
 
   public SeaField(int column, int row) {
@@ -54,20 +52,12 @@ public class SeaField extends Rectangle implements Field {
     return column + row * rowLength;
   }
 
-  public boolean isIsMarkedAsMast() {
-    return isMarkedAsMast.get();
-  }
-
-  public void setIsMarkedAsMast(boolean isMarkedAsMast) {
+  private void setIsMarkedAsMast(boolean isMarkedAsMast) {
     this.isMarkedAsMast.set(isMarkedAsMast);
   }
 
   public SimpleBooleanProperty isMarkedAsMastProperty() {
     return isMarkedAsMast;
-  }
-
-  public boolean isMarkedAsBound() {
-    return isMarkedAsBound.get();
   }
 
   public SimpleBooleanProperty isMarkedAsBoundProperty() {

@@ -36,8 +36,11 @@
         <mavenJarPlugin>3.0.2</mavenJarPlugin>
         <mavenEnforcerPluginVersion>1.4</mavenEnforcerPluginVersion>
         <enforcedMavenVersion>2.0</enforcedMavenVersion>
+        <sonarSourceVersion>3.4.0.905</sonarSourceVersion>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <jdependVersion>2.0</jdependVersion>
+        <javaDocVersion>2.10.4</javaDocVersion>
     </properties>
     <build>
         <plugins>
@@ -108,8 +111,8 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
+                        <id>jacoco-verify</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -135,6 +138,11 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonarSourceVersion}</version>
             </plugin>
         </plugins>
     </build>
@@ -171,6 +179,17 @@
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javaDocVersion}</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <show>public</show>
+                    <linksource>true</linksource>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -192,6 +211,25 @@
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacocoVersion}</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>${jdependVersion}</version>
+            </plugin>
+
         </plugins>
     </reporting>
 

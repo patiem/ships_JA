@@ -1,11 +1,16 @@
 package fleet;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.FleetModel;
 import model.ShipModel;
 
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * It holds information on player's fleet.
+ * @author Emilia Ciastek
+ * @version 1.5
+ */
 public class CustomFleet implements Fleet {
   private final List<ShipModel> ships;
   private final List<Integer> fleetPositions;
@@ -15,7 +20,6 @@ public class CustomFleet implements Fleet {
     this.ships = new ArrayList<>(fleetModel.getShips());
     fleetPositions = new ArrayList<>();
     hitFields = new ArrayList<>();
-
   }
 
   public List<Integer> getFleetPositions() {

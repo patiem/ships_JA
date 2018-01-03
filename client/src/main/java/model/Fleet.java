@@ -7,13 +7,13 @@ public class Fleet {
 
   private final List<Mast> masts;
   private final Sea sea;
-  private final List<Ship> fleet;
+  private final List<Ship> ships;
   private Ship shipThatIsBuild;
 
   public Fleet(Sea sea) {
     this.sea = sea;
     masts = new ArrayList<>();
-    fleet = new ArrayList<>();
+    ships = new ArrayList<>();
   }
 
   private void addFirstMastToFleet(Mast mast) {
@@ -24,7 +24,7 @@ public class Fleet {
     addFirstMastToFleet(mast);
     Ship ship = new Ship(mast, shipLength);
     shipThatIsBuild = ship;
-    fleet.add(ship);
+    ships.add(ship);
     createNewMast(mast);
   }
 
@@ -44,6 +44,6 @@ public class Fleet {
   }
 
   public List<Ship> getShips() {
-    return fleet;
+    return ships;
   }
 }

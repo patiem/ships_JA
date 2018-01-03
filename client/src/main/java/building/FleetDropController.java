@@ -3,10 +3,6 @@ package building;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
-import java.net.URL;
-import java.util.Arrays;
-import java.util.List;
-import java.util.ResourceBundle;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -16,32 +12,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import json.JsonGeneratorAdapter;
 import json.InitMessage;
-import model.BoundField;
-import model.Fleet;
-import model.FleetMapper;
-import model.FleetModel;
-import model.Mast;
-import model.MessageReactor;
-import model.Sea;
-import model.SeaField;
+import json.JsonGeneratorAdapter;
+import model.*;
+
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class FleetDropController implements Initializable {
 
+  private static final Logger LOGGER = Logger.getLogger(FleetDropController.class.getName());
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
-  private final Sea sea = new Sea();
+  private final Sea sea;
   private final Client client;
 
   @FXML
@@ -78,6 +71,7 @@ public class FleetDropController implements Initializable {
   private MessageReactor reactor;
 
   public FleetDropController(Client client, MessageReactor reactor) {
+    sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
@@ -131,8 +125,8 @@ public class FleetDropController implements Initializable {
     JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
     try {
       client.sendMessage(jsonGenerator.createJson(messageWithFleet, new ObjectMapper()));
-    } catch (JsonProcessingException e1) {
-      e1.printStackTrace();
+    } catch (JsonProcessingException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
@@ -160,9 +154,9 @@ public class FleetDropController implements Initializable {
       };
 
   private EventHandler<MouseEvent> makeShadowWhenMoveOver =
-      (MouseEvent e) -> {
+      (MouseEvent event) -> {
         DropShadow shadow = new DropShadow();
-        ((Rectangle) e.getSource()).setEffect(shadow);
+        ((Rectangle) event.getSource()).setEffect(shadow);
       };
 
   private EventHandler<MouseEvent> dragDetected =

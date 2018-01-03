@@ -2,13 +2,15 @@
 # Created by Pati Mikulska
 # Shows some numbers for Tomek
 
-echo "Numbers for Tomek \n"
+
+
+echo "Numbers for Boss"
 
 echo 'Number of tests:'
-grep -roh @Test . | wc -w
+mvn test | grep elapsed | grep -oP 'run: \K[0-9]*' | paste -s -d+ - | bc
 
 echo 'Commits on master:'
-git log --oneline | wc -l
+git rev-list HEAD --count
 
 echo 'Number of interfaces:'
 grep -roh 'public interface' --include=\*.java | wc -l
@@ -27,3 +29,7 @@ grep -r '(.*).*{$' --include=\*.java | grep -v "class\|enum\|interface\|test\|ne
 
 echo 'Number of packages:'
 find -path '*/java/*' -type d | wc -l
+
+echo 'Generating reports:'
+mvn clean install site site:stage
+firefox $PWD/target/site/modules.html

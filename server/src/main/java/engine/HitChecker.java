@@ -2,6 +2,11 @@ package engine;
 
 import fleet.Fleet;
 
+/**
+ * It checks if shots hit the target.
+ * @author Emilia Ciastek
+ * @version 1.5
+ */
 public class HitChecker {
 
   private Fleet fleet;

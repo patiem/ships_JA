@@ -7,7 +7,7 @@ public class Position {
   private final Integer column;
   private final Integer row;
 
-  public Position(int posX, int posY) {
+  Position(int posX, int posY) {
     this.column = posX;
     this.row = posY;
   }
@@ -28,23 +28,23 @@ public class Position {
     return new Position(position.getColumn() - 1, position.getRow());
   }
 
-  public Integer getColumn() {
+  private Integer getColumn() {
     return column;
   }
 
-  public Integer getRow() {
+  private Integer getRow() {
     return row;
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) {
+  public boolean equals(Object obj) {
+    if (this == obj) {
       return true;
     }
-    if (o == null || getClass() != o.getClass()) {
+    if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    Position position = (Position) o;
+    Position position = (Position) obj;
     return Objects.equals(column, position.column)
         && Objects.equals(row, position.row);
   }

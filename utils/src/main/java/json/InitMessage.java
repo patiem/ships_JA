@@ -4,6 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.FleetModel;
 
+/**
+ * It represents the initial message sent from GUI to the server.
+ * @author Emilia Ciastek/Bartosz Pieczara
+ * @version 1.5
+ */
 public class InitMessage {
 
 
