@@ -1,14 +1,15 @@
 package playing;
 
 import connection.Client;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.MessageReactor;
 import model.SeaField;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
 public class PlayBoardController implements Initializable {

@@ -2,6 +2,8 @@
 # Created by Pati Mikulska
 # Shows some numbers for Tomek
 
+
+
 echo "Numbers for Boss"
 
 echo 'Number of tests:'

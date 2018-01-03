@@ -20,7 +20,6 @@ public class CustomFleet implements Fleet {
     this.ships = new ArrayList<>(fleetModel.getShips());
     fleetPositions = new ArrayList<>();
     hitFields = new ArrayList<>();
-
   }
 
   public List<Integer> getFleetPositions() {

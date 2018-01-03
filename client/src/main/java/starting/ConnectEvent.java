@@ -10,8 +10,8 @@ public class ConnectEvent extends Event {
 
   String message;
 
-  public ConnectEvent(String s) {
+  public ConnectEvent(String someMessage) {
     super(CONNECT);
-    message = s;
+    message = someMessage;
   }
 }
