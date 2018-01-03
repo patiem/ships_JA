@@ -40,6 +40,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <jdependVersion>2.0</jdependVersion>
+        <javaDocVersion>2.10.4</javaDocVersion>
     </properties>
     <build>
         <plugins>
@@ -138,6 +139,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javaDocVersion}</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <show>public</show>
+                    <linksource>true</linksource>
+                </configuration>
+            </plugin>
+
+
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
