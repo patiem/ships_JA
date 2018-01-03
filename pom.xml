@@ -139,16 +139,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${javaDocVersion}</version>
-                <configuration>
-                    <quiet>true</quiet>
-                    <show>public</show>
-                    <linksource>true</linksource>
-                </configuration>
-            </plugin>
+
 
 
             <plugin>
@@ -189,6 +180,17 @@
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javaDocVersion}</version>
+                <configuration>
+                    <quiet>true</quiet>
+                    <show>public</show>
+                    <linksource>true</linksource>
                 </configuration>
             </plugin>
             <plugin>
