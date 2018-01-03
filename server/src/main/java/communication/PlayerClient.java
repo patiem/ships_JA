@@ -12,6 +12,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * It hold a player's name, selected fleet and socket used for communication.
+ * @author Bartosz Pieczara / Emilia Ciastek
+ * @version 1.5
+ */
 public class PlayerClient {
   private static final Logger LOGGER = Logger.getLogger(PlayerClient.class.getName());
 

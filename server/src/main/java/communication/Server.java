@@ -5,6 +5,12 @@ import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+/**
+ * It starts listening for connections on the specified port.
+ * @author Bartosz Pieczara
+ * @version 1.5
+ */
 public class Server {
 
   private static final int PORT = 5000;

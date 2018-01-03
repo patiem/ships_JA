@@ -8,7 +8,11 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * It establishes connections and creates the game object.
+ * @author Bartosz Pieczara
+ * @version 1.5
+ */
 class ConnectionHandler {
   private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
 

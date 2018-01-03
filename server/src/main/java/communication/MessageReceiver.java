@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * It receives messages from the players.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class MessageReceiver {
   private static final Logger LOGGER = Logger.getLogger(MessageReceiver.class.getName());
 

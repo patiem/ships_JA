@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 import json.InitMessage;
 import json.JsonParserAdapter;
 
+/**
+ * It adds players to the game.
+ * @author Bartosz Pieczara/Emilia Ciastek
+ * @version 1.5
+ */
 public class PlayerTracker {
   private static final Logger LOGGER = Logger.getLogger(PlayerTracker.class.getName());
 
