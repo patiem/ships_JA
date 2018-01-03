@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 public class Client {
 
   private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-  private static final Integer PORT = 5000;
+  private static final int PORT = 5000;
 
   private Sender out;
   private Receiver in;

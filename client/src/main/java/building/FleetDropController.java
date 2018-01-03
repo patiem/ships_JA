@@ -34,7 +34,7 @@ public class FleetDropController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(FleetDropController.class.getName());
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
-  private final Sea sea = new Sea();
+  private final Sea sea;
   private final Client client;
 
   @FXML
@@ -71,6 +71,7 @@ public class FleetDropController implements Initializable {
   private MessageReactor reactor;
 
   public FleetDropController(Client client, MessageReactor reactor) {
+    sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
