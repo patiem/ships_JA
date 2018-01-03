@@ -1,9 +1,10 @@
 package fleet;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.FleetModel;
 import model.ShipModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * It holds information on player's fleet.
