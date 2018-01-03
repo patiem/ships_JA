@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Ship {
+class Ship {
 
   private static final int START_SIZE = 1;
 
   private final Mast[] masts;
   private final int shipLength;
   private int buildLength;
-  private List<Integer> positions = new ArrayList<>();
+  private final List<Integer> positions = new ArrayList<>();
 
   Ship(Mast mast, int shipLength) {
     this.shipLength = shipLength;

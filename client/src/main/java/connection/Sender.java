@@ -1,5 +1,5 @@
 package connection;
 
-public interface Sender {
+interface Sender {
   void sendMessage(String message);
 }

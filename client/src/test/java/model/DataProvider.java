@@ -1,11 +1,9 @@
 package model;
 
-import java.io.IOException;
-
 public class DataProvider {
 
   @org.testng.annotations.DataProvider(name = "fieldsInside")
-  public static Object[][] scenarios() throws IOException {
+  public static Object[][] scenarios() {
 
     int startColumn = 2;
     int endColumn = 7;

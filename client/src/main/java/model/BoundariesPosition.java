@@ -3,9 +3,9 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoundariesPosition {
+class BoundariesPosition {
 
-  private Mast mast;
+  private final Mast mast;
 
   BoundariesPosition(Mast mast) {
     this.mast = mast;

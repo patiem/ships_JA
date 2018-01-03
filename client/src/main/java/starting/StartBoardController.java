@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class StartBoardController implements Initializable {
+class StartBoardController implements Initializable {
 
   private final Client client;
 

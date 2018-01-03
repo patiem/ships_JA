@@ -7,6 +7,6 @@ import java.io.BufferedReader;
  * @author Emilia Ciastek
  * @version 1.5
  */
-public interface ShotReceiver {
+interface ShotReceiver {
   Shot readShot(BufferedReader currentReader);
 }

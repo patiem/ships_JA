@@ -9,7 +9,7 @@ import fleet.Fleet;
  */
 public class HitChecker {
 
-  private Fleet fleet;
+  private final Fleet fleet;
 
   public HitChecker(final Fleet fleet) {
     this.fleet = fleet;

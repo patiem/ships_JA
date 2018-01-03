@@ -12,8 +12,8 @@ import model.FleetModel;
 public class InitMessage {
 
 
-  private String name;
-  private FleetModel fleetModel;
+  private final String name;
+  private final FleetModel fleetModel;
 
   @JsonCreator
   public InitMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {

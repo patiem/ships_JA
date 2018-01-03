@@ -10,9 +10,9 @@ public class SeaField extends Rectangle implements Field {
 
   private final Integer column;
   private final Integer row;
-  private SimpleBooleanProperty isMarkedAsMast;
-  EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
-  private SimpleBooleanProperty isMarkedAsBound;
+  private final SimpleBooleanProperty isMarkedAsMast;
+  final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
+  private final SimpleBooleanProperty isMarkedAsBound;
 
   public SeaField(int column, int row) {
     super(column, row, SIZE, SIZE);

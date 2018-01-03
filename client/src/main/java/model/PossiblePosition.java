@@ -1,6 +1,6 @@
 package model;
 
-public class PossiblePosition {
+class PossiblePosition {
 
   private final Mast mast;
   private final Sea sea;

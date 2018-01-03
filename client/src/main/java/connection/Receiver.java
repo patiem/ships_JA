@@ -1,5 +1,5 @@
 package connection;
 
-public interface Receiver {
+interface Receiver {
   String readMessage();
 }

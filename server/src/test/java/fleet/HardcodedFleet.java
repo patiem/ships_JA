@@ -11,7 +11,7 @@ public class HardcodedFleet implements Fleet {
 
   private static final Integer[] HARDCODED_POSITIONS = {0, 1, 2, 3, 17, 18, 19, 34, 40, 41, 44, 47, 54, 57, 61, 77, 78, 82, 85, 99};
   private final List<Integer> fleetPositions;
-  private List<Integer> hitFields;
+  private final List<Integer> hitFields;
 
 
   public HardcodedFleet() {

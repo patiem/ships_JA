@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class Sea {
 
-  private List<SeaField> wholeSea;
+  private final List<SeaField> wholeSea;
 
   public Sea() {
     this.wholeSea = new ArrayList<>();

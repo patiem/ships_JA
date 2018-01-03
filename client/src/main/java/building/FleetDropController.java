@@ -68,7 +68,7 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private MessageReactor reactor;
+  private final MessageReactor reactor;
 
   public FleetDropController(Client client, MessageReactor reactor) {
     sea = new Sea();
@@ -130,7 +130,7 @@ public class FleetDropController implements Initializable {
     }
   }
 
-  private EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
+  private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {
         Dragboard db = event.getDragboard();
         if (db.hasString()) {
@@ -139,27 +139,27 @@ public class FleetDropController implements Initializable {
         event.consume();
       };
 
-  private EventHandler<DragEvent> changeColorwhenDragEntered =
+  private final EventHandler<DragEvent> changeColorwhenDragEntered =
       event -> {
         SeaField field = (SeaField) event.getSource();
         field.setFill(Color.RED);
         event.consume();
       };
 
-  private EventHandler<DragEvent> resetColorWhenDragExited =
+  private final EventHandler<DragEvent> resetColorWhenDragExited =
       event -> {
         SeaField field = (SeaField) event.getSource();
         field.reset();
         event.consume();
       };
 
-  private EventHandler<MouseEvent> makeShadowWhenMoveOver =
+  private final EventHandler<MouseEvent> makeShadowWhenMoveOver =
       (MouseEvent event) -> {
         DropShadow shadow = new DropShadow();
         ((Rectangle) event.getSource()).setEffect(shadow);
       };
 
-  private EventHandler<MouseEvent> dragDetected =
+  private final EventHandler<MouseEvent> dragDetected =
       event -> {
         buildShip = (Rectangle) event.getSource();
         Dragboard db = buildShip.startDragAndDrop(TransferMode.COPY);
@@ -170,7 +170,7 @@ public class FleetDropController implements Initializable {
         event.consume();
       };
 
-  private EventHandler<DragEvent> seaFieldToShipWhenDraggedDone =
+  private final EventHandler<DragEvent> seaFieldToShipWhenDraggedDone =
       new EventHandler<DragEvent>() {
         @Override
         public void handle(DragEvent event) {
@@ -203,7 +203,7 @@ public class FleetDropController implements Initializable {
         }
       };
 
-  private ChangeListener<Boolean> mastIsCreated =
+  private final ChangeListener<Boolean> mastIsCreated =
       new ChangeListener<Boolean>() {
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -218,7 +218,7 @@ public class FleetDropController implements Initializable {
         }
       };
 
-  private ChangeListener<Boolean> boundIsSetOnSea =
+  private final ChangeListener<Boolean> boundIsSetOnSea =
       new ChangeListener<Boolean>() {
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {

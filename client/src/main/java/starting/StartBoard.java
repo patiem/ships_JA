@@ -19,9 +19,9 @@ import java.io.IOException;
 
 public class StartBoard extends Application {
 
-  static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
-  static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
-  static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+  private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
+  private static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
+  private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
   private final Client client = new Client();
   private MessageReactor reactor;
