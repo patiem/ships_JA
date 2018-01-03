@@ -1,9 +1,10 @@
 package fleet;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.FleetModel;
 import model.ShipModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomFleet implements Fleet {

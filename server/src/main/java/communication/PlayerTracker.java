@@ -3,6 +3,8 @@ package communication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fleet.CustomFleet;
 import fleet.Fleet;
+import json.InitMessage;
+import json.JsonParserAdapter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,8 +16,6 @@ import java.util.Deque;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import json.InitMessage;
-import json.JsonParserAdapter;
 
 public class PlayerTracker {
   private static final Logger LOGGER = Logger.getLogger(PlayerTracker.class.getName());

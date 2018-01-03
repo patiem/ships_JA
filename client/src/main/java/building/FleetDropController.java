@@ -153,9 +153,9 @@ public class FleetDropController implements Initializable {
       };
 
   private EventHandler<MouseEvent> makeShadowWhenMoveOver =
-      (MouseEvent e) -> {
+      (MouseEvent event) -> {
         DropShadow shadow = new DropShadow();
-        ((Rectangle) e.getSource()).setEffect(shadow);
+        ((Rectangle) event.getSource()).setEffect(shadow);
       };
 
   private EventHandler<MouseEvent> dragDetected =
