@@ -2,6 +2,8 @@
 # Created by Pati Mikulska
 # Shows some numbers for Tomek
 
+
+
 echo "Numbers for Boss"
 
 echo 'Number of tests:'
@@ -27,3 +29,7 @@ grep -r '(.*).*{$' --include=\*.java | grep -v "class\|enum\|interface\|test\|ne
 
 echo 'Number of packages:'
 find -path '*/java/*' -type d | wc -l
+
+echo 'Generating reports:'
+mvn clean install site site:stage
+firefox $PWD/target/site/index.html
