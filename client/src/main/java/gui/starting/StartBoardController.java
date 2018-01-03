@@ -1,4 +1,4 @@
-package starting;
+package gui.starting;
 
 import connection.Client;
 import javafx.fxml.FXML;

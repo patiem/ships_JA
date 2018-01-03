@@ -1,4 +1,4 @@
-package playing;
+package gui.playing;
 
 import connection.Client;
 import javafx.fxml.FXML;
@@ -35,7 +35,7 @@ public class PlayBoardController implements Initializable {
       for (int n = 0; n < 10; n++) {
         SeaField field = new SeaField(i, n);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-          sendPositionToServer(field);
+          client.sendMessage(field);
           field.marked();
           reactor.reactOnMessage(field, client.getMessage());
         });
@@ -43,10 +43,6 @@ public class PlayBoardController implements Initializable {
         GridPane.setConstraints(field, i, n);
       }
     }
-  }
-
-  private void sendPositionToServer(SeaField seaField) {
-    client.sendMessage(seaField.calculateListPosition().toString());
   }
 }
 

@@ -1,4 +1,6 @@
-import starting.StartBoard;
+package gui;
+
+import gui.starting.StartBoard;
 
 class Main {
 

@@ -1,4 +1,4 @@
-package starting;
+package gui.starting;
 
 import javafx.event.Event;
 import javafx.event.EventType;

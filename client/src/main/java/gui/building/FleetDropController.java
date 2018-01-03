@@ -1,8 +1,7 @@
-package building;
+package gui.building;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
+import connection.FleetSender;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,26 +11,31 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import json.InitMessage;
-import json.JsonGeneratorAdapter;
-import model.*;
+import model.BoundField;
+import model.Fleet;
+import model.Mast;
+import model.MessageReactor;
+import model.Player;
+import model.Sea;
+import model.SeaField;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class FleetDropController implements Initializable {
 
-  private static final Logger LOGGER = Logger.getLogger(FleetDropController.class.getName());
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
   private final Sea sea;
@@ -100,12 +104,15 @@ public class FleetDropController implements Initializable {
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       connectButton.setVisible(false);
       client.run();
-      sendFleetToServer();
+
+      FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
+
+      fleetSender.sendFleetToServer();
       reactor.reactOnMessage(client.getMessage());
     });
 
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
-                                        ship2b, ship1, ship1a, ship1b, ship1c);
+        ship2b, ship1, ship1a, ship1b, ship1c);
 
     for (Rectangle theShip : ships) {
       theShip.addEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
@@ -115,18 +122,6 @@ public class FleetDropController implements Initializable {
         theShip.setFill(Color.BLACK);
         event.consume();
       });
-    }
-  }
-
-  private void sendFleetToServer() {
-    FleetMapper fleetMapper = new FleetMapper();
-    FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
-    InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
-    JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
-    try {
-      client.sendMessage(jsonGenerator.createJson(messageWithFleet, new ObjectMapper()));
-    } catch (JsonProcessingException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 

@@ -1,6 +1,6 @@
 package model;
 
-interface Field {
+public interface Field {
 
   Integer SIZE = 30;
 
