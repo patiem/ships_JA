@@ -39,6 +39,7 @@
         <sonarSourceVersion>3.4.0.905</sonarSourceVersion>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <jdependVersion>2.0</jdependVersion>
     </properties>
     <build>
         <plugins>
@@ -210,6 +211,13 @@
                     </reportSet>
                 </reportSets>
             </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <version>${jdependVersion}</version>
+            </plugin>
+
         </plugins>
     </reporting>
 
