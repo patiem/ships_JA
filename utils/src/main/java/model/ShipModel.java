@@ -6,6 +6,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It represents each of the ships that a fleet consists of.
+ * @author Emilia Ciastek
+ * @version 1.5
+ */
 public class ShipModel {
   private final int numberOfMasts;
   private final List<Integer> fields = new ArrayList<>();
