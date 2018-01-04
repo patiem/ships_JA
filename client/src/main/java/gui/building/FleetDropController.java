@@ -70,7 +70,7 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private final MessageReactor reactor;
+  private final MessageProcessor reactor;
 
   /**
       * Creates FleetDropController instance.
@@ -79,7 +79,7 @@ public class FleetDropController implements Initializable {
    * @param reactor - reactor instance
    */
 
-  public FleetDropController(Client client, MessageReactor reactor) {
+  public FleetDropController(Client client, MessageProcessor reactor) {
     sea = new Sea();
     this.client = client;
     this.reactor = reactor;
@@ -119,7 +119,7 @@ public class FleetDropController implements Initializable {
       FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
 
       fleetSender.sendFleetToServer();
-      reactor.reactOnMessage(client.getMessage());
+      reactor.processMessage(client.getMessage());
     });
 
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,

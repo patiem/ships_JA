@@ -13,10 +13,7 @@ public class ConnectEvent extends Event {
   public static final EventType<ConnectEvent> CONNECT =
       new EventType<>(Event.ANY, "CON");
 
-  private final String message;
-
-  public ConnectEvent(String someMessage) {
+  public ConnectEvent() {
     super(CONNECT);
-    message = someMessage;
   }
 }

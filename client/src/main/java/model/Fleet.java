@@ -39,10 +39,9 @@ public class Fleet {
   private void updateNeighbourFields(Mast mast) {
     if (shipThatIsBuild.isShipDone()) {
       sea.clearSea();
-//      sea.makeBoundaries(shipThatIsBuild);
-      ShipBoundariesPositions boundries = new ShipBoundariesPositions();
-      boundries.calculateShipBoundariesPositions(shipThatIsBuild);
-      boundries.markSeaAsBoundary(sea);
+      ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
+      boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
+      boundaries.markSeaAsBoundary(sea);
       return;
     }
     PossiblePositions possible = new PossiblePositions();

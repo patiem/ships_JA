@@ -27,6 +27,6 @@ public class ShipBoundariesPositions {
   }
 
   public void markSeaAsBoundary(Sea sea) {
-    boundaries.forEach(m -> sea.makeBoundary(m));
+    boundaries.forEach(sea::makeBoundary);
   }
 }
