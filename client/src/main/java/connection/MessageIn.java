@@ -7,6 +7,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * It is responsible for receiving messages from the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class MessageIn implements Receiver {
 
   private static final Logger LOGGER = Logger.getLogger(MessageIn.class.getName());

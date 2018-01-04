@@ -2,6 +2,9 @@ package gui.building;
 
 import connection.Client;
 import connection.FleetSender;
+import gui.fields.BoundField;
+import gui.fields.Mast;
+import gui.fields.SeaField;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,29 +14,24 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.BoundField;
-import model.Fleet;
-import model.Mast;
-import model.MessageReactor;
-import model.Player;
-import model.Sea;
-import model.SeaField;
+import model.*;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * It displays the board used for deploying each player's fleet.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
@@ -72,14 +70,27 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private final MessageReactor reactor;
+  private final MessageProcessor reactor;
 
-  public FleetDropController(Client client, MessageReactor reactor) {
+  /**
+      * Creates FleetDropController instance.
+   *
+   * @param client    - client instance
+   * @param reactor - reactor instance
+   */
+
+  public FleetDropController(Client client, MessageProcessor reactor) {
     sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
 
+  /**
+   * It implements the 'initialize' method from the Initializable interface
+   *
+   * @param location  - required to implement the method
+   * @param resources - required to implement the method
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     for (int column = 0; column < GRID_SIZE; column++) {
@@ -108,7 +119,7 @@ public class FleetDropController implements Initializable {
       FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
 
       fleetSender.sendFleetToServer();
-      reactor.reactOnMessage(client.getMessage());
+      reactor.processMessage(client.getMessage());
     });
 
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
@@ -149,7 +160,7 @@ public class FleetDropController implements Initializable {
       };
 
   private final EventHandler<MouseEvent> makeShadowWhenMoveOver =
-      (MouseEvent event) -> {
+      event -> {
         DropShadow shadow = new DropShadow();
         ((Rectangle) event.getSource()).setEffect(shadow);
       };
@@ -166,35 +177,32 @@ public class FleetDropController implements Initializable {
       };
 
   private final EventHandler<DragEvent> seaFieldToShipWhenDraggedDone =
-      new EventHandler<DragEvent>() {
-        @Override
-        public void handle(DragEvent event) {
-          SeaField field = (SeaField) event.getSource();
-          field.marked();
-          Integer column = field.getColumn();
-          Integer row = field.getRow();
+      event -> {
+        SeaField field = (SeaField) event.getSource();
+        field.marked();
+        Integer column = field.getColumn();
+        Integer row = field.getRow();
 
-          Dragboard db = event.getDragboard();
-          boolean success = false;
-          if (db.hasString()) {
-            success = true;
-          }
-          Mast mast = new Mast(column, row);
-          shipBoard.getChildren().add(mast);
-          GridPane.setConstraints(mast, column, row);
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) {
+          success = true;
+        }
+        Mast mast = new Mast(column, row);
+        shipBoard.getChildren().add(mast);
+        GridPane.setConstraints(mast, column, row);
 
-          buildShip.removeEventHandler(MouseEvent.DRAG_DETECTED, dragDetected);
-          buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
+        buildShip.removeEventHandler(MouseEvent.DRAG_DETECTED, dragDetected);
+        buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
 
-          int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
-          fleet.startToBuildOneShip(mast, shipLength);
+        int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
+        fleet.startToBuildOneShip(mast, shipLength);
 
-          event.setDropCompleted(success);
-          event.consume();
-          buildShip.setOpacity(0.2);
-          if (buildShip.getHeight() / FIELD_SIZE > 1) {
-            port.setDisable(true);
-          }
+        event.setDropCompleted(success);
+        event.consume();
+        buildShip.setOpacity(0.2);
+        if (buildShip.getHeight() / FIELD_SIZE > 1) {
+          port.setDisable(true);
         }
       };
 

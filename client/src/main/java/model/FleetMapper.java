@@ -3,6 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * It maps the received Fleet to a fleet model.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetMapper {
 
   public FleetModel mapToFleetModel(Fleet fleetToMap) {
