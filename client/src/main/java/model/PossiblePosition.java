@@ -1,31 +1,40 @@
 package model;
 
+import gui.fields.Mast;
+import gui.fields.SeaField;
+
+import java.util.ArrayList;
+import java.util.List;
+
 class PossiblePosition {
 
-  private final Mast mast;
-  private final Sea sea;
+  private List<SeaField> possible;
 
-  public PossiblePosition(Mast mast, Sea sea) {
-    this.mast = mast;
-    this.sea = sea;
+  public PossiblePosition() {
+    possible = new ArrayList<>();
   }
 
-  void showPossibleMastPosition() {
+  public PossiblePosition findPositions(Mast mast, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
     final int bottomBoundary = 8;
     if (mast.getRow() >= leftBoundary) {
-      sea.getSeaFieldByPosition(Position.up(mast.position())).makeToClick();
+      possible.add(sea.getSeaFieldByPosition(Position.up(mast.position())));
     }
     if (mast.getRow() <= rightBoundary) {
-      sea.getSeaFieldByPosition(Position.down(mast.position())).makeToClick();
+      possible.add(sea.getSeaFieldByPosition(Position.down(mast.position())));
     }
     if (mast.getColumn() <= bottomBoundary) {
-      sea.getSeaFieldByPosition(Position.right(mast.position())).makeToClick();
+      possible.add(sea.getSeaFieldByPosition(Position.right(mast.position())));
     }
     if (mast.getColumn() >= upperBoundary) {
-      sea.getSeaFieldByPosition(Position.left(mast.position())).makeToClick();
+      possible.add(sea.getSeaFieldByPosition(Position.left(mast.position())));
     }
+    return this;
+  }
+
+  public void makePositionClickable() {
+    possible.stream().forEach(SeaField::makeToClick);
   }
 }
