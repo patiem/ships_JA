@@ -1,6 +1,6 @@
 package engine;
 
-import communication.PlayerTracker;
+import communication.PlayerRegistry;
 import fleet.Fleet;
 
 import java.util.logging.Logger;
@@ -16,27 +16,27 @@ public class GameRunner {
   private static final Logger LOGGER = Logger.getLogger(GameRunner.class.getName());
 
   private final Round round;
-  private final PlayerTracker playerTracker;
+  private final PlayerRegistry playerRegistry;
   private final ShotReceiver shotReceiver = new SocketShotReceiver();
   private final Referee referee = new Referee();
   private GameState gameState = GameState.ACTIVE;
 
-  public GameRunner(final Round round, final PlayerTracker playerTracker) {
+  public GameRunner(final Round round, final PlayerRegistry playerRegistry) {
     this.round = round;
-    this.playerTracker = playerTracker;
+    this.playerRegistry = playerRegistry;
   }
 
   public void runGame() {
     while (gameState == GameState.ACTIVE) {
-      Shot shot = shotReceiver.readShot(playerTracker.getCurrentReader());
-      Fleet fleetUnderFire = playerTracker.getFleetUnderFire();
+      Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
+      Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
       ShotResult result = round.makeShot(fleetUnderFire, shot);
       gameState = referee.isVictory(fleetUnderFire);
 
       sendMessage(result);
 
       if (result != ShotResult.HIT) {
-        playerTracker.switchPlayers();
+        playerRegistry.switchPlayers();
       }
 
       logShotInfo(shot, result);
@@ -50,12 +50,12 @@ public class GameRunner {
       message = gameState.toString();
     }
 
-    playerTracker.sendMessageToCurrentPlayer(message);
+    playerRegistry.sendMessageToCurrentPlayer(message);
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {
     String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s",
-        playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
+        playerRegistry.currentPlayerName(), shot.asInteger(), shotResult, gameState);
     LOGGER.info(logMessage);
   }
 }

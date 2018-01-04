@@ -55,6 +55,10 @@ class PlayerClient {
     }
   }
 
+  Socket getSocket(){
+    return socket;
+  }
+
   BufferedReader getReader() {
     return reader;
   }
