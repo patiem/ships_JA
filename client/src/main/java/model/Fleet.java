@@ -27,22 +27,25 @@ public class Fleet {
     Ship ship = new Ship(mast, shipLength);
     shipThatIsBuild = ship;
     ships.add(ship);
-    createNewMast(mast);
+    updateNeighbourFields(mast);
   }
 
-  private void createNewMast(Mast mast) {
+  private void updateNeighbourFields(Mast mast) {
     if (shipThatIsBuild.isShipDone()) {
       sea.clearSea();
-      sea.makeBoundaries(shipThatIsBuild);
+//      sea.makeBoundaries(shipThatIsBuild);
+      ShipBoundariesPositions boundries = new ShipBoundariesPositions();
+      boundries.calculateShipBoundariesPositions(shipThatIsBuild);
+      boundries.markSeaAsBoundary(sea);
       return;
     }
-    PossiblePosition possible = new PossiblePosition();
+    PossiblePositions possible = new PossiblePositions();
     possible.findPositions(mast, sea).makePositionClickable();
   }
 
   public void addNextMastToShip(Mast mast) {
     shipThatIsBuild.addMast(mast);
-    createNewMast(mast);
+    updateNeighbourFields(mast);
   }
 
   public List<Ship> getShips() {

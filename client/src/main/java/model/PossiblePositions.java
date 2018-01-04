@@ -6,15 +6,15 @@ import gui.fields.SeaField;
 import java.util.ArrayList;
 import java.util.List;
 
-class PossiblePosition {
+class PossiblePositions {
 
   private List<SeaField> possible;
 
-  public PossiblePosition() {
+  public PossiblePositions() {
     possible = new ArrayList<>();
   }
 
-  public PossiblePosition findPositions(Mast mast, Sea sea) {
+  public PossiblePositions findPositions(Mast mast, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;

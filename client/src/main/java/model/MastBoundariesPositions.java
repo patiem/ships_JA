@@ -5,11 +5,11 @@ import gui.fields.Mast;
 import java.util.ArrayList;
 import java.util.List;
 
-class BoundariesPosition {
+class MastBoundariesPositions {
 
   private final Mast mast;
 
-  BoundariesPosition(Mast mast) {
+  MastBoundariesPositions(Mast mast) {
     this.mast = mast;
   }
 

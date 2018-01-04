@@ -20,7 +20,7 @@ public class Sea {
     wholeSea.add(seaField);
   }
 
-  SeaField getSeaFieldByPosition(Position position) {
+  public SeaField getSeaFieldByPosition(Position position) {
 
     Optional<SeaField> field = wholeSea.stream()
         .filter(s -> s.position().equals(position))
@@ -34,8 +34,7 @@ public class Sea {
     wholeSea.forEach(SeaField::reset);
   }
 
-  public void makeBoundaries(Ship lastShip) {
-    lastShip.calculateShipBoundariesPositions()
-        .forEach(m -> getSeaFieldByPosition(m).setIsMarkedAsBound(true));
+  public void makeBoundary(Position position) {
+    getSeaFieldByPosition(position).setIsMarkedAsBound(true);
   }
 }
