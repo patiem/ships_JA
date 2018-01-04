@@ -3,8 +3,10 @@ package communication;
 import fleet.Fleet;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,14 +20,19 @@ public class PlayerRegistry {
   private final Deque<PlayerClient> players = new ArrayDeque<>();
 
   void registerPlayer(PlayerClient newPlayer) {
-    final String playerIsConnected = "CON";
+    //final String playerIsConnected = "CON";
     addPlayer(newPlayer);
-    newPlayer.sendMessageToPlayer(playerIsConnected);
     LOGGER.info("PlayerClient added: " + newPlayer.getName());
-  }
 
-  public void sendMessageToCurrentPlayer(String message) {
-    players.peekFirst().sendMessageToPlayer(message);
+/*
+    try {
+      MessageSender messageSender = new MessageSender();
+      messageSender.sendMessageToPlayer(newPlayer, playerIsConnected);
+      LOGGER.info("PlayerClient added: " + newPlayer.getName());
+    } catch (IOException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
+    */
   }
 
   private void addPlayer(PlayerClient playerClient) {
@@ -48,6 +55,8 @@ public class PlayerRegistry {
   public String currentPlayerName() {
     return players.peekFirst().getName();
   }
+
+  public PlayerClient getCurrentPlayer() {
+    return players.peekFirst();
+  }
 }
-
-

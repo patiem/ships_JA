@@ -1,8 +1,11 @@
 package engine;
 
+import communication.MessageSender;
 import communication.PlayerRegistry;
 import fleet.Fleet;
 
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -50,7 +53,12 @@ public class GameRunner {
       message = gameState.toString();
     }
 
-    playerRegistry.sendMessageToCurrentPlayer(message);
+    MessageSender messageSender = new MessageSender();
+    try {
+      messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), message);
+    } catch (IOException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {

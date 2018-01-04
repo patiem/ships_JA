@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 
 /**
  * It establishes connections and creates the game object.
+ *
  * @author Bartosz Pieczara
  * @version 1.5
  */
@@ -45,8 +46,9 @@ class ConnectionHandler {
     gameRunner.runGame();
   }
 
-  private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
+  private void acceptPlayer(final ServerSocket serverSocket) throws IOException { //TODO: split!
     Socket socket = serverSocket.accept();
+    final String playerIsConnected = "CON";
 
     try {
       BufferedReader reader = new BufferedReader(
@@ -61,7 +63,9 @@ class ConnectionHandler {
       PlayerClient playerClient = new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
 
       playerRegistry.registerPlayer(playerClient);
-      LOGGER.info("PlayerClient added: " + playerClient.getName());
+
+      MessageSender messageSender = new MessageSender();
+      messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
