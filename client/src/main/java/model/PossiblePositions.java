@@ -5,7 +5,12 @@ import gui.fields.SeaField;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * It holds information on the fields where a mast can be placed.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 class PossiblePositions {
 
   private List<SeaField> possible;

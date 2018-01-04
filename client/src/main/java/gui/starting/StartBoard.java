@@ -16,7 +16,12 @@ import javafx.stage.Stage;
 import model.MessageReactor;
 
 import java.io.IOException;
-
+/**
+ * It represtents the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class StartBoard extends Application {
 
   private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";

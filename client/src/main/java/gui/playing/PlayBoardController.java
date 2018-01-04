@@ -11,7 +11,12 @@ import gui.fields.SeaField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * It initializes and populates the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class PlayBoardController implements Initializable {
 
   private final Client client;

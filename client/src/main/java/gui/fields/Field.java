@@ -1,7 +1,12 @@
 package gui.fields;
 
 import model.Position;
-
+/**
+ * It exposes methods for obtaining information on field position.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public interface Field {
 
   Integer SIZE = 30;

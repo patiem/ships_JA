@@ -5,6 +5,12 @@ import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * It calls different methods depending on the message that has been sent form the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class MessageReactor {
 
   private Button nextButton;

@@ -26,6 +26,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * It displays the board used for deploying each player's fleet.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
@@ -66,12 +72,25 @@ public class FleetDropController implements Initializable {
   private Fleet fleet;
   private final MessageReactor reactor;
 
+  /**
+      * Creates FleetDropController instance.
+   *
+   * @param client    - client instance
+   * @param reactor - reactor instance
+   */
+
   public FleetDropController(Client client, MessageReactor reactor) {
     sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
 
+  /**
+   * It implements the 'initialize' method from the Initializable interface
+   *
+   * @param location  - required to implement the method
+   * @param resources - required to implement the method
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     for (int column = 0; column < GRID_SIZE; column++) {
