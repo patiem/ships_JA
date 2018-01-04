@@ -4,6 +4,9 @@ import gui.fields.SeaField;
 import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -44,6 +47,15 @@ public class MessageProcessor {
     processMessage(message);
   }
 
+  public void processMessage(SeaField lastField, String message, GridPane board) {
+    this.lastField = lastField;
+    processMessage(message);
+    Rectangle rectangle = (Rectangle) board.getChildren().get(10);
+    Rectangle rectangle2 = (Rectangle) board.getChildren().get(12);
+    rectangle.setFill(Color.RED);
+    rectangle2.setFill(Color.RED);
+
+  }
   public void putObserverButtonForConnection(Button button) {
     this.nextButton = button;
   }
