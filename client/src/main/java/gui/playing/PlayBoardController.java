@@ -60,7 +60,7 @@ public class PlayBoardController implements Initializable {
     for (Position position : positions) {
       Mast smallMast = new Mast(position.getRow(), position.getColumn(), FieldSize.SMALL);
       targetBoard.getChildren().add(smallMast);
-      GridPane.setConstraints(smallMast, position.getRow(), position.getColumn());
+      GridPane.setConstraints(smallMast, position.getColumn(), position.getRow());
     }
   }
 }
