@@ -8,7 +8,12 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * It holds information on a particular ship.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 class Ship implements Iterable<Mast>{
 
   private static final int START_SIZE = 1;

@@ -7,6 +7,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.FieldSize;
 
+/**
+ * It holds information on and state of every field of the board.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class SeaField extends Rectangle implements Field {
 
   private final Integer column;

@@ -26,6 +26,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * It displays the board used for deploying each player's fleet.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
@@ -64,14 +70,27 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private final MessageReactor reactor;
+  private final MessageProcessor reactor;
 
-  public FleetDropController(Client client, MessageReactor reactor) {
+  /**
+      * Creates FleetDropController instance.
+   *
+   * @param client    - client instance
+   * @param reactor - reactor instance
+   */
+
+  public FleetDropController(Client client, MessageProcessor reactor) {
     sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
 
+  /**
+   * It implements the 'initialize' method from the Initializable interface
+   *
+   * @param location  - required to implement the method
+   * @param resources - required to implement the method
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     for (int column = 0; column < GRID_SIZE; column++) {
@@ -100,7 +119,7 @@ public class FleetDropController implements Initializable {
       FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
 
       fleetSender.sendFleetToServer();
-      reactor.reactOnMessage(client.getMessage());
+      reactor.processMessage(client.getMessage());
     });
 
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,

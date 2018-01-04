@@ -13,12 +13,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MessageReactor;
+import model.MessageProcessor;
 import model.Position;
+
 
 import java.io.IOException;
 import java.util.List;
 
+
+/**
+ * It represtents the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class StartBoard extends Application {
 
   private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
@@ -26,7 +34,7 @@ public class StartBoard extends Application {
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
   private final Client client = new Client();
-  private MessageReactor reactor;
+  private MessageProcessor reactor;
   private Stage stage;
   private AnchorPane buildBoard;
   Group playRoot;
@@ -51,7 +59,7 @@ public class StartBoard extends Application {
     final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
-    reactor = new MessageReactor();
+    reactor = new MessageProcessor();
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene, reactor);
@@ -70,7 +78,7 @@ public class StartBoard extends Application {
     addNextButtonToStartBoard(buildScene, startingBoard);
   }
 
-  private void createBuildBoard(Group buildRoot, Scene playScene, MessageReactor reactor) throws IOException {
+  private void createBuildBoard(Group buildRoot, Scene playScene, MessageProcessor reactor) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
     fleetDropController = new FleetDropController(client, reactor);
     buildLoader.setController(fleetDropController);
@@ -79,14 +87,15 @@ public class StartBoard extends Application {
     addNextButtonToBuildBoard(playScene, buildBoard);
   }
 
-  private void createPlayBoard(Group playRoot, MessageReactor reactor, List<Position> positions) throws IOException {
+  private void createPlayBoard(Group playRoot, MessageProcessor processor, List<Position> positions) throws IOException {
+
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
 
-    PlayBoardController playBoardController = new PlayBoardController(client, reactor, positions);
+    PlayBoardController playBoardController = new PlayBoardController(client, processor, positions);
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
-    reactor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
+    processor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {

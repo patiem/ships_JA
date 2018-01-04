@@ -4,6 +4,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.FieldSize;
 
+/**
+ * It represents the fields that are not available for ship deployment.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class BoundField extends Rectangle implements Field {
 
   private final Integer column;

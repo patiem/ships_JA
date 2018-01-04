@@ -8,28 +8,33 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.FieldSize;
-import model.MessageReactor;
 import model.Position;
+import model.MessageProcessor;
 
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
+/**
+ * It initializes and populates the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class PlayBoardController implements Initializable {
 
   private final Client client;
-  private final MessageReactor reactor;
   private List<Position> positions;
+  private final MessageProcessor processor;
 
   @FXML
   private GridPane shipBoard;
   @FXML
   private GridPane targetBoard;
 
-  public PlayBoardController(Client client, MessageReactor reactor, List<Position> positions) {
+  public PlayBoardController(Client client, MessageProcessor processor, List<Position> positions) {
     this.client = client;
-    this.reactor = reactor;
+    this.processor = processor;
     this.positions = positions;
   }
 
@@ -45,7 +50,7 @@ public class PlayBoardController implements Initializable {
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
-          reactor.reactOnMessage(field, client.getMessage());
+          processor.processMessage(field, client.getMessage());
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);

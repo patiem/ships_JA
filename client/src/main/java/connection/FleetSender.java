@@ -11,6 +11,14 @@ import model.Player;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+
+/**
+ * It sends a player's fleet to the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetSender {
   private static final Logger LOGGER = Logger.getLogger(FleetSender.class.getName());
 

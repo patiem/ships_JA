@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * It represents a player.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class Player {
   private Fleet fleet;
   private String name;
