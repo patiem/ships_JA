@@ -9,7 +9,7 @@ package engine;
 
 class Shot {
 
-  private Integer shotPosition;
+  private final Integer shotPosition;
 
   Shot(Integer shotPosition) {
     this.shotPosition = shotPosition;

@@ -24,8 +24,8 @@ import java.util.logging.Logger;
 public class PlayerTracker {
   private static final Logger LOGGER = Logger.getLogger(PlayerTracker.class.getName());
 
-  private Deque<PlayerClient> players = new ArrayDeque<>();
-  private MessageReceiver messageReceiver = new MessageReceiver();
+  private final Deque<PlayerClient> players = new ArrayDeque<>();
+  private final MessageReceiver messageReceiver = new MessageReceiver();
 
   void registerPlayer(Socket socket) {
     final String playerIsConnected = "CON";

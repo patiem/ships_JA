@@ -1,4 +1,4 @@
-package starting;
+package gui.starting;
 
 import connection.Client;
 import javafx.fxml.FXML;
@@ -8,8 +8,13 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
-public class StartBoardController implements Initializable {
+/**
+ * It initializes the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
+class StartBoardController implements Initializable {
 
   private final Client client;
 

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Bartosz Pieczara / Emilia Ciastek
  * @version 1.5
  */
-public class PlayerClient {
+class PlayerClient {
   private static final Logger LOGGER = Logger.getLogger(PlayerClient.class.getName());
 
   private final BufferedReader reader;

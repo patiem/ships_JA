@@ -10,9 +10,9 @@ import java.util.List;
  */
 class DummyTestObject {
 
-  private String name;
-  private int age;
-  private List<Integer> positions;
+  private final String name;
+  private final int age;
+  private final List<Integer> positions;
 
   @JsonCreator
   DummyTestObject(@JsonProperty("name") String name, @JsonProperty("age") int age, @JsonProperty("positions") List<Integer> positions) {

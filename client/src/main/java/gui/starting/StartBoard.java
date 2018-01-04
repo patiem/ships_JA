@@ -1,7 +1,8 @@
-package starting;
+package gui.starting;
 
-import building.FleetDropController;
 import connection.Client;
+import gui.building.FleetDropController;
+import gui.playing.PlayBoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -12,19 +13,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.MessageReactor;
-import playing.PlayBoardController;
+import model.MessageProcessor;
 
 import java.io.IOException;
-
+/**
+ * It represtents the playboard.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class StartBoard extends Application {
 
-  static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
-  static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
-  static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+  private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
+  private static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
+  private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
   private final Client client = new Client();
-  private MessageReactor reactor;
+  private MessageProcessor reactor;
   private Stage stage;
   private AnchorPane buildBoard;
 
@@ -47,7 +52,7 @@ public class StartBoard extends Application {
     final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
-    reactor = new MessageReactor();
+    reactor = new MessageProcessor();
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene, reactor);
@@ -67,7 +72,7 @@ public class StartBoard extends Application {
     addNextButtonToStartBoard(buildScene, startingBoard);
   }
 
-  private void createBuildBoard(Group buildRoot, Scene playScene, MessageReactor reactor) throws IOException {
+  private void createBuildBoard(Group buildRoot, Scene playScene, MessageProcessor reactor) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
     FleetDropController fleetDropController = new FleetDropController(client, reactor);
     buildLoader.setController(fleetDropController);
@@ -76,7 +81,7 @@ public class StartBoard extends Application {
     addNextButtonToBuildBoard(playScene, buildBoard);
   }
 
-  private void createPlayBoard(Group playRoot, MessageReactor reactor) throws IOException {
+  private void createPlayBoard(Group playRoot, MessageProcessor reactor) throws IOException {
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
     PlayBoardController playBoardController = new PlayBoardController(client, reactor);
     playLoader.setController(playBoardController);

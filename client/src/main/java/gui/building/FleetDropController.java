@@ -1,8 +1,10 @@
-package building;
+package gui.building;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
+import connection.FleetSender;
+import gui.fields.BoundField;
+import gui.fields.Mast;
+import gui.fields.SeaField;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,21 +19,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import json.InitMessage;
-import json.JsonGeneratorAdapter;
 import model.*;
 
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-
+/**
+ * It displays the board used for deploying each player's fleet.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class FleetDropController implements Initializable {
 
-  private static final Logger LOGGER = Logger.getLogger(FleetDropController.class.getName());
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
   private final Sea sea;
@@ -68,14 +70,27 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private MessageReactor reactor;
+  private final MessageProcessor reactor;
 
-  public FleetDropController(Client client, MessageReactor reactor) {
+  /**
+      * Creates FleetDropController instance.
+   *
+   * @param client    - client instance
+   * @param reactor - reactor instance
+   */
+
+  public FleetDropController(Client client, MessageProcessor reactor) {
     sea = new Sea();
     this.client = client;
     this.reactor = reactor;
   }
 
+  /**
+   * It implements the 'initialize' method from the Initializable interface
+   *
+   * @param location  - required to implement the method
+   * @param resources - required to implement the method
+   */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     for (int column = 0; column < GRID_SIZE; column++) {
@@ -100,12 +115,15 @@ public class FleetDropController implements Initializable {
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       connectButton.setVisible(false);
       client.run();
-      sendFleetToServer();
-      reactor.reactOnMessage(client.getMessage());
+
+      FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
+
+      fleetSender.sendFleetToServer();
+      reactor.processMessage(client.getMessage());
     });
 
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
-                                        ship2b, ship1, ship1a, ship1b, ship1c);
+        ship2b, ship1, ship1a, ship1b, ship1c);
 
     for (Rectangle theShip : ships) {
       theShip.addEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
@@ -118,19 +136,7 @@ public class FleetDropController implements Initializable {
     }
   }
 
-  private void sendFleetToServer() {
-    FleetMapper fleetMapper = new FleetMapper();
-    FleetModel fleetModel = fleetMapper.mapToFleetModel(fleet);
-    InitMessage messageWithFleet = new InitMessage(userName.getText(), fleetModel);
-    JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
-    try {
-      client.sendMessage(jsonGenerator.createJson(messageWithFleet, new ObjectMapper()));
-    } catch (JsonProcessingException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
-    }
-  }
-
-  private EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
+  private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {
         Dragboard db = event.getDragboard();
         if (db.hasString()) {
@@ -139,27 +145,27 @@ public class FleetDropController implements Initializable {
         event.consume();
       };
 
-  private EventHandler<DragEvent> changeColorwhenDragEntered =
+  private final EventHandler<DragEvent> changeColorwhenDragEntered =
       event -> {
         SeaField field = (SeaField) event.getSource();
         field.setFill(Color.RED);
         event.consume();
       };
 
-  private EventHandler<DragEvent> resetColorWhenDragExited =
+  private final EventHandler<DragEvent> resetColorWhenDragExited =
       event -> {
         SeaField field = (SeaField) event.getSource();
         field.reset();
         event.consume();
       };
 
-  private EventHandler<MouseEvent> makeShadowWhenMoveOver =
-      (MouseEvent event) -> {
+  private final EventHandler<MouseEvent> makeShadowWhenMoveOver =
+      event -> {
         DropShadow shadow = new DropShadow();
         ((Rectangle) event.getSource()).setEffect(shadow);
       };
 
-  private EventHandler<MouseEvent> dragDetected =
+  private final EventHandler<MouseEvent> dragDetected =
       event -> {
         buildShip = (Rectangle) event.getSource();
         Dragboard db = buildShip.startDragAndDrop(TransferMode.COPY);
@@ -170,40 +176,37 @@ public class FleetDropController implements Initializable {
         event.consume();
       };
 
-  private EventHandler<DragEvent> seaFieldToShipWhenDraggedDone =
-      new EventHandler<DragEvent>() {
-        @Override
-        public void handle(DragEvent event) {
-          SeaField field = (SeaField) event.getSource();
-          field.marked();
-          Integer column = field.getColumn();
-          Integer row = field.getRow();
+  private final EventHandler<DragEvent> seaFieldToShipWhenDraggedDone =
+      event -> {
+        SeaField field = (SeaField) event.getSource();
+        field.marked();
+        Integer column = field.getColumn();
+        Integer row = field.getRow();
 
-          Dragboard db = event.getDragboard();
-          boolean success = false;
-          if (db.hasString()) {
-            success = true;
-          }
-          Mast mast = new Mast(column, row);
-          shipBoard.getChildren().add(mast);
-          GridPane.setConstraints(mast, column, row);
+        Dragboard db = event.getDragboard();
+        boolean success = false;
+        if (db.hasString()) {
+          success = true;
+        }
+        Mast mast = new Mast(column, row);
+        shipBoard.getChildren().add(mast);
+        GridPane.setConstraints(mast, column, row);
 
-          buildShip.removeEventHandler(MouseEvent.DRAG_DETECTED, dragDetected);
-          buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
+        buildShip.removeEventHandler(MouseEvent.DRAG_DETECTED, dragDetected);
+        buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
 
-          int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
-          fleet.startToBuildOneShip(mast, shipLength);
+        int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
+        fleet.startToBuildOneShip(mast, shipLength);
 
-          event.setDropCompleted(success);
-          event.consume();
-          buildShip.setOpacity(0.2);
-          if (buildShip.getHeight() / FIELD_SIZE > 1) {
-            port.setDisable(true);
-          }
+        event.setDropCompleted(success);
+        event.consume();
+        buildShip.setOpacity(0.2);
+        if (buildShip.getHeight() / FIELD_SIZE > 1) {
+          port.setDisable(true);
         }
       };
 
-  private ChangeListener<Boolean> mastIsCreated =
+  private final ChangeListener<Boolean> mastIsCreated =
       new ChangeListener<Boolean>() {
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
@@ -218,7 +221,7 @@ public class FleetDropController implements Initializable {
         }
       };
 
-  private ChangeListener<Boolean> boundIsSetOnSea =
+  private final ChangeListener<Boolean> boundIsSetOnSea =
       new ChangeListener<Boolean>() {
         @Override
         public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {

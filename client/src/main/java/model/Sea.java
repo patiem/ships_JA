@@ -1,5 +1,6 @@
 package model;
 
+import gui.fields.SeaField;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -7,9 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * It represents the entire board where ships are deployed.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class Sea {
 
-  private List<SeaField> wholeSea;
+  private final List<SeaField> wholeSea;
 
   public Sea() {
     this.wholeSea = new ArrayList<>();
@@ -19,7 +26,7 @@ public class Sea {
     wholeSea.add(seaField);
   }
 
-  SeaField getSeaFieldByPosition(Position position) {
+  public SeaField getSeaFieldByPosition(Position position) {
 
     Optional<SeaField> field = wholeSea.stream()
         .filter(s -> s.position().equals(position))
@@ -33,8 +40,7 @@ public class Sea {
     wholeSea.forEach(SeaField::reset);
   }
 
-  public void makeBoundaries(Ship lastShip) {
-    lastShip.calculateShipBoundariesPositions()
-        .forEach(m -> getSeaFieldByPosition(m).setIsMarkedAsBound(true));
+  public void makeBoundary(Position position) {
+    getSeaFieldByPosition(position).setIsMarkedAsBound(true);
   }
 }

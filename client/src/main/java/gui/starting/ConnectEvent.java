@@ -1,17 +1,19 @@
-package starting;
+package gui.starting;
 
 import javafx.event.Event;
 import javafx.event.EventType;
-
+/**
+ * It allows to create a connection based on the information received form the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class ConnectEvent extends Event {
 
   public static final EventType<ConnectEvent> CONNECT =
       new EventType<>(Event.ANY, "CON");
 
-  String message;
-
-  public ConnectEvent(String someMessage) {
+  public ConnectEvent() {
     super(CONNECT);
-    message = someMessage;
   }
 }

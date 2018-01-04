@@ -1,19 +1,26 @@
 package model;
 
+import gui.fields.SeaField;
+import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import starting.ConnectEvent;
 
-public class MessageReactor {
+/**
+ * It calls different methods depending on the message that has been sent form the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
+public class MessageProcessor {
 
   private Button nextButton;
   private SeaField lastField;
   private TextField textField;
 
-  public void reactOnMessage(String message) {          //TODO: change string to enum
+  public void processMessage(String message) {
     switch (message) {
       case "CON":
-        nextButton.fireEvent(new ConnectEvent("CON"));
+        nextButton.fireEvent(new ConnectEvent());
         break;
       case "HIT":
         lastField.hit();
@@ -32,9 +39,9 @@ public class MessageReactor {
     }
   }
 
-  public void reactOnMessage(SeaField lastField, String message) {
+  public void processMessage(SeaField lastField, String message) {
     this.lastField = lastField;
-    reactOnMessage(message);
+    processMessage(message);
   }
 
   public void putObserverButtonForConnection(Button button) {

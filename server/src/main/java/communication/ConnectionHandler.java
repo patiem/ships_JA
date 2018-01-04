@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 class ConnectionHandler {
   private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
 
-  private PlayerTracker playerTracker = new PlayerTracker();
+  private final PlayerTracker playerTracker = new PlayerTracker();
 
   void acceptConnections(final ServerSocket serverSocket) {
     try {

@@ -1,20 +1,27 @@
 package model;
 
+import gui.fields.Field;
+import gui.fields.Mast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-
-public class Ship {
+/**
+ * It holds information on a particular ship.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
+class Ship implements Iterable<Mast>{
 
   private static final int START_SIZE = 1;
 
   private final Mast[] masts;
   private final int shipLength;
   private int buildLength;
-  private List<Integer> positions = new ArrayList<>();
+  private final List<Integer> positions = new ArrayList<>();
 
   Ship(Mast mast, int shipLength) {
     this.shipLength = shipLength;
@@ -35,20 +42,16 @@ public class Ship {
     }
   }
 
-  private List<Position> possibleMastsPositions() {
+  List<Position> mastsInShipPositions() {
     return Arrays.stream(masts).map(Field::position).collect(Collectors.toList());
-  }
-
-  public Set<Position> calculateShipBoundariesPositions() {
-    Set<Position> boundaries = new HashSet<>();
-    for (Mast mast : masts) {
-      boundaries.addAll(new BoundariesPosition(mast).countBoundariesForMast());
-    }
-    boundaries.removeAll(possibleMastsPositions());
-    return boundaries;
   }
 
   public List<Integer> getPositions() {
     return positions;
+  }
+
+  @Override
+  public Iterator<Mast> iterator() {
+    return Arrays.asList(masts).iterator();
   }
 }

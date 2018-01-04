@@ -1,13 +1,18 @@
 package model;
 
 import java.util.Objects;
-
+/**
+ * It allows to mova a field around.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class Position {
 
   private final Integer column;
   private final Integer row;
 
-  Position(int posX, int posY) {
+  public Position(int posX, int posY) {
     this.column = posX;
     this.row = posY;
   }

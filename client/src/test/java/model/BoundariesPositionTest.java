@@ -1,5 +1,6 @@
 package model;
 
+import gui.fields.Mast;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class BoundariesPositionTest extends DataProvider {
     Mast mast = mock(Mast.class);
     when(mast.getColumn()).thenReturn(column);
     when(mast.getRow()).thenReturn(row);
-    BoundariesPosition boundariesPosition = new BoundariesPosition(mast);
+    MastBoundariesPositions boundariesPosition = new MastBoundariesPositions(mast);
     int expectedListSize = 9;
     //when
     List<Position> positions = boundariesPosition.countBoundariesForMast();

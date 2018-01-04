@@ -1,7 +1,15 @@
 package model;
 
+import gui.fields.Mast;
+
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * It holds information regarding a player's fleet.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 
 public class Fleet {
 
@@ -25,22 +33,24 @@ public class Fleet {
     Ship ship = new Ship(mast, shipLength);
     shipThatIsBuild = ship;
     ships.add(ship);
-    createNewMast(mast);
+    updateNeighbourFields(mast);
   }
 
-  private void createNewMast(Mast mast) {
+  private void updateNeighbourFields(Mast mast) {
     if (shipThatIsBuild.isShipDone()) {
       sea.clearSea();
-      sea.makeBoundaries(shipThatIsBuild);
+      ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
+      boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
+      boundaries.markSeaAsBoundary(sea);
       return;
     }
-    PossiblePosition possible = new PossiblePosition(mast, sea);
-    possible.showPossibleMastPosition();
+    PossiblePositions possible = new PossiblePositions();
+    possible.findPositions(mast, sea).makePositionClickable();
   }
 
   public void addNextMastToShip(Mast mast) {
     shipThatIsBuild.addMast(mast);
-    createNewMast(mast);
+    updateNeighbourFields(mast);
   }
 
   public List<Ship> getShips() {

@@ -10,7 +10,7 @@ import java.io.BufferedReader;
  * @version 1.5
  */
 public class SocketShotReceiver implements ShotReceiver {
-  private MessageReceiver messageReceiver = new MessageReceiver();
+  private final MessageReceiver messageReceiver = new MessageReceiver();
 
   @Override
   public Shot readShot(BufferedReader currentReader) {

@@ -5,6 +5,13 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
+
+/**
+ * It is responsible for sending messages to the server.
+ *
+ * @author Patrycja Mikulska
+ * @version 1.5
+ */
 public class MessageOut implements Sender {
 
   private final PrintWriter writer;
@@ -14,8 +21,7 @@ public class MessageOut implements Sender {
   }
 
   public static MessageOut from(Connector connector) throws IOException {
-    Boolean autoflush = true;
-    return new MessageOut(new PrintWriter(new OutputStreamWriter(connector.getOutStream(), StandardCharsets.UTF_8), autoflush));
+    return new MessageOut(new PrintWriter(new OutputStreamWriter(connector.getOutStream(), StandardCharsets.UTF_8)));
   }
 
   @Override
