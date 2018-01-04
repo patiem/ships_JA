@@ -7,7 +7,7 @@ public class Position {
   private final Integer column;
   private final Integer row;
 
-  Position(int posX, int posY) {
+  public Position(int posX, int posY) {
     this.column = posX;
     this.row = posY;
   }

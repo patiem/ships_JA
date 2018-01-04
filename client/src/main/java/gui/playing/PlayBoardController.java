@@ -6,7 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.MessageReactor;
-import model.SeaField;
+import gui.fields.SeaField;
 
 import java.net.URL;
 import java.util.ResourceBundle;

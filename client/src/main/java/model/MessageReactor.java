@@ -1,8 +1,9 @@
 package model;
 
+import gui.fields.SeaField;
+import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import gui.starting.ConnectEvent;
 
 public class MessageReactor {
 

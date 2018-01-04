@@ -1,5 +1,6 @@
 package model;
 
+import gui.fields.Mast;
 import org.testng.annotations.Test;
 
 import java.util.List;

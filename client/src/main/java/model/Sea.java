@@ -1,5 +1,6 @@
 package model;
 
+import gui.fields.SeaField;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;

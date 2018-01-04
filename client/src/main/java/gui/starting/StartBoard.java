@@ -1,7 +1,8 @@
 package gui.starting;
 
-import gui.building.FleetDropController;
 import connection.Client;
+import gui.building.FleetDropController;
+import gui.playing.PlayBoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -13,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MessageReactor;
-import gui.playing.PlayBoardController;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package model;
+package gui.fields;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
@@ -11,8 +11,8 @@ public class SeaField extends Rectangle implements Field {
   private final Integer column;
   private final Integer row;
   private final SimpleBooleanProperty isMarkedAsMast;
-  final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
   private final SimpleBooleanProperty isMarkedAsBound;
+  public final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
 
   public SeaField(int column, int row) {
     super(column, row, SIZE, SIZE);
@@ -45,11 +45,6 @@ public class SeaField extends Rectangle implements Field {
   public void makeToClick() {
     setFill(Color.BLANCHEDALMOND);
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, makeReadyToClick);
-  }
-
-  public Integer calculateListPosition() {
-    Integer rowLength = 10;
-    return column + row * rowLength;
   }
 
   private void setIsMarkedAsMast(boolean isMarkedAsMast) {

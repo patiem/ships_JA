@@ -1,5 +1,7 @@
 package model;
 
+import gui.fields.Mast;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +36,8 @@ public class Fleet {
       sea.makeBoundaries(shipThatIsBuild);
       return;
     }
-    PossiblePosition possible = new PossiblePosition(mast, sea);
-    possible.showPossibleMastPosition();
+    PossiblePosition possible = new PossiblePosition();
+    possible.findPositions(mast, sea).makePositionClickable();
   }
 
   public void addNextMastToShip(Mast mast) {

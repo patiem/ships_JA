@@ -1,4 +1,6 @@
-package model;
+package gui.fields;
+
+import model.Position;
 
 public interface Field {
 

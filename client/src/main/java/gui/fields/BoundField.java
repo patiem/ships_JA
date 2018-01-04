@@ -1,19 +1,19 @@
-package model;
+package gui.fields;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class Mast extends Rectangle implements Field {
+public class BoundField extends Rectangle implements Field {
 
   private final Integer column;
   private final Integer row;
 
-  public Mast(int column, int row) {
+  public BoundField(int column, int row) {
     super(column, row, SIZE, SIZE);
     this.column = column;
     this.row = row;
-    setFill(Color.FUCHSIA);
-    setStroke(Color.GREEN);
+    setFill(Color.DARKGREY);
+    setStroke(Color.GRAY);
   }
 
   @Override

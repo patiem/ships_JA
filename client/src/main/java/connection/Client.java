@@ -1,7 +1,6 @@
 package connection;
 
-import model.Field;
-import model.SeaField;
+import gui.fields.Field;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,7 +33,7 @@ public class Client {
     out.sendMessage(message);
   }
 
-  public void sendMessage(Field field){
+  public void sendMessage(Field field) {
     sendMessage(field.positionAsInteger().toString());
   }
 

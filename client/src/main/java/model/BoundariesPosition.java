@@ -1,5 +1,7 @@
 package model;
 
+import gui.fields.Mast;
+
 import java.util.ArrayList;
 import java.util.List;
 

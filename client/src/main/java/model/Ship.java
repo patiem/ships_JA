@@ -1,5 +1,8 @@
 package model;
 
+import gui.fields.Field;
+import gui.fields.Mast;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
