@@ -15,6 +15,7 @@ public class MessageReactor {
     switch (message) {
       case "CON":
         nextButton.fireEvent(new ConnectEvent("CON"));
+
         break;
       case "HIT":
         lastField.hit();

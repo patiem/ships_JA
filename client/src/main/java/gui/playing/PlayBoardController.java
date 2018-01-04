@@ -1,14 +1,18 @@
 package gui.playing;
 
 import connection.Client;
+import gui.fields.Mast;
+import gui.fields.SeaField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import model.FieldSize;
 import model.MessageReactor;
-import gui.fields.SeaField;
+import model.Position;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -16,13 +20,17 @@ public class PlayBoardController implements Initializable {
 
   private final Client client;
   private final MessageReactor reactor;
+  private List<Position> positions;
 
   @FXML
   private GridPane shipBoard;
+  @FXML
+  private GridPane targetBoard;
 
-  public PlayBoardController(Client client, MessageReactor reactor) {
+  public PlayBoardController(Client client, MessageReactor reactor, List<Position> positions) {
     this.client = client;
     this.reactor = reactor;
+    this.positions = positions;
   }
 
   @Override
@@ -33,7 +41,7 @@ public class PlayBoardController implements Initializable {
   private void populateSeaWithSeaFields() {
     for (int i = 0; i < 10; i++) {
       for (int n = 0; n < 10; n++) {
-        SeaField field = new SeaField(i, n);
+        SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
@@ -42,6 +50,12 @@ public class PlayBoardController implements Initializable {
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
+    }
+
+    for (Position position : positions) {
+      Mast smallMast = new Mast(position.getRow(), position.getColumn(), FieldSize.SMALL);
+      targetBoard.getChildren().add(smallMast);
+      GridPane.setConstraints(smallMast, position.getRow(), position.getColumn());
     }
   }
 }

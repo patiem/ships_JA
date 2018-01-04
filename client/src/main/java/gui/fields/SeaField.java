@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.FieldSize;
 
 public class SeaField extends Rectangle implements Field {
 
@@ -14,8 +15,8 @@ public class SeaField extends Rectangle implements Field {
   private final SimpleBooleanProperty isMarkedAsBound;
   public final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
 
-  public SeaField(int column, int row) {
-    super(column, row, SIZE, SIZE);
+  public SeaField(int column, int row, FieldSize size) {
+    super(column, row, size.getValue(), size.getValue());
     this.column = column;
     this.row = row;
     setFill(Color.AZURE);
