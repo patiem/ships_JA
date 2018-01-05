@@ -95,7 +95,7 @@ public class FleetDropController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     for (int column = 0; column < GRID_SIZE; column++) {
       for (int row = 0; row < GRID_SIZE; row++) {
-        SeaField field = new SeaField(column, row);
+        SeaField field = new SeaField(column, row, FieldSize.BIG);
 
         field.setOnDragEntered(changeColorwhenDragEntered);
         field.setOnDragExited(resetColorWhenDragExited);
@@ -188,7 +188,7 @@ public class FleetDropController implements Initializable {
         if (db.hasString()) {
           success = true;
         }
-        Mast mast = new Mast(column, row);
+        Mast mast = new Mast(column, row, FieldSize.BIG);
         shipBoard.getChildren().add(mast);
         GridPane.setConstraints(mast, column, row);
 
@@ -214,7 +214,7 @@ public class FleetDropController implements Initializable {
           SeaField field = (SeaField) ((BooleanProperty) observable).getBean();
           Integer column = field.getColumn();
           Integer row = field.getRow();
-          Mast mast = new Mast(column, row);
+          Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
           fleet.addNextMastToShip(mast);
@@ -229,9 +229,13 @@ public class FleetDropController implements Initializable {
           Integer column = field.getColumn();
           Integer row = field.getRow();
           port.setDisable(false);
-          BoundField bound = new BoundField(column, row);
+          BoundField bound = new BoundField(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(bound);
           GridPane.setConstraints(bound, column, row);
         }
       };
+
+  public List<Position> listOfMasts() {
+    return fleet.getMastsPositions();
+  }
 }

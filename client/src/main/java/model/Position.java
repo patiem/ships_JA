@@ -33,11 +33,11 @@ public class Position {
     return new Position(position.getColumn() - 1, position.getRow());
   }
 
-  private Integer getColumn() {
+  public Integer getColumn() {
     return column;
   }
 
-  private Integer getRow() {
+  public Integer getRow() {
     return row;
   }
 

@@ -14,8 +14,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MessageProcessor;
+import model.Position;
+
 
 import java.io.IOException;
+import java.util.List;
+
+
 /**
  * It represtents the playboard.
  *
@@ -32,6 +37,8 @@ public class StartBoard extends Application {
   private MessageProcessor reactor;
   private Stage stage;
   private AnchorPane buildBoard;
+  Group playRoot;
+  FleetDropController fleetDropController;
 
   public static void run(String[] args) {
     Application.launch(args);
@@ -44,7 +51,7 @@ public class StartBoard extends Application {
 
     Group startRoot = new Group();
     Group buildRoot = new Group();
-    Group playRoot = new Group();
+    playRoot = new Group();
 
     final double sceneWidth = 800;
     final double sceneHeight = 600;
@@ -56,7 +63,6 @@ public class StartBoard extends Application {
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene, reactor);
-    createPlayBoard(playRoot, reactor);
 
     stage.setTitle("FXML Welcome");
     stage.setScene(startScene);
@@ -74,20 +80,22 @@ public class StartBoard extends Application {
 
   private void createBuildBoard(Group buildRoot, Scene playScene, MessageProcessor reactor) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
-    FleetDropController fleetDropController = new FleetDropController(client, reactor);
+    fleetDropController = new FleetDropController(client, reactor);
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);
     addNextButtonToBuildBoard(playScene, buildBoard);
   }
 
-  private void createPlayBoard(Group playRoot, MessageProcessor reactor) throws IOException {
+  private void createPlayBoard(Group playRoot, MessageProcessor processor, List<Position> positions) throws IOException {
+
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-    PlayBoardController playBoardController = new PlayBoardController(client, reactor);
+
+    PlayBoardController playBoardController = new PlayBoardController(client, processor, positions);
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
-    reactor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
+    processor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {
@@ -103,7 +111,14 @@ public class StartBoard extends Application {
     Button buttonNext = new Button("Next");
     buttonNext.setDisable(true);
     buttonNext.setVisible(false);
-    buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> stage.setScene(playScene));
+    buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
+      stage.setScene(playScene);
+      try {
+        createPlayBoard(playRoot, reactor, fleetDropController.listOfMasts());
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    });
     VBox connectPanel = (VBox) buildBoard.lookup("#connectPanel");
     connectPanel.getChildren().add(buttonNext);
     reactor.putObserverButtonForConnection(buttonNext);

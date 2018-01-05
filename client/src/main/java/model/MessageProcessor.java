@@ -46,7 +46,7 @@ public class MessageProcessor {
     this.lastField = lastField;
     processMessage(message);
   }
-  
+
   public void putObserverButtonForConnection(Button button) {
     this.nextButton = button;
   }

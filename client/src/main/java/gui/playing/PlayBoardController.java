@@ -1,15 +1,18 @@
 package gui.playing;
 
 import connection.Client;
+import gui.fields.Mast;
+import gui.fields.SeaField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
+import model.FieldSize;
+import model.Position;
 import model.MessageProcessor;
-import gui.fields.SeaField;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -21,14 +24,18 @@ import java.util.ResourceBundle;
 public class PlayBoardController implements Initializable {
 
   private final Client client;
-  private final MessageProcessor reactor;
+  private List<Position> positions;
+  private final MessageProcessor processor;
 
   @FXML
   private GridPane shipBoard;
+  @FXML
+  private GridPane targetBoard;
 
-  public PlayBoardController(Client client, MessageProcessor reactor) {
+  public PlayBoardController(Client client, MessageProcessor processor, List<Position> positions) {
     this.client = client;
-    this.reactor = reactor;
+    this.processor = processor;
+    this.positions = positions;
   }
 
   @Override
@@ -39,15 +46,21 @@ public class PlayBoardController implements Initializable {
   private void populateSeaWithSeaFields() {
     for (int i = 0; i < 10; i++) {
       for (int n = 0; n < 10; n++) {
-        SeaField field = new SeaField(i, n);
+        SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
-          reactor.processMessage(field, client.getMessage());
+          processor.processMessage(field, client.getMessage());
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
+    }
+
+    for (Position position : positions) {
+      Mast smallMast = new Mast(position.getRow(), position.getColumn(), FieldSize.SMALL);
+      targetBoard.getChildren().add(smallMast);
+      GridPane.setConstraints(smallMast, position.getColumn(), position.getRow());
     }
   }
 }
