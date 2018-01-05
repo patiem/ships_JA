@@ -14,7 +14,6 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -28,47 +27,47 @@ class ConnectionHandler {
 
   private final PlayerRegistry playerRegistry = new PlayerRegistry();
 
-  void acceptConnections(final ServerSocket serverSocket) {
-    try {
-      acceptPlayer(serverSocket);
-      acceptPlayer(serverSocket);
 
-    } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
-    }
-
-    createGame();
+  void acceptConnections(final ServerSocket serverSocket) throws IOException {
+    acceptPlayer(serverSocket);
+    acceptPlayer(serverSocket);
+    setUpGameConfiguration();
   }
 
-  private void createGame() {
+  private void setUpGameConfiguration() {
     Round round = new Round();
     GameRunner gameRunner = new GameRunner(round, playerRegistry);
     gameRunner.runGame();
   }
 
-  private void acceptPlayer(final ServerSocket serverSocket) throws IOException { //TODO: split!
+  private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
     Socket socket = serverSocket.accept();
-    final String playerIsConnected = "CON";
-
-    try {
-      BufferedReader reader = new BufferedReader(
-          new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-
-      MessageReceiver messageReceiver = new MessageReceiver();
-      String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-      LOGGER.info(gameStartingObjectAsString);
-      JsonParserAdapter jsonParser = new JsonParserAdapter();
-      InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
-      Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
-      PlayerClient playerClient = new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
-
-      playerRegistry.registerPlayer(playerClient);
-
-      MessageSender messageSender = new MessageSender();
-      messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
-    } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
-    }
-
+    PlayerClient playerClient = createClient(socket);
+    playerRegistry.registerPlayer(playerClient);
+    sendConnectionConfirmationMessage(playerClient);
   }
+
+  private PlayerClient createClient(final Socket socket) throws IOException {
+    BufferedReader reader = new BufferedReader(
+        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+    InitMessage initMessage = prepareJSONMessage(reader);
+    Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
+    return new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
+  }
+
+  private void sendConnectionConfirmationMessage(PlayerClient playerClient) throws IOException {
+    final String playerIsConnected = "CON";
+    MessageSender messageSender = new MessageSender();
+    messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
+  }
+
+  private InitMessage prepareJSONMessage(BufferedReader reader) throws IOException {
+    MessageReceiver messageReceiver = new MessageReceiver();
+    String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+    LOGGER.info(gameStartingObjectAsString);
+    JsonParserAdapter jsonParser = new JsonParserAdapter();
+    InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
+    return initMessage;
+  }
+
 }

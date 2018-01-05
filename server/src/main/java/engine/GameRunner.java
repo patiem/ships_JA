@@ -33,7 +33,7 @@ public class GameRunner {
     while (gameState == GameState.ACTIVE) {
       Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
-      ShotResult result = round.makeShot(fleetUnderFire, shot);
+      ShotResult result = round.fireShot(fleetUnderFire, shot);
       gameState = referee.isVictory(fleetUnderFire);
 
       sendMessage(result);
