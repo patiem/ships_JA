@@ -3,6 +3,7 @@ package engine;
 import communication.MessageSender;
 import communication.PlayerRegistry;
 import fleet.Fleet;
+import model.Shot;
 
 import java.io.IOException;
 import java.util.logging.Level;

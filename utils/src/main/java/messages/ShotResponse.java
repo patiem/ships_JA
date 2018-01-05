@@ -1,7 +1,8 @@
-package json;
+package messages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import messages.Message;
 
 import java.util.List;
 

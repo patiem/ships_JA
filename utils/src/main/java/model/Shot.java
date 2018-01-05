@@ -1,4 +1,4 @@
-package engine;
+package model;
 
 /**
  * It stores information on each shot.
@@ -7,15 +7,15 @@ package engine;
  * @version 1.5
  */
 
-class Shot {
+public class Shot {
 
   private final Integer shotPosition;
 
-  Shot(Integer shotPosition) {
+  public Shot(Integer shotPosition) {
     this.shotPosition = shotPosition;
   }
 
-  Integer asInteger() {
+  public Integer asInteger() {
     return shotPosition;
   }
 }
