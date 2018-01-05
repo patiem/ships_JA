@@ -1,12 +1,11 @@
-package messages;
+package responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import messages.Message;
 
 import java.util.List;
 
-public class ShotResponse implements Message {
+public class ShotResponse implements Response {
     private String header;
     private List<Integer> shots;
 
