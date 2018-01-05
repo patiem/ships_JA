@@ -20,7 +20,7 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    ShotResult actualShotResult = round.makeShot(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
     ShotResult expectedResult = ShotResult.HIT;
 
     assertEquals(actualShotResult, expectedResult);
@@ -37,7 +37,7 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    ShotResult actualShotResult = round.makeShot(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
     ShotResult expectedResult = ShotResult.MISSED;
 
     assertEquals(actualShotResult, expectedResult);
@@ -50,8 +50,8 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    round.makeShot(fleetUnderFire, shot);
-    ShotResult actualShotResult = round.makeShot(fleetUnderFire, shot);
+    round.fireShot(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
     ShotResult expectedResult = ShotResult.HIT_AGAIN;
 
     assertEquals(actualShotResult, expectedResult);
