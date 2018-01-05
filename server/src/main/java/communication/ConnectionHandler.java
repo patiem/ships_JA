@@ -27,14 +27,13 @@ class ConnectionHandler {
 
   private final PlayerRegistry playerRegistry = new PlayerRegistry();
 
-
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
     acceptPlayer(serverSocket);
     acceptPlayer(serverSocket);
-    setUpGameConfiguration();
+    setUpGame();
   }
 
-  private void setUpGameConfiguration() {
+  private void setUpGame() {
     Round round = new Round();
     GameRunner gameRunner = new GameRunner(round, playerRegistry);
     gameRunner.runGame();

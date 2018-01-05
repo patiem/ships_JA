@@ -5,9 +5,9 @@ import java.net.ServerSocket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * It starts listening for connections on the specified port.
+ *
  * @author Bartosz Pieczara
  * @version 1.5
  */
@@ -18,6 +18,7 @@ public class Server {
 
   public void runServer() {
     LOGGER.info("Server running!");
+
     ConnectionHandler connectionHandler = new ConnectionHandler();
     try {
       ServerSocket serverSocket = new ServerSocket(PORT);
@@ -25,6 +26,7 @@ public class Server {
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
+
   }
 }
 
