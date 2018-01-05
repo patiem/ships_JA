@@ -36,26 +36,39 @@ public class GameRunner {
       ShotResult result = round.makeShot(fleetUnderFire, shot);
       gameState = referee.isVictory(fleetUnderFire);
 
-      sendMessage(result);
+      sendMessage(result, shot);
 
       if (result != ShotResult.HIT) {
         playerRegistry.switchPlayers();
+        unblockPlayer();
       }
 
       logShotInfo(shot, result);
     }
   }
 
-  private void sendMessage(final ShotResult result) {
+  private void unblockPlayer() {
+    MessageSender messageSender = new MessageSender();
+    try {
+      messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), "PLAY");
+    } catch (IOException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
+  }
+
+  private void sendMessage(final ShotResult result, Shot shot) {
     String message = result.toString();
+    String messageToOpponent = shot.asInteger().toString();
 
     if (gameState == GameState.WIN) {
       message = gameState.toString();
+      messageToOpponent = "LOST";
     }
 
     MessageSender messageSender = new MessageSender();
     try {
       messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), message);
+      messageSender.sendMessageToPlayer(playerRegistry.getWaitingPlayer(), messageToOpponent);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }

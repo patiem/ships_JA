@@ -1,12 +1,10 @@
 package model;
 
+import connection.Client;
 import gui.fields.SeaField;
 import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -19,6 +17,7 @@ public class MessageProcessor {
   private Button nextButton;
   private SeaField lastField;
   private TextField textField;
+  private Client client;
 
   public void processMessage(String message) {
     switch (message) {
@@ -30,6 +29,7 @@ public class MessageProcessor {
         break;
       case "MISSED":
         lastField.missed();
+        textField.setText("wait");
         break;
       case "HIT_AGAIN":
         break;
@@ -37,9 +37,19 @@ public class MessageProcessor {
         lastField.hit();
         textField.setText("You won");
         break;
+      case "PLAY":
+        textField.setText("play");
+        break;
+      case "LOST":
+        textField.setText("You lost");
+        break;
       default:
         break;
     }
+  }
+
+  public void setLastField(SeaField lastField) {
+    this.lastField = lastField;
   }
 
   public void processMessage(SeaField lastField, String message) {
@@ -53,5 +63,9 @@ public class MessageProcessor {
 
   public void putObserverTextFieldForConnection(TextField textField) {
     this.textField = textField;
+  }
+
+  public void putClient(Client client) {
+    this.client = client;
   }
 }

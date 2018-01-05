@@ -8,8 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.FieldSize;
-import model.Position;
 import model.MessageProcessor;
+import model.Position;
 
 import java.net.URL;
 import java.util.List;
@@ -50,7 +50,8 @@ public class PlayBoardController implements Initializable {
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
-          processor.processMessage(field, client.getMessage());
+          processor.setLastField(field);
+          //processor.processMessage(field, client.getMessage());
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
@@ -62,6 +63,15 @@ public class PlayBoardController implements Initializable {
       targetBoard.getChildren().add(smallMast);
       GridPane.setConstraints(smallMast, position.getColumn(), position.getRow());
     }
+
+    new Thread(() -> {
+      Boolean isRunning = true;
+      while(isRunning) {
+        String message = client.getMessage();
+        processor.processMessage(message);
+        if (message.equals("WIN") || message.equals("LOST")) isRunning = false;
+      }
+    }).start();
   }
 }
 

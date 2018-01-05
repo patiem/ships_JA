@@ -34,7 +34,7 @@ public class StartBoard extends Application {
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
 
   private final Client client = new Client();
-  private MessageProcessor reactor;
+  private MessageProcessor processor;
   private Stage stage;
   private AnchorPane buildBoard;
   Group playRoot;
@@ -59,10 +59,11 @@ public class StartBoard extends Application {
     final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
-    reactor = new MessageProcessor();
+    processor = new MessageProcessor();
+    processor.putClient(client);
 
     createStartBoard(startRoot, buildScene);
-    createBuildBoard(buildRoot, playScene, reactor);
+    createBuildBoard(buildRoot, playScene, processor);
 
     stage.setTitle("FXML Welcome");
     stage.setScene(startScene);
@@ -114,13 +115,13 @@ public class StartBoard extends Application {
     buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
       stage.setScene(playScene);
       try {
-        createPlayBoard(playRoot, reactor, fleetDropController.listOfMasts());
+        createPlayBoard(playRoot, processor, fleetDropController.listOfMasts());
       } catch (IOException e) {
         e.printStackTrace();
       }
     });
     VBox connectPanel = (VBox) buildBoard.lookup("#connectPanel");
     connectPanel.getChildren().add(buttonNext);
-    reactor.putObserverButtonForConnection(buttonNext);
+    processor.putObserverButtonForConnection(buttonNext);
   }
 }
