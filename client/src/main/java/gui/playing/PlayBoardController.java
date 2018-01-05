@@ -3,8 +3,10 @@ package gui.playing;
 import connection.Client;
 import gui.fields.Mast;
 import gui.fields.SeaField;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.FieldSize;
@@ -31,6 +33,8 @@ public class PlayBoardController implements Initializable {
   private GridPane shipBoard;
   @FXML
   private GridPane targetBoard;
+  @FXML
+  private TextField winning;
 
   public PlayBoardController(Client client, MessageProcessor processor, List<Position> positions) {
     this.client = client;
@@ -51,7 +55,6 @@ public class PlayBoardController implements Initializable {
           client.sendMessage(field);
           field.marked();
           processor.setLastField(field);
-          //processor.processMessage(field, client.getMessage());
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
@@ -63,6 +66,31 @@ public class PlayBoardController implements Initializable {
       targetBoard.getChildren().add(smallMast);
       GridPane.setConstraints(smallMast, position.getColumn(), position.getRow());
     }
+
+    winning.addEventHandler(UpdateEventWhenHit.UPDATE, event -> {
+      Integer index = Integer.valueOf(event.getMessage());
+      Position fieldPosition = new Position(index);
+      System.out.println(fieldPosition);
+      Platform.runLater(() -> {
+        Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        hitMast.markedAsHit();
+        targetBoard.getChildren().add(hitMast);
+        GridPane.setConstraints(hitMast, fieldPosition.getColumn(), fieldPosition.getRow());
+      });
+    });
+
+    winning.addEventHandler(UpdateEventWhenMissed.MISSED, event -> {
+      Integer index = Integer.valueOf(event.getMessage());
+      Position fieldPosition = new Position(index);
+      System.out.println(fieldPosition);
+
+      Platform.runLater(() -> {
+        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        seaHit.markedAsHit();
+        targetBoard.getChildren().add(seaHit);
+        GridPane.setConstraints(seaHit, fieldPosition.getColumn(), fieldPosition.getRow());
+      });
+    });
 
     new Thread(() -> {
       Boolean isRunning = true;

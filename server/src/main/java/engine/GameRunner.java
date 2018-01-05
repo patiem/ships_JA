@@ -58,7 +58,8 @@ public class GameRunner {
 
   private void sendMessage(final ShotResult result, Shot shot) {
     String message = result.toString();
-    String messageToOpponent = shot.asInteger().toString();
+
+    String messageToOpponent = makeMessageForOpponent(result, shot);
 
     if (gameState == GameState.WIN) {
       message = gameState.toString();
@@ -72,6 +73,10 @@ public class GameRunner {
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
+  }
+
+  private String makeMessageForOpponent(ShotResult result, Shot shot) {
+    return "OPP" + result.toString() + " " + shot.asInteger();
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {

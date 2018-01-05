@@ -2,6 +2,8 @@ package model;
 
 import connection.Client;
 import gui.fields.SeaField;
+import gui.playing.UpdateEventWhenHit;
+import gui.playing.UpdateEventWhenMissed;
 import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -44,8 +46,20 @@ public class MessageProcessor {
         textField.setText("You lost");
         break;
       default:
+        if (message.contains("OPPHIT")) processOpponentHit(message);
+        if (message.contains("OPPMISSED")) processOpponentMissed(message);
         break;
     }
+  }
+
+  private void processOpponentMissed(String message) {
+    String fieldIndex = message.split(" ")[1];
+    textField.fireEvent(new UpdateEventWhenMissed(fieldIndex));
+  }
+
+  private void processOpponentHit(String message) {
+    String fieldIndex = message.split(" ")[1];
+    textField.fireEvent(new UpdateEventWhenHit(fieldIndex));
   }
 
   public void setLastField(SeaField lastField) {

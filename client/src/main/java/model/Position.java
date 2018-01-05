@@ -17,6 +17,11 @@ public class Position {
     this.row = posY;
   }
 
+  public Position(Integer index) {
+    this.row = (index  / 10);
+    this.column = index % 10;
+  }
+
   static Position up(Position position) {
     return new Position(position.getColumn(), position.getRow() - 1);
   }
