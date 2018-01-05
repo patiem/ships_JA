@@ -21,13 +21,14 @@ public class Client {
   private Sender out;
   private Receiver in;
   private String host;
+  Connector connector;
 
   /**
    * Allows the client to receive and send messages to the server.
    */
   public void run() {
     try {
-      Connector connector = SocketConnector.from(host, PORT);
+      connector = SocketConnector.from(host, PORT);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
@@ -70,5 +71,9 @@ public class Client {
    */
   public String getMessage() {
     return in.readMessage();
+  }
+
+  public boolean isGameRunning() {
+    return !connector.isSocketClosed();
   }
 }

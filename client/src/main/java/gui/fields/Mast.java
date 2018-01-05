@@ -32,4 +32,8 @@ public class Mast extends Rectangle implements Field {
   public int getRow() {
     return row;
   }
+
+  public void markedAsHit() {
+    setFill(Color.BLACK);
+  }
 }

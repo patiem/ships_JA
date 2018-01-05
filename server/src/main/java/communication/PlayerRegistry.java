@@ -46,4 +46,8 @@ public class PlayerRegistry {
   public PlayerClient getCurrentPlayer() {
     return players.peekFirst();
   }
+
+  public PlayerClient getWaitingPlayer() {
+    return players.peekLast();
+  }
 }
