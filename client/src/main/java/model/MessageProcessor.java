@@ -46,16 +46,7 @@ public class MessageProcessor {
     this.lastField = lastField;
     processMessage(message);
   }
-
-  public void processMessage(SeaField lastField, String message, GridPane board) {
-    this.lastField = lastField;
-    processMessage(message);
-    Rectangle rectangle = (Rectangle) board.getChildren().get(10);
-    Rectangle rectangle2 = (Rectangle) board.getChildren().get(12);
-    rectangle.setFill(Color.RED);
-    rectangle2.setFill(Color.RED);
-
-  }
+  
   public void putObserverButtonForConnection(Button button) {
     this.nextButton = button;
   }

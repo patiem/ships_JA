@@ -26,9 +26,6 @@ public class PlayBoardController implements Initializable {
   @FXML
   private GridPane shipBoard;
 
-  @FXML
-  private GridPane board;
-
   public PlayBoardController(Client client, MessageProcessor reactor) {
     this.client = client;
     this.reactor = reactor;
@@ -37,7 +34,6 @@ public class PlayBoardController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
-    fillCurrentPlayerBoard();
   }
 
   private void populateSeaWithSeaFields() {
@@ -47,19 +43,9 @@ public class PlayBoardController implements Initializable {
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
-          reactor.processMessage(field, client.getMessage(), board);
+          reactor.processMessage(field, client.getMessage());
         });
         shipBoard.getChildren().add(field);
-        GridPane.setConstraints(field, i, n);
-      }
-    }
-  }
-
-  private void fillCurrentPlayerBoard(){
-    for (int i = 0; i < 10; i++) {
-      for (int n = 0; n < 10; n++) {
-        SeaField field = new SeaField(i, n);
-        board.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
     }
