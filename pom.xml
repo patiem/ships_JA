@@ -43,6 +43,11 @@
         <javaDocVersion>2.10.4</javaDocVersion>
     </properties>
     <build>
+        <resources>
+            <resource>
+                <directory>server\src\main\java\resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
