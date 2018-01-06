@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 public class Server {
 
   private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
-  private static final String fileName ="config.properties";
+  private  final String fileName ="config.properties";
 
   public void runServer() {
     LOGGER.info("Server running!");
