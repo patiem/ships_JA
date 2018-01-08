@@ -1,8 +1,12 @@
 package responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import model.Shot;
+
+import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
@@ -17,4 +21,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 public abstract class Response {
   public abstract ResponseHeader getHeader();
+
+  @JsonProperty("shot")
+  public Optional<Shot> getShot() {
+    return Optional.empty();
+  }
 }

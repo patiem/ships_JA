@@ -48,19 +48,24 @@ public class MessageProcessor {
     }
   }
 
-  private void processOpponentMissed(Response message) {
-   // String fieldIndex = message.get
-    String fieldIndex = "0";
-    dispatcher.fireEvent(new UpdateWhenMissedEvent(fieldIndex));
-  }
-
-  private void processOpponentHit(Response message) {
-   // String fieldIndex = message.split(" ")[1];
-    String fieldIndex = "0";
-    dispatcher.fireEvent(new UpdateWhenHitEvent(fieldIndex));
-  }
-
   public void putObserverTextFieldForConnection(TextField textField) {
     this.dispatcher = textField;
+  }
+
+  private void processOpponentMissed(Response response) {
+    String shotAsString = getShotAsString(response);
+    dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
+  }
+
+  private void processOpponentHit(Response response) {
+    String shotAsString = getShotAsString(response);
+    dispatcher.fireEvent(new UpdateWhenHitEvent(shotAsString));
+  }
+
+  private String getShotAsString(Response response) {
+    Shot shot = response.getShot().orElseThrow(IllegalArgumentException::new);
+    System.out.println(shot);
+    System.out.println(shot.toString());
+    return shot.toString();
   }
 }
