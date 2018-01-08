@@ -30,6 +30,7 @@ public class GameRunner {
   }
 
   public void runGame() {
+    unblockPlayer();
     while (gameState == GameState.ACTIVE) {
       Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
