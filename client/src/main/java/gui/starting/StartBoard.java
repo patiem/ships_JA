@@ -11,11 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.MessageProcessor;
 import model.Position;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -60,7 +58,6 @@ public class StartBoard extends Application {
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
     processor = new MessageProcessor();
-    processor.putClient(client);
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene, processor);
@@ -89,9 +86,7 @@ public class StartBoard extends Application {
   }
 
   private void createPlayBoard(Group playRoot, MessageProcessor processor, List<Position> positions) throws IOException {
-
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-
     PlayBoardController playBoardController = new PlayBoardController(client, processor, positions);
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
@@ -100,8 +95,8 @@ public class StartBoard extends Application {
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {
-    Button next = (Button) startBoard.lookup("#connectButton");
-    next.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+    Button connectButton = (Button) startBoard.lookup("#connectButton");
+    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
       String userName = ((TextField) startBoard.lookup("#userName")).getText();
       ((TextField) buildBoard.lookup("#userName")).setText(userName);
       stage.setScene(buildScene);
@@ -109,9 +104,7 @@ public class StartBoard extends Application {
   }
 
   private void addNextButtonToBuildBoard(Scene playScene, AnchorPane buildBoard) {
-    Button buttonNext = new Button("Next");
-    buttonNext.setDisable(true);
-    buttonNext.setVisible(false);
+    Button buttonNext = (Button) buildBoard.lookup("#nextButton");
     buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
       stage.setScene(playScene);
       try {
@@ -120,8 +113,5 @@ public class StartBoard extends Application {
         e.printStackTrace();
       }
     });
-    VBox connectPanel = (VBox) buildBoard.lookup("#connectPanel");
-    connectPanel.getChildren().add(buttonNext);
-    processor.putObserverButtonForConnection(buttonNext);
   }
 }
