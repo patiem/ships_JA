@@ -1,25 +1,23 @@
-package json;
+package responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ConnectionResponse implements Message {
+public class ConnectionResponse implements Response {
 
-  private String header;
+  private ResponseHeader header = ResponseHeader.CON;
   private List<Integer> fleetPositions;
 
   @JsonCreator
-  public ConnectionResponse(@JsonProperty("header") String header,
-                            @JsonProperty("fleetPositions") List<Integer> fleetPositions) {
-    this.header = header;
+  public ConnectionResponse(@JsonProperty("fleetPositions") List<Integer> fleetPositions) {
     this.fleetPositions = fleetPositions;
   }
 
   @JsonProperty("header")
   @Override
-  public String getHeader() {
+  public ResponseHeader getHeader() {
     return header;
   }
 

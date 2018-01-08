@@ -2,6 +2,7 @@ package engine;
 
 import fleet.Fleet;
 import fleet.HardcodedFleet;
+import model.Shot;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

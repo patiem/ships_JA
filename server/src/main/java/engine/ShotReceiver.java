@@ -1,5 +1,7 @@
 package engine;
 
+import model.Shot;
+
 import java.io.BufferedReader;
 
 /**

@@ -2,7 +2,7 @@ package connection;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import json.InitMessage;
+import messages.ConnectionMessage;
 import json.JsonGeneratorAdapter;
 import model.FleetMapper;
 import model.FleetModel;
@@ -33,7 +33,7 @@ public class FleetSender {
   public void sendFleetToServer() {
     FleetMapper fleetMapper = new FleetMapper();
     FleetModel fleetModel = fleetMapper.mapToFleetModel(player.getFleet());
-    InitMessage messageWithFleet = new InitMessage(player.getName(), fleetModel);
+    ConnectionMessage messageWithFleet = new ConnectionMessage(player.getName(), fleetModel);
     JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
 
     try {

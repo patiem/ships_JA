@@ -5,7 +5,7 @@ import engine.GameRunner;
 import engine.Round;
 import fleet.CustomFleet;
 import fleet.Fleet;
-import json.InitMessage;
+import messages.ConnectionMessage;
 import json.JsonParserAdapter;
 
 import java.io.BufferedReader;
@@ -49,9 +49,9 @@ class ConnectionHandler {
   private PlayerClient createClient(final Socket socket) throws IOException {
     BufferedReader reader = new BufferedReader(
         new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-    InitMessage initMessage = prepareJSONMessage(reader);
-    Fleet playerFleet = new CustomFleet(initMessage.getFleetModel());
-    return new PlayerClient(initMessage.getName(), socket, reader, playerFleet);
+    ConnectionMessage connectionMessage = prepareJSONMessage(reader);
+    Fleet playerFleet = new CustomFleet(connectionMessage.getFleetModel());
+    return new PlayerClient(connectionMessage.getName(), socket, reader, playerFleet);
   }
 
   private void sendConnectionConfirmationMessage(PlayerClient playerClient) throws IOException {
@@ -60,13 +60,13 @@ class ConnectionHandler {
     messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
   }
 
-  private InitMessage prepareJSONMessage(BufferedReader reader) throws IOException {
+  private ConnectionMessage prepareJSONMessage(BufferedReader reader) throws IOException {
     MessageReceiver messageReceiver = new MessageReceiver();
     String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
     LOGGER.info(gameStartingObjectAsString);
     JsonParserAdapter jsonParser = new JsonParserAdapter();
-    InitMessage initMessage = jsonParser.parse(gameStartingObjectAsString, InitMessage.class, new ObjectMapper());
-    return initMessage;
+    ConnectionMessage connectionMessage = jsonParser.parse(gameStartingObjectAsString, ConnectionMessage.class, new ObjectMapper());
+    return connectionMessage;
   }
 
 }
