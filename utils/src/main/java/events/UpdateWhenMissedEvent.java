@@ -1,4 +1,4 @@
-package gui.playing;
+package events;
 
 import javafx.event.Event;
 import javafx.event.EventType;

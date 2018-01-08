@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ConnectionResponse implements Response {
+public class ConnectionResponse extends Response {
 
   private ResponseHeader header = ResponseHeader.CON;
   private List<Integer> fleetPositions;

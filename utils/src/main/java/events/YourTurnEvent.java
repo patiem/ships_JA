@@ -1,4 +1,4 @@
-package gui.playing;
+package events;
 
 import javafx.event.Event;
 import javafx.event.EventType;
@@ -6,7 +6,7 @@ import javafx.event.EventType;
 
 public class YourTurnEvent extends Event {
   public static final EventType<YourTurnEvent> TURN =
-      new EventType<>(javafx.event.Event.ANY, "TURN");
+      new EventType<>(Event.ANY, "TURN");
 
   public YourTurnEvent() {
     super(TURN);

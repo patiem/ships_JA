@@ -1,6 +1,11 @@
 package responses;
 
-public interface Response {
-    ResponseHeader getHeader();
+public abstract class Response {
 
+    PerformAction performAction;
+    abstract ResponseHeader getHeader();
+
+    public void makeMove(SuperiorMessage message) {
+        performAction.act(message);
+    }
 }

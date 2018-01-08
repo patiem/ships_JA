@@ -1,7 +1,16 @@
 package model;
 
-import gui.playing.*;
+import events.UpdateWhenHitEvent;
+import events.UpdateWhenMissedEvent;
+import events.YouHitEvent;
+import events.YouLostEvent;
+import events.YouMissedEvent;
+import events.YouWinEvent;
+import events.YourTurnEvent;
+
 import javafx.scene.control.TextField;
+import responses.Response;
+import responses.SuperiorMessage;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -9,9 +18,13 @@ import javafx.scene.control.TextField;
  * @author Patrycja Mikulska
  * @version 1.5
  */
-public class MessageProcessor {
+public class MessageProcessor extends SuperiorMessage{
 
-  private TextField dispatcher;
+//  private TextField dispatcher;
+
+  public void processMessage2(Response response){
+    response.makeMove(this);
+  }
 
   public void processMessage(String message) {
     switch (message) {

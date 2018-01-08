@@ -1,9 +1,17 @@
 package gui.playing;
 
 import connection.Client;
+import events.UpdateWhenHitEvent;
+import events.UpdateWhenMissedEvent;
+import events.YouHitEvent;
+import events.YouLostEvent;
+import events.YouMissedEvent;
+import events.YouWinEvent;
+import events.YourTurnEvent;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
