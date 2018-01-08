@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.Shot;
 
-public class OpponentHitResponse implements Response {
+public class OpponentHitResponse extends Response {
 
   private ResponseHeader header = ResponseHeader.OPPHIT;
   private Shot shot;

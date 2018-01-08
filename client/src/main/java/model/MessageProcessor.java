@@ -1,7 +1,14 @@
 package model;
 
-import gui.playing.*;
+import gui.playing.UpdateWhenHitEvent;
+import gui.playing.UpdateWhenMissedEvent;
+import gui.playing.YouHitEvent;
+import gui.playing.YouLostEvent;
+import gui.playing.YouMissedEvent;
+import gui.playing.YouWinEvent;
+import gui.playing.YourTurnEvent;
 import javafx.scene.control.TextField;
+import responses.Response;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -13,37 +20,43 @@ public class MessageProcessor {
 
   private TextField dispatcher;
 
-  public void processMessage(String message) {
-    switch (message) {
-      case "HIT":
+  public void processMessage(Response response) {
+    switch (response.getHeader()) {
+      case HIT:
         dispatcher.fireEvent(new YouHitEvent());
         break;
-      case "MISSED":
+      case MISSED:
         dispatcher.fireEvent(new YouMissedEvent());
         break;
-      case "WIN":
+      case WIN:
         dispatcher.fireEvent(new YouWinEvent());
         break;
-      case "PLAY":
+      case PLAY:
         dispatcher.fireEvent(new YourTurnEvent());
         break;
-      case "LOST":
+      case LOST:
         dispatcher.fireEvent(new YouLostEvent());
         break;
+      case OPPHIT:
+        processOpponentHit(response);
+        break;
+      case OPPMISSED:
+        processOpponentMissed(response);
+        break;
       default:
-        if (message.contains("OPPHIT")) processOpponentHit(message);
-        if (message.contains("OPPMISSED")) processOpponentMissed(message);
         break;
     }
   }
 
-  private void processOpponentMissed(String message) {
-    String fieldIndex = message.split(" ")[1];
+  private void processOpponentMissed(Response message) {
+   // String fieldIndex = message.get
+    String fieldIndex = "0";
     dispatcher.fireEvent(new UpdateWhenMissedEvent(fieldIndex));
   }
 
-  private void processOpponentHit(String message) {
-    String fieldIndex = message.split(" ")[1];
+  private void processOpponentHit(Response message) {
+   // String fieldIndex = message.split(" ")[1];
+    String fieldIndex = "0";
     dispatcher.fireEvent(new UpdateWhenHitEvent(fieldIndex));
   }
 

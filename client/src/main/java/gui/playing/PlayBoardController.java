@@ -1,5 +1,6 @@
 package gui.playing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import gui.fields.Mast;
 import gui.fields.SeaField;
@@ -10,10 +11,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import json.JsonParserAdapter;
 import model.FieldSize;
 import model.MessageProcessor;
 import model.Position;
+import responses.Response;
+import responses.ResponseHeader;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -63,9 +68,17 @@ public class PlayBoardController implements Initializable {
       Boolean isRunning = true;
       while (isRunning) {
         String message = client.getMessage();
-        processor.processMessage(message);
-        if (message.equals("WIN") || message.equals("LOST")) {
-          isRunning = false;
+        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
+        try {
+          Response responseToProcess = jsonParserAdapter.parse(message, Response.class, new ObjectMapper());
+          processor.processMessage(responseToProcess);
+          ResponseHeader header = responseToProcess.getHeader();
+
+          if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
+            isRunning = false;
+          }
+        } catch (IOException e) {
+          e.printStackTrace();
         }
       }
     }).start();

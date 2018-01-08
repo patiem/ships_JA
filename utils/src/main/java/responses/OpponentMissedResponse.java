@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.Shot;
 
-public class OpponentMissedResponse implements Response {
+public class OpponentMissedResponse extends Response {
 
   private ResponseHeader header = ResponseHeader.OPPMISSED;
 
