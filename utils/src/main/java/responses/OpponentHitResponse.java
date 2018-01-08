@@ -6,19 +6,17 @@ import model.Shot;
 
 public class OpponentHitResponse implements Response {
 
+  private ResponseHeader header = ResponseHeader.OPPHIT;
   private Shot shot;
-
 
   @JsonCreator
   public OpponentHitResponse(@JsonProperty("shot")Shot shot) {
     this.shot = shot;
   }
 
-  private final String HEADER = "OPPHIT"; // TODO: check JSON
-
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

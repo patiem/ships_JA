@@ -1,12 +1,11 @@
 package responses;
 
-public class MissedResponse implements Response{
+public class MissedResponse implements Response {
 
-  private final String HEADER = "MISSED"; // TODO: check JSON
-
+  private ResponseHeader header = ResponseHeader.MISSED;
 
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

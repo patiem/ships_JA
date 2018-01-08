@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LossResponse implements Response {
 
-  private final String HEADER = "OPPMISSED"; // TODO: check JSON
+  private ResponseHeader header = ResponseHeader.LOST;
 
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

@@ -3,12 +3,12 @@ package responses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class HitResponse implements Response {
-  private final String HEADER = "HIT";
+  private ResponseHeader header = ResponseHeader.HIT;
 
 
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

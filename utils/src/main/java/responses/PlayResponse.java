@@ -2,13 +2,13 @@ package responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayResponse implements Response{
+public class PlayResponse implements Response {
 
-  private final String HEADER = "PLAY"; // TODO: check JSON
+  private ResponseHeader header = ResponseHeader.PLAY;
 
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

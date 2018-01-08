@@ -7,20 +7,18 @@ import java.util.List;
 
 public class ConnectionResponse implements Response {
 
-  private final String HEADER = "CON";
+  private ResponseHeader header = ResponseHeader.CON;
   private List<Integer> fleetPositions;
 
   @JsonCreator
-  public ConnectionResponse(
-                            @JsonProperty("fleetPositions") List<Integer> fleetPositions) {
-
+  public ConnectionResponse(@JsonProperty("fleetPositions") List<Integer> fleetPositions) {
     this.fleetPositions = fleetPositions;
   }
 
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 
   @JsonProperty("fleetPositions")

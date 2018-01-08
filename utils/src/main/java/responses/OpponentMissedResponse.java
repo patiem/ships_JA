@@ -6,6 +6,8 @@ import model.Shot;
 
 public class OpponentMissedResponse implements Response {
 
+  private ResponseHeader header = ResponseHeader.OPPMISSED;
+
   private Shot shot;
 
   @JsonCreator
@@ -13,11 +15,9 @@ public class OpponentMissedResponse implements Response {
     this.shot = shot;
   }
 
-  private final String HEADER = "OPPMISSED"; // TODO: check JSON
-
   @JsonProperty("header")
   @Override
-  public String getHeader() {
-    return HEADER;
+  public ResponseHeader getHeader() {
+    return header;
   }
 }

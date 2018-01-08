@@ -1,6 +1,6 @@
 package responses;
 
 public interface Response {
-    String getHeader();
+    ResponseHeader getHeader();
 
 }
