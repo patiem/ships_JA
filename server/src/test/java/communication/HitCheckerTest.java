@@ -29,7 +29,7 @@ public class HitCheckerTest {
   }
 
   @Test
-  public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain() {
+  public void givenHardcodedFleetAndMastPositionAlreadyHitWhenIsHitReturnMissed() {
     Fleet fleet = new HardcodedFleet();
 
     HitChecker hitChecker = new HitChecker(fleet);
@@ -38,6 +38,6 @@ public class HitCheckerTest {
     fleet.hit(position);
 
     ShotResult actualState = hitChecker.checkShot(position);
-    assertEquals(actualState, ShotResult.HIT_AGAIN);
+    assertEquals(actualState, ShotResult.MISSED);
   }
 }

@@ -45,7 +45,7 @@ public class RoundTest {
   }
 
   @Test
-  public void givenShotAgainAndFleetWhenCheckShotThenReturnHitAgainState() {
+  public void givenShotAgainAndFleetWhenCheckShotThenReturnMissedState() {
     Integer shotPosition = 0;
     Fleet fleetUnderFire = new HardcodedFleet();
     Shot shot = new Shot(shotPosition);
@@ -53,7 +53,7 @@ public class RoundTest {
 
     round.fireShot(fleetUnderFire, shot);
     ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
-    ShotResult expectedResult = ShotResult.HIT_AGAIN;
+    ShotResult expectedResult = ShotResult.MISSED;
 
     assertEquals(actualShotResult, expectedResult);
   }
