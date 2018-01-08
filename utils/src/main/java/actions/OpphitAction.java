@@ -8,6 +8,5 @@ public class OpphitAction implements PerformAction {
 
   @Override
   public void act(SuperiorMessage message) {
-    message.processOpponentHit();
   }
 }

@@ -1,6 +1,7 @@
 package model;
 
 
+import actions.HitAction;
 import events.UpdateWhenHitEvent;
 import events.UpdateWhenMissedEvent;
 import events.YouHitEvent;
@@ -8,9 +9,12 @@ import events.YouLostEvent;
 import events.YouMissedEvent;
 import events.YouWinEvent;
 import events.YourTurnEvent;
+import gui.act.HitInstruction;
+import gui.act.Instruction;
 import javafx.scene.control.TextField;
-import responses.Response;
-import responses.SuperiorMessage;
+import responses.*;
+
+import java.util.EnumMap;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -20,12 +24,30 @@ import responses.SuperiorMessage;
  */
 public class MessageProcessor extends SuperiorMessage {
 
-//  private TextField dispatcher;
+  private TextField dispatcher;
   Response response;
+  private EnumMap<ResponseHeader,Instruction> map;
 
-  public void processMessage(Response response) {
+  public void processMessage3(Response response) {
     this.response = response;
     response.makeMove(this);
+  }
+
+  public void processMessage(Response response) {
+    map = new EnumMap<>(ResponseHeader.class);
+    populateMap(response);
+    map.get(response.getHeader()).perform(dispatcher);
+  }
+
+  private void populateMap(Response response) {
+    map.put(ResponseHeader.HIT, new HitInstruction());
+    map.put(ResponseHeader.MISSED, new MissedResponse());
+    map.put(ResponseHeader.WIN, new WinResponse());
+    map.put(ResponseHeader.PLAY, new PlayResponse());
+    map.put(ResponseHeader.LOST, new LossResponse());
+    map.put(ResponseHeader.OPPHIT, new OpponentHitResponse(response.getShot().get()));
+    map.put(ResponseHeader.OPPMISSED, new OpponentMissedResponse(response.getShot().get()));
+
   }
 
   public void processMessage2(Response response) {
