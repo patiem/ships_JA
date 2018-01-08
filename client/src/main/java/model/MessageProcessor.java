@@ -2,10 +2,7 @@ package model;
 
 import connection.Client;
 import gui.fields.SeaField;
-import gui.playing.UpdateEventWhenHit;
-import gui.playing.UpdateEventWhenMissed;
-import gui.playing.YouMissedEvent;
-import gui.playing.YourTurnEvent;
+import gui.playing.*;
 import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -22,7 +19,7 @@ public class MessageProcessor {
 
   private Button nextButton;
   private SeaField lastField;
-  private TextField textField;
+  private TextField dispatcher;
   private Client client;
   private Map<String, MessageAction> actionBook;
 
@@ -40,25 +37,19 @@ public class MessageProcessor {
         nextButton.fireEvent(new ConnectEvent());
         break;
       case "HIT":
-        lastField.hit();
+        dispatcher.fireEvent(new YouHitEvent());
         break;
       case "MISSED":
-//        lastField.missed();
-//        textField.setText("wait");
-        textField.fireEvent(new YouMissedEvent());
-
-        break;
-      case "HIT_AGAIN":
+        dispatcher.fireEvent(new YouMissedEvent());
         break;
       case "WIN":
-        lastField.hit();
-        textField.setText("You won");
+        dispatcher.fireEvent(new YouWinEvent());
         break;
       case "PLAY":
-        textField.fireEvent(new YourTurnEvent());
+        dispatcher.fireEvent(new YourTurnEvent());
         break;
       case "LOST":
-        textField.setText("You lost");
+        dispatcher.fireEvent(new YouLostEvent());
         break;
       default:
         if (message.contains("OPPHIT")) processOpponentHit(message);
@@ -69,12 +60,12 @@ public class MessageProcessor {
 
   private void processOpponentMissed(String message) {
     String fieldIndex = message.split(" ")[1];
-    textField.fireEvent(new UpdateEventWhenMissed(fieldIndex));
+    dispatcher.fireEvent(new UpdateWhenMissedEvent(fieldIndex));
   }
 
   private void processOpponentHit(String message) {
     String fieldIndex = message.split(" ")[1];
-    textField.fireEvent(new UpdateEventWhenHit(fieldIndex));
+    dispatcher.fireEvent(new UpdateWhenHitEvent(fieldIndex));
   }
 
   public void setLastField(SeaField lastField) {
@@ -91,7 +82,7 @@ public class MessageProcessor {
   }
 
   public void putObserverTextFieldForConnection(TextField textField) {
-    this.textField = textField;
+    this.dispatcher = textField;
   }
 
   public void putClient(Client client) {

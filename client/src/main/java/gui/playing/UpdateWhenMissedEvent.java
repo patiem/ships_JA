@@ -3,13 +3,13 @@ package gui.playing;
 import javafx.event.Event;
 import javafx.event.EventType;
 
-public class UpdateEventWhenMissed extends Event {
-  public static final EventType<UpdateEventWhenMissed> MISSED =
-      new EventType<>(Event.ANY, "MISSED");
+public class UpdateWhenMissedEvent extends Event {
+  public static final EventType<UpdateWhenMissedEvent> UPDATE_MISSED =
+      new EventType<>(Event.ANY, "UPDATE_MISSED");
   private String message;
 
-  public UpdateEventWhenMissed(String message) {
-    super(MISSED);
+  public UpdateWhenMissedEvent(String message) {
+    super(UPDATE_MISSED);
     this.message = message;
   }
 
