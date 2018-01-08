@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
     @JsonSubTypes.Type(value = OpponentHitResponse.class, name = "OpponentHitResponse"),
     @JsonSubTypes.Type(value = OpponentMissedResponse.class, name = "OpponentMissedResponse"),
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
-    @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),}
+    @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse")}
 )
 public abstract class Response {
-   public abstract ResponseHeader getHeader();
+  public abstract ResponseHeader getHeader();
 }
