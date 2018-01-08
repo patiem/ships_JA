@@ -3,6 +3,8 @@ package connection;
 import gui.fields.Field;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +18,8 @@ import java.util.logging.Logger;
 public class Client {
 
   private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-  private static final int PORT = 5000;
+  private static int PORT;
+  private  final String fileName ="config.properties";
 
   private Sender out;
   private Receiver in;
@@ -28,12 +31,20 @@ public class Client {
    */
   public void run() {
     try {
+      PORT = setUpPort();
       connector = SocketConnector.from(host, PORT);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
+  }
+
+  private int setUpPort() throws IOException{
+    Properties properties = new Properties();
+    InputStream config = ClassLoader.getSystemResourceAsStream(fileName);
+    properties.load(config);
+    return Integer.parseInt(properties.getProperty("portNumber"));
   }
 
 
