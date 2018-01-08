@@ -5,6 +5,7 @@ import connection.FleetSender;
 import gui.fields.BoundField;
 import gui.fields.Mast;
 import gui.fields.SeaField;
+import gui.starting.ConnectEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -67,6 +68,8 @@ public class FleetDropController implements Initializable {
   private Rectangle ship1c;
   @FXML
   private TextField userName;
+  @FXML
+  private Button nextButton;
 
   private Rectangle buildShip;
   private Fleet fleet;
@@ -115,13 +118,14 @@ public class FleetDropController implements Initializable {
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
       connectButton.setVisible(false);
       client.run();
-
       FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
-
       fleetSender.sendFleetToServer();
-      reactor.processMessage(client.getMessage());
+      nextButton.fireEvent(new ConnectEvent());
     });
+    addEventHandlersToShips();
+  }
 
+  private void addEventHandlersToShips() {
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
         ship2b, ship1, ship1a, ship1b, ship1c);
 

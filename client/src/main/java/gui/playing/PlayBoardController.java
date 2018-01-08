@@ -79,7 +79,6 @@ public class PlayBoardController implements Initializable {
           client.sendMessage(field);
           field.marked();
           lastField = field;
-          processor.setLastField(field);
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
