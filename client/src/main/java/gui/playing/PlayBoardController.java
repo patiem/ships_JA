@@ -4,6 +4,7 @@ import connection.Client;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
@@ -28,6 +29,7 @@ public class PlayBoardController implements Initializable {
   private final Client client;
   private List<Position> positions;
   private final MessageProcessor processor;
+  private SeaField lastField;
 
   @FXML
   private GridPane shipBoard;
@@ -45,6 +47,25 @@ public class PlayBoardController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
+    shipBoard.setDisable(true);
+    winning.setText("wait");
+    populateOpponentBoardWithFleet();
+
+    winning.addEventHandler(UpdateEventWhenHit.UPDATE, updateBoardWhenHit);
+    winning.addEventHandler(UpdateEventWhenMissed.MISSED, updateBoardWhenMissed);
+    winning.addEventHandler(YourTurnEvent.TURN, enableBoard);
+    winning.addEventHandler(YouMissedEvent.WAIT, youMissed);
+
+    new Thread(() -> {
+      Boolean isRunning = true;
+      while (isRunning) {
+        String message = client.getMessage();
+        processor.processMessage(message);
+        if (message.equals("WIN") || message.equals("LOST")) {
+          isRunning = false;
+        }
+      }
+    }).start();
   }
 
   private void populateSeaWithSeaFields() {
@@ -54,52 +75,65 @@ public class PlayBoardController implements Initializable {
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
+          lastField = field;
           processor.setLastField(field);
         });
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
     }
+  }
 
+  private void populateOpponentBoardWithFleet() {
     for (Position position : positions) {
       Mast smallMast = new Mast(position.getRow(), position.getColumn(), FieldSize.SMALL);
       targetBoard.getChildren().add(smallMast);
       GridPane.setConstraints(smallMast, position.getColumn(), position.getRow());
     }
-
-    winning.addEventHandler(UpdateEventWhenHit.UPDATE, event -> {
-      Integer index = Integer.valueOf(event.getMessage());
-      Position fieldPosition = new Position(index);
-      System.out.println(fieldPosition);
-      Platform.runLater(() -> {
-        Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-        hitMast.markedAsHit();
-        targetBoard.getChildren().add(hitMast);
-        GridPane.setConstraints(hitMast, fieldPosition.getColumn(), fieldPosition.getRow());
-      });
-    });
-
-    winning.addEventHandler(UpdateEventWhenMissed.MISSED, event -> {
-      Integer index = Integer.valueOf(event.getMessage());
-      Position fieldPosition = new Position(index);
-      System.out.println(fieldPosition);
-
-      Platform.runLater(() -> {
-        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-        seaHit.markedAsHit();
-        targetBoard.getChildren().add(seaHit);
-        GridPane.setConstraints(seaHit, fieldPosition.getColumn(), fieldPosition.getRow());
-      });
-    });
-
-    new Thread(() -> {
-      Boolean isRunning = true;
-      while(isRunning) {
-        String message = client.getMessage();
-        processor.processMessage(message);
-        if (message.equals("WIN") || message.equals("LOST")) isRunning = false;
-      }
-    }).start();
   }
+
+  //TODO: remove duplicated code from event handlers
+  
+  //EVENT HANDLERS
+
+  private final EventHandler<UpdateEventWhenHit> updateBoardWhenHit =
+      event -> {
+        Integer index = Integer.valueOf(event.getMessage());
+        Position fieldPosition = new Position(index);
+        System.out.println(fieldPosition);
+        Platform.runLater(() -> {
+          Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+          hitMast.markedAsHit();
+          targetBoard.getChildren().add(hitMast);
+          GridPane.setConstraints(hitMast, fieldPosition.getColumn(), fieldPosition.getRow());
+        });
+      };
+
+  private final EventHandler<UpdateEventWhenMissed> updateBoardWhenMissed =
+      event -> {
+        Integer index = Integer.valueOf(event.getMessage());
+        Position fieldPosition = new Position(index);
+        System.out.println(fieldPosition);
+        Platform.runLater(() -> {
+          SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+          seaHit.markedAsHit();
+          targetBoard.getChildren().add(seaHit);
+          GridPane.setConstraints(seaHit, fieldPosition.getColumn(), fieldPosition.getRow());
+        });
+      };
+
+  private final EventHandler<YourTurnEvent> enableBoard =
+      event -> {
+        winning.setText("play");
+        shipBoard.setDisable(false);
+      };
+
+  private final EventHandler<YouMissedEvent> youMissed =
+      event -> {
+        lastField.missed();
+        winning.setText("wait");
+        shipBoard.setDisable(true);
+      };
+
 }
 

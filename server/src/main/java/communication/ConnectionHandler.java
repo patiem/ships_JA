@@ -31,6 +31,7 @@ class ConnectionHandler {
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
     acceptPlayer(serverSocket);
     acceptPlayer(serverSocket);
+
     setUpGameConfiguration();
   }
 
@@ -60,6 +61,12 @@ class ConnectionHandler {
     MessageSender messageSender = new MessageSender();
     messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
   }
+
+//  private void sendStartPlayMessage(PlayerClient playerClient) throws IOException {
+//    final String playerIsConnected = "CON";
+//    MessageSender messageSender = new MessageSender();
+//    messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
+//  }
 
   private InitMessage prepareJSONMessage(BufferedReader reader) throws IOException {
     MessageReceiver messageReceiver = new MessageReceiver();
