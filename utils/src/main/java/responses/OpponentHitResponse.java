@@ -1,5 +1,6 @@
 package responses;
 
+import actions.OpphitAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.Shot;
@@ -8,11 +9,13 @@ import java.util.Optional;
 
 public class OpponentHitResponse extends Response {
 
+
   private ResponseHeader header = ResponseHeader.OPPHIT;
   private Shot shot;
 
   @JsonCreator
   public OpponentHitResponse(@JsonProperty("shot")Shot shot) {
+    performAction = new OpphitAction();
     this.shot = shot;
   }
 

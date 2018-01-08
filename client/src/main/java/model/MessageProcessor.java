@@ -1,14 +1,16 @@
 package model;
 
-import gui.playing.UpdateWhenHitEvent;
-import gui.playing.UpdateWhenMissedEvent;
-import gui.playing.YouHitEvent;
-import gui.playing.YouLostEvent;
-import gui.playing.YouMissedEvent;
-import gui.playing.YouWinEvent;
-import gui.playing.YourTurnEvent;
+
+import events.UpdateWhenHitEvent;
+import events.UpdateWhenMissedEvent;
+import events.YouHitEvent;
+import events.YouLostEvent;
+import events.YouMissedEvent;
+import events.YouWinEvent;
+import events.YourTurnEvent;
 import javafx.scene.control.TextField;
 import responses.Response;
+import responses.SuperiorMessage;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -16,11 +18,17 @@ import responses.Response;
  * @author Patrycja Mikulska
  * @version 1.5
  */
-public class MessageProcessor {
+public class MessageProcessor extends SuperiorMessage {
 
-  private TextField dispatcher;
+//  private TextField dispatcher;
+  Response response;
 
   public void processMessage(Response response) {
+    this.response = response;
+    response.makeMove(this);
+  }
+
+  public void processMessage2(Response response) {
     switch (response.getHeader()) {
       case HIT:
         dispatcher.fireEvent(new YouHitEvent());
@@ -38,10 +46,10 @@ public class MessageProcessor {
         dispatcher.fireEvent(new YouLostEvent());
         break;
       case OPPHIT:
-        processOpponentHit(response);
+        processOpponentHit();
         break;
       case OPPMISSED:
-        processOpponentMissed(response);
+        processOpponentMissed();
         break;
       default:
         break;
@@ -52,12 +60,12 @@ public class MessageProcessor {
     this.dispatcher = textField;
   }
 
-  private void processOpponentMissed(Response response) {
+  private void processOpponentMissed() {
     String shotAsString = getShotAsString(response);
     dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
   }
 
-  private void processOpponentHit(Response response) {
+  private void processOpponentHit() {
     String shotAsString = getShotAsString(response);
     dispatcher.fireEvent(new UpdateWhenHitEvent(shotAsString));
   }

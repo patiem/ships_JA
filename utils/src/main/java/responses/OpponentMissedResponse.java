@@ -1,5 +1,6 @@
 package responses;
 
+import actions.OppMissAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.Shot;
@@ -13,6 +14,7 @@ public class OpponentMissedResponse extends Response {
 
   @JsonCreator
   public OpponentMissedResponse(@JsonProperty("shot") Shot shot) {
+    performAction = new OppMissAction();
     this.shot = shot;
   }
 
