@@ -4,9 +4,13 @@ import connection.Client;
 import gui.fields.SeaField;
 import gui.playing.UpdateEventWhenHit;
 import gui.playing.UpdateEventWhenMissed;
+import gui.playing.YouMissedEvent;
+import gui.playing.YourTurnEvent;
 import gui.starting.ConnectEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
+import java.util.Map;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -20,6 +24,15 @@ public class MessageProcessor {
   private SeaField lastField;
   private TextField textField;
   private Client client;
+  private Map<String, MessageAction> actionBook;
+
+  public void registerClassAction(String header, MessageAction action) {
+    actionBook.put(header, action);
+  }
+
+  public void actOnMessage(String message) {
+
+  }
 
   public void processMessage(String message) {
     switch (message) {
@@ -30,8 +43,10 @@ public class MessageProcessor {
         lastField.hit();
         break;
       case "MISSED":
-        lastField.missed();
-        textField.setText("wait");
+//        lastField.missed();
+//        textField.setText("wait");
+        textField.fireEvent(new YouMissedEvent());
+
         break;
       case "HIT_AGAIN":
         break;
@@ -40,7 +55,7 @@ public class MessageProcessor {
         textField.setText("You won");
         break;
       case "PLAY":
-        textField.setText("play");
+        textField.fireEvent(new YourTurnEvent());
         break;
       case "LOST":
         textField.setText("You lost");
