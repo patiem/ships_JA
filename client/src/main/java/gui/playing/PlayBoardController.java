@@ -51,10 +51,13 @@ public class PlayBoardController implements Initializable {
     winning.setText("wait");
     populateOpponentBoardWithFleet();
 
-    winning.addEventHandler(UpdateEventWhenHit.UPDATE, updateBoardWhenHit);
-    winning.addEventHandler(UpdateEventWhenMissed.MISSED, updateBoardWhenMissed);
+    winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
+    winning.addEventHandler(UpdateWhenMissedEvent.UPDATE_MISSED, updateBoardWhenMissed);
     winning.addEventHandler(YourTurnEvent.TURN, enableBoard);
     winning.addEventHandler(YouMissedEvent.WAIT, youMissed);
+    winning.addEventHandler(YouWinEvent.WIN, youWin);
+    winning.addEventHandler(YouLostEvent.LOST, youLost);
+    winning.addEventHandler(YouHitEvent.HIT, youHit);
 
     new Thread(() -> {
       Boolean isRunning = true;
@@ -96,7 +99,7 @@ public class PlayBoardController implements Initializable {
   
   //EVENT HANDLERS
 
-  private final EventHandler<UpdateEventWhenHit> updateBoardWhenHit =
+  private final EventHandler<UpdateWhenHitEvent> updateBoardWhenHit =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
@@ -109,7 +112,7 @@ public class PlayBoardController implements Initializable {
         });
       };
 
-  private final EventHandler<UpdateEventWhenMissed> updateBoardWhenMissed =
+  private final EventHandler<UpdateWhenMissedEvent> updateBoardWhenMissed =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
@@ -135,5 +138,16 @@ public class PlayBoardController implements Initializable {
         shipBoard.setDisable(true);
       };
 
+  private final EventHandler<YouWinEvent> youWin =
+      event -> {
+        lastField.hit();
+        winning.setText("You won");
+      };
+
+  private final EventHandler<YouLostEvent> youLost =
+      event -> winning.setText("You lost");
+
+  private final EventHandler<YouHitEvent> youHit =
+      event -> lastField.hit();
 }
 
