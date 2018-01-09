@@ -18,21 +18,19 @@ import java.util.logging.Logger;
 public class Client {
 
   private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-  private static int PORT;
-  private  final String fileName ="config.properties";
+  private static final String fileName ="config.properties";
 
   private Sender out;
   private Receiver in;
   private String host;
-  Connector connector;
 
   /**
    * Allows the client to receive and send messages to the server.
    */
   public void run() {
     try {
-      PORT = setUpPort();
-      connector = SocketConnector.from(host, PORT);
+      int port = setUpPort();
+      Connector connector = SocketConnector.from(host, port);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
@@ -84,7 +82,4 @@ public class Client {
     return in.readMessage();
   }
 
-  public boolean isGameRunning() {
-    return !connector.isSocketClosed();
-  }
 }

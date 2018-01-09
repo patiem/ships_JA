@@ -19,6 +19,8 @@ import model.Position;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -32,13 +34,15 @@ public class StartBoard extends Application {
   private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
   private static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
+  private static final Logger LOGGER = Logger.getLogger(StartBoard.class.getName());
+
 
   private final Client client = new Client();
   private MessageProcessor processor;
   private Stage stage;
   private AnchorPane buildBoard;
-  Group playRoot;
-  FleetDropController fleetDropController;
+  private Group playRoot;
+  private FleetDropController fleetDropController;
 
   public static void run(String[] args) {
     Application.launch(args);
@@ -80,7 +84,7 @@ public class StartBoard extends Application {
 
   private void createBuildBoard(Group buildRoot, Scene playScene, MessageProcessor reactor) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
-    fleetDropController = new FleetDropController(client, reactor);
+    fleetDropController = new FleetDropController(client);
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);
@@ -112,7 +116,7 @@ public class StartBoard extends Application {
       try {
         createPlayBoard(playRoot, processor, fleetDropController.listOfMasts());
       } catch (IOException e) {
-        e.printStackTrace();
+        LOGGER.log(Level.SEVERE, e.getMessage());
       }
     });
   }

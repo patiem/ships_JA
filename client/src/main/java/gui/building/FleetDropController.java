@@ -73,19 +73,16 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private final MessageProcessor reactor;
 
   /**
-      * Creates FleetDropController instance.
+   * Creates FleetDropController instance.
    *
-   * @param client    - client instance
-   * @param reactor - reactor instance
+   * @param client  - client instance
    */
 
-  public FleetDropController(Client client, MessageProcessor reactor) {
+  public FleetDropController(Client client) {
     sea = new Sea();
     this.client = client;
-    this.reactor = reactor;
   }
 
   /**
@@ -96,6 +93,14 @@ public class FleetDropController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    populateSeaWithActiveFields();
+    fleet = new Fleet(sea);
+    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+    addEventHandlersToShips();
+  }
+
+  private void populateSeaWithActiveFields() {
     for (int column = 0; column < GRID_SIZE; column++) {
       for (int row = 0; row < GRID_SIZE; row++) {
         SeaField field = new SeaField(column, row, FieldSize.BIG);
@@ -112,17 +117,6 @@ public class FleetDropController implements Initializable {
         sea.addSeaField(field);
       }
     }
-
-    fleet = new Fleet(sea);
-
-    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-      connectButton.setVisible(false);
-      client.run();
-      FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
-      fleetSender.sendFleetToServer();
-      nextButton.fireEvent(new ConnectEvent());
-    });
-    addEventHandlersToShips();
   }
 
   private void addEventHandlersToShips() {
@@ -139,6 +133,15 @@ public class FleetDropController implements Initializable {
       });
     }
   }
+
+  private final EventHandler<MouseEvent> connectWhenClicked =
+      event -> {
+        connectButton.setVisible(false);
+        setupClient();
+        FleetSender fleetSender = new FleetSender(getClient(), new Player(fleet, userName.getText()));
+        fleetSender.sendFleetToServer();
+        nextButton.fireEvent(new ConnectEvent());
+      };
 
   private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {
@@ -241,5 +244,13 @@ public class FleetDropController implements Initializable {
 
   public List<Position> listOfMasts() {
     return fleet.getMastsPositions();
+  }
+
+  public Client getClient() {
+    return client;
+  }
+
+  private void setupClient() {
+    client.run();
   }
 }

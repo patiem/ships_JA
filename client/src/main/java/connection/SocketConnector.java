@@ -39,11 +39,4 @@ public class SocketConnector implements Connector {
   public InputStream getInStream() throws IOException {
     return socket.getInputStream();
   }
-
-  @Override
-  public boolean isSocketClosed() {
-    return socket.isClosed();
-  }
-
-
 }
