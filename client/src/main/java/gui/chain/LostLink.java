@@ -1,10 +1,11 @@
 package gui.chain;
 
-
 import gui.events.YouLostEvent;
-import model.MessageProcessor;
+import javafx.scene.control.TextField;
 import responses.Response;
 import responses.ResponseHeader;
+
+
 
 public class LostLink implements Chain {
 
@@ -12,16 +13,15 @@ public class LostLink implements Chain {
 
   @Override
   public void setNextChain(Chain nextChain) {
-
     nextInChain = nextChain;
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.LOST){
-      messageProcessor.getDispatcher().fireEvent(new YouLostEvent());
+      dispatcher.fireEvent(new YouLostEvent());
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 }

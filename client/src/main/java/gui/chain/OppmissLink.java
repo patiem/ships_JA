@@ -2,7 +2,7 @@ package gui.chain;
 
 import gui.events.UpdateWhenMissedEvent;
 
-import model.MessageProcessor;
+import javafx.scene.control.TextField;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -17,12 +17,12 @@ public class OppmissLink implements Chain {
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.OPPMISSED){
       String shotAsString = getShotAsString(response);
-      messageProcessor.getDispatcher().fireEvent(new UpdateWhenMissedEvent(shotAsString));
+      dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 }

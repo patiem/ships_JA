@@ -1,7 +1,7 @@
 package gui.chain;
 
 import gui.events.YouMissedEvent;
-import model.MessageProcessor;
+import javafx.scene.control.TextField;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -11,16 +11,15 @@ public class MissedLink implements Chain {
 
   @Override
   public void setNextChain(Chain nextChain) {
-
     nextInChain = nextChain;
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.MISSED){
-      messageProcessor.getDispatcher().fireEvent(new YouMissedEvent());
+      dispatcher.fireEvent(new YouMissedEvent());
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 }

@@ -3,6 +3,7 @@ package gui.chain;
 public class ChainConfigFactory {
 
   public static Chain configureChainOfResponsibilities() {
+
     Chain firstLinkInTheChain = new HitLink();
     Chain chain2 = new MissedLink();
     Chain chain3 = new WinLink();

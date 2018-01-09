@@ -1,7 +1,6 @@
 package gui.chain;
-
+import javafx.scene.control.TextField;
 import gui.events.UpdateWhenHitEvent;
-import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -16,12 +15,12 @@ public class OpphitLink implements Chain {
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.OPPHIT){
       String shotAsString = getShotAsString(response);
-      messageProcessor.getDispatcher().fireEvent(new UpdateWhenHitEvent(shotAsString));
+      dispatcher.fireEvent(new UpdateWhenHitEvent(shotAsString));
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 

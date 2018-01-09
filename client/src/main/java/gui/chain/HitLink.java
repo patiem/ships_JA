@@ -1,26 +1,25 @@
 package gui.chain;
 
 import gui.events.YouHitEvent;
-import model.MessageProcessor;
+import javafx.scene.control.TextField;
 import responses.Response;
 import responses.ResponseHeader;
 
 public class HitLink implements Chain {
 
-  private  Chain nextInChain;
+  private Chain nextInChain;
 
   @Override
   public void setNextChain(Chain nextChain) {
-
     nextInChain = nextChain;
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.HIT){
-      messageProcessor.getDispatcher().fireEvent(new YouHitEvent());
+      dispatcher.fireEvent(new YouHitEvent());
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 }

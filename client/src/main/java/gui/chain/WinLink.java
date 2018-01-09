@@ -2,7 +2,7 @@ package gui.chain;
 
 import gui.events.YouWinEvent;
 
-import model.MessageProcessor;
+import javafx.scene.control.TextField;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -17,11 +17,11 @@ public class WinLink implements Chain {
   }
 
   @Override
-  public void check(Response response, MessageProcessor messageProcessor) {
+  public void check(Response response, TextField dispatcher) {
     if(response.getHeader() == ResponseHeader.WIN){
-      messageProcessor.getDispatcher().fireEvent(new YouWinEvent());
+      dispatcher.fireEvent(new YouWinEvent());
     } else {
-      nextInChain.check(response,messageProcessor);
+      nextInChain.check(response,dispatcher);
     }
   }
 }

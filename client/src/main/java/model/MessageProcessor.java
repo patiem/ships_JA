@@ -22,10 +22,10 @@ public class MessageProcessor {
   }
 
   public void processMessage(Response response) { // TODO: reflect on how to create these chains
-    firstLinkInTheChain.check(response, this);
+    firstLinkInTheChain.check(response, dispatcher);
 
   }
-  
+
   public void putObserverTextFieldForConnection(TextField textField) {
     this.dispatcher = textField;
   }
