@@ -1,12 +1,10 @@
 package gui.chain;
-
-import gui.events.UpdateWhenMissedEvent;
-
 import javafx.scene.control.TextField;
+import gui.events.UpdateWhenHitEvent;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class OppmissLink implements Chain {
+public class OpponentHitLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -18,11 +16,12 @@ public class OppmissLink implements Chain {
 
   @Override
   public void check(Response response, TextField dispatcher) {
-    if(response.getHeader() == ResponseHeader.OPPMISSED){
+    if(response.getHeader() == ResponseHeader.OPPHIT){
       String shotAsString = getShotAsString(response);
-      dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
+      dispatcher.fireEvent(new UpdateWhenHitEvent(shotAsString));
     } else {
       nextInChain.check(response,dispatcher);
     }
   }
+
 }

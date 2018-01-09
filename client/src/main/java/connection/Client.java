@@ -62,7 +62,7 @@ public class Client {
    *
    * @param message - the message that needs to be sent to the server.
    */
-  public void sendMessage(String message) {
+  void sendMessage(String message) {
     out.sendMessage(message);
   }
 

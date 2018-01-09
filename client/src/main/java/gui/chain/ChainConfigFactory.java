@@ -1,5 +1,7 @@
 package gui.chain;
 
+
+
 public class ChainConfigFactory {
 
   public static Chain configureChainOfResponsibilities() {
@@ -9,8 +11,8 @@ public class ChainConfigFactory {
     Chain chain3 = new WinLink();
     Chain chain4 = new PlayLink();
     Chain chain5 = new LostLink();
-    Chain chain6 = new OpphitLink();
-    Chain chain7 = new OppmissLink();
+    Chain chain6 = new OpponentHitLink();
+    Chain chain7 = new OpponentMissedLink();
 
     firstLinkInTheChain.setNextChain(chain2);
     chain2.setNextChain(chain3);
