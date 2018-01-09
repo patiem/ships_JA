@@ -102,7 +102,6 @@ public class PlayBoardController implements Initializable {
 
   private void putFieldOnOpponentBoard(Field field) {
     Platform.runLater(() -> {
-//      field.markAsHit();
       Node fieldAsNode = (Node) field;
       field.markAsHit();
       targetBoard.getChildren().add(fieldAsNode);
