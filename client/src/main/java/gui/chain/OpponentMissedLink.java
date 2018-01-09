@@ -8,7 +8,7 @@ import responses.ResponseHeader;
 
 public class OpponentMissedLink implements Chain {
 
-  private  Chain nextInChain;
+  private Chain nextInChain;
 
   @Override
   public void setNextChain(Chain nextChain) {
@@ -22,7 +22,7 @@ public class OpponentMissedLink implements Chain {
       String shotAsString = getShotAsString(response);
       dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
     } else {
-      nextInChain.check(response,dispatcher);
+      throw new IllegalStateException();
     }
   }
 }

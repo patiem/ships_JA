@@ -4,11 +4,10 @@ import gui.chain.Chain;
 import javafx.scene.control.TextField;
 import responses.*;
 
-
 /**
  * It calls different methods depending on the message that has been sent form the server.
  *
- * @author Patrycja Mikulska
+ * @author Patrycja Mikulska/Bartosz Pieczara
  * @version 1.5
  */
 public class MessageProcessor {
@@ -34,6 +33,5 @@ public class MessageProcessor {
   public TextField getDispatcher() {
     return dispatcher;
   }
-
 
 }
