@@ -1,6 +1,7 @@
 package model;
 
 import gui.chain.Chain;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import responses.*;
 
@@ -12,8 +13,7 @@ import responses.*;
  */
 public class MessageProcessor {
 
-  private TextField dispatcher;
-
+  private Node dispatcher;
   private Chain firstLinkInTheChain;
 
   public MessageProcessor(Chain firstLinkInTheChain) {
@@ -22,16 +22,9 @@ public class MessageProcessor {
 
   public void processMessage(Response response) { // TODO: reflect on how to create these chains
     firstLinkInTheChain.check(response, dispatcher);
-
   }
 
-  public void putObserverTextFieldForConnection(TextField textField) {
+  public void setDispatcher(Node textField) {
     this.dispatcher = textField;
   }
-
-
-  public TextField getDispatcher() {
-    return dispatcher;
-  }
-
 }

@@ -92,7 +92,7 @@ public class StartBoard extends Application {
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
-    processor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
+    processor.setDispatcher((TextField) playRoot.lookup("#winning"));
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {

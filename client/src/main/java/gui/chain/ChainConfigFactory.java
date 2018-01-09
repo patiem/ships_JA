@@ -1,7 +1,5 @@
 package gui.chain;
 
-
-
 public class ChainConfigFactory {
 
   public static Chain configureChainOfResponsibilities() {

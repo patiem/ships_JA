@@ -2,7 +2,7 @@ package gui.chain;
 
 import gui.events.UpdateWhenMissedEvent;
 
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -17,7 +17,7 @@ public class OpponentMissedLink implements Chain {
   }
 
   @Override
-  public void check(Response response, TextField dispatcher) {
+  public void check(Response response, Node dispatcher) {
     if(response.getHeader() == ResponseHeader.OPPMISSED){
       String shotAsString = getShotAsString(response);
       dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));

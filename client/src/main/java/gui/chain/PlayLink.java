@@ -1,7 +1,7 @@
 package gui.chain;
 
 import gui.events.YourTurnEvent;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -16,11 +16,11 @@ public class PlayLink implements Chain {
   }
 
   @Override
-  public void check(Response response, TextField dispatcher) {
+  public void check(Response response, Node dispatcher) {
     if(response.getHeader() == ResponseHeader.PLAY){
       dispatcher.fireEvent(new YourTurnEvent());
     } else {
-      nextInChain.check(response,dispatcher);
+      nextInChain.check(response, dispatcher);
     }
   }
 }

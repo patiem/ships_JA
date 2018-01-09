@@ -1,6 +1,6 @@
 package gui.chain;
-import javafx.scene.control.TextField;
 import gui.events.UpdateWhenHitEvent;
+import javafx.scene.Node;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -15,12 +15,12 @@ public class OpponentHitLink implements Chain {
   }
 
   @Override
-  public void check(Response response, TextField dispatcher) {
+  public void check(Response response, Node dispatcher) {
     if(response.getHeader() == ResponseHeader.OPPHIT){
       String shotAsString = getShotAsString(response);
       dispatcher.fireEvent(new UpdateWhenHitEvent(shotAsString));
     } else {
-      nextInChain.check(response,dispatcher);
+      nextInChain.check(response, dispatcher);
     }
   }
 
