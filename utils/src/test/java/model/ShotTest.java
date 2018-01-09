@@ -1,5 +1,6 @@
-package engine;
+package model;
 
+import model.Shot;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;

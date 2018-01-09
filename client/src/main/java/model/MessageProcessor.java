@@ -1,8 +1,6 @@
 package model;
 
-import gui.fields.SeaField;
-import gui.starting.ConnectEvent;
-import javafx.scene.control.Button;
+import gui.playing.*;
 import javafx.scene.control.TextField;
 
 /**
@@ -13,42 +11,46 @@ import javafx.scene.control.TextField;
  */
 public class MessageProcessor {
 
-  private Button nextButton;
-  private SeaField lastField;
-  private TextField textField;
+  private TextField dispatcher;
+
+  //Emilia and Bartosz are working on removing this thing, but we won't marge their code before my
+  //will be reviewed.
 
   public void processMessage(String message) {
     switch (message) {
-      case "CON":
-        nextButton.fireEvent(new ConnectEvent());
-        break;
       case "HIT":
-        lastField.hit();
+        dispatcher.fireEvent(new YouHitEvent());
         break;
       case "MISSED":
-        lastField.missed();
-        break;
-      case "HIT_AGAIN":
+        dispatcher.fireEvent(new YouMissedEvent());
         break;
       case "WIN":
-        lastField.hit();
-        textField.setText("You won");
+        dispatcher.fireEvent(new YouWinEvent());
+        break;
+      case "PLAY":
+        dispatcher.fireEvent(new YourTurnEvent());
+        break;
+      case "LOST":
+        dispatcher.fireEvent(new YouLostEvent());
         break;
       default:
+        if (message.contains("OPPHIT")) processOpponentHit(message);
+        if (message.contains("OPPMISSED")) processOpponentMissed(message);
         break;
     }
   }
 
-  public void processMessage(SeaField lastField, String message) {
-    this.lastField = lastField;
-    processMessage(message);
+  private void processOpponentMissed(String message) {
+    String fieldIndex = message.split(" ")[1];
+    dispatcher.fireEvent(new UpdateWhenMissedEvent(fieldIndex));
   }
 
-  public void putObserverButtonForConnection(Button button) {
-    this.nextButton = button;
+  private void processOpponentHit(String message) {
+    String fieldIndex = message.split(" ")[1];
+    dispatcher.fireEvent(new UpdateWhenHitEvent(fieldIndex));
   }
 
   public void putObserverTextFieldForConnection(TextField textField) {
-    this.textField = textField;
+    this.dispatcher = textField;
   }
 }

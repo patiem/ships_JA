@@ -9,8 +9,6 @@ import model.Position;
  */
 public interface Field {
 
-  Integer SIZE = 30;
-
   int getColumn();
 
   int getRow();
@@ -23,4 +21,6 @@ public interface Field {
     int numberOfColumns = 10;
     return getColumn() + getRow() * numberOfColumns;
   }
+
+  void markAsHit();
 }

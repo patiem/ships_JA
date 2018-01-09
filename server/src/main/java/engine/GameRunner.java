@@ -1,8 +1,12 @@
 package engine;
 
-import communication.PlayerTracker;
+import communication.MessageSender;
+import communication.PlayerRegistry;
 import fleet.Fleet;
+import model.Shot;
 
+import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -16,46 +20,70 @@ public class GameRunner {
   private static final Logger LOGGER = Logger.getLogger(GameRunner.class.getName());
 
   private final Round round;
-  private final PlayerTracker playerTracker;
+  private final PlayerRegistry playerRegistry;
   private final ShotReceiver shotReceiver = new SocketShotReceiver();
   private final Referee referee = new Referee();
   private GameState gameState = GameState.ACTIVE;
 
-  public GameRunner(final Round round, final PlayerTracker playerTracker) {
+  public GameRunner(final Round round, final PlayerRegistry playerRegistry) {
     this.round = round;
-    this.playerTracker = playerTracker;
+    this.playerRegistry = playerRegistry;
   }
 
   public void runGame() {
+    unblockPlayer();
     while (gameState == GameState.ACTIVE) {
-      Shot shot = shotReceiver.readShot(playerTracker.getCurrentReader());
-      Fleet fleetUnderFire = playerTracker.getFleetUnderFire();
-      ShotResult result = round.makeShot(fleetUnderFire, shot);
+      Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
+      Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
+      ShotResult result = round.fireShot(fleetUnderFire, shot);
       gameState = referee.isVictory(fleetUnderFire);
 
-      sendMessage(result);
+      sendMessage(result, shot);
 
       if (result != ShotResult.HIT) {
-        playerTracker.switchPlayers();
+        playerRegistry.switchPlayers();
+        unblockPlayer();
       }
 
       logShotInfo(shot, result);
     }
   }
 
-  private void sendMessage(final ShotResult result) {
+  private void unblockPlayer() {
+    MessageSender messageSender = new MessageSender();
+    try {
+      messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), "PLAY");
+    } catch (IOException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
+  }
+
+  private void sendMessage(final ShotResult result, Shot shot) {
     String message = result.toString();
+
+    String messageToOpponent = makeMessageForOpponent(result, shot);
 
     if (gameState == GameState.WIN) {
       message = gameState.toString();
+      messageToOpponent = "LOST";
     }
 
-    playerTracker.sendMessageToCurrentPlayer(message);
+    MessageSender messageSender = new MessageSender();
+    try {
+      messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), message);
+      messageSender.sendMessageToPlayer(playerRegistry.getWaitingPlayer(), messageToOpponent);
+    } catch (IOException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
+  }
+
+  private String makeMessageForOpponent(ShotResult result, Shot shot) {
+    return String.format("OPP%s %d", result.toString(), shot.asInteger());
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {
     String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s",
-        playerTracker.currentPlayerName(), shot.asInteger(), shotResult, gameState);
+        playerRegistry.currentPlayerName(), shot.asInteger(), shotResult, gameState);
     LOGGER.info(logMessage);
   }
 }

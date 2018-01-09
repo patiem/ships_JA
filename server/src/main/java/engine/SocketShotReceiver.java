@@ -1,6 +1,7 @@
 package engine;
 
 import communication.MessageReceiver;
+import model.Shot;
 
 import java.io.BufferedReader;
 

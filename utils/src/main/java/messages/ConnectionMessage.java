@@ -1,4 +1,4 @@
-package json;
+package messages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,14 +9,14 @@ import model.FleetModel;
  * @author Emilia Ciastek/Bartosz Pieczara
  * @version 1.5
  */
-public class InitMessage {
+public class ConnectionMessage {
 
 
   private final String name;
   private final FleetModel fleetModel;
 
   @JsonCreator
-  public InitMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {
+  public ConnectionMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {
     this.name = name;
     this.fleetModel = fleetModel;
   }

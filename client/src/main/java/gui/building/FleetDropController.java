@@ -5,6 +5,7 @@ import connection.FleetSender;
 import gui.fields.BoundField;
 import gui.fields.Mast;
 import gui.fields.SeaField;
+import gui.starting.ConnectEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -67,22 +68,21 @@ public class FleetDropController implements Initializable {
   private Rectangle ship1c;
   @FXML
   private TextField userName;
+  @FXML
+  private Button nextButton;
 
   private Rectangle buildShip;
   private Fleet fleet;
-  private final MessageProcessor reactor;
 
   /**
-      * Creates FleetDropController instance.
+   * Creates FleetDropController instance.
    *
-   * @param client    - client instance
-   * @param reactor - reactor instance
+   * @param client  - client instance
    */
 
-  public FleetDropController(Client client, MessageProcessor reactor) {
+  public FleetDropController(Client client) {
     sea = new Sea();
     this.client = client;
-    this.reactor = reactor;
   }
 
   /**
@@ -93,9 +93,17 @@ public class FleetDropController implements Initializable {
    */
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
+    populateSeaWithActiveFields();
+    fleet = new Fleet(sea);
+    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+    addEventHandlersToShips();
+  }
+
+  private void populateSeaWithActiveFields() {
     for (int column = 0; column < GRID_SIZE; column++) {
       for (int row = 0; row < GRID_SIZE; row++) {
-        SeaField field = new SeaField(column, row);
+        SeaField field = new SeaField(column, row, FieldSize.BIG);
 
         field.setOnDragEntered(changeColorwhenDragEntered);
         field.setOnDragExited(resetColorWhenDragExited);
@@ -109,19 +117,9 @@ public class FleetDropController implements Initializable {
         sea.addSeaField(field);
       }
     }
+  }
 
-    fleet = new Fleet(sea);
-
-    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-      connectButton.setVisible(false);
-      client.run();
-
-      FleetSender fleetSender = new FleetSender(client, new Player(fleet, userName.getText()));
-
-      fleetSender.sendFleetToServer();
-      reactor.processMessage(client.getMessage());
-    });
-
+  private void addEventHandlersToShips() {
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
         ship2b, ship1, ship1a, ship1b, ship1c);
 
@@ -135,6 +133,15 @@ public class FleetDropController implements Initializable {
       });
     }
   }
+
+  private final EventHandler<MouseEvent> connectWhenClicked =
+      event -> {
+        connectButton.setVisible(false);
+        setupClient();
+        FleetSender fleetSender = new FleetSender(getClient(), new Player(fleet, userName.getText()));
+        fleetSender.sendFleetToServer();
+        nextButton.fireEvent(new ConnectEvent());
+      };
 
   private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {
@@ -188,7 +195,7 @@ public class FleetDropController implements Initializable {
         if (db.hasString()) {
           success = true;
         }
-        Mast mast = new Mast(column, row);
+        Mast mast = new Mast(column, row, FieldSize.BIG);
         shipBoard.getChildren().add(mast);
         GridPane.setConstraints(mast, column, row);
 
@@ -214,7 +221,7 @@ public class FleetDropController implements Initializable {
           SeaField field = (SeaField) ((BooleanProperty) observable).getBean();
           Integer column = field.getColumn();
           Integer row = field.getRow();
-          Mast mast = new Mast(column, row);
+          Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
           fleet.addNextMastToShip(mast);
@@ -229,9 +236,21 @@ public class FleetDropController implements Initializable {
           Integer column = field.getColumn();
           Integer row = field.getRow();
           port.setDisable(false);
-          BoundField bound = new BoundField(column, row);
+          BoundField bound = new BoundField(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(bound);
           GridPane.setConstraints(bound, column, row);
         }
       };
+
+  public List<Position> listOfMasts() {
+    return fleet.getMastsPositions();
+  }
+
+  public Client getClient() {
+    return client;
+  }
+
+  private void setupClient() {
+    client.run();
+  }
 }

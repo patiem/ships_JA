@@ -1,44 +1,72 @@
 package communication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import engine.GameRunner;
 import engine.Round;
+import fleet.CustomFleet;
+import fleet.Fleet;
+import messages.ConnectionMessage;
+import json.JsonParserAdapter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
  * It establishes connections and creates the game object.
+ *
  * @author Bartosz Pieczara
  * @version 1.5
  */
 class ConnectionHandler {
   private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
 
-  private final PlayerTracker playerTracker = new PlayerTracker();
+  private final PlayerRegistry playerRegistry = new PlayerRegistry();
 
-  void acceptConnections(final ServerSocket serverSocket) {
-    try {
-      acceptPlayer(serverSocket);
-      acceptPlayer(serverSocket);
-
-    } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
-    }
-
-    createGame();
+  void acceptConnections(final ServerSocket serverSocket) throws IOException {
+    acceptPlayer(serverSocket);
+    acceptPlayer(serverSocket);
+    setUpGame();
   }
 
-  private void createGame() {
+  private void setUpGame() {
     Round round = new Round();
-    GameRunner gameRunner = new GameRunner(round, playerTracker);
+    GameRunner gameRunner = new GameRunner(round, playerRegistry);
     gameRunner.runGame();
   }
 
   private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
     Socket socket = serverSocket.accept();
-    playerTracker.registerPlayer(socket);
+    PlayerClient playerClient = createClient(socket);
+    playerRegistry.registerPlayer(playerClient);
+    sendConnectionConfirmationMessage(playerClient);
   }
+
+  private PlayerClient createClient(final Socket socket) throws IOException {
+    BufferedReader reader = new BufferedReader(
+        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+    ConnectionMessage connectionMessage = prepareJSONMessage(reader);
+    Fleet playerFleet = new CustomFleet(connectionMessage.getFleetModel());
+    return new PlayerClient(connectionMessage.getName(), socket, reader, playerFleet);
+  }
+
+  private void sendConnectionConfirmationMessage(PlayerClient playerClient) throws IOException {
+    final String playerIsConnected = "CON";
+    MessageSender messageSender = new MessageSender();
+    messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
+  }
+
+  private ConnectionMessage prepareJSONMessage(BufferedReader reader) throws IOException {
+    MessageReceiver messageReceiver = new MessageReceiver();
+    String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
+    LOGGER.info(gameStartingObjectAsString);
+    JsonParserAdapter jsonParser = new JsonParserAdapter();
+    ConnectionMessage connectionMessage = jsonParser.parse(gameStartingObjectAsString, ConnectionMessage.class, new ObjectMapper());
+    return connectionMessage;
+  }
+
 }

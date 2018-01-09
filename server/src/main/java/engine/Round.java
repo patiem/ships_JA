@@ -1,6 +1,7 @@
 package engine;
 
 import fleet.Fleet;
+import model.Shot;
 
 /**
  * It returns the shot result.
@@ -9,7 +10,7 @@ import fleet.Fleet;
  */
 public class Round {
 
-  ShotResult makeShot(Fleet fleetUnderFire, Shot shot) {
+  ShotResult fireShot(Fleet fleetUnderFire, Shot shot) {
     Integer shotPosition = shot.asInteger();
     HitChecker hitChecker = new HitChecker(fleetUnderFire);
 
