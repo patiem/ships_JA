@@ -13,6 +13,9 @@ public class MessageProcessor {
 
   private TextField dispatcher;
 
+  //Emilia and Bartosz are working on removing this thing, but we won't marge their code before my
+  //will be reviewed.
+
   public void processMessage(String message) {
     switch (message) {
       case "HIT":

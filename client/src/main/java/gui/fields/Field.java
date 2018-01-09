@@ -21,4 +21,6 @@ public interface Field {
     int numberOfColumns = 10;
     return getColumn() + getRow() * numberOfColumns;
   }
+
+  void markedAsHit();
 }

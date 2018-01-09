@@ -1,12 +1,14 @@
 package gui.playing;
 
 import connection.Client;
+import gui.fields.Field;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -94,34 +96,31 @@ public class PlayBoardController implements Initializable {
     }
   }
 
-  //TODO: remove duplicated code from event handlers
-  
+  private void putFieldOnOpponentBoard(Field field) {
+    Platform.runLater(() -> {
+      field.markedAsHit();
+      targetBoard.getChildren().add((Node) field);
+      GridPane.setConstraints((Node) field, field.getRow(), field.getColumn());
+    });
+  }
+
   //EVENT HANDLERS
 
   private final EventHandler<UpdateWhenHitEvent> updateBoardWhenHit =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        System.out.println(fieldPosition);
-        Platform.runLater(() -> {
-          Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-          hitMast.markedAsHit();
-          targetBoard.getChildren().add(hitMast);
-          GridPane.setConstraints(hitMast, fieldPosition.getColumn(), fieldPosition.getRow());
-        });
+        Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        putFieldOnOpponentBoard(hitMast);
+
       };
 
   private final EventHandler<UpdateWhenMissedEvent> updateBoardWhenMissed =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        System.out.println(fieldPosition);
-        Platform.runLater(() -> {
-          SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-          seaHit.markedAsHit();
-          targetBoard.getChildren().add(seaHit);
-          GridPane.setConstraints(seaHit, fieldPosition.getColumn(), fieldPosition.getRow());
-        });
+        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        putFieldOnOpponentBoard(seaHit);
       };
 
   private final EventHandler<YourTurnEvent> enableBoard =

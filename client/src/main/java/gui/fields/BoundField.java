@@ -32,4 +32,9 @@ public class BoundField extends Rectangle implements Field {
   public int getRow() {
     return row;
   }
+
+  @Override
+  public void markedAsHit() {
+    setFill(Color.GRAY);
+  }
 }

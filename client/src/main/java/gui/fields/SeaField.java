@@ -82,6 +82,6 @@ public class SeaField extends Rectangle implements Field {
 
 
   public void markedAsHit() {
-    setFill(Color.DARKBLUE);
+    setFill(Color.BLUE);
   }
 }
