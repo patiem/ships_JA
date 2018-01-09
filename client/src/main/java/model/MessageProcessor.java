@@ -2,8 +2,7 @@ package model;
 
 import gui.chain.Chain;
 import javafx.scene.Node;
-import javafx.scene.control.TextField;
-import responses.*;
+import responses.Response;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -20,7 +19,7 @@ public class MessageProcessor {
     this.firstLinkInTheChain = firstLinkInTheChain;
   }
 
-  public void processMessage(Response response) { // TODO: reflect on how to create these chains
+  public void processMessage(Response response) {
     firstLinkInTheChain.check(response, dispatcher);
   }
 

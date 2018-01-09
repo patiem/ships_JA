@@ -1,16 +1,16 @@
 package gui.chain;
 
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ChainConfigFactoryTest {
 
   @Test
-  public void whenCalledThenReturnsDesiredObject() {
+  public void whenConfigureThenReturnsInstanceOfHitLink() {
     // Act
-    Chain testObject = ChainConfigFactory.configureChainOfResponsibilities();
+    Chain firstChain = ChainConfigFactory.configureChainOfResponsibilities();
     // Assert
-    assertTrue(testObject.getClass()==HitLink.class);
-    assertFalse(testObject.getClass()==LostLink.class);
+    assertThat(firstChain).isInstanceOf(HitLink.class);
   }
 }

@@ -8,13 +8,11 @@ import java.util.Optional;
 
 public class OpponentHitResponse extends Response {
 
-
   private ResponseHeader header = ResponseHeader.OPPHIT;
   private Shot shot;
 
   @JsonCreator
   public OpponentHitResponse(@JsonProperty("shot")Shot shot) {
-
     this.shot = shot;
   }
 
