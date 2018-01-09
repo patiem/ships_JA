@@ -78,10 +78,9 @@ public class FleetDropController implements Initializable {
    * Creates FleetDropController instance.
    *
    * @param client  - client instance
-   * @param reactor - reactor instance
    */
 
-  public FleetDropController(Client client, MessageProcessor reactor) {
+  public FleetDropController(Client client) {
     sea = new Sea();
     this.client = client;
   }

@@ -78,7 +78,7 @@ public class GameRunner {
   }
 
   private String makeMessageForOpponent(ShotResult result, Shot shot) {
-    return "OPP" + result.toString() + " " + shot.asInteger();
+    return String.format("OPP%s %d", result.toString(), shot.asInteger());
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {

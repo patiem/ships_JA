@@ -34,7 +34,7 @@ public class BoundField extends Rectangle implements Field {
   }
 
   @Override
-  public void markedAsHit() {
+  public void markAsHit() {
     setFill(Color.GRAY);
   }
 }

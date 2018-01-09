@@ -22,5 +22,5 @@ public interface Field {
     return getColumn() + getRow() * numberOfColumns;
   }
 
-  void markedAsHit();
+  void markAsHit();
 }

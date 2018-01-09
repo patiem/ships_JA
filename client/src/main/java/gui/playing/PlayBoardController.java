@@ -61,13 +61,17 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouLostEvent.LOST, youLost);
     winning.addEventHandler(YouHitEvent.HIT, youHit);
 
+    makeMessageListenerThread();
+  }
+
+  private void makeMessageListenerThread() {
     new Thread(() -> {
-      Boolean isRunning = true;
-      while (isRunning) {
+      boolean isGameRunning = true;
+      while (isGameRunning) {
         String message = client.getMessage();
         processor.processMessage(message);
         if (message.equals("WIN") || message.equals("LOST")) {
-          isRunning = false;
+          isGameRunning = false;
         }
       }
     }).start();
@@ -98,13 +102,13 @@ public class PlayBoardController implements Initializable {
 
   private void putFieldOnOpponentBoard(Field field) {
     Platform.runLater(() -> {
-      field.markedAsHit();
-      targetBoard.getChildren().add((Node) field);
-      GridPane.setConstraints((Node) field, field.getRow(), field.getColumn());
+//      field.markAsHit();
+      Node fieldAsNode = (Node) field;
+      field.markAsHit();
+      targetBoard.getChildren().add(fieldAsNode);
+      GridPane.setConstraints(fieldAsNode, field.getRow(), field.getColumn());
     });
   }
-
-  //EVENT HANDLERS
 
   private final EventHandler<UpdateWhenHitEvent> updateBoardWhenHit =
       event -> {
