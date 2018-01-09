@@ -1,7 +1,7 @@
 package model;
 
-import gui.chain.Chain;
-import javafx.scene.Node;
+import connection.chain.Chain;
+import gui.playing.DispatcherAdapter;
 import responses.Response;
 
 /**
@@ -12,18 +12,16 @@ import responses.Response;
  */
 public class MessageProcessor {
 
-  private Node dispatcher;
+  private DispatcherAdapter dispatcherAdapter;
   private Chain firstLinkInTheChain;
 
-  public MessageProcessor(Chain firstLinkInTheChain) {
+  public MessageProcessor(Chain firstLinkInTheChain, DispatcherAdapter dispatcher) {
     this.firstLinkInTheChain = firstLinkInTheChain;
+    this.dispatcherAdapter = dispatcher;
+
   }
 
   public void processMessage(Response response) {
-    firstLinkInTheChain.check(response, dispatcher);
-  }
-
-  public void setDispatcher(Node textField) {
-    this.dispatcher = textField;
+    firstLinkInTheChain.analyzeResponse(response, dispatcherAdapter);
   }
 }

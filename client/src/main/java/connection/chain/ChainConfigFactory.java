@@ -1,4 +1,4 @@
-package gui.chain;
+package connection.chain;
 
 public class ChainConfigFactory {
 
@@ -13,6 +13,7 @@ public class ChainConfigFactory {
     Chain chain5 = new LostLink();
     Chain chain6 = new OpponentHitLink();
     Chain chain7 = new OpponentMissedLink();
+    Chain chain8 = new EndLink();
 
     firstLinkInTheChain.setNextChain(chain2);
     chain2.setNextChain(chain3);
@@ -20,6 +21,7 @@ public class ChainConfigFactory {
     chain4.setNextChain(chain5);
     chain5.setNextChain(chain6);
     chain6.setNextChain(chain7);
+    chain7.setNextChain(chain8);
 
     return firstLinkInTheChain;
   }

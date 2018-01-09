@@ -3,8 +3,8 @@ package responses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum ResponseHeader {
-  @JsonProperty("con")
-  CON,
+  @JsonProperty("none")
+  NONE,
   @JsonProperty("hit")
   HIT,
   @JsonProperty("lost")
@@ -18,5 +18,5 @@ public enum ResponseHeader {
   @JsonProperty("play")
   PLAY,
   @JsonProperty("win")
-  WIN,
+  WIN
 }

@@ -1,6 +1,6 @@
-package gui.chain;
+package connection.chain;
 
-import javafx.scene.Node;
+import gui.playing.DispatcherAdapter;
 import model.Shot;
 import responses.Response;
 
@@ -8,11 +8,10 @@ public interface Chain {
 
   void setNextChain(Chain nextChain);
 
-  void check(Response response, Node dispatcher);
+  void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter);
 
   default String getShotAsString(Response response) {
     Shot shot = response.getShot().orElseThrow(IllegalArgumentException::new);
     return shot.toString();
   }
-
 }

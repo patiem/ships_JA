@@ -1,8 +1,7 @@
-package gui.chain;
+package connection.chain;
 
 import gui.events.UpdateWhenMissedEvent;
-
-import javafx.scene.Node;
+import gui.playing.DispatcherAdapter;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -12,17 +11,16 @@ public class OpponentMissedLink implements Chain {
 
   @Override
   public void setNextChain(Chain nextChain) {
-
     nextInChain = nextChain;
   }
 
   @Override
-  public void check(Response response, Node dispatcher) {
-    if(response.getHeader() == ResponseHeader.OPPMISSED){
+  public void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter) {
+    if (response.getHeader() == ResponseHeader.OPPMISSED) {
       String shotAsString = getShotAsString(response);
-      dispatcher.fireEvent(new UpdateWhenMissedEvent(shotAsString));
+      dispatcherAdapter.fireEvent(new UpdateWhenMissedEvent(shotAsString));
     } else {
-      throw new IllegalStateException();
+      nextInChain.analyzeResponse(response, dispatcherAdapter);
     }
   }
 }

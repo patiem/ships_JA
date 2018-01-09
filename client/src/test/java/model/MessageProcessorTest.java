@@ -1,21 +1,28 @@
 package model;
 
-import gui.chain.Chain;
-import gui.chain.ChainConfigFactory;
+import connection.chain.Chain;
+import gui.playing.DispatcherAdapter;
 import org.testng.annotations.Test;
-import responses.HitResponse;
+import responses.Response;
 
-import static org.testng.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 public class MessageProcessorTest {
 
   @Test
   public void whenReceivedHitLinkObjectThenCallTheAppropriateEvent() {
+    Chain mockedFirstLink = mock(Chain.class);
+    DispatcherAdapter mockedDispatcherAdapter = mock(DispatcherAdapter.class);
+    Response mockedResponse = mock(Response.class);
 
+    MessageProcessor messageProcessor = new MessageProcessor(mockedFirstLink, mockedDispatcherAdapter);
+    messageProcessor.processMessage(mockedResponse);
+    int expectedInvocations = 1;
 
-
-
-
+    verify(mockedFirstLink, times(expectedInvocations)).analyzeResponse(mockedResponse, mockedDispatcherAdapter);
   }
+
 
 }

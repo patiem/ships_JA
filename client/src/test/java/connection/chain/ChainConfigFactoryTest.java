@@ -1,4 +1,4 @@
-package gui.chain;
+package connection.chain;
 
 import org.testng.annotations.Test;
 
