@@ -15,5 +15,4 @@ interface Connector {
 
   InputStream getInStream() throws IOException;
 
-  boolean isSocketClosed();
 }

@@ -2,12 +2,14 @@ package gui.playing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
+import gui.fields.Field;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -64,9 +66,13 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouLostEvent.LOST, youLost);
     winning.addEventHandler(YouHitEvent.HIT, youHit);
 
+    makeMessageListenerThread();
+  }
+
+  private void makeMessageListenerThread() {
     new Thread(() -> {
-      Boolean isRunning = true;
-      while (isRunning) {
+      boolean isGameRunning = true;
+      while (isGameRunning) {
         String message = client.getMessage();
         JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
         try {
@@ -75,7 +81,7 @@ public class PlayBoardController implements Initializable {
           ResponseHeader header = responseToProcess.getHeader();
 
           if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
-            isRunning = false;
+            isGameRunning = false;
           }
         } catch (IOException e) {
           e.printStackTrace();
@@ -107,34 +113,30 @@ public class PlayBoardController implements Initializable {
     }
   }
 
-  //TODO: remove duplicated code from event handlers
-  
-  //EVENT HANDLERS
+  private void putFieldOnOpponentBoard(Field field) {
+    Platform.runLater(() -> {
+      Node fieldAsNode = (Node) field;
+      field.markAsHit();
+      targetBoard.getChildren().add(fieldAsNode);
+      GridPane.setConstraints(fieldAsNode, field.getRow(), field.getColumn());
+    });
+  }
 
   private final EventHandler<UpdateWhenHitEvent> updateBoardWhenHit =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        System.out.println(fieldPosition);
-        Platform.runLater(() -> {
-          Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-          hitMast.markedAsHit();
-          targetBoard.getChildren().add(hitMast);
-          GridPane.setConstraints(hitMast, fieldPosition.getColumn(), fieldPosition.getRow());
-        });
+        Mast hitMast = new Mast(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        putFieldOnOpponentBoard(hitMast);
+
       };
 
   private final EventHandler<UpdateWhenMissedEvent> updateBoardWhenMissed =
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        System.out.println(fieldPosition);
-        Platform.runLater(() -> {
-          SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
-          seaHit.markedAsHit();
-          targetBoard.getChildren().add(seaHit);
-          GridPane.setConstraints(seaHit, fieldPosition.getColumn(), fieldPosition.getRow());
-        });
+        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        putFieldOnOpponentBoard(seaHit);
       };
 
   private final EventHandler<YourTurnEvent> enableBoard =
