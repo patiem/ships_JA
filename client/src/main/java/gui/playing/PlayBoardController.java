@@ -62,7 +62,7 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouHitEvent.HIT, youHit);
 
     new Thread(() -> {
-      Boolean isRunning = true;
+      boolean isRunning = true;
       while (isRunning) {
         String message = client.getMessage();
         processor.processMessage(message);
@@ -98,9 +98,10 @@ public class PlayBoardController implements Initializable {
 
   private void putFieldOnOpponentBoard(Field field) {
     Platform.runLater(() -> {
-      field.markedAsHit();
-      targetBoard.getChildren().add((Node) field);
-      GridPane.setConstraints((Node) field, field.getRow(), field.getColumn());
+      field.markAsHit();
+      Node fieldAsNode = (Node) field;
+      targetBoard.getChildren().add(fieldAsNode);
+      GridPane.setConstraints(fieldAsNode, field.getRow(), field.getColumn());
     });
   }
 

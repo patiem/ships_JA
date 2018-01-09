@@ -33,7 +33,7 @@ public class Mast extends Rectangle implements Field {
     return row;
   }
 
-  public void markedAsHit() {
+  public void markAsHit() {
     setFill(Color.VIOLET);
   }
 }
