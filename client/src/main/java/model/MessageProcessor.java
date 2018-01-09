@@ -1,16 +1,5 @@
 package model;
 
-
-
-import events.UpdateWhenHitEvent;
-import events.UpdateWhenMissedEvent;
-import events.YouHitEvent;
-import events.YouLostEvent;
-import events.YouMissedEvent;
-import events.YouWinEvent;
-import events.YourTurnEvent;
-
-import gui.act.Instruction;
 import gui.chain.Chain;
 import gui.chain.HitPart;
 import gui.chain.LostPart;
@@ -22,7 +11,6 @@ import gui.chain.WinPart;
 import javafx.scene.control.TextField;
 import responses.*;
 
-import java.util.EnumMap;
 
 /**
  * It calls different methods depending on the message that has been sent form the server.
@@ -57,7 +45,7 @@ public class MessageProcessor extends SuperiorMessage {
   public void putObserverTextFieldForConnection(TextField textField) {
     this.dispatcher = textField;
   }
-  
+
   public TextField getDispatcher() {
     return dispatcher;
   }
