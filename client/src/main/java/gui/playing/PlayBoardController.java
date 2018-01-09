@@ -2,13 +2,14 @@ package gui.playing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
-import events.UpdateWhenHitEvent;
-import events.UpdateWhenMissedEvent;
-import events.YouHitEvent;
-import events.YouLostEvent;
-import events.YouMissedEvent;
-import events.YouWinEvent;
-import events.YourTurnEvent;
+
+import gui.events.UpdateWhenHitEvent;
+import gui.events.UpdateWhenMissedEvent;
+import gui.events.YouHitEvent;
+import gui.events.YouLostEvent;
+import gui.events.YouMissedEvent;
+import gui.events.YouWinEvent;
+import gui.events.YourTurnEvent;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;

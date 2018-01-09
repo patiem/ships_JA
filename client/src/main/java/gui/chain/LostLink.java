@@ -1,11 +1,12 @@
 package gui.chain;
 
-import gui.events.YouHitEvent;
+
+import gui.events.YouLostEvent;
 import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class HitPart implements Chain {
+public class LostLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -17,8 +18,8 @@ public class HitPart implements Chain {
 
   @Override
   public void check(Response response, MessageProcessor messageProcessor) {
-    if(response.getHeader() == ResponseHeader.HIT){
-      messageProcessor.getDispatcher().fireEvent(new YouHitEvent());
+    if(response.getHeader() == ResponseHeader.LOST){
+      messageProcessor.getDispatcher().fireEvent(new YouLostEvent());
     } else {
       nextInChain.check(response,messageProcessor);
     }

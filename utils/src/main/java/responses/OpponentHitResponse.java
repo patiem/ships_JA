@@ -1,6 +1,5 @@
 package responses;
 
-import actions.OpphitAction;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import model.Shot;
@@ -15,7 +14,7 @@ public class OpponentHitResponse extends Response {
 
   @JsonCreator
   public OpponentHitResponse(@JsonProperty("shot")Shot shot) {
-    performAction = new OpphitAction();
+
     this.shot = shot;
   }
 

@@ -22,13 +22,6 @@ import model.Shot;
 public abstract class Response {
   public abstract ResponseHeader getHeader();
 
-  PerformAction performAction;
-
-
-  public void makeMove(SuperiorMessage message) {
-    performAction.act(message);
-  }
-
   @JsonProperty("shot")
   public Optional<Shot> getShot() {
     return Optional.empty();

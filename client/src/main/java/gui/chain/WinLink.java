@@ -1,11 +1,12 @@
 package gui.chain;
 
-import gui.events.YouMissedEvent;
+import gui.events.YouWinEvent;
+
 import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class MissedPart implements Chain {
+public class WinLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -17,8 +18,8 @@ public class MissedPart implements Chain {
 
   @Override
   public void check(Response response, MessageProcessor messageProcessor) {
-    if(response.getHeader() == ResponseHeader.MISSED){
-      messageProcessor.getDispatcher().fireEvent(new YouMissedEvent());
+    if(response.getHeader() == ResponseHeader.WIN){
+      messageProcessor.getDispatcher().fireEvent(new YouWinEvent());
     } else {
       nextInChain.check(response,messageProcessor);
     }

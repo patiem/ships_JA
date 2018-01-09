@@ -1,12 +1,11 @@
 package gui.chain;
 
-import gui.events.UpdateWhenMissedEvent;
-
+import gui.events.YourTurnEvent;
 import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class OppmissPart implements Chain {
+public class PlayLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -18,9 +17,8 @@ public class OppmissPart implements Chain {
 
   @Override
   public void check(Response response, MessageProcessor messageProcessor) {
-    if(response.getHeader() == ResponseHeader.OPPMISSED){
-      String shotAsString = getShotAsString(response);
-      messageProcessor.getDispatcher().fireEvent(new UpdateWhenMissedEvent(shotAsString));
+    if(response.getHeader() == ResponseHeader.PLAY){
+      messageProcessor.getDispatcher().fireEvent(new YourTurnEvent());
     } else {
       nextInChain.check(response,messageProcessor);
     }

@@ -2,6 +2,7 @@ package gui.starting;
 
 import connection.Client;
 import gui.building.FleetDropController;
+import gui.chain.ChainConfigFactory;
 import gui.playing.PlayBoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +58,7 @@ public class StartBoard extends Application {
     final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
-    processor = new MessageProcessor();
+    processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities());
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene, processor);

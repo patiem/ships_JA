@@ -1,11 +1,12 @@
 package gui.chain;
 
-import gui.events.UpdateWhenHitEvent;
+import gui.events.UpdateWhenMissedEvent;
+
 import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class OpphitPart implements Chain {
+public class OppmissLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -17,12 +18,11 @@ public class OpphitPart implements Chain {
 
   @Override
   public void check(Response response, MessageProcessor messageProcessor) {
-    if(response.getHeader() == ResponseHeader.OPPHIT){
+    if(response.getHeader() == ResponseHeader.OPPMISSED){
       String shotAsString = getShotAsString(response);
-      messageProcessor.getDispatcher().fireEvent(new UpdateWhenHitEvent(shotAsString));
+      messageProcessor.getDispatcher().fireEvent(new UpdateWhenMissedEvent(shotAsString));
     } else {
       nextInChain.check(response,messageProcessor);
     }
   }
-
 }

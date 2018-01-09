@@ -1,12 +1,11 @@
 package gui.chain;
 
-import gui.events.YouWinEvent;
-
+import gui.events.UpdateWhenHitEvent;
 import model.MessageProcessor;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class WinPart implements Chain {
+public class OpphitLink implements Chain {
 
   private  Chain nextInChain;
 
@@ -18,10 +17,12 @@ public class WinPart implements Chain {
 
   @Override
   public void check(Response response, MessageProcessor messageProcessor) {
-    if(response.getHeader() == ResponseHeader.WIN){
-      messageProcessor.getDispatcher().fireEvent(new YouWinEvent());
+    if(response.getHeader() == ResponseHeader.OPPHIT){
+      String shotAsString = getShotAsString(response);
+      messageProcessor.getDispatcher().fireEvent(new UpdateWhenHitEvent(shotAsString));
     } else {
       nextInChain.check(response,messageProcessor);
     }
   }
+
 }
