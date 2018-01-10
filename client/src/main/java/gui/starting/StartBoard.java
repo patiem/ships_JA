@@ -1,8 +1,8 @@
 package gui.starting;
 
 import connection.Client;
-import gui.building.FleetDropController;
 import connection.chain.ChainConfigFactory;
+import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
 import gui.playing.PlayBoardController;
 import javafx.application.Application;
@@ -91,13 +91,17 @@ public class StartBoard extends Application {
 
   private void createPlayBoard(Group playRoot, List<Position> positions) throws IOException {
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-    Node dispatcher = playRoot.lookup("#winning");
-    DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
-    MessageProcessor processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
-    PlayBoardController playBoardController = new PlayBoardController(client, processor, positions);
+
+    PlayBoardController playBoardController = new PlayBoardController(client, positions);
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
+
+    Node dispatcher = playRoot.lookup("#winning");
+
+    DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
+    MessageProcessor processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
+    playBoardController.setMessageProcessor(processor);
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {

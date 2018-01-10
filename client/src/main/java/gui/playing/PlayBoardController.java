@@ -44,7 +44,7 @@ public class PlayBoardController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
-  private final MessageProcessor processor;
+  private MessageProcessor processor;
 
   private List<Position> positions;
   private SeaField lastField;
@@ -56,9 +56,8 @@ public class PlayBoardController implements Initializable {
   @FXML
   private TextField winning;
 
-  public PlayBoardController(Client client, MessageProcessor processor, List<Position> positions) {
+  public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
-    this.processor = processor;
     this.positions = positions;
   }
 
@@ -174,5 +173,9 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
+
+  public void setMessageProcessor(MessageProcessor messageProcessor) {
+    this.processor = messageProcessor;
+  }
 }
 
