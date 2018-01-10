@@ -60,8 +60,7 @@ class ConnectionHandler {
     String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
     LOGGER.info(gameStartingObjectAsString);
     JsonParserAdapter jsonParser = new JsonParserAdapter();
-    ConnectionMessage connectionMessage = jsonParser.parse(gameStartingObjectAsString, ConnectionMessage.class, new ObjectMapper());
-    return connectionMessage;
+    return jsonParser.parse(gameStartingObjectAsString, ConnectionMessage.class, new ObjectMapper());
   }
 
 }
