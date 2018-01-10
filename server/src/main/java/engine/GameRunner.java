@@ -68,8 +68,9 @@ public class GameRunner {
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {
-    String logMessage = String.format("Player: %s, shot: position: %s, shotState: %s; gameState: %s",
-        playerRegistry.currentPlayerName(), shot.asInteger(), shotResult, gameState);
+    String messageTemplate = "Player: %s, shot: position: %s, shotState: %s; gameState: %s";
+    String logMessage = String.format(messageTemplate, playerRegistry.currentPlayerName(),
+        shot.asInteger(), shotResult, gameState);
     LOGGER.info(logMessage);
   }
 
@@ -80,7 +81,8 @@ public class GameRunner {
 
       String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
       messageSender.sendMessageToPlayer(player, message);
-      LOGGER.info("Message has been send: " + message);
+      String logMessage = String.format("Message has been send: %s", message);
+      LOGGER.info(logMessage);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }

@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class Client {
 
   private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
-  private static final String fileName ="config.properties";
+  private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;
   private Receiver in;
@@ -38,9 +38,9 @@ public class Client {
     }
   }
 
-  private int setUpPort() throws IOException{
+  private int setUpPort() throws IOException {
     Properties properties = new Properties();
-    InputStream config = ClassLoader.getSystemResourceAsStream(fileName);
+    InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
     properties.load(config);
     return Integer.parseInt(properties.getProperty("portNumber"));
   }

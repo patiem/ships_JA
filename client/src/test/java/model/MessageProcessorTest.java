@@ -24,5 +24,6 @@ public class MessageProcessorTest {
     verify(mockedFirstLink, times(expectedInvocations)).analyzeResponse(mockedResponse, mockedDispatcherAdapter);
   }
 
+  //TODO: test whole path (first chain -> exception)
 
 }

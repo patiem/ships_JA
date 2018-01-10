@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Objects;
+
 /**
  * It allows to mova a field around.
  *
@@ -18,7 +19,7 @@ public class Position {
   }
 
   public Position(Integer index) {
-    this.row = (index  / 10);
+    this.row = (index / 10);
     this.column = index % 10;
   }
 
