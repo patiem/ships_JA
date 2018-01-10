@@ -2,6 +2,7 @@ package connection.chain;
 
 import gui.events.UpdateWhenMissedEvent;
 import gui.playing.DispatcherAdapter;
+import model.DummyResponse;
 import model.Shot;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -45,14 +46,13 @@ public class OpponentMissedLinkTest {
     //Arrange
     Chain mockedNextChain = mock(Chain.class);
     opponentMissedLink.setNextChain(mockedNextChain);
-    Response mockedNoneResponse = mock(Response.class);
-    when(mockedNoneResponse.getHeader()).thenReturn(ResponseHeader.NONE);
+    DummyResponse dummyResponse = new DummyResponse();
 
     //Act
-    opponentMissedLink.analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+    opponentMissedLink.analyzeResponse(dummyResponse, dispatcherAdapter);
 
     //Assert
     verify(mockedNextChain, times(expectedInvocations))
-        .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+        .analyzeResponse(dummyResponse, dispatcherAdapter);
   }
 }

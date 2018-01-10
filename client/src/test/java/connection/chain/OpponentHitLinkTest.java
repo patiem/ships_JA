@@ -2,6 +2,7 @@ package connection.chain;
 
 import gui.events.UpdateWhenHitEvent;
 import gui.playing.DispatcherAdapter;
+import model.DummyResponse;
 import model.Shot;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -45,14 +46,15 @@ public class OpponentHitLinkTest {
     //Arrange
     Chain mockedNextChain = mock(Chain.class);
     opponentHitLink.setNextChain(mockedNextChain);
-    Response mockedNoneResponse = mock(Response.class);
-    when(mockedNoneResponse.getHeader()).thenReturn(ResponseHeader.NONE);
+//    Response mockedNoneResponse = mock(Response.class);
+//    when(mockedNoneResponse.getHeader()).thenReturn(ResponseHeader.NONE);
+    DummyResponse dummyResponse = new DummyResponse();
 
     //Act
-    opponentHitLink.analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+    opponentHitLink.analyzeResponse(dummyResponse, dispatcherAdapter);
 
     //Assert
     verify(mockedNextChain, times(expectedInvocations))
-        .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+        .analyzeResponse(dummyResponse, dispatcherAdapter);
   }
 }
