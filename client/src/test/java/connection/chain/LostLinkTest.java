@@ -54,5 +54,4 @@ public class LostLinkTest {
     verify(mockedNextChain, times(expectedInvocations))
         .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
   }
-
 }

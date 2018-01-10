@@ -53,5 +53,4 @@ public class PlayLinkTest {
     verify(mockedNextChain, times(expectedInvocations))
         .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
   }
-
 }

@@ -10,5 +10,4 @@ public class HitResponse extends Response {
   public ResponseHeader getHeader() {
     return header;
   }
-
 }
