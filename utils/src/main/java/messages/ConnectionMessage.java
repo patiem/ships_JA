@@ -16,7 +16,8 @@ public class ConnectionMessage {
   private final FleetModel fleetModel;
 
   @JsonCreator
-  public ConnectionMessage(@JsonProperty("name") String name, @JsonProperty("fleetModel") FleetModel fleetModel) {
+  public ConnectionMessage(@JsonProperty("name") String name,
+                           @JsonProperty("fleetModel") FleetModel fleetModel) {
     this.name = name;
     this.fleetModel = fleetModel;
   }

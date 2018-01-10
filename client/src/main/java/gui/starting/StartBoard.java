@@ -1,11 +1,14 @@
 package gui.starting;
 
 import connection.Client;
+import connection.chain.ChainConfigFactory;
 import gui.building.FleetDropController;
+import gui.playing.DispatcherAdapter;
 import gui.playing.PlayBoardController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -36,7 +39,6 @@ public class StartBoard extends Application {
 
 
   private final Client client = new Client();
-  private MessageProcessor processor;
   private Stage stage;
   private AnchorPane buildBoard;
   private Group playRoot;
@@ -61,10 +63,8 @@ public class StartBoard extends Application {
     final Scene buildScene = new Scene(buildRoot, sceneWidth, sceneHeight);
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
-    processor = new MessageProcessor();
-
     createStartBoard(startRoot, buildScene);
-    createBuildBoard(buildRoot, playScene, processor);
+    createBuildBoard(buildRoot, playScene);
 
     stage.setTitle("FXML Welcome");
     stage.setScene(startScene);
@@ -80,7 +80,7 @@ public class StartBoard extends Application {
     addNextButtonToStartBoard(buildScene, startingBoard);
   }
 
-  private void createBuildBoard(Group buildRoot, Scene playScene, MessageProcessor reactor) throws IOException {
+  private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
     fleetDropController = new FleetDropController(client);
     buildLoader.setController(fleetDropController);
@@ -89,13 +89,19 @@ public class StartBoard extends Application {
     addNextButtonToBuildBoard(playScene, buildBoard);
   }
 
-  private void createPlayBoard(Group playRoot, MessageProcessor processor, List<Position> positions) throws IOException {
+  private void createPlayBoard(Group playRoot, List<Position> positions) throws IOException {
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
-    PlayBoardController playBoardController = new PlayBoardController(client, processor, positions);
+
+    PlayBoardController playBoardController = new PlayBoardController(client, positions);
     playLoader.setController(playBoardController);
     AnchorPane playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
-    processor.putObserverTextFieldForConnection((TextField) playRoot.lookup("#winning"));
+
+    Node dispatcher = playRoot.lookup("#winning");
+
+    DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
+    MessageProcessor processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
+    playBoardController.setMessageProcessor(processor);
   }
 
   private void addNextButtonToStartBoard(Scene buildScene, AnchorPane startBoard) {
@@ -112,7 +118,7 @@ public class StartBoard extends Application {
     buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
       stage.setScene(playScene);
       try {
-        createPlayBoard(playRoot, processor, fleetDropController.listOfMasts());
+        createPlayBoard(playRoot, fleetDropController.listOfMasts());
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, e.getMessage());
       }

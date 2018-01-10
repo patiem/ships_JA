@@ -2,6 +2,7 @@ package gui.starting;
 
 import javafx.event.Event;
 import javafx.event.EventType;
+
 /**
  * It allows to create a connection based on the information received form the server.
  *

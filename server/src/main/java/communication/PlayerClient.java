@@ -11,7 +11,7 @@ import java.net.Socket;
  * @author Bartosz Pieczara / Emilia Ciastek
  * @version 1.5
  */
-class PlayerClient {
+public class PlayerClient {
   private final BufferedReader reader;
   private final Socket socket;
   private final Fleet fleet;
@@ -32,7 +32,7 @@ class PlayerClient {
     return fleet;
   }
 
-  Socket getSocket() {
+  public Socket getSocket() {
     return socket;
   }
 

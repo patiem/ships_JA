@@ -16,14 +16,14 @@ import java.util.logging.Logger;
 public class Server {
 
   private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
-  private  final String fileName ="config.properties";
+  private static final String SERVER_CONFIG_FILE = "config.properties";
 
   public void runServer() {
     LOGGER.info("Server running!");
 
     ConnectionHandler connectionHandler = new ConnectionHandler();
     try {
-        int portNumber = setUpServerConfig();
+      int portNumber = setUpServerConfig();
       ServerSocket serverSocket = new ServerSocket(portNumber);
       connectionHandler.acceptConnections(serverSocket);
     } catch (IOException e) {
@@ -32,14 +32,10 @@ public class Server {
 
   }
 
-  private int setUpServerConfig() throws IOException{
-      Properties properties = new Properties();
-      InputStream config = ClassLoader.getSystemResourceAsStream(fileName);
-      properties.load(config);
-      return Integer.parseInt(properties.getProperty("portNumber"));
+  private int setUpServerConfig() throws IOException {
+    Properties properties = new Properties();
+    InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
+    properties.load(config);
+    return Integer.parseInt(properties.getProperty("portNumber"));
   }
 }
-
-
-
-

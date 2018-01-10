@@ -2,9 +2,8 @@ package responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class HitResponse implements Response {
+public class HitResponse extends Response {
   private ResponseHeader header = ResponseHeader.HIT;
-
 
   @JsonProperty("header")
   @Override

@@ -1,6 +1,8 @@
 package responses;
 
-public class MissedResponse implements Response {
+
+
+public class MissedResponse extends Response {
 
   private ResponseHeader header = ResponseHeader.MISSED;
 

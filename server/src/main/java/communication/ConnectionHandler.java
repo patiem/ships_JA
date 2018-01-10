@@ -5,8 +5,10 @@ import engine.GameRunner;
 import engine.Round;
 import fleet.CustomFleet;
 import fleet.Fleet;
+
 import messages.ConnectionMessage;
 import json.JsonParserAdapter;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,7 +45,6 @@ class ConnectionHandler {
     Socket socket = serverSocket.accept();
     PlayerClient playerClient = createClient(socket);
     playerRegistry.registerPlayer(playerClient);
-    sendConnectionConfirmationMessage(playerClient);
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {
@@ -54,13 +55,7 @@ class ConnectionHandler {
     return new PlayerClient(connectionMessage.getName(), socket, reader, playerFleet);
   }
 
-  private void sendConnectionConfirmationMessage(PlayerClient playerClient) throws IOException {
-    final String playerIsConnected = "CON";
-    MessageSender messageSender = new MessageSender();
-    messageSender.sendMessageToPlayer(playerClient, playerIsConnected);
-  }
-
-  private ConnectionMessage prepareJSONMessage(BufferedReader reader) throws IOException {
+  private ConnectionMessage prepareJSONMessage(BufferedReader reader) throws IOException { //TODO: what this method is doing -> better name?
     MessageReceiver messageReceiver = new MessageReceiver();
     String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
     LOGGER.info(gameStartingObjectAsString);

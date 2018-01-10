@@ -14,8 +14,10 @@ import java.nio.charset.StandardCharsets;
  */
 public class MessageSender {
 
-  public void sendMessageToPlayer(PlayerClient playerClient, String messageToSend) throws IOException {
-    OutputStreamWriter writer = new OutputStreamWriter(playerClient.getSocket().getOutputStream(), StandardCharsets.UTF_8);
+  public void sendMessageToPlayer(PlayerClient playerClient,
+                                  String messageToSend) throws IOException {
+    OutputStreamWriter writer = new OutputStreamWriter(
+        playerClient.getSocket().getOutputStream(), StandardCharsets.UTF_8);
     PrintWriter printWriter = new PrintWriter(writer, true);
     BufferedWriter bufferedWriter = new BufferedWriter(printWriter);
     bufferedWriter.write(messageToSend);

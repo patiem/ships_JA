@@ -1,6 +1,14 @@
 package gui.playing;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
+import gui.events.UpdateWhenHitEvent;
+import gui.events.UpdateWhenMissedEvent;
+import gui.events.YouHitEvent;
+import gui.events.YouLostEvent;
+import gui.events.YouMissedEvent;
+import gui.events.YouWinEvent;
+import gui.events.YourTurnEvent;
 import gui.fields.Field;
 import gui.fields.Mast;
 import gui.fields.SeaField;
@@ -12,13 +20,19 @@ import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import json.JsonParserAdapter;
 import model.FieldSize;
 import model.MessageProcessor;
 import model.Position;
+import responses.Response;
+import responses.ResponseHeader;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * It initializes and populates the playboard.
@@ -27,10 +41,12 @@ import java.util.ResourceBundle;
  * @version 1.5
  */
 public class PlayBoardController implements Initializable {
+  private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
+  private MessageProcessor processor;
+
   private List<Position> positions;
-  private final MessageProcessor processor;
   private SeaField lastField;
 
   @FXML
@@ -40,9 +56,8 @@ public class PlayBoardController implements Initializable {
   @FXML
   private TextField winning;
 
-  public PlayBoardController(Client client, MessageProcessor processor, List<Position> positions) {
+  public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
-    this.processor = processor;
     this.positions = positions;
   }
 
@@ -69,9 +84,17 @@ public class PlayBoardController implements Initializable {
       boolean isGameRunning = true;
       while (isGameRunning) {
         String message = client.getMessage();
-        processor.processMessage(message);
-        if (message.equals("WIN") || message.equals("LOST")) {
-          isGameRunning = false;
+        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
+        try {
+          Response responseToProcess = jsonParserAdapter.parse(message, Response.class, new ObjectMapper());
+          processor.processMessage(responseToProcess);
+          ResponseHeader header = responseToProcess.getHeader();
+
+          if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
+            isGameRunning = false;
+          }
+        } catch (IOException e) {
+          LOGGER.log(Level.SEVERE, e.getMessage());
         }
       }
     }).start();
@@ -150,5 +173,9 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
+
+  public void setMessageProcessor(MessageProcessor messageProcessor) {
+    this.processor = messageProcessor;
+  }
 }
 
