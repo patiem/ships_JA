@@ -1,9 +1,8 @@
 package responses;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class WinResponse extends Response {
+public class WinResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.WIN;
 
