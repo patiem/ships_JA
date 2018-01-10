@@ -1,5 +1,6 @@
 package model;
 
+import connection.MessageProcessor;
 import connection.chain.Chain;
 import gui.playing.DispatcherAdapter;
 import org.testng.annotations.Test;

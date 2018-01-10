@@ -7,11 +7,11 @@ package model;
  * @version 1.5
  */
 public class Player {
-  private Fleet fleet;
+  private FleetCreator fleetCreator;
   private String name;
 
-  public Player(Fleet fleet, String name) {
-    this.fleet = fleet;
+  public Player(FleetCreator fleetCreator, String name) {
+    this.fleetCreator = fleetCreator;
     this.name = name;
   }
 
@@ -19,7 +19,7 @@ public class Player {
     return name;
   }
 
-  public Fleet getFleet() {
-    return fleet;
+  public FleetCreator getFleetCreator() {
+    return fleetCreator;
   }
 }

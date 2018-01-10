@@ -32,7 +32,7 @@ public class FleetSender {
 
   public void sendFleetToServer() {
     FleetMapper fleetMapper = new FleetMapper();
-    FleetModel fleetModel = fleetMapper.mapToFleetModel(player.getFleet());
+    FleetModel fleetModel = fleetMapper.mapToFleetModel(player.getFleetCreator());
     ConnectionMessage messageWithFleet = new ConnectionMessage(player.getName(), fleetModel);
     JsonGeneratorAdapter jsonGenerator = new JsonGeneratorAdapter();
 

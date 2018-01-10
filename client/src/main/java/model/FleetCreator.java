@@ -11,14 +11,14 @@ import java.util.List;
  * @version 1.5
  */
 
-public class Fleet {
+public class FleetCreator {
 
   private List<Position> positions;
   private final Sea sea;
   private final List<Ship> ships;
   private Ship shipThatIsBuild;
 
-  public Fleet(Sea sea) {
+  public FleetCreator(Sea sea) {
     this.sea = sea;
     positions = new ArrayList<>();
     ships = new ArrayList<>();

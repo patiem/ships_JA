@@ -21,9 +21,9 @@ class Ship implements Iterable<Mast>{
   private final int shipLength;
   private int buildLength;
 
-  Ship(Mast mast, int shipLength) {
-    this.shipLength = shipLength;
-    masts = new Mast[this.shipLength];
+  Ship(Mast mast, int length) {
+    shipLength = length;
+    masts = new Mast[shipLength];
     masts[0] = mast;
     buildLength = START_SIZE;
   }
