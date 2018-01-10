@@ -22,7 +22,7 @@ public class ShipBoundariesPositions {
     for (Mast mast : ship) {
       boundaries.addAll(new MastBoundariesPositions(mast).countBoundariesForMast());
     }
-    boundaries.removeAll(ship.mastsInShipPositions());
+    boundaries.removeAll(ship.positionsOfAllMastInShip());
     return this;
   }
 

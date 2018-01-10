@@ -3,7 +3,6 @@ package model;
 import gui.fields.Field;
 import gui.fields.Mast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -21,13 +20,11 @@ class Ship implements Iterable<Mast>{
   private final Mast[] masts;
   private final int shipLength;
   private int buildLength;
-  private final List<Integer> positions = new ArrayList<>();
 
   Ship(Mast mast, int shipLength) {
     this.shipLength = shipLength;
     masts = new Mast[this.shipLength];
     masts[0] = mast;
-    positions.add(mast.positionAsInteger());
     buildLength = START_SIZE;
   }
 
@@ -38,16 +35,15 @@ class Ship implements Iterable<Mast>{
   void addMast(Mast mast) {
     if (!isShipDone()) {
       masts[buildLength++] = mast;
-      positions.add(mast.positionAsInteger());
     }
   }
 
-  List<Position> mastsInShipPositions() {
+  List<Position> positionsOfAllMastInShip() {
     return Arrays.stream(masts).map(Field::position).collect(Collectors.toList());
   }
 
-  public List<Integer> getPositions() {
-    return positions;
+  List<Integer> positionsOfAllMastInShipAsIntegers() {
+    return Arrays.stream(masts).map(Field::positionAsInteger).collect(Collectors.toList());
   }
 
   @Override
