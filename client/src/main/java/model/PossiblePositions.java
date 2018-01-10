@@ -40,6 +40,6 @@ class PossiblePositions {
   }
 
   public void makePositionClickable() {
-    possible.stream().forEach(SeaField::makeToClick);
+    possible.stream().forEach(SeaField::makeClickable);
   }
 }

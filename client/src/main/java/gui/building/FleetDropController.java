@@ -162,7 +162,7 @@ public class FleetDropController implements Initializable {
   private final EventHandler<DragEvent> resetColorWhenDragExited =
       event -> {
         SeaField field = (SeaField) event.getSource();
-        field.reset();
+        field.resetColors();
         event.consume();
       };
 
@@ -207,6 +207,7 @@ public class FleetDropController implements Initializable {
 
         event.setDropCompleted(success);
         event.consume();
+
         buildShip.setOpacity(0.2);
         if (buildShip.getHeight() / FIELD_SIZE > 1) {
           port.setDisable(true);
@@ -246,7 +247,7 @@ public class FleetDropController implements Initializable {
     return fleet.getMastsPositions();
   }
 
-  public Client getClient() {
+  private Client getClient() {
     return client;
   }
 

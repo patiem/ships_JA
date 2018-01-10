@@ -1,7 +1,6 @@
 package model;
 
 import gui.fields.SeaField;
-import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +35,8 @@ public class Sea {
   }
 
   public void clearSea() {
-    wholeSea.forEach(s -> s.removeEventHandler(MouseEvent.MOUSE_CLICKED, s.makeReadyToClick));
-    wholeSea.forEach(SeaField::reset);
+    wholeSea.forEach(SeaField::makeUnclickable);
+    wholeSea.forEach(SeaField::resetColors);
   }
 
   public void makeBoundary(Position position) {

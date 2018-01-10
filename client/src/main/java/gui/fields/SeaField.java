@@ -19,7 +19,8 @@ public class SeaField extends Rectangle implements Field {
   private final Integer row;
   private final SimpleBooleanProperty isMarkedAsMast;
   private final SimpleBooleanProperty isMarkedAsBound;
-  public final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
+
+  private final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
 
   public SeaField(int column, int row, FieldSize size) {
     super(column, row, size.getValue(), size.getValue());
@@ -35,7 +36,7 @@ public class SeaField extends Rectangle implements Field {
     setFill(Color.RED);
   }
 
-  public void reset() {
+  public void resetColors() {
     setFill(Color.AZURE);
     setStroke(Color.GRAY);
   }
@@ -49,9 +50,13 @@ public class SeaField extends Rectangle implements Field {
     setFill(Color.BLACK);
   }
 
-  public void makeToClick() {
+  public void makeClickable() {
     setFill(Color.BLANCHEDALMOND);
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, makeReadyToClick);
+  }
+
+  public void makeUnclickable() {
+    removeEventHandler(MouseEvent.MOUSE_CLICKED, makeReadyToClick);
   }
 
   private void setIsMarkedAsMast(boolean isMarkedAsMast) {
@@ -70,6 +75,10 @@ public class SeaField extends Rectangle implements Field {
     this.isMarkedAsBound.set(isMarkedAsBound);
   }
 
+  public void markAsHit() {
+    setFill(Color.BLUE);
+  }
+
   @Override
   public int getColumn() {
     return column;
@@ -78,10 +87,5 @@ public class SeaField extends Rectangle implements Field {
   @Override
   public int getRow() {
     return row;
-  }
-
-
-  public void markAsHit() {
-    setFill(Color.BLUE);
   }
 }
