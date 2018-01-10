@@ -27,6 +27,3 @@ public abstract class Response {
     return Optional.empty();
   }
 }
-
-
-

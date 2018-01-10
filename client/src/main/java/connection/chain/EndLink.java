@@ -6,7 +6,7 @@ import responses.Response;
 public class EndLink implements Chain {
 
   @Override
-  public void setNextChain(Chain nextChain) { //TODO: is it a good/bad practice?
+  public void setNextChain(Chain nextChain) {
     throw new UnsupportedOperationException();
   }
 

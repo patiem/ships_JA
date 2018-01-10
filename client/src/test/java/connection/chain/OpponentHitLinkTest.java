@@ -55,5 +55,4 @@ public class OpponentHitLinkTest {
     verify(mockedNextChain, times(expectedInvocations))
         .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
   }
-
 }

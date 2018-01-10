@@ -53,5 +53,4 @@ public class WinLinkTest {
     verify(mockedNextChain, times(expectedInvocations))
         .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
   }
-
 }
