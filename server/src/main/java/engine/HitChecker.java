@@ -4,6 +4,7 @@ import fleet.Fleet;
 
 /**
  * It checks if shots hit the target.
+ *
  * @author Emilia Ciastek
  * @version 1.5
  */
@@ -16,14 +17,14 @@ public class HitChecker {
   }
 
   public ShotResult checkShot(final int position) {
-    if (fleet.getHitFields().contains(position)) {
-      return ShotResult.HIT_AGAIN;
-    } else if (fleet.getFleetPositions().contains(position)) {
+    boolean isShipPosition = fleet.getFleetPositions().contains(position);
+    boolean isHitAgain = fleet.getHitFields().contains(position);
+
+    if (!isHitAgain && isShipPosition) {
       fleet.hit(position);
       return ShotResult.HIT;
-    } else {
-      return ShotResult.MISSED;
     }
-  }
 
+    return ShotResult.MISSED;
+  }
 }

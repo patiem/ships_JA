@@ -1,6 +1,7 @@
 package gui.fields;
 
 import model.Position;
+
 /**
  * It exposes methods for obtaining information on field position.
  *
