@@ -1,13 +1,17 @@
 package engine;
 
+import communication.MessageReceiver;
 import communication.PlayerRegistry;
 import fleet.Fleet;
+import messages.ShotMessage;
 import model.Shot;
 import responses.HitResponse;
 import responses.MissedResponse;
 import responses.OpponentHitResponse;
 import responses.OpponentMissedResponse;
 import responses.PlayResponse;
+
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class ActiveGame implements GameRunnerState {
@@ -15,17 +19,18 @@ public class ActiveGame implements GameRunnerState {
   private final Round round = new Round();
   private PlayerRegistry playerRegistry;
   private final Referee referee = new Referee();
-  private final ShotReceiver shotReceiver = new SocketShotReceiver();
 
   ActiveGame(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
   }
 
   @Override
-  public GameRunnerState run() {
+  public GameRunnerState run() throws IOException {
 
     while (true) {
-      Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
+      MessageReceiver messageReceiver = new MessageReceiver();
+      ShotMessage shotMessage = messageReceiver.receiveShotMessage(playerRegistry.getCurrentPlayer().getSocket());
+      Shot shot = shotMessage.getShot();
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
       ShotResult result = round.fireShot(fleetUnderFire, shot);
       logShotInfo(shot, result);
