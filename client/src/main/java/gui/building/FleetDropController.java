@@ -5,6 +5,7 @@ import connection.FleetSender;
 import gui.fields.BoundField;
 import gui.fields.Mast;
 import gui.fields.SeaField;
+import gui.fields.FieldSize;
 import gui.starting.ConnectEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;

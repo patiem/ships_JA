@@ -1,6 +1,6 @@
 package model;
 
-import gui.fields.SeaField;
+import gui.fields.ClickableField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +15,19 @@ import java.util.Optional;
  */
 public class Sea {
 
-  private final List<SeaField> wholeSea;
+  private final List<ClickableField> wholeSea;
 
   public Sea() {
     this.wholeSea = new ArrayList<>();
   }
 
-  public void addSeaField(SeaField seaField) {
+  public void addSeaField(ClickableField seaField) {
     wholeSea.add(seaField);
   }
 
-  public SeaField getSeaFieldByPosition(Position position) {
+  public ClickableField getSeaFieldByPosition(Position position) {
 
-    Optional<SeaField> field = wholeSea.stream()
+    Optional<ClickableField> field = wholeSea.stream()
         .filter(s -> s.position().equals(position))
         .findFirst();
 
@@ -35,8 +35,7 @@ public class Sea {
   }
 
   public void clearSea() {
-    wholeSea.forEach(SeaField::makeUnclickable);
-    wholeSea.forEach(SeaField::resetColors);
+    wholeSea.forEach(ClickableField::makeUnclickable);
   }
 
   public void makeBoundary(Position position) {

@@ -26,7 +26,7 @@ public class ShipBoundariesPositions {
     return this;
   }
 
-  public void markSeaAsBoundary(Sea sea) {
+  public void markSeaAsBoundary(Sea sea) {  //TODO change this to use some interface
     boundaries.forEach(sea::makeBoundary);
   }
 }

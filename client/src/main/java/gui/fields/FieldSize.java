@@ -1,4 +1,4 @@
-package model;
+package gui.fields;
 
 public enum FieldSize {
   SMALL(20),

@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.FieldSize;
 
 /**
  * It holds information on and state of every field of the board.
@@ -13,7 +12,7 @@ import model.FieldSize;
  * @author Patrycja Mikulska
  * @version 1.5
  */
-public class SeaField extends Rectangle implements Field {
+public class SeaField extends Rectangle implements ClickableField {
 
   private final Integer column;
   private final Integer row;
@@ -36,11 +35,6 @@ public class SeaField extends Rectangle implements Field {
     setFill(Color.RED);
   }
 
-  public void resetColors() {
-    setFill(Color.AZURE);
-    setStroke(Color.GRAY);
-  }
-
   public void marked() {
     setFill(Color.GREEN);
     setStroke(Color.GRAY);
@@ -50,13 +44,26 @@ public class SeaField extends Rectangle implements Field {
     setFill(Color.BLACK);
   }
 
+  @Override
   public void makeClickable() {
     setFill(Color.BLANCHEDALMOND);
     this.addEventHandler(MouseEvent.MOUSE_CLICKED, makeReadyToClick);
   }
 
+  @Override
   public void makeUnclickable() {
     removeEventHandler(MouseEvent.MOUSE_CLICKED, makeReadyToClick);
+    resetColors();
+  }
+
+  public void resetColors() {
+    setFill(Color.AZURE);
+    setStroke(Color.GRAY);
+  }
+
+  @Override
+  public void setIsMarkedAsBound(boolean isMarkedAsBound) {
+    this.isMarkedAsBound.set(isMarkedAsBound);
   }
 
   private void setIsMarkedAsMast(boolean isMarkedAsMast) {
@@ -69,10 +76,6 @@ public class SeaField extends Rectangle implements Field {
 
   public SimpleBooleanProperty isMarkedAsBoundProperty() {
     return isMarkedAsBound;
-  }
-
-  public void setIsMarkedAsBound(boolean isMarkedAsBound) {
-    this.isMarkedAsBound.set(isMarkedAsBound);
   }
 
   public void markAsHit() {

@@ -1,7 +1,7 @@
 package model;
 
+import gui.fields.ClickableField;
 import gui.fields.Mast;
-import gui.fields.SeaField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
  */
 class PossiblePositions {
 
-  private List<SeaField> possible;
+  private List<ClickableField> possible;
 
   public PossiblePositions() {
     possible = new ArrayList<>();
@@ -41,6 +41,6 @@ class PossiblePositions {
   }
 
   public void makePositionClickable() {
-    possible.stream().forEach(SeaField::makeClickable);
+    possible.stream().forEach(ClickableField::makeClickable);
   }
 }

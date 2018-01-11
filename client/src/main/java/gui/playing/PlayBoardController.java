@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
-import model.FieldSize;
+import gui.fields.FieldSize;
 import connection.MessageProcessor;
 import model.Position;
 import responses.Response;
