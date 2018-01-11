@@ -1,21 +1,14 @@
 package communication;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import engine.GameRunner;
 import engine.Round;
 import fleet.CustomFleet;
 import fleet.Fleet;
-
 import messages.ConnectionMessage;
-import json.JsonParserAdapter;
 
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 /**
@@ -25,8 +18,6 @@ import java.util.logging.Logger;
  * @version 1.5
  */
 class ConnectionHandler {
-  private static final Logger LOGGER = Logger.getLogger(ConnectionHandler.class.getName());
-
   private final PlayerRegistry playerRegistry = new PlayerRegistry();
 
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
@@ -48,20 +39,11 @@ class ConnectionHandler {
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {
-    BufferedReader reader = new BufferedReader(
-        new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-    ConnectionMessage connectionMessage = prepareJSONMessage(reader);
-    Fleet playerFleet = new CustomFleet(connectionMessage.getFleetModel());
-    return new PlayerClient(connectionMessage.getName(), socket, reader, playerFleet);
-  }
-
-  private ConnectionMessage prepareJSONMessage(BufferedReader reader) throws IOException { //TODO: what this method is doing -> better name?
     MessageReceiver messageReceiver = new MessageReceiver();
-    String gameStartingObjectAsString = messageReceiver.receiveMessage(reader);
-    LOGGER.info(gameStartingObjectAsString);
-    JsonParserAdapter jsonParser = new JsonParserAdapter();
-    ConnectionMessage connectionMessage = jsonParser.parse(gameStartingObjectAsString, ConnectionMessage.class, new ObjectMapper());
-    return connectionMessage;
-  }
+    ConnectionMessage connectionMessage = messageReceiver.receiveConnectionMessage(socket);
+    String playerName = connectionMessage.getName();
+    Fleet playerFleet = new CustomFleet(connectionMessage.getFleetModel());
 
+    return new PlayerClient(playerName, socket, playerFleet);
+  }
 }

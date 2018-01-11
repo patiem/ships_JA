@@ -1,11 +1,13 @@
 package engine;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import communication.MessageReceiver;
 import communication.MessageSender;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
 import fleet.Fleet;
 import json.JsonGeneratorAdapter;
+import messages.ShotMessage;
 import model.Shot;
 import responses.HitResponse;
 import responses.LossResponse;
@@ -46,7 +48,9 @@ public class GameRunner {
     sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
 
     while (gameState == GameState.ACTIVE) {
-      Shot shot = shotReceiver.readShot(playerRegistry.getCurrentReader());
+      MessageReceiver messageReceiver = new MessageReceiver();
+      ShotMessage shotMessage = messageReceiver.receiveShotMessage(playerRegistry.getCurrentPlayer().getSocket());
+      Shot shot = shotMessage.getShot();
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
       ShotResult result = round.fireShot(fleetUnderFire, shot);
       logShotInfo(shot, result);

@@ -26,10 +26,6 @@ public class PlayerRegistry {
     players.add(playerClient);
   }
 
-  public BufferedReader getCurrentReader() {
-    return players.peekFirst().getReader();
-  }
-
   public Fleet getFleetUnderFire() {
     return players.peekLast().getFleet();
   }
