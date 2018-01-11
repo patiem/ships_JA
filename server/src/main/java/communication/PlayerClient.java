@@ -2,7 +2,6 @@ package communication;
 
 import fleet.Fleet;
 
-import java.io.BufferedReader;
 import java.net.Socket;
 
 /**

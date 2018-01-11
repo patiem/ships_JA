@@ -9,7 +9,6 @@ import messages.ConnectionMessage;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Logger;
 
 /**
  * It establishes connections and creates the game object.

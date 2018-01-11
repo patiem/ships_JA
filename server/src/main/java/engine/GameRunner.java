@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * It creates the game events and notifies player accordingly.
  *
@@ -35,7 +34,6 @@ public class GameRunner {
 
   private final Round round;
   private final PlayerRegistry playerRegistry;
-  private final ShotReceiver shotReceiver = new SocketShotReceiver();
   private final Referee referee = new Referee();
   private GameState gameState = GameState.ACTIVE;
 
