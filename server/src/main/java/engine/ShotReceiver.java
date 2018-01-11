@@ -3,6 +3,7 @@ package engine;
 import model.Shot;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 /**
  * It receives data on each shot.
@@ -10,5 +11,5 @@ import java.io.BufferedReader;
  * @version 1.5
  */
 interface ShotReceiver {
-  Shot readShot(BufferedReader currentReader);
+  Shot readShot(BufferedReader currentReader) throws IOException;
 }

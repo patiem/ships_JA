@@ -35,7 +35,7 @@ class ConnectionHandler {
     setUpGame();
   }
 
-  private void setUpGame() {
+  private void setUpGame() throws IOException {
     Round round = new Round();
     GameRunner gameRunner = new GameRunner(round, playerRegistry);
     gameRunner.runGame();

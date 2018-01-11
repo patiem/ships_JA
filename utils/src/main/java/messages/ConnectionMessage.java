@@ -6,11 +6,11 @@ import model.FleetModel;
 
 /**
  * It represents the initial message sent from GUI to the server.
+ *
  * @author Emilia Ciastek/Bartosz Pieczara
  * @version 1.5
  */
 public class ConnectionMessage {
-
 
   private final String name;
   private final FleetModel fleetModel;
@@ -31,6 +31,4 @@ public class ConnectionMessage {
   public FleetModel getFleetModel() {
     return fleetModel;
   }
-
-
 }

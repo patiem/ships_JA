@@ -42,7 +42,7 @@ public class GameRunner {
     this.playerRegistry = playerRegistry;
   }
 
-  public void runGame() {
+  public void runGame() throws IOException {
     sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
 
     while (gameState == GameState.ACTIVE) {
