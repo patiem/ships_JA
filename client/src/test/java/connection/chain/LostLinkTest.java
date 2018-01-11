@@ -2,6 +2,7 @@ package connection.chain;
 
 import gui.events.YouLostEvent;
 import gui.playing.DispatcherAdapter;
+import model.DummyResponse;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import responses.LossResponse;
@@ -44,14 +45,13 @@ public class LostLinkTest {
     //Arrange
     Chain mockedNextChain = mock(Chain.class);
     lostLink.setNextChain(mockedNextChain);
-    Response mockedNoneResponse = mock(Response.class);
-    when(mockedNoneResponse.getHeader()).thenReturn(ResponseHeader.NONE);
+    DummyResponse dummyResponse = new DummyResponse();
 
     //Act
-    lostLink.analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+    lostLink.analyzeResponse(dummyResponse, dispatcherAdapter);
 
     //Assert
     verify(mockedNextChain, times(expectedInvocations))
-        .analyzeResponse(mockedNoneResponse, dispatcherAdapter);
+        .analyzeResponse(dummyResponse, dispatcherAdapter);
   }
 }

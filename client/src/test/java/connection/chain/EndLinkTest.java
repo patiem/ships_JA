@@ -1,6 +1,7 @@
 package connection.chain;
 
 import gui.playing.DispatcherAdapter;
+import model.DummyResponse;
 import org.testng.annotations.Test;
 import responses.Response;
 import responses.ResponseHeader;
@@ -12,19 +13,24 @@ public class EndLinkTest {
 
   @Test(expectedExceptions = IllegalArgumentException.class, expectedExceptionsMessageRegExp = "Unknown response with header: NONE")
   public void whenAnalyzeResponseThenThrowException() {
+    //Arrange
     DispatcherAdapter mockedDispatcherAdapter = mock(DispatcherAdapter.class);
-    Response mockedResponse = mock(Response.class);
-    when(mockedResponse.getHeader()).thenReturn(ResponseHeader.NONE);
+    DummyResponse dummyResponse = new DummyResponse();
     EndLink endLink = new EndLink();
-
-    endLink.analyzeResponse(mockedResponse, mockedDispatcherAdapter);
+    //Act
+    endLink.analyzeResponse(dummyResponse, mockedDispatcherAdapter);
+    //Assert
+    //Throw Exception
   }
 
   @Test(expectedExceptions = UnsupportedOperationException.class)
   public void whenSetNextChainThenThrowException() {
+    //Arrange
     EndLink endLink = new EndLink();
     Chain mockedNextChain = mock(Chain.class);
-
+    //Act
     endLink.setNextChain(mockedNextChain);
+    //Assert
+    // Throw exception
   }
 }

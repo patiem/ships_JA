@@ -5,14 +5,7 @@ import gui.playing.DispatcherAdapter;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class LostLink implements Chain {
-
-  private Chain nextInChain;
-
-  @Override
-  public void setNextChain(Chain nextChain) {
-    nextInChain = nextChain;
-  }
+public class LostLink extends Chain {
 
   @Override
   public void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter) {

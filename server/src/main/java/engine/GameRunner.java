@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  * It creates the game events and notifies player accordingly.
  *

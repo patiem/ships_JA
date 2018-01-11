@@ -19,7 +19,6 @@ public class MessageReceiver {
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
-
     return "";
   }
 }
