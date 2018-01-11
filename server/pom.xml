@@ -20,7 +20,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>ServerMain</mainClass>
+                            <mainClass>communication.ServerMain</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
