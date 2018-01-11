@@ -104,11 +104,12 @@
                     <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
                         <excludes>
-                            <exclude>**/*InitMessage.*</exclude>
                             <exclude>**/*FleetModel.*</exclude>
                             <exclude>**/*ShipModel.*</exclude>
                             <exclude>**/*Player.*</exclude>
                             <exclude>/gui/**/**/*</exclude>
+                            <exclude>/responses/**/*</exclude>
+                            <exclude>/messages/**/*</exclude>
                         </excludes>
                 </configuration>
                 <executions>
