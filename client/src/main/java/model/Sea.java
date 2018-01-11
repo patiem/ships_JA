@@ -15,19 +15,19 @@ import java.util.Optional;
  */
 public class Sea {
 
-  private final List<ClickableField> wholeSea;
+  private final List<ClickableField> seaFields;
 
   public Sea() {
-    this.wholeSea = new ArrayList<>();
+    this.seaFields = new ArrayList<>();
   }
 
   public void addSeaField(ClickableField seaField) {
-    wholeSea.add(seaField);
+    seaFields.add(seaField);
   }
 
   public ClickableField getSeaFieldByPosition(Position position) {
 
-    Optional<ClickableField> field = wholeSea.stream()
+    Optional<ClickableField> field = seaFields.stream()
         .filter(s -> s.position().equals(position))
         .findFirst();
 
@@ -35,10 +35,10 @@ public class Sea {
   }
 
   public void clearSea() {
-    wholeSea.forEach(ClickableField::makeUnclickable);
+    seaFields.forEach(ClickableField::makeUnclickable);
   }
 
   public void makeBoundary(Position position) {
-    getSeaFieldByPosition(position).setIsMarkedAsBound(true);
+    getSeaFieldByPosition(position).markAsBound(true);
   }
 }

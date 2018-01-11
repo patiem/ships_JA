@@ -3,7 +3,7 @@ package model;
 import gui.fields.Field;
 import gui.fields.Mast;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,15 +17,15 @@ class Ship implements Iterable<Mast>{
 
   private static final int START_SIZE = 1;
 
-  private final Mast[] masts;
+  private final List<Mast> masts;
   private final int shipLength;
   private int buildLength;
 
   Ship(Mast mast, int length) {
-    shipLength = length;
-    masts = new Mast[shipLength];
-    masts[0] = mast;
     buildLength = START_SIZE;
+    shipLength = length;
+    masts = new ArrayList<>();
+    masts.add(mast);
   }
 
   boolean isShipDone() {
@@ -34,20 +34,21 @@ class Ship implements Iterable<Mast>{
 
   void addMast(Mast mast) {
     if (!isShipDone()) {
-      masts[buildLength++] = mast;
+      masts.add(mast);
+      buildLength++;
     }
   }
 
   List<Position> positionsOfAllMastInShip() {
-    return Arrays.stream(masts).map(Field::position).collect(Collectors.toList());
+    return masts.stream().map(Field::position).collect(Collectors.toList());
   }
 
   List<Integer> positionsOfAllMastInShipAsIntegers() {
-    return Arrays.stream(masts).map(Field::positionAsInteger).collect(Collectors.toList());
+    return masts.stream().map(Field::positionAsInteger).collect(Collectors.toList());
   }
 
   @Override
   public Iterator<Mast> iterator() {
-    return Arrays.asList(masts).iterator();
+    return masts.iterator();
   }
 }

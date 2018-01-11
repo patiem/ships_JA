@@ -19,7 +19,7 @@ public class SeaField extends Rectangle implements ClickableField {
   private final SimpleBooleanProperty isMarkedAsMast;
   private final SimpleBooleanProperty isMarkedAsBound;
 
-  private final EventHandler<MouseEvent> makeReadyToClick = event -> setIsMarkedAsMast(true);
+  private final EventHandler<MouseEvent> makeReadyToClick = event -> markAsMast(true);
 
   public SeaField(int column, int row, FieldSize size) {
     super(column, row, size.getValue(), size.getValue());
@@ -62,11 +62,11 @@ public class SeaField extends Rectangle implements ClickableField {
   }
 
   @Override
-  public void setIsMarkedAsBound(boolean isMarkedAsBound) {
+  public void markAsBound(boolean isMarkedAsBound) {
     this.isMarkedAsBound.set(isMarkedAsBound);
   }
 
-  private void setIsMarkedAsMast(boolean isMarkedAsMast) {
+  private void markAsMast(boolean isMarkedAsMast) {
     this.isMarkedAsMast.set(isMarkedAsMast);
   }
 

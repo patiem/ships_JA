@@ -139,7 +139,8 @@ public class FleetDropController implements Initializable {
       event -> {
         connectButton.setVisible(false);
         setupClient();
-        FleetSender fleetSender = new FleetSender(getClient(), new Player(fleetCreator, userName.getText()));
+        Player player = new Player(fleetCreator.fleet() , userName.getText());
+        FleetSender fleetSender = new FleetSender(getClient(), player);
         fleetSender.sendFleetToServer();
         nextButton.fireEvent(new ConnectEvent());
       };

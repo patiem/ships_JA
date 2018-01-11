@@ -9,7 +9,7 @@ import java.util.Objects;
  * @version 1.5
  */
 
-public class Position { //TODO test
+public class Position {
 
   private final Integer column;
   private final Integer row;

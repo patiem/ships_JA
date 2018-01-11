@@ -15,18 +15,18 @@ public class FleetCreator {
 
   private List<Position> positions;
   private final Sea sea;
-  private final List<Ship> ships;
+  private final Fleet ships;
   private Ship shipThatIsBuild;
 
   public FleetCreator(Sea sea) {
     this.sea = sea;
     positions = new ArrayList<>();
-    ships = new ArrayList<>();
+    ships = new Fleet();
   }
   public void startToBuildOneShip(Mast mast, int shipLength) {
     Ship ship = new Ship(mast, shipLength);
     shipThatIsBuild = ship;
-    ships.add(ship);
+    ships.addShip(ship);
     positions.add(mast.position());
     updateNeighbourFields(mast);
   }
@@ -49,11 +49,11 @@ public class FleetCreator {
     positions.add(mast.position());
   }
 
-  public List<Ship> getShips() {
-    return ships;
+  public List<Position> getMastsPositions() {
+    return ships.countMastPositions();
   }
 
-  public List<Position> getMastsPositions() {
-    return positions;
+  public Fleet fleet() {
+    return ships;
   }
 }

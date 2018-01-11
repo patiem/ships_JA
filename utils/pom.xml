@@ -35,6 +35,6 @@
     <description>
         Module utils contains:
         - classes for Json serialization and deserialization
-        - fleetCreator model classes
+        - fleet model classes
     </description>
 </project>

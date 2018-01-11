@@ -3,13 +3,14 @@ package model;
 import gui.fields.ClickableField;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class SeaTest {
+public class SeaTest extends DataProvider {
 
   private Sea sea;
+  private SoftAssert softAssert = new SoftAssert();
 
   @BeforeMethod
   public void setup() {
@@ -31,26 +32,27 @@ public class SeaTest {
     //when
     sea.addSeaField(fieldOne);
     sea.addSeaField(fieldTwo);
-    ClickableField returnedSeaField = sea.getSeaFieldByPosition(positionOne);
+    ClickableField returnedSeaFieldOne = sea.getSeaFieldByPosition(positionOne);
+    ClickableField returnedSeaFieldTwo = sea.getSeaFieldByPosition(positionTwo);
 
     //then
-    assertThat(returnedSeaField).isEqualTo(fieldOne);
+    softAssert.assertEquals(returnedSeaFieldOne, fieldOne);
+    softAssert.assertEquals(returnedSeaFieldTwo, fieldTwo);
+    softAssert.assertAll();
   }
 
-  @Test(expectedExceptions = IndexOutOfBoundsException.class)
-  public void whenSeaDoesntContainFieldWithGivenPosition_throws() {
+  @Test(expectedExceptions = IndexOutOfBoundsException.class, dataProvider = "positionCoordinates")
+  public void whenSeaDoesntContainFieldWithGivenPosition_throws(int index) {
 
     //given
-    ClickableField fieldOne = mock(ClickableField.class);
-    //given
-    Position positionOne = mock(Position.class);
-    when(fieldOne.position()).thenReturn(positionOne);
-
-    Position positionTwo = mock(Position.class);
+    Integer row = 0;
+    Integer col = 0;
+    ClickableField fieldOne = new DummyClickableFiled(row, col);
+    Position testPosition = new Position(index);
 
     //when
     sea.addSeaField(fieldOne);
-    sea.getSeaFieldByPosition(positionTwo);
+    sea.getSeaFieldByPosition(testPosition);
   }
 
   @Test
@@ -70,7 +72,7 @@ public class SeaTest {
   }
 
   @Test
-  public void givenPosition_markedSeaFieldAsBoundry() {
+  public void givenPosition_markedSeaFieldAsBoundary() {
 
     //given
     ClickableField fieldOne = mock(ClickableField.class);
@@ -82,7 +84,45 @@ public class SeaTest {
     sea.makeBoundary(positionOne);
 
     //then
-    verify(fieldOne, times(1)).setIsMarkedAsBound(true);
+    verify(fieldOne, times(1)).markAsBound(true);
+  }
+
+  class DummyClickableFiled implements ClickableField {
+
+    private final Integer row;
+    private final Integer col;
+
+    public DummyClickableFiled(Integer row, Integer col) {
+      this.row = row;
+      this.col = col;
+    }
+
+    @Override
+    public void makeUnclickable() {
+    }
+
+    @Override
+    public void makeClickable() {
+    }
+
+    @Override
+    public void markAsBound(boolean isMarkedAsBound) {
+    }
+
+    @Override
+    public int getColumn() {
+      return col;
+    }
+
+    @Override
+    public int getRow() {
+      return row;
+    }
+
+    @Override
+    public void markAsHit() {
+
+    }
   }
 
 }
