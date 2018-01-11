@@ -1,6 +1,7 @@
 package communication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import engine.ActiveGame;
 import engine.GameRunner;
 import engine.Round;
 import fleet.CustomFleet;
@@ -36,8 +37,9 @@ class ConnectionHandler {
   }
 
   private void setUpGame() {
-    Round round = new Round();
-    GameRunner gameRunner = new GameRunner(round, playerRegistry);
+
+
+    GameRunner gameRunner = new GameRunner(playerRegistry);
     gameRunner.runGame();
   }
 
