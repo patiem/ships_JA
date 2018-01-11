@@ -16,22 +16,21 @@ public class ShotReceiverTest {
   @DataProvider(name = "shots input")
   public Object[] shotsInput() {
     return new Object[] {
-        "1",
-        "5",
-        "10"
+        0,
+        52,
+        90
     };
   }
 
   @Test(dataProvider = "shots input")
-  public void givenBufferedReaderWhenReadShotThenReturnCorrectShot(String mockedInput) throws IOException {
+  public void givenBufferedReaderWhenReadShotThenReturnCorrectShot(Integer shot) throws IOException {
     ShotReceiver shotReceiver = new SocketShotReceiver();
     BufferedReader mockedReader = mock(BufferedReader.class);
-    when(mockedReader.readLine()).thenReturn(mockedInput);
+    String mockedMessage = String.format("{\"shot\":{\"position\":%s}}", shot);
+    when(mockedReader.readLine()).thenReturn(mockedMessage);
 
     Shot actualShot = shotReceiver.readShot(mockedReader);
-    Integer expectedValue = Integer.parseInt(mockedInput);
 
-    assertThat(actualShot.asInteger()).isEqualTo(expectedValue);
+    assertThat(actualShot.asInteger()).isEqualTo(shot);
   }
-
 }
