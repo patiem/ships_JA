@@ -101,8 +101,6 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacocoVersion}</version>
                 <configuration>
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
                         <excludes>
                             <exclude>**/*FleetModel.*</exclude>
                             <exclude>**/*ShipModel.*</exclude>
@@ -242,12 +240,10 @@
         </plugins>
     </reporting>
 
-    <!-- declares a location to distribute site -->
     <distributionManagement>
         <site>
             <id>${project.artifactId}</id>
             <url>file://${basedir}/target</url>
         </site>
     </distributionManagement>
-    <!-- pluginMenagment -->
 </project>
