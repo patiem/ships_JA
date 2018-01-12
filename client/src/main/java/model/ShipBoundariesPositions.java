@@ -1,6 +1,6 @@
 package model;
 
-import gui.fields.Mast;
+import gui.fields.Field;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class ShipBoundariesPositions {
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
-    for (Mast mast : ship) {
+    for (Field mast : ship) {
       boundaries.addAll(new MastBoundariesPositions(mast).countBoundariesForMast());
     }
     boundaries.removeAll(ship.positionsOfAllMastInShip());

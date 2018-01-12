@@ -1,7 +1,6 @@
 package model;
 
 import gui.fields.Field;
-import gui.fields.Mast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,15 +12,15 @@ import java.util.stream.Collectors;
  * @author Patrycja Mikulska
  * @version 1.5
  */
-class Ship implements Iterable<Mast>{
+class Ship implements Iterable<Field>{
 
   private static final int START_SIZE = 1;
 
-  private final List<Mast> masts;
+  private final List<Field> masts;
   private final int shipLength;
   private int buildLength;
 
-  Ship(Mast mast, int length) {
+  Ship(Field mast, int length) {
     buildLength = START_SIZE;
     shipLength = length;
     masts = new ArrayList<>();
@@ -32,7 +31,7 @@ class Ship implements Iterable<Mast>{
     return buildLength == shipLength;
   }
 
-  void addMast(Mast mast) {
+  void addMast(Field mast) {
     if (!isShipDone()) {
       masts.add(mast);
       buildLength++;
@@ -48,7 +47,7 @@ class Ship implements Iterable<Mast>{
   }
 
   @Override
-  public Iterator<Mast> iterator() {
+  public Iterator<Field> iterator() {
     return masts.iterator();
   }
 }
