@@ -14,27 +14,22 @@ import java.util.stream.Collectors;
  */
 class Ship implements Iterable<Field>{
 
-  private static final int START_SIZE = 1;
-
   private final List<Field> masts;
   private final int shipLength;
-  private int buildLength;
 
   Ship(Field mast, int length) {
-    buildLength = START_SIZE;
     shipLength = length;
     masts = new ArrayList<>();
     masts.add(mast);
   }
 
   boolean isShipDone() {
-    return buildLength == shipLength;
+    return masts.size() == shipLength;
   }
 
   void addMast(Field mast) {
     if (!isShipDone()) {
       masts.add(mast);
-      buildLength++;
     }
   }
 
