@@ -15,16 +15,14 @@ public class ShipMapperTest {
   public void givenMockedShipWhenMapToShipModelThenReturnCorrectShipModel() {
     int expectedNumberOfMasts = 2;
     List<Integer> expectedFields = Arrays.asList(0, 1);
-    Ship shipToMap = mock(Ship.class);
+    Ship shipToMap = mock(Ship.class); //TODO: use real object, not mock
     when(shipToMap.getPositions()).thenReturn(expectedFields);
 
-    ShipMapper shipMapper = new ShipMapper();
-    ShipModel actualResult = shipMapper.mapToModel(shipToMap);
+    ShipModel actualResult = ShipMapper.mapToModel(shipToMap);
 
     SoftAssertions soft = new SoftAssertions();
     soft.assertThat(actualResult.getFields().containsAll(expectedFields));
     soft.assertThat(actualResult.getNumberOfMasts()).isEqualTo(expectedNumberOfMasts);
     soft.assertAll();
   }
-
 }
