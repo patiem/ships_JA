@@ -26,8 +26,7 @@ public interface GameRunnerState {
     }
   }
 
-  default void sendResponse(){ }
-
+  void  sendFinalResponse();
   GameRunnerState run() throws IOException;
 
 }

@@ -25,6 +25,9 @@ public class ActiveGame implements GameRunnerState {
   }
 
   @Override
+  public void sendFinalResponse() { }
+
+  @Override
   public GameRunnerState run() throws IOException {
 
     while (true) {

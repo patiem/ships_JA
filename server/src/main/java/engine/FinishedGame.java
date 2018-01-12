@@ -10,7 +10,7 @@ import responses.WinResponse;
 import java.io.IOException;
 import java.util.logging.Level;
 
-class FinishedGame implements GameRunnerState {
+public class FinishedGame implements GameRunnerState {
 
   private PlayerRegistry playerRegistry;
 
@@ -19,7 +19,7 @@ class FinishedGame implements GameRunnerState {
   }
 
   @Override
-  public void sendResponse() {
+  public void sendFinalResponse() {
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();

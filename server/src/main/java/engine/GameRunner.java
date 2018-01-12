@@ -27,6 +27,6 @@ public class GameRunner {
 
     currentState = currentState.run();
 
-    currentState.sendResponse();
+    currentState.sendFinalResponse();
   }
 }
