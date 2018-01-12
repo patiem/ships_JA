@@ -2,7 +2,6 @@ package model;
 
 import gui.fields.Mast;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
  * It holds information regarding a player's fleet.
@@ -13,47 +12,46 @@ import java.util.List;
 
 public class FleetCreator {
 
-  private List<Position> positions;
   private final Sea sea;
-  private final Fleet ships;
+  private final Fleet fleet;
   private Ship shipThatIsBuild;
 
   public FleetCreator(Sea sea) {
     this.sea = sea;
-    positions = new ArrayList<>();
-    ships = new Fleet();
+    fleet = new Fleet();
   }
+
   public void startToBuildOneShip(Mast mast, int shipLength) {
-    Ship ship = new Ship(mast, shipLength);
+    Ship ship = new Ship(shipLength);
     shipThatIsBuild = ship;
-    ships.addShip(ship);
-    positions.add(mast.position());
-    updateNeighbourFields(mast);
+    fleet.addShip(ship);
+    addMastToShip(mast);
+  }
+
+  public void addMastToShip(Mast mast) {
+    shipThatIsBuild.addMast(mast);
+    if (shipThatIsBuild.isShipDone()) {
+      updateBoard();
+    } else {
+      updateNeighbourFields(mast);
+    }
+  }
+
+  private void updateBoard() {
+    Updater updater = new ShipBoardUpdater(sea, shipThatIsBuild);
+    updater.update();
   }
 
   private void updateNeighbourFields(Mast mast) {
-    if (shipThatIsBuild.isShipDone()) {
-      sea.clearSea();
-      ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
-      boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
-      boundaries.markSeaAsBoundary(sea);
-      return;
-    }
     PossiblePositions possible = new PossiblePositions();
     possible.findPositions(mast, sea).makePositionClickable();
   }
 
-  public void addNextMastToShip(Mast mast) {
-    shipThatIsBuild.addMast(mast);
-    updateNeighbourFields(mast);
-    positions.add(mast.position());
-  }
-
   public List<Position> getMastsPositions() {
-    return ships.mastsPositions();
+    return fleet.mastsPositions();
   }
 
   public Fleet fleet() {
-    return ships;
+    return fleet;
   }
 }

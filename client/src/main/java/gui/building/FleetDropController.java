@@ -227,7 +227,7 @@ public class FleetDropController implements Initializable {
           Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
-          fleetCreator.addNextMastToShip(mast);
+          fleetCreator.addMastToShip(mast);
         }
       };
 

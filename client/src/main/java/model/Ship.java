@@ -23,6 +23,11 @@ class Ship implements Iterable<Field>{
     masts.add(mast);
   }
 
+  Ship(int length) {
+    shipLength = length;
+    masts = new ArrayList<>();
+  }
+
   boolean isShipDone() {
     return masts.size() == shipLength;
   }
