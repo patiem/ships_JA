@@ -1,5 +1,5 @@
 package model;
 
 public interface Updater {
-  void update();
+  void update(Boolean isShipDone);
 }

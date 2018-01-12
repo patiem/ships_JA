@@ -1,7 +1,7 @@
 package model;
 
 import gui.fields.ClickableField;
-import gui.fields.Mast;
+import gui.fields.Field;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ class PossiblePositions {
     possible = new ArrayList<>();
   }
 
-  public PossiblePositions findPositions(Mast mast, Sea sea) {
+  public PossiblePositions findPositions(Field mast, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;

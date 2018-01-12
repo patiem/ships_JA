@@ -17,12 +17,6 @@ class Ship implements Iterable<Field>{
   private final List<Field> masts;
   private final int shipLength;
 
-  Ship(Field mast, int length) {
-    shipLength = length;
-    masts = new ArrayList<>();
-    masts.add(mast);
-  }
-
   Ship(int length) {
     shipLength = length;
     masts = new ArrayList<>();
@@ -49,5 +43,9 @@ class Ship implements Iterable<Field>{
   @Override
   public Iterator<Field> iterator() {
     return masts.iterator();
+  }
+
+  public Field lastMast() {
+    return masts.stream().reduce((f,s) -> s).orElseThrow(IndexOutOfBoundsException::new);
   }
 }

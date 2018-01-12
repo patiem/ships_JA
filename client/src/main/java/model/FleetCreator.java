@@ -30,21 +30,8 @@ public class FleetCreator {
 
   public void addMastToShip(Mast mast) {
     shipThatIsBuild.addMast(mast);
-    if (shipThatIsBuild.isShipDone()) {
-      updateBoard();
-    } else {
-      updateNeighbourFields(mast);
-    }
-  }
-
-  private void updateBoard() {
     Updater updater = new ShipBoardUpdater(sea, shipThatIsBuild);
-    updater.update();
-  }
-
-  private void updateNeighbourFields(Mast mast) {
-    PossiblePositions possible = new PossiblePositions();
-    possible.findPositions(mast, sea).makePositionClickable();
+    updater.update(shipThatIsBuild.isShipDone());
   }
 
   public List<Position> getMastsPositions() {

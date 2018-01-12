@@ -19,8 +19,10 @@ public class ShipBoundariesPositions {
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
+
     for (Field mast : ship) {
-      boundaries.addAll(new MastBoundariesPositions(mast).countBoundariesForMast());
+      MastBoundariesPositions mastBoundaries = new MastBoundariesPositions(mast);
+      boundaries.addAll(mastBoundaries.countBoundariesForMast());
     }
     boundaries.removeAll(ship.positionsOfAllMastInShip());
     return this;

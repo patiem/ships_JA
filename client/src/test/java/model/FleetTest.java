@@ -21,7 +21,7 @@ public class FleetTest {
   }
 
   @Test
-  public void returnsAllPositions() {
+  public void returnsPositionsOfAllMast() {
 
     //given
     Position one = new Position(1);

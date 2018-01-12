@@ -21,10 +21,9 @@ public class Fleet {
   }
 
   public List<Position> mastsPositions() {
-    List<Position> positions = ships.stream()
+    return ships.stream()
         .map(Ship::positionsOfAllMastInShip)
         .flatMap(List::stream)
         .collect(Collectors.toList());
-    return positions;
   }
 }

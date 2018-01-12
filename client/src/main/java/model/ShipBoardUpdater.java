@@ -10,8 +10,25 @@ public class ShipBoardUpdater implements Updater {
   }
 
   @Override
-  public void update() {
+  public void update(Boolean isShipDone) {
+    if (isShipDone) {
+      resetSeaFields();
+      makeBoundaries();
+    } else {
+      makeClickableNeighbours();
+    }
+  }
+
+  private void makeClickableNeighbours() {
+    PossiblePositions possible = new PossiblePositions();
+    possible.findPositions(shipThatIsBuild.lastMast(), sea).makePositionClickable();
+  }
+
+  private void resetSeaFields() {
     sea.clearSea();
+  }
+
+  private void makeBoundaries() {
     ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
     boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
     boundaries.markSeaAsBoundary(sea);
