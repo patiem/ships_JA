@@ -17,14 +17,16 @@ public class GameRunner {
   private final PlayerRegistry playerRegistry;
   private GameRunnerState currentState;
 
-  public GameRunner(final PlayerRegistry playerRegistry) {
+  public GameRunner(final PlayerRegistry playerRegistry, GameRunnerState gameRunnerState) {
     this.playerRegistry = playerRegistry;
-    this.currentState = new ActiveGame(playerRegistry);
+    this.currentState = gameRunnerState;
   }
 
   public void runGame() throws IOException {
     currentState.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+
     currentState = currentState.run();
+
     currentState.sendResponse();
   }
 }

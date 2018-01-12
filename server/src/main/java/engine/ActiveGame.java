@@ -20,7 +20,7 @@ public class ActiveGame implements GameRunnerState {
   private PlayerRegistry playerRegistry;
   private final Referee referee = new Referee();
 
-  ActiveGame(PlayerRegistry playerRegistry) {
+  public ActiveGame(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
   }
 

@@ -18,6 +18,7 @@ class FinishedGame implements GameRunnerState {
     this.playerRegistry = playerRegistry;
   }
 
+  @Override
   public void sendResponse() {
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
@@ -33,6 +34,11 @@ class FinishedGame implements GameRunnerState {
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
     }
+  }
+
+  @Override
+  public GameRunnerState run() {
+   return new FinishedGame(playerRegistry);
   }
 
 }
