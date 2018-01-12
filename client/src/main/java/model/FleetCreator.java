@@ -1,6 +1,6 @@
 package model;
 
-import gui.fields.Mast;
+import gui.fields.Field;
 
 import java.util.List;
 /**
@@ -21,14 +21,14 @@ public class FleetCreator {
     fleet = new Fleet();
   }
 
-  public void startToBuildOneShip(Mast mast, int shipLength) {
+  public void startToBuildOneShip(Field mast, int shipLength) {
     Ship ship = new Ship(shipLength);
     shipThatIsBuild = ship;
     fleet.addShip(ship);
     addMastToShip(mast);
   }
 
-  public void addMastToShip(Mast mast) {
+  public void addMastToShip(Field mast) {
     shipThatIsBuild.addMast(mast);
     Updater updater = new ShipBoardUpdater(sea, shipThatIsBuild);
     updater.update(shipThatIsBuild.isShipDone());
