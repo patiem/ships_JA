@@ -41,6 +41,13 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <jdependVersion>2.0</jdependVersion>
         <javaDocVersion>2.10.4</javaDocVersion>
+
+        <sonar.coverage.exclusions>
+            **/responses/**/*,
+            **/gui/**/**/*,
+            **/messages/**/*,
+            **/model/**/*
+        </sonar.coverage.exclusions>
     </properties>
     <build>
 
@@ -101,16 +108,14 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacocoVersion}</version>
                 <configuration>
-                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
-                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-                        <excludes>
-                            <exclude>**/*FleetModel.*</exclude>
-                            <exclude>**/*ShipModel.*</exclude>
-                            <exclude>**/*Player.*</exclude>
-                            <exclude>/gui/**/**/*</exclude>
-                            <exclude>/responses/**/*</exclude>
-                            <exclude>/messages/**/*</exclude>
-                        </excludes>
+                    <excludes>
+                        <exclude>**/*FleetModel.*</exclude>
+                        <exclude>**/*ShipModel.*</exclude>
+                        <exclude>**/*Player.*</exclude>
+                        <exclude>/gui/**/**/*</exclude>
+                        <exclude>/responses/**/*</exclude>
+                        <exclude>/messages/**/*</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -232,22 +237,18 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
                 <version>${jdependVersion}</version>
             </plugin>
-
         </plugins>
     </reporting>
 
-    <!-- declares a location to distribute site -->
     <distributionManagement>
         <site>
             <id>${project.artifactId}</id>
             <url>file://${basedir}/target</url>
         </site>
     </distributionManagement>
-    <!-- pluginMenagment -->
 </project>
