@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Fleet {
 
@@ -19,11 +20,11 @@ public class Fleet {
     return ships;
   }
 
-  public List<Position> countMastPositions() {
-    List<Position> positions = new ArrayList<>();
-    ships.stream()
+  public List<Position> mastsPositions() {
+    List<Position> positions = ships.stream()
         .map(Ship::positionsOfAllMastInShip)
-        .forEach(positions::addAll);
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
     return positions;
   }
 }

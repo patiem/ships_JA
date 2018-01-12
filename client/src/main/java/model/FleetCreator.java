@@ -50,7 +50,7 @@ public class FleetCreator {
   }
 
   public List<Position> getMastsPositions() {
-    return ships.countMastPositions();
+    return ships.mastsPositions();
   }
 
   public Fleet fleet() {
