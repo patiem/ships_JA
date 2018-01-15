@@ -25,7 +25,9 @@ public class ActiveGame implements GameRunnerState {
   }
 
   @Override
-  public void sendFinalResponse() { }
+  public void sendFinalResponse() {
+    throw new UnsupportedOperationException();
+  }
 
   @Override
   public GameRunnerState run() throws IOException {

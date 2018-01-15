@@ -9,6 +9,7 @@ import responses.LossResponse;
 import responses.WinResponse;
 import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FinishedGame implements GameRunnerState {
 
@@ -20,6 +21,7 @@ public class FinishedGame implements GameRunnerState {
 
   @Override
   public void sendFinalResponse() {
+    Logger logger = Logger.getLogger(FinishedGame.class.getName());
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();
@@ -30,9 +32,9 @@ public class FinishedGame implements GameRunnerState {
       messageSender.sendMessageToPlayer(playerRegistry.getWaitingPlayer(), lossMessage);
 
       String logMessage = String.format("Message has been send: %s", winMessage);
-      LOGGER.info(logMessage);
+      logger.info(logMessage);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+      logger.log(Level.SEVERE, e.getMessage());
     }
   }
 

@@ -10,9 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public interface GameRunnerState {
-  Logger LOGGER = Logger.getLogger(ActiveGame.class.getName());
 
   default void sendResponse(Response responseToSend, PlayerClient player) {
+    Logger logger = Logger.getLogger(GameRunnerState.class.getName());
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();
@@ -20,13 +20,11 @@ public interface GameRunnerState {
       String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
       messageSender.sendMessageToPlayer(player, message);
       String logMessage = String.format("Message has been send: %s", message);
-      LOGGER.info(logMessage);
+      logger.info(logMessage);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+      logger.log(Level.SEVERE, e.getMessage());
     }
   }
-
   void  sendFinalResponse();
   GameRunnerState run() throws IOException;
-
 }
