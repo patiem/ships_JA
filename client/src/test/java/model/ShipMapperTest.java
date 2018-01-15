@@ -1,22 +1,27 @@
 package model;
 
+import gui.fields.Field;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 public class ShipMapperTest {
 
   @Test
-  public void givenMockedShipWhenMapToShipModelThenReturnCorrectShipModel() {
+  public void whenMapToModelThenReturnCorrectlyMappedShip() {
     int expectedNumberOfMasts = 2;
-    List<Integer> expectedFields = Arrays.asList(0, 1);
-    Ship shipToMap = mock(Ship.class); //TODO: use real object, not mock
-    when(shipToMap.positionsOfAllMastInShipAsIntegers()).thenReturn(expectedFields);
+    int firstPosition = 0;
+    int secondPosition = 1;
+    List<Integer> expectedFields = Arrays.asList(firstPosition, secondPosition);
+
+    Field firstMast = new DummyMast(firstPosition);
+    Field secondMast = new DummyMast(secondPosition);
+
+    Ship shipToMap = new Ship(expectedNumberOfMasts);
+    shipToMap.addMast(firstMast);
+    shipToMap.addMast(secondMast);
 
     ShipModel actualResult = ShipMapper.mapToModel(shipToMap);
 
