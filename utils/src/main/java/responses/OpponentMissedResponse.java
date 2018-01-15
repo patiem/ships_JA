@@ -6,14 +6,13 @@ import model.Shot;
 
 import java.util.Optional;
 
-public class OpponentMissedResponse extends Response {
+public class OpponentMissedResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.OPPMISSED;
   private Shot shot;
 
   @JsonCreator
   public OpponentMissedResponse(@JsonProperty("shot") Shot shot) {
-
     this.shot = shot;
   }
 

@@ -2,7 +2,6 @@ package communication;
 
 import fleet.Fleet;
 
-import java.io.BufferedReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.logging.Logger;
@@ -24,10 +23,6 @@ public class PlayerRegistry {
 
   private void addPlayer(PlayerClient playerClient) {
     players.add(playerClient);
-  }
-
-  public BufferedReader getCurrentReader() {
-    return players.peekFirst().getReader();
   }
 
   public Fleet getFleetUnderFire() {

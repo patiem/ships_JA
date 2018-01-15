@@ -2,7 +2,6 @@ package communication;
 
 import fleet.Fleet;
 
-import java.io.BufferedReader;
 import java.net.Socket;
 
 /**
@@ -13,16 +12,14 @@ import java.net.Socket;
  */
 public class PlayerClient {
 
-  private final BufferedReader reader;
   private final Socket socket;
   private final Fleet fleet;
   private final String playerName;
 
-  PlayerClient(String playerName, Socket socket, BufferedReader reader, Fleet playerFleet) {
+  PlayerClient(String playerName, Socket socket, Fleet playerFleet) {
     this.playerName = playerName;
     this.socket = socket;
     this.fleet = playerFleet;
-    this.reader = reader;
   }
 
   String getName() {
@@ -35,9 +32,5 @@ public class PlayerClient {
 
   public Socket getSocket() {
     return socket;
-  }
-
-  BufferedReader getReader() {
-    return reader;
   }
 }

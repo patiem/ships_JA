@@ -18,9 +18,8 @@ public class Server {
   private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
-  public void runServer() {
+  void runServer() {
     LOGGER.info("Server running!");
-
     ConnectionHandler connectionHandler = new ConnectionHandler();
     try {
       int portNumber = setUpServerConfig();
