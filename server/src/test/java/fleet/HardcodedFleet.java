@@ -13,7 +13,6 @@ public class HardcodedFleet implements Fleet {
   private final List<Integer> fleetPositions;
   private final List<Integer> hitFields;
 
-
   public HardcodedFleet() {
     fleetPositions = new ArrayList<>();
     hitFields = new ArrayList<>();
