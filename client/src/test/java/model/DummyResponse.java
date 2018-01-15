@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import responses.Response;
 import responses.ResponseHeader;
 
-public class DummyResponse extends Response {
+public class DummyResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.NONE;
 

@@ -1,13 +1,17 @@
 package connection;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.fields.Field;
+import json.JsonGeneratorAdapter;
+import messages.ShotMessage;
+import model.Shot;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 
 /**
  * It sends and receives messages from the server.
@@ -44,7 +48,6 @@ public class Client {
     return Integer.parseInt(properties.getProperty("portNumber"));
   }
 
-
   /**
    * It sets the hostname.
    *
@@ -63,16 +66,24 @@ public class Client {
     out.sendMessage(message);
   }
 
-
   /**
    * It sends a particular position to the server.
    *
    * @param field - the specific position
    */
   public void sendMessage(Field field) {
-    sendMessage(field.positionAsInteger().toString());
+    Shot shotToSend = new Shot(field.positionAsInteger());
+    JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
+    try {
+      String message = jsonGeneratorAdapter.createJson(
+          new ShotMessage(shotToSend), new ObjectMapper());
+      sendMessage(message);
+      String logMessage = String.format("Message has benn send: %s", message);
+      LOGGER.info(logMessage);
+    } catch (JsonProcessingException e) {
+      LOGGER.log(Level.SEVERE, e.getMessage());
+    }
   }
-
 
   /**
    * It receives messages from the server.
@@ -80,5 +91,4 @@ public class Client {
   public String getMessage() {
     return in.readMessage();
   }
-
 }
