@@ -64,9 +64,4 @@ public class Position {
   public int hashCode() {
     return Objects.hash(column, row);
   }
-
-  @Override
-  public String toString() {
-    return "column=" + column + ", row=" + row;
-  }
 }
