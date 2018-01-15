@@ -2,6 +2,11 @@ package model;
 
 import gui.fields.Field;
 
+/**
+ * It maps the received fleet to a fleet model.
+ *
+ * @version 1.5
+ */
 public class ShipCreator {
 
   private Ship ship;
@@ -10,9 +15,12 @@ public class ShipCreator {
     this.ship = ship;
   }
 
-  public void addMastToShip(Field mast, Sea sea) {
-    ship.addMast(mast);
-    ShipBoardUpdater updater = new ShipBoardUpdater(sea, ship);
-    updater.update();
+  public void addMastToShip(Field mast) {
+    if (!ship.isShipDone()) {
+      ship.addMast(mast);
+    } else {
+      throw new IllegalStateException();
+    }
   }
+
 }

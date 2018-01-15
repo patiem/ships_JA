@@ -7,11 +7,11 @@ package model;
  */
 public class ShipBoardUpdater {
   private Sea sea;
-  private Ship shipThatIsBuild;
+  private Ship ship;
 
-  public ShipBoardUpdater(Sea sea, Ship shipThatIsBuild) {
+  public ShipBoardUpdater(Sea sea, Ship ship) {
     this.sea = sea;
-    this.shipThatIsBuild = shipThatIsBuild;
+    this.ship = ship;
   }
 
   /**
@@ -21,7 +21,7 @@ public class ShipBoardUpdater {
    *
    */
   public void update() {
-    if (shipThatIsBuild.isShipDone()) {
+    if (ship.isShipDone()) {
       resetSeaFields();
       makeBoundaries();
     } else {
@@ -31,7 +31,7 @@ public class ShipBoardUpdater {
 
   private void makeClickableNeighbours() {
     PossiblePositions possible = new PossiblePositions();
-    possible.findPositions(shipThatIsBuild.lastMast(), sea).makePositionClickable();
+    possible.findPositions(ship.lastMast(), sea).makePositionClickable();
   }
 
   private void resetSeaFields() {
@@ -40,7 +40,7 @@ public class ShipBoardUpdater {
 
   private void makeBoundaries() {
     ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
-    boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
+    boundaries.calculateShipBoundariesPositions(ship);
     boundaries.markSeaAsBoundary(sea);
   }
 }

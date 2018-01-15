@@ -26,9 +26,7 @@ public class Ship implements Iterable<Field>{
   }
 
   void addMast(Field field) {
-    if (!isShipDone()) {
       masts.add(field);
-    }
   }
 
   List<Position> positionsOfAllMastInShip() {

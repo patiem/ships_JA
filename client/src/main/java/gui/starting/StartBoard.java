@@ -113,7 +113,6 @@ public class StartBoard extends Application {
       ((TextField) buildBoard.lookup("#userName")).setText(userName);
       stage.setScene(buildScene);
       client.setup(hostIp);
-
     });
   }
 

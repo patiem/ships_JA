@@ -31,7 +31,7 @@ class StartBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     String name = "Your name";
     this.userName.setText(name);
-    String localhost = "10.30.1.64";
+    String localhost = "host ip here";
     this.ipNumber.setText(localhost);
   }
 }

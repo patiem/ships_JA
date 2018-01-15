@@ -74,6 +74,7 @@ public class FleetDropController implements Initializable {
 
   private Rectangle buildShip;
   private ShipCreator shipCreator;
+  private ShipBoardUpdater boardUpdater;
 
   /**
    * Creates FleetDropController instance.
@@ -209,18 +210,24 @@ public class FleetDropController implements Initializable {
         }
 
         int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
-        actionCreateShipWhenDragDone(shipLength, mast);
+
+        createShipWhenDragDone(shipLength, mast);
 
         event.setDropCompleted(success);
         event.consume();
 
       };
 
-  private void actionCreateShipWhenDragDone(int shipLength, Mast mast) {
+  private void createShipWhenDragDone(int shipLength, Mast mast) {
     Ship ship = new Ship(shipLength);
-    fleet.addShip(ship);
+    boardUpdater = new ShipBoardUpdater(sea, ship);
     shipCreator = new ShipCreator(ship);
-    shipCreator.addMastToShip(mast, sea);
+
+    shipCreator.addMastToShip(mast);
+    boardUpdater.update();
+
+    fleet.addShip(ship);
+
   }
 
   private final ChangeListener<Boolean> mastIsCreated =
@@ -234,7 +241,8 @@ public class FleetDropController implements Initializable {
           Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
-          shipCreator.addMastToShip(mast, sea);
+          shipCreator.addMastToShip(mast);
+          boardUpdater.update();
         }
       };
 

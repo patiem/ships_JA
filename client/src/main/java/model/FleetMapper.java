@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * It maps the received FleetCreator to a fleet model.
+ * It maps the received fleet to a fleet model.
  *
  * @version 1.5
  */

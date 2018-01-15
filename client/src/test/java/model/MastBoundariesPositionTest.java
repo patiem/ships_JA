@@ -9,7 +9,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.testng.Assert.assertEquals;
 
-public class BoundariesPositionTest extends DataProvider {
+public class MastBoundariesPositionTest extends DataProvider {
 
   @Test(dataProvider = "fieldsInside")
   public void whenMastInsideBoardListWithBoundariesIsFull(int column, int row) {
@@ -25,6 +25,4 @@ public class BoundariesPositionTest extends DataProvider {
     //then
     assertEquals(positions.size(), expectedListSize);
   }
-
-
 }
