@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 /**
  * It represents a mast of a ship.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class Mast extends Rectangle implements Field {

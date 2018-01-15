@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * It holds information on the fields where a mast can be placed.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class PossiblePositions {

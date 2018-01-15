@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 /**
  * It displays the board used for deploying each player's fleetCreator.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class FleetDropController implements Initializable {

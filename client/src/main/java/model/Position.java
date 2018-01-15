@@ -5,7 +5,6 @@ import java.util.Objects;
 /**
  * It allows to mova a field around.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 

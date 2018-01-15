@@ -7,7 +7,6 @@ import java.io.OutputStream;
 /**
  * It exposes methods for getting access to Input- and OutputStream.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 interface Connector {

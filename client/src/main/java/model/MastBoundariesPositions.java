@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * It calculates which fields are not available for ship deployment.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class MastBoundariesPositions {

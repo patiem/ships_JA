@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 /**
  * It sends and receives messages from the server.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class Client {

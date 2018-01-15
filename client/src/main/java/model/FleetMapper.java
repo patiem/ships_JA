@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * It maps the received FleetCreator to a fleet model.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class FleetMapper {

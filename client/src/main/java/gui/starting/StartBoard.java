@@ -28,7 +28,6 @@ import java.util.logging.Logger;
 /**
  * It represtents the playboard.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class StartBoard extends Application {

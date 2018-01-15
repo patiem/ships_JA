@@ -7,7 +7,6 @@ import java.util.Set;
 /**
  * It marks the fields around a ship that are not available for ship deployment.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class ShipBoundariesPositions {

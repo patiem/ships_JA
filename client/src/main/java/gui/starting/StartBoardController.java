@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 /**
  * It initializes the playboard.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class StartBoardController implements Initializable {

@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 /**
  * It holds information on a particular ship.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class Ship implements Iterable<Field>{

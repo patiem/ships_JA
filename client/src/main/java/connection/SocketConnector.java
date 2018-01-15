@@ -7,7 +7,6 @@ import java.net.Socket;
 /**
  * It is responsible for establishing connections on the provided sockets.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class SocketConnector implements Connector {
