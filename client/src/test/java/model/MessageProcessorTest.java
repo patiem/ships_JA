@@ -1,5 +1,6 @@
 package model;
 
+import connection.MessageProcessor;
 import connection.chain.Chain;
 import connection.chain.ChainConfigFactory;
 import connection.chain.EndLink;

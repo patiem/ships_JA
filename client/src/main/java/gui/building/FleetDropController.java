@@ -5,6 +5,7 @@ import connection.FleetSender;
 import gui.fields.BoundField;
 import gui.fields.Mast;
 import gui.fields.SeaField;
+import gui.fields.FieldSize;
 import gui.starting.ConnectEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -28,7 +29,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * It displays the board used for deploying each player's fleet.
+ * It displays the board used for deploying each player's fleetCreator.
  *
  * @author Patrycja Mikulska
  * @version 1.5
@@ -72,7 +73,7 @@ public class FleetDropController implements Initializable {
   private Button nextButton;
 
   private Rectangle buildShip;
-  private Fleet fleet;
+  private FleetCreator fleetCreator;
 
   /**
    * Creates FleetDropController instance.
@@ -95,7 +96,7 @@ public class FleetDropController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     populateSeaWithActiveFields();
-    fleet = new Fleet(sea);
+    fleetCreator = new FleetCreator(sea);
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
     addEventHandlersToShips();
   }
@@ -105,7 +106,7 @@ public class FleetDropController implements Initializable {
       for (int row = 0; row < GRID_SIZE; row++) {
         SeaField field = new SeaField(column, row, FieldSize.BIG);
 
-        field.setOnDragEntered(changeColorwhenDragEntered);
+        field.setOnDragEntered(changeColorWhenDragEntered);
         field.setOnDragExited(resetColorWhenDragExited);
         field.setOnDragOver(seaFieldAcceptEventDraggedOver);
         field.setOnDragDropped(seaFieldToShipWhenDraggedDone);
@@ -138,7 +139,8 @@ public class FleetDropController implements Initializable {
       event -> {
         connectButton.setVisible(false);
         setupClient();
-        FleetSender fleetSender = new FleetSender(getClient(), new Player(fleet, userName.getText()));
+        Player player = new Player(fleetCreator.fleet() , userName.getText());
+        FleetSender fleetSender = new FleetSender(getClient(), player);
         fleetSender.sendFleetToServer();
         nextButton.fireEvent(new ConnectEvent());
       };
@@ -152,7 +154,7 @@ public class FleetDropController implements Initializable {
         event.consume();
       };
 
-  private final EventHandler<DragEvent> changeColorwhenDragEntered =
+  private final EventHandler<DragEvent> changeColorWhenDragEntered =
       event -> {
         SeaField field = (SeaField) event.getSource();
         field.setFill(Color.RED);
@@ -162,7 +164,7 @@ public class FleetDropController implements Initializable {
   private final EventHandler<DragEvent> resetColorWhenDragExited =
       event -> {
         SeaField field = (SeaField) event.getSource();
-        field.reset();
+        field.resetColors();
         event.consume();
       };
 
@@ -203,10 +205,11 @@ public class FleetDropController implements Initializable {
         buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
 
         int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
-        fleet.startToBuildOneShip(mast, shipLength);
+        fleetCreator.startToBuildOneShip(mast, shipLength);
 
         event.setDropCompleted(success);
         event.consume();
+
         buildShip.setOpacity(0.2);
         if (buildShip.getHeight() / FIELD_SIZE > 1) {
           port.setDisable(true);
@@ -224,7 +227,7 @@ public class FleetDropController implements Initializable {
           Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
-          fleet.addNextMastToShip(mast);
+          fleetCreator.addMastToShip(mast);
         }
       };
 
@@ -243,10 +246,10 @@ public class FleetDropController implements Initializable {
       };
 
   public List<Position> listOfMasts() {
-    return fleet.getMastsPositions();
+    return fleetCreator.getMastsPositions();
   }
 
-  public Client getClient() {
+  private Client getClient() {
     return client;
   }
 

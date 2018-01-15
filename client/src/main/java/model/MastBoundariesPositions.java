@@ -1,6 +1,6 @@
 package model;
 
-import gui.fields.Mast;
+import gui.fields.Field;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import java.util.List;
  */
 class MastBoundariesPositions {
 
-  private final Mast mast;
+  private final Field mast;
 
-  MastBoundariesPositions(Mast mast) {
+  MastBoundariesPositions(Field mast) {
     this.mast = mast;
   }
 

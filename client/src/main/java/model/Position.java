@@ -8,6 +8,7 @@ import java.util.Objects;
  * @author Patrycja Mikulska
  * @version 1.5
  */
+
 public class Position {
 
   private final Integer column;

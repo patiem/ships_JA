@@ -1,7 +1,7 @@
 package model;
 
-import gui.fields.Mast;
-import gui.fields.SeaField;
+import gui.fields.ClickableField;
+import gui.fields.Field;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
  */
 class PossiblePositions {
 
-  private List<SeaField> possible;
+  private List<ClickableField> possible;
 
   public PossiblePositions() {
     possible = new ArrayList<>();
   }
 
-  public PossiblePositions findPositions(Mast mast, Sea sea) {
+  public PossiblePositions findPositions(Field mast, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
@@ -41,6 +41,6 @@ class PossiblePositions {
   }
 
   public void makePositionClickable() {
-    possible.stream().forEach(SeaField::makeToClick);
+    possible.stream().forEach(ClickableField::makeClickable);
   }
 }
