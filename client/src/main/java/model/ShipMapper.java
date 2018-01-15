@@ -8,8 +8,10 @@ import java.util.List;
  * @version 1.5
  */
 class ShipMapper {
+  private ShipMapper() {
+  }
 
-  ShipModel mapToModel(Ship ship) {
+  static ShipModel mapToModel(Ship ship) {
     List<Integer> positions = ship.positionsOfAllMastInShipAsIntegers();
 
     return new ShipModel(positions);

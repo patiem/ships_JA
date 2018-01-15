@@ -1,7 +1,7 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * It maps the received fleet to a fleet model.
@@ -9,13 +9,14 @@ import java.util.List;
  * @version 1.5
  */
 public class FleetMapper {
+  private FleetMapper() {
+  }
 
-  public FleetModel mapToFleetModel(Fleet fleet) {
-    List<ShipModel> ships = new ArrayList<>();
-    ShipMapper shipMapper = new ShipMapper();
-
-    List<Ship> shipsToMap = fleet.getShips();
-    shipsToMap.forEach(ship -> ships.add(shipMapper.mapToModel(ship)));
+  public static FleetModel mapToFleetModel(Fleet fleetToMap) {
+    List<ShipModel> ships = fleetToMap.getShips()
+        .stream()
+        .map(ShipMapper::mapToModel)
+        .collect(Collectors.toList());
 
     return new FleetModel(ships);
   }
