@@ -12,6 +12,7 @@ import java.net.Socket;
  * @version 1.5
  */
 public class PlayerClient {
+
   private final BufferedReader reader;
   private final Socket socket;
   private final Fleet fleet;

@@ -1,16 +1,28 @@
 package connection.chain;
 
+import gui.events.YouHitEvent;
 import gui.playing.DispatcherAdapter;
 import model.Shot;
 import responses.Response;
+import responses.ResponseHeader;
 
-public interface Chain {
+public abstract class Chain {
 
-  void setNextChain(Chain nextChain);
+  Chain nextInChain;
 
-  void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter);
+  public void setNextChain(Chain nextChain) {
+    nextInChain = nextChain;
+  }
 
-  default String getShotAsString(Response response) {
+  public void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter) {
+    if (response.getHeader() == ResponseHeader.HIT) {
+      dispatcherAdapter.fireEvent(new YouHitEvent());
+    } else {
+      nextInChain.analyzeResponse(response, dispatcherAdapter);
+    }
+  }
+
+  String getShotAsString(Response response) {
     Shot shot = response.getShot().orElseThrow(IllegalArgumentException::new);
     return shot.toString();
   }

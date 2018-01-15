@@ -1,23 +1,23 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * It maps the received Fleet to a fleet model.
+ * It maps the received FleetCreator to a fleet model.
  *
  * @author Patrycja Mikulska
  * @version 1.5
  */
 public class FleetMapper {
+  private FleetMapper() {
+  }
 
-  public FleetModel mapToFleetModel(Fleet fleetToMap) {
-    List<ShipModel> ships = new ArrayList<>();
-    ShipMapper shipMapper = new ShipMapper();
-
-    List<Ship> shipsToMap = fleetToMap.getShips();
-
-    shipsToMap.forEach(ship -> ships.add(shipMapper.mapToModel(ship)));
+  public static FleetModel mapToFleetModel(Fleet fleetToMap) {
+    List<ShipModel> ships = fleetToMap.getShips()
+        .stream()
+        .map(ShipMapper::mapToModel)
+        .collect(Collectors.toList());
 
     return new FleetModel(ships);
   }

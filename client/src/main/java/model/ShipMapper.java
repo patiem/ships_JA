@@ -1,18 +1,19 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * It maps ships to their model.
  *
- * @author Patrycja Mikulska
+ * @author Emilia Ciastek
  * @version 1.5
  */
 class ShipMapper {
+  private ShipMapper() {
+  }
 
-  ShipModel mapToModel(Ship ship) {
-    List<Integer> positions = new ArrayList<>(ship.getPositions());
+  static ShipModel mapToModel(Ship ship) {
+    List<Integer> positions = ship.positionsOfAllMastInShipAsIntegers();
 
     return new ShipModel(positions);
   }

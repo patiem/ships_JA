@@ -42,8 +42,8 @@
         <jdependVersion>2.0</jdependVersion>
         <javaDocVersion>2.10.4</javaDocVersion>
     </properties>
-    <build>
 
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -103,13 +103,13 @@
                 <configuration>
                     <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
-                        <excludes>
-                            <exclude>**/*InitMessage.*</exclude>
-                            <exclude>**/*FleetModel.*</exclude>
-                            <exclude>**/*ShipModel.*</exclude>
-                            <exclude>**/*Player.*</exclude>
-                            <exclude>/gui/**/**/*</exclude>
-                        </excludes>
+                    <excludes>
+                        <exclude>**/*InitMessage.*</exclude>
+                        <exclude>**/*FleetModel.*</exclude>
+                        <exclude>**/*ShipModel.*</exclude>
+                        <exclude>**/*Player.*</exclude>
+                        <exclude>/gui/**/**/*</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
