@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * Updates board after users click, action depends on if ship is done or is still build.
+ *
+ * @version 1.5
+ */
 public class ShipBoardUpdater implements Updater {
   private Sea sea;
   private Ship shipThatIsBuild;
@@ -9,6 +14,13 @@ public class ShipBoardUpdater implements Updater {
     this.shipThatIsBuild = shipThatIsBuild;
   }
 
+  /**
+   * Updates board. Action depends on if ship is done or is still build.
+   * If ship is done reset fields and creates boundaries around ship.
+   * If ship is still in progress creates fields that can be clicked.
+   *
+   * @param isShipDone - boolean, true if ship is already build, false if building is in progress
+   */
   @Override
   public void update(Boolean isShipDone) {
     if (isShipDone) {

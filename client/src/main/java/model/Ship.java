@@ -26,9 +26,9 @@ class Ship implements Iterable<Field>{
     return masts.size() == shipLength;
   }
 
-  void addMast(Field mast) {
+  void addMast(Field field) {
     if (!isShipDone()) {
-      masts.add(mast);
+      masts.add(field);
     }
   }
 
@@ -40,12 +40,12 @@ class Ship implements Iterable<Field>{
     return masts.stream().map(Field::positionAsInteger).collect(Collectors.toList());
   }
 
+  Field lastMast() {
+    return masts.get(masts.size() -1);
+  }
+
   @Override
   public Iterator<Field> iterator() {
     return masts.iterator();
-  }
-
-  public Field lastMast() {
-    return masts.stream().reduce((f,s) -> s).orElseThrow(IndexOutOfBoundsException::new);
   }
 }

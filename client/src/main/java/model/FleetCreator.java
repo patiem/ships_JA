@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * It holds information regarding a player's fleet.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 

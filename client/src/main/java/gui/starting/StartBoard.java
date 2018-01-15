@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import connection.MessageProcessor;
 import model.Position;
+import model.Sea;
 
 import java.io.IOException;
 import java.util.List;
@@ -82,7 +83,7 @@ public class StartBoard extends Application {
 
   private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
-    fleetDropController = new FleetDropController(client);
+    fleetDropController = new FleetDropController(client, new Sea());
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);

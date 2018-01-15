@@ -12,10 +12,10 @@ import java.util.List;
  */
 class MastBoundariesPositions {
 
-  private final Field mast;
+  private final Field field;
 
-  MastBoundariesPositions(Field mast) {
-    this.mast = mast;
+  MastBoundariesPositions(Field field) {
+    this.field = field;
   }
 
   public List<Position> countBoundariesForMast() {
@@ -29,8 +29,8 @@ class MastBoundariesPositions {
 
     for (int neighbourColumnValue = -1; neighbourColumnValue <= 1; neighbourColumnValue++) {
       for (int neighbourRowValue = -1; neighbourRowValue <= 1; neighbourRowValue++) {
-        int newPositionX = mast.getColumn() + neighbourColumnValue;
-        int newPositionY = mast.getRow() + neighbourRowValue;
+        int newPositionX = field.getColumn() + neighbourColumnValue;
+        int newPositionY = field.getRow() + neighbourRowValue;
         if (newPositionX >= minColumn && newPositionX <= maxColumn
             && newPositionY >= minRow && newPositionY <= maxRow) {
           boundaries.add(new Position(newPositionX, newPositionY));

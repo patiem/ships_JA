@@ -20,22 +20,22 @@ class PossiblePositions {
     possible = new ArrayList<>();
   }
 
-  public PossiblePositions findPositions(Field mast, Sea sea) {
+  public PossiblePositions findPositions(Field field, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
     final int bottomBoundary = 8;
-    if (mast.getRow() >= leftBoundary) {
-      possible.add(sea.getSeaFieldByPosition(Position.up(mast.position())));
+    if (field.getRow() >= leftBoundary) {
+      possible.add(sea.getSeaFieldByPosition(Position.up(field.position())));
     }
-    if (mast.getRow() <= rightBoundary) {
-      possible.add(sea.getSeaFieldByPosition(Position.down(mast.position())));
+    if (field.getRow() <= rightBoundary) {
+      possible.add(sea.getSeaFieldByPosition(Position.down(field.position())));
     }
-    if (mast.getColumn() <= bottomBoundary) {
-      possible.add(sea.getSeaFieldByPosition(Position.right(mast.position())));
+    if (field.getColumn() <= bottomBoundary) {
+      possible.add(sea.getSeaFieldByPosition(Position.right(field.position())));
     }
-    if (mast.getColumn() >= upperBoundary) {
-      possible.add(sea.getSeaFieldByPosition(Position.left(mast.position())));
+    if (field.getColumn() >= upperBoundary) {
+      possible.add(sea.getSeaFieldByPosition(Position.left(field.position())));
     }
     return this;
   }

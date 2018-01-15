@@ -81,9 +81,9 @@ public class FleetDropController implements Initializable {
    * @param client  - client instance
    */
 
-  public FleetDropController(Client client) {
-    sea = new Sea();
+  public FleetDropController(Client client, Sea sea) {
     this.client = client;
+    this.sea = sea;
   }
 
   /**
