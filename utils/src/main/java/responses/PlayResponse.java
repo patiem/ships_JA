@@ -2,7 +2,7 @@ package responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PlayResponse extends Response {
+public class PlayResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.PLAY;
 

@@ -1,9 +1,8 @@
 package responses;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class LossResponse extends Response {
+public class LossResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.LOST;
 
