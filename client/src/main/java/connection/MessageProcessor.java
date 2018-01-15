@@ -1,4 +1,4 @@
-package model;
+package connection;
 
 import connection.chain.Chain;
 import gui.playing.DispatcherAdapter;

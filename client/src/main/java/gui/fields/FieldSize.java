@@ -1,4 +1,4 @@
-package model;
+package gui.fields;
 
 public enum FieldSize {
   SMALL(20),
@@ -6,7 +6,7 @@ public enum FieldSize {
 
   private int value;
 
-  private FieldSize(int value) {
+  FieldSize(int value){
     this.value = value;
   }
 

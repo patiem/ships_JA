@@ -16,7 +16,7 @@ public class ShipMapperTest {
     int expectedNumberOfMasts = 2;
     List<Integer> expectedFields = Arrays.asList(0, 1);
     Ship shipToMap = mock(Ship.class); //TODO: use real object, not mock
-    when(shipToMap.getPositions()).thenReturn(expectedFields);
+    when(shipToMap.positionsOfAllMastInShipAsIntegers()).thenReturn(expectedFields);
 
     ShipModel actualResult = ShipMapper.mapToModel(shipToMap);
 

@@ -1,10 +1,8 @@
 package model;
 
 import gui.fields.Field;
-import gui.fields.Mast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,44 +12,40 @@ import java.util.stream.Collectors;
  * @author Patrycja Mikulska
  * @version 1.5
  */
-class Ship implements Iterable<Mast>{
+class Ship implements Iterable<Field>{
 
-  private static final int START_SIZE = 1;
-
-  private final Mast[] masts;
+  private final List<Field> masts;
   private final int shipLength;
-  private int buildLength;
-  private final List<Integer> positions = new ArrayList<>();
 
-  Ship(Mast mast, int shipLength) {
-    this.shipLength = shipLength;
-    masts = new Mast[this.shipLength];
-    masts[0] = mast;
-    positions.add(mast.positionAsInteger());
-    buildLength = START_SIZE;
+  Ship(int length) {
+    shipLength = length;
+    masts = new ArrayList<>();
   }
 
   boolean isShipDone() {
-    return buildLength == shipLength;
+    return masts.size() == shipLength;
   }
 
-  void addMast(Mast mast) {
+  void addMast(Field mast) {
     if (!isShipDone()) {
-      masts[buildLength++] = mast;
-      positions.add(mast.positionAsInteger());
+      masts.add(mast);
     }
   }
 
-  List<Position> mastsInShipPositions() {
-    return Arrays.stream(masts).map(Field::position).collect(Collectors.toList());
+  List<Position> positionsOfAllMastInShip() {
+    return masts.stream().map(Field::position).collect(Collectors.toList());
   }
 
-  public List<Integer> getPositions() {
-    return positions;
+  List<Integer> positionsOfAllMastInShipAsIntegers() {
+    return masts.stream().map(Field::positionAsInteger).collect(Collectors.toList());
   }
 
   @Override
-  public Iterator<Mast> iterator() {
-    return Arrays.asList(masts).iterator();
+  public Iterator<Field> iterator() {
+    return masts.iterator();
+  }
+
+  public Field lastMast() {
+    return masts.stream().reduce((f,s) -> s).orElseThrow(IndexOutOfBoundsException::new);
   }
 }

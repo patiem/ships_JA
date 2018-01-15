@@ -15,7 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.MessageProcessor;
+import connection.MessageProcessor;
 import model.Position;
 
 import java.io.IOException;

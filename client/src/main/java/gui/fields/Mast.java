@@ -2,7 +2,6 @@ package gui.fields;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.FieldSize;
 
 /**
  * It represents a mast of a ship.

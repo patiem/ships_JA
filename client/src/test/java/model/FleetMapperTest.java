@@ -20,9 +20,9 @@ public class FleetMapperTest {
     Fleet mockedFleetToMap = mock(Fleet.class);
     List<Ship> ships = new ArrayList<>();
     Ship firstShip = mock(Ship.class);
-    when(firstShip.getPositions()).thenReturn(Arrays.asList(shipsPositions[0]));
+    when(firstShip.positionsOfAllMastInShipAsIntegers()).thenReturn(Arrays.asList(shipsPositions[0]));
     Ship secondShip = mock(Ship.class);
-    when(secondShip.getPositions()).thenReturn(Arrays.asList(shipsPositions[1]));
+    when(secondShip.positionsOfAllMastInShipAsIntegers()).thenReturn(Arrays.asList(shipsPositions[1]));
     ships.add(firstShip);
     ships.add(secondShip);
     when(mockedFleetToMap.getShips()).thenReturn(ships);

@@ -1,5 +1,8 @@
 package model;
 
+
+import java.util.Random;
+
 public class DataProvider {
 
   @org.testng.annotations.DataProvider(name = "fieldsInside")
@@ -19,6 +22,21 @@ public class DataProvider {
       }
     }
     return fields;
+  }
+
+  @org.testng.annotations.DataProvider(name = "positionCoordinates")
+  public static Object[][] coordinates() {
+
+    int testCount = 5;
+    int boundForRandom = 99;
+    Object[][] coordinates = new Object[testCount][];
+
+    for(int i = 0; i < testCount; i++) {
+      Random random = new Random();
+      int coordinateGTZero = random.nextInt(boundForRandom) + 1;
+      coordinates[i] = new Object[] {coordinateGTZero};
+    }
+    return coordinates;
   }
 
 }

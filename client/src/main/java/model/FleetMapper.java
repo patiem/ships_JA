@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * It maps the received Fleet to a fleet model.
+ * It maps the received FleetCreator to a fleet model.
  *
  * @author Patrycja Mikulska
  * @version 1.5
