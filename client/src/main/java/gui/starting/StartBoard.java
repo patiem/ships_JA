@@ -109,8 +109,11 @@ public class StartBoard extends Application {
     Button connectButton = (Button) startBoard.lookup("#connectButton");
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
       String userName = ((TextField) startBoard.lookup("#userName")).getText();
+      String hostIp = ((TextField) startBoard.lookup("#ipNumber")).getText();
       ((TextField) buildBoard.lookup("#userName")).setText(userName);
       stage.setScene(buildScene);
+      client.setup(hostIp);
+
     });
   }
 
