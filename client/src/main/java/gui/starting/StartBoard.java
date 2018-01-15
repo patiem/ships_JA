@@ -1,6 +1,7 @@
 package gui.starting;
 
 import connection.Client;
+import connection.MessageProcessor;
 import connection.chain.ChainConfigFactory;
 import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
@@ -15,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import connection.MessageProcessor;
+import model.Fleet;
 import model.Position;
 import model.Sea;
 
@@ -82,7 +83,7 @@ public class StartBoard extends Application {
 
   private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
-    fleetDropController = new FleetDropController(client, new Sea());
+    fleetDropController = new FleetDropController(client, new Sea(), new Fleet());
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);

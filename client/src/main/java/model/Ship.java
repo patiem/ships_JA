@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
  *
  * @version 1.5
  */
-class Ship implements Iterable<Field>{
+public class Ship implements Iterable<Field>{
 
   private final List<Field> masts;
   private final int shipLength;
 
-  Ship(int length) {
+  public Ship(int length) {
     shipLength = length;
     masts = new ArrayList<>();
   }

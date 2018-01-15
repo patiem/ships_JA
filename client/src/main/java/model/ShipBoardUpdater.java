@@ -5,7 +5,7 @@ package model;
  *
  * @version 1.5
  */
-public class ShipBoardUpdater implements Updater {
+public class ShipBoardUpdater {
   private Sea sea;
   private Ship shipThatIsBuild;
 
@@ -19,11 +19,9 @@ public class ShipBoardUpdater implements Updater {
    * If ship is done reset fields and creates boundaries around ship.
    * If ship is still in progress creates fields that can be clicked.
    *
-   * @param isShipDone - boolean, true if ship is already build, false if building is in progress
    */
-  @Override
-  public void update(Boolean isShipDone) {
-    if (isShipDone) {
+  public void update() {
+    if (shipThatIsBuild.isShipDone()) {
       resetSeaFields();
       makeBoundaries();
     } else {

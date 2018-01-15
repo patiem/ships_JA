@@ -2,10 +2,9 @@ package connection.chain;
 
 public class ChainConfigFactory {
 
-  private ChainConfigFactory() {
-  }
+private ChainConfigFactory() {}
 
-  public static Chain configureChainOfResponsibilities() {
+public static Chain configureChainOfResponsibilities() {
     Chain firstLinkInTheChain = new HitLink();
     Chain chain2 = new MissedLink();
     firstLinkInTheChain.setNextChain(chain2);
@@ -29,5 +28,5 @@ public class ChainConfigFactory {
     chain7.setNextChain(chain8);
 
     return firstLinkInTheChain;
-  }
+    }
 }
