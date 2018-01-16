@@ -1,5 +1,7 @@
 package fleet;
 
+import model.ShipModel;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,4 +35,10 @@ public class HardcodedFleet implements Fleet {
   public List<Integer> getHitFields() {
     return hitFields;
   }
+
+  @Override
+  public ShipModel getShipByPosition(Integer positionToSearch) {
+    throw new UnsupportedOperationException();
+  }
+
 }

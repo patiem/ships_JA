@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FleetModel {
 
-  private final List<ShipModel> ships = new ArrayList<>();
+  protected final List<ShipModel> ships = new ArrayList<>();
 
   @JsonCreator
   public FleetModel(@JsonProperty("ships") List<ShipModel> ships) {

@@ -18,6 +18,8 @@ import json.JsonParserAdapter;
 import gui.fields.FieldSize;
 import connection.MessageProcessor;
 import model.Position;
+import model.Ship;
+import model.ShipBoundariesPositions;
 import responses.Response;
 import responses.ResponseHeader;
 
@@ -69,6 +71,7 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouWinEvent.WIN, youWin);
     winning.addEventHandler(YouLostEvent.LOST, youLost);
     winning.addEventHandler(YouHitEvent.HIT, youHit);
+    winning.addEventHandler(SunkShipEvent.SUNK, shipSunk);
 
     makeMessageListenerThread();
   }
@@ -167,6 +170,16 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
+
+  private final EventHandler<SunkShipEvent> shipSunk =
+      event -> {
+        Integer index = Integer.valueOf(event.getMessage());
+        ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions();
+        Ship ship = new Ship()
+
+
+        shipBoundariesPositions.calculateShipBoundariesPositions().markSeaAsBoundary();
+      };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;

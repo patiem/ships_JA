@@ -35,8 +35,6 @@ public class CustomFleet implements Fleet {
     hitFields.add(position);
   }
 
-
-
   public List<Integer> getHitFields() {
     return hitFields;
   }
@@ -46,6 +44,7 @@ public class CustomFleet implements Fleet {
         .filter(shipModel -> shipModel.getFields().contains(positionToSearch))
         .findFirst();
 
-    return foundShip.orElseThrow(NoSuchElementException::new);
+    return foundShip.orElse(new ShipModel(new ArrayList<>()));
+    //TODO: foundShip.orElseThrow(NoSuchElementException::new);
   }
 }
