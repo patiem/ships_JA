@@ -9,7 +9,7 @@ import static org.testng.Assert.assertTrue;
 public class PositionTest extends DataProvider{
 
   @Test(dataProvider = "positions")
-  public void UpReturnsPositionThatHasRowValueOriginalMinusOneAndColIsTheSame(int index) {
+  public void upReturnsPositionThatHasRowValueOriginalMinusOneAndColIsTheSame(int index) {
 
       //given
     Position originalPosition = new Position(index);
@@ -21,7 +21,7 @@ public class PositionTest extends DataProvider{
   }
 
   @Test(dataProvider = "positions")
-  public void DownReturnsPositionThatHasRowValueOriginalPlusOneAndColIsTheSame(int index) {
+  public void downReturnsPositionThatHasRowValueOriginalPlusOneAndColIsTheSame(int index) {
 
       //given
     Position originalPosition = new Position(index);
@@ -33,7 +33,7 @@ public class PositionTest extends DataProvider{
   }
 
   @Test(dataProvider = "positions")
-  public void LeftReturnsPositionThatHasColValueOriginalMinusOneAndRowIsTheSame(int index) {
+  public void leftReturnsPositionThatHasColValueOriginalMinusOneAndRowIsTheSame(int index) {
 
       //given
     Position originalPosition = new Position(index);

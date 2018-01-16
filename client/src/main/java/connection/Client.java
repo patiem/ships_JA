@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * It sends and receives messages from the server.
+ * It handles connection with server
  *
  * @version 1.5
  */
