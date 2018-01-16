@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="whole" maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="564.0" prefWidth="727.0"
+            minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0"
             xmlns="http://javafx.com/javafx/8.0.141">
     <Pane fx:id="port" layoutX="57.0" layoutY="379.0" prefHeight="160.0" prefWidth="300.0">
         <Rectangle fx:id="ship4" arcHeight="5.0" arcWidth="1.0" fill="#1e2a36" height="120.0" layoutX="9.0"

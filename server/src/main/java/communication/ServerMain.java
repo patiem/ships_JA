@@ -1,7 +1,8 @@
-import communication.Server;
+package communication;
 
 /**
  * This class launches the server.
+ *
  * @author Bartosz Pieczara
  * @version 1.5
  */

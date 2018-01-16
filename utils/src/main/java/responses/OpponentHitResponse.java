@@ -6,7 +6,7 @@ import model.Shot;
 
 import java.util.Optional;
 
-public class OpponentHitResponse extends Response {
+public class OpponentHitResponse implements Response {
 
   private ResponseHeader header = ResponseHeader.OPPHIT;
   private Shot shot;
