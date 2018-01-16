@@ -1,5 +1,9 @@
 package model;
 
+import gui.fields.ClickableField;
+
+import java.util.List;
+
 public class ShipBoardUpdater implements Updater {
   private Sea sea;
   private Ship shipThatIsBuild;
@@ -21,7 +25,9 @@ public class ShipBoardUpdater implements Updater {
 
   private void makeClickableNeighbours() {
     PossiblePositions possible = new PossiblePositions();
-    possible.findPositions(shipThatIsBuild.lastMast(), sea).makePositionClickable();
+    List<ClickableField> availablePositions = possible.findPositions(
+        shipThatIsBuild.lastMast(), sea);
+    possible.makePositionClickable(availablePositions);
   }
 
   private void resetSeaFields() {

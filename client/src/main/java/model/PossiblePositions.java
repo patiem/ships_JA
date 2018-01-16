@@ -20,7 +20,7 @@ class PossiblePositions {
     possible = new ArrayList<>();
   }
 
-  public PossiblePositions findPositions(Field mast, Sea sea) {
+  public List<ClickableField> findPositions(Field mast, Sea sea) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
@@ -37,10 +37,10 @@ class PossiblePositions {
     if (mast.getColumn() >= upperBoundary) {
       possible.add(sea.getSeaFieldByPosition(Position.left(mast.position())));
     }
-    return this;
+    return possible;
   }
 
-  public void makePositionClickable() {
-    possible.stream().forEach(ClickableField::makeClickable);
+  public void makePositionClickable(List<ClickableField> possibleFields) {
+    possibleFields.forEach(ClickableField::makeClickable);
   }
 }

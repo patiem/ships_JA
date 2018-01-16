@@ -4,6 +4,7 @@ import gui.fields.Field;
 
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * It marks the fields around a ship that are not available for ship deployment.
  *
