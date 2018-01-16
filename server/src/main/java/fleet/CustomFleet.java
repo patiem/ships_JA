@@ -35,6 +35,8 @@ public class CustomFleet implements Fleet {
     hitFields.add(position);
   }
 
+
+
   public List<Integer> getHitFields() {
     return hitFields;
   }

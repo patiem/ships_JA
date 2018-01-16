@@ -19,6 +19,12 @@ public class HitChecker {
   public ShotResult checkShot(final int position) {
     boolean isShipPosition = fleet.getFleetPositions().contains(position);
     boolean isHitAgain = fleet.getHitFields().contains(position);
+    boolean isShipSunk = fleet.getHitFields().containsAll(fleet.getShipByPosition(position).getFields());
+
+    if(isShipSunk && !isHitAgain && isShipPosition) {
+      fleet.hit(position);
+      return ShotResult.SUNK;
+    }
 
     if (!isHitAgain && isShipPosition) {
       fleet.hit(position);

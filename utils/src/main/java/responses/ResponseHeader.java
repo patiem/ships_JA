@@ -18,5 +18,8 @@ public enum ResponseHeader {
   @JsonProperty("play")
   PLAY,
   @JsonProperty("win")
-  WIN
+  WIN,
+  @JsonProperty("sunk")
+  SUNK,
+
 }
