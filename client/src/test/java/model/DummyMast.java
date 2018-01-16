@@ -9,7 +9,7 @@ public class DummyMast implements Field {
 
   DummyMast(int position) {
     int boardSize = 10;
-    this.column = column % boardSize;
+    this.column = position % boardSize;
     this.row = position / boardSize;
   }
 

@@ -11,7 +11,6 @@ import java.util.ResourceBundle;
 /**
  * It initializes the playboard.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class StartBoardController implements Initializable {
@@ -32,8 +31,7 @@ class StartBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     String name = "Your name";
     this.userName.setText(name);
-    String localhost = "localhost";
+    String localhost = "host ip here";
     this.ipNumber.setText(localhost);
-    client.setup(localhost);
   }
 }

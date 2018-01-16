@@ -2,8 +2,8 @@ package connection;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import messages.ConnectionMessage;
 import json.JsonGeneratorAdapter;
+import messages.ConnectionMessage;
 import model.FleetMapper;
 import model.FleetModel;
 import model.Player;
@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 /**
  * It sends a player's fleet to the server.
  *
- * @author Patrycja Mikulska/Emilia Ciastek
  * @version 1.5
  */
 public class FleetSender {

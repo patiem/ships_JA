@@ -31,7 +31,6 @@ import java.util.ResourceBundle;
 /**
  * It displays the board used for deploying each player's fleetCreator.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class FleetDropController implements Initializable {
@@ -39,6 +38,7 @@ public class FleetDropController implements Initializable {
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
   private final Sea sea;
+  private Fleet fleet;
   private final Client client;
 
   @FXML
@@ -73,7 +73,8 @@ public class FleetDropController implements Initializable {
   private Button nextButton;
 
   private Rectangle buildShip;
-  private FleetCreator fleetCreator;
+  private ShipCreator shipCreator;
+  private ShipBoardUpdater boardUpdater;
 
   /**
    * Creates FleetDropController instance.
@@ -81,9 +82,10 @@ public class FleetDropController implements Initializable {
    * @param client  - client instance
    */
 
-  public FleetDropController(Client client) {
-    sea = new Sea();
+  public FleetDropController(Client client, Sea sea, Fleet fleet) {
     this.client = client;
+    this.sea = sea;
+    this.fleet = fleet;
   }
 
   /**
@@ -96,9 +98,9 @@ public class FleetDropController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     populateSeaWithActiveFields();
-    fleetCreator = new FleetCreator(sea);
-    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+    addEventHandlerToConnectButton();
     addEventHandlersToShips();
+    setupShipBoardUpdater();
   }
 
   private void populateSeaWithActiveFields() {
@@ -120,6 +122,10 @@ public class FleetDropController implements Initializable {
     }
   }
 
+  private void addEventHandlerToConnectButton() {
+    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+  }
+
   private void addEventHandlersToShips() {
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
         ship2b, ship1, ship1a, ship1b, ship1c);
@@ -135,11 +141,18 @@ public class FleetDropController implements Initializable {
     }
   }
 
+  private void setupShipBoardUpdater() {
+    PossiblePositions possiblePositions = new PossiblePositions(sea);
+    ShipBoundariesPositions boundariesPositions = new ShipBoundariesPositions(sea);
+    SeaCleaner seaCleaner = new SeaCleaner(sea);
+    boardUpdater = new ShipBoardUpdater(possiblePositions, boundariesPositions, seaCleaner);
+  }
+
   private final EventHandler<MouseEvent> connectWhenClicked =
       event -> {
         connectButton.setVisible(false);
         setupClient();
-        Player player = new Player(fleetCreator.fleet() , userName.getText());
+        Player player = new Player(fleet , userName.getText());
         FleetSender fleetSender = new FleetSender(getClient(), player);
         fleetSender.sendFleetToServer();
         nextButton.fireEvent(new ConnectEvent());
@@ -203,18 +216,28 @@ public class FleetDropController implements Initializable {
 
         buildShip.removeEventHandler(MouseEvent.DRAG_DETECTED, dragDetected);
         buildShip.removeEventHandler(MouseEvent.MOUSE_ENTERED, makeShadowWhenMoveOver);
-
-        int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
-        fleetCreator.startToBuildOneShip(mast, shipLength);
-
-        event.setDropCompleted(success);
-        event.consume();
-
         buildShip.setOpacity(0.2);
         if (buildShip.getHeight() / FIELD_SIZE > 1) {
           port.setDisable(true);
         }
+
+        int shipLength = (int) ((Rectangle) event.getGestureSource()).getHeight() / FIELD_SIZE;
+
+        createShipWhenDragDone(shipLength, mast);
+
+        event.setDropCompleted(success);
+        event.consume();
+
       };
+
+  private void createShipWhenDragDone(int shipLength, Mast mast) {
+    Ship ship = new Ship(shipLength);
+    shipCreator = new ShipCreator(ship);
+    shipCreator.addMastToShip(mast);
+    boardUpdater.update(ship);
+    fleet.addShip(ship);
+
+  }
 
   private final ChangeListener<Boolean> mastIsCreated =
       new ChangeListener<Boolean>() {
@@ -227,7 +250,8 @@ public class FleetDropController implements Initializable {
           Mast mast = new Mast(column, row, FieldSize.BIG);
           shipBoard.getChildren().add(mast);
           GridPane.setConstraints(mast, column, row);
-          fleetCreator.addMastToShip(mast);
+          shipCreator.addMastToShip(mast);
+          boardUpdater.update();
         }
       };
 
@@ -246,7 +270,7 @@ public class FleetDropController implements Initializable {
       };
 
   public List<Position> listOfMasts() {
-    return fleetCreator.getMastsPositions();
+    return fleet.mastsPositions();
   }
 
   private Client getClient() {
