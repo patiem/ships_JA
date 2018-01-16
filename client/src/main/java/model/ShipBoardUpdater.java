@@ -4,38 +4,56 @@ import gui.fields.ClickableField;
 
 import java.util.List;
 
-public class ShipBoardUpdater implements Updater {
-  private Sea sea;
-  private Ship shipThatIsBuild;
+/**
+ * Updates board after users click, action depends on if ship is done or is still build.
+ *
+ * @version 1.5
+ */
+public class ShipBoardUpdater {
+  private PossiblePositions possiblePositions;
+  private ShipBoundariesPositions boundariesPositions;
+  private SeaCleaner seaCleaner;
+  private Ship lastShip;
 
-  public ShipBoardUpdater(Sea sea, Ship shipThatIsBuild) {
-    this.sea = sea;
-    this.shipThatIsBuild = shipThatIsBuild;
+  public ShipBoardUpdater(PossiblePositions possiblePositions,
+                          ShipBoundariesPositions boundariesPositions,
+                          SeaCleaner seaCleaner) {
+    this.possiblePositions = possiblePositions;
+    this.boundariesPositions = boundariesPositions;
+    this.seaCleaner = seaCleaner;
   }
 
-  @Override
-  public void update(Boolean isShipDone) {
-    if (isShipDone) {
+  /**
+   * Updates board. Action depends on if ship is done or is still build.
+   * If ship is done reset fields and creates boundaries around ship.
+   * If ship is still in progress creates fields that can be clicked.
+   *
+   */
+  public void update(Ship ship) {
+    lastShip = ship;
+    update();
+  }
+
+  public void update() {
+    if (lastShip.isShipDone()) {
       resetSeaFields();
-      makeBoundaries();
+      makeBoundaries(lastShip);
     } else {
       makeClickableNeighbours();
     }
   }
 
   private void makeClickableNeighbours() {
-    List<ClickableField> availablePositions = PossiblePositions.findPositions(
-        shipThatIsBuild.lastMast(), sea);
-    PossiblePositions.makePositionClickable(availablePositions);
+    List<ClickableField> posibble = possiblePositions.findPositions(lastShip.lastMast());
+    possiblePositions.makePositionClickable(posibble);
   }
 
   private void resetSeaFields() {
-    sea.clearSea();
+    seaCleaner.clean();
   }
 
-  private void makeBoundaries() {
-    ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
-    boundaries.calculateShipBoundariesPositions(shipThatIsBuild);
-    boundaries.markSeaAsBoundary(sea);
+  private void makeBoundaries(Ship ship) {
+    boundariesPositions.calculateShipBoundariesPositions(ship);
+    boundariesPositions.markSeaAsBoundary();
   }
 }

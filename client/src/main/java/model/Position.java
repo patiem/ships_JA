@@ -5,7 +5,6 @@ import java.util.Objects;
 /**
  * It allows to mova a field around.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 
@@ -64,10 +63,5 @@ public class Position {
   @Override
   public int hashCode() {
     return Objects.hash(column, row);
-  }
-
-  @Override
-  public String toString() {
-    return "column=" + column + ", row=" + row;
   }
 }

@@ -17,11 +17,14 @@ import static org.mockito.Mockito.verify;
 
 public class PossiblePositionsTest {
   private Sea sea;
+  private PossiblePositions possiblePositions;
 
   @BeforeClass
   public void createSea() {
     sea = new Sea();
     IntStream.range(0, 99).forEach(i -> sea.addSeaField(new DummyClickableField(i)));
+    possiblePositions = new PossiblePositions(sea);
+
   }
 
   @Test
@@ -32,7 +35,7 @@ public class PossiblePositionsTest {
     fieldsToMakeClickable.add(mockedFirstField);
     fieldsToMakeClickable.add(mockedSecondField);
 
-    PossiblePositions.makePositionClickable(fieldsToMakeClickable);
+    possiblePositions.makePositionClickable(fieldsToMakeClickable);
 
     verify(mockedFirstField).makeClickable();
     verify(mockedSecondField).makeClickable();
@@ -54,7 +57,7 @@ public class PossiblePositionsTest {
 
   @Test(dataProvider = "border masts")
   public void shouldReturnPositionsAvailableForBorderMastPlacement(Field mast, Integer[] expectedPositions) {
-    List<ClickableField> actualAvailableFields = PossiblePositions.findPositions(mast, sea);
+    List<ClickableField> actualAvailableFields = possiblePositions.findPositions(mast);
     List<Integer> actualAvailablePositions = actualAvailableFields
         .stream()
         .map(Field::positionAsInteger)
@@ -75,7 +78,7 @@ public class PossiblePositionsTest {
 
   @Test(dataProvider = "masts")
   public void shouldReturnPositionsAvailableForMastPlacement(Field mast, Integer[] expectedPositions) {
-    List<ClickableField> actualAvailableFields = PossiblePositions.findPositions(mast, sea);
+    List<ClickableField> actualAvailableFields = possiblePositions.findPositions(mast);
     List<Integer> actualAvailablePositions = actualAvailableFields
         .stream()
         .map(Field::positionAsInteger)
