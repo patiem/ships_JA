@@ -24,10 +24,9 @@ public class ShipBoardUpdater implements Updater {
   }
 
   private void makeClickableNeighbours() {
-    PossiblePositions possible = new PossiblePositions();
-    List<ClickableField> availablePositions = possible.findPositions(
+    List<ClickableField> availablePositions = PossiblePositions.findPositions(
         shipThatIsBuild.lastMast(), sea);
-    possible.makePositionClickable(availablePositions);
+    PossiblePositions.makePositionClickable(availablePositions);
   }
 
   private void resetSeaFields() {

@@ -26,15 +26,13 @@ public class PossiblePositionsTest {
 
   @Test
   public void shouldMakeClickableAllFieldsInProvidedList() {
-    PossiblePositions possiblePositions = new PossiblePositions();
-
     List<ClickableField> fieldsToMakeClickable = new ArrayList<>();
     ClickableField mockedFirstField = mock(ClickableField.class); //TODO: change mock to real object?
     ClickableField mockedSecondField = mock(ClickableField.class);
     fieldsToMakeClickable.add(mockedFirstField);
     fieldsToMakeClickable.add(mockedSecondField);
 
-    possiblePositions.makePositionClickable(fieldsToMakeClickable);
+    PossiblePositions.makePositionClickable(fieldsToMakeClickable);
 
     verify(mockedFirstField).makeClickable();
     verify(mockedSecondField).makeClickable();
@@ -56,9 +54,7 @@ public class PossiblePositionsTest {
 
   @Test(dataProvider = "border masts")
   public void shouldReturnPositionsAvailableForBorderMastPlacement(Field mast, Integer[] expectedPositions) {
-    PossiblePositions possiblePositions = new PossiblePositions();
-
-    List<ClickableField> actualAvailableFields = possiblePositions.findPositions(mast, sea);
+    List<ClickableField> actualAvailableFields = PossiblePositions.findPositions(mast, sea);
     List<Integer> actualAvailablePositions = actualAvailableFields
         .stream()
         .map(Field::positionAsInteger)
@@ -79,9 +75,7 @@ public class PossiblePositionsTest {
 
   @Test(dataProvider = "masts")
   public void shouldReturnPositionsAvailableForMastPlacement(Field mast, Integer[] expectedPositions) {
-    PossiblePositions possiblePositions = new PossiblePositions();
-
-    List<ClickableField> actualAvailableFields = possiblePositions.findPositions(mast, sea);
+    List<ClickableField> actualAvailableFields = PossiblePositions.findPositions(mast, sea);
     List<Integer> actualAvailablePositions = actualAvailableFields
         .stream()
         .map(Field::positionAsInteger)

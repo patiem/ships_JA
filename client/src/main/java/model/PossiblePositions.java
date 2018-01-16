@@ -14,13 +14,11 @@ import java.util.List;
  */
 class PossiblePositions {
 
-  private List<ClickableField> possible;
-
-  public PossiblePositions() {
-    possible = new ArrayList<>();
+  private PossiblePositions() {
   }
 
-  public List<ClickableField> findPositions(Field mast, Sea sea) {
+  static List<ClickableField> findPositions(Field mast, Sea sea) {
+    List<ClickableField> possible = new ArrayList<>();
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
@@ -40,7 +38,7 @@ class PossiblePositions {
     return possible;
   }
 
-  public void makePositionClickable(List<ClickableField> possibleFields) {
+  static void makePositionClickable(List<ClickableField> possibleFields) {
     possibleFields.forEach(ClickableField::makeClickable);
   }
 }
