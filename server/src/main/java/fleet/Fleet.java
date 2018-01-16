@@ -17,10 +17,6 @@ public interface Fleet {
 
   List<Integer> getHitFields();
 
-  default int getThisShipFields() {
-    return  0;
-  }
-
   ShipModel getShipByPosition(Integer positionToSearch);
 
   default boolean isSunk() {

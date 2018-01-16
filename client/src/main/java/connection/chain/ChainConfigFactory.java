@@ -25,8 +25,11 @@ public class ChainConfigFactory {
     Chain chain7 = new OpponentMissedLink();
     chain6.setNextChain(chain7);
 
-    Chain chain8 = new EndLink();
+    Chain chain8 = new SunkLink();
     chain7.setNextChain(chain8);
+
+    Chain chain9 = new EndLink();
+    chain8.setNextChain(chain9);
 
     return firstLinkInTheChain;
   }
