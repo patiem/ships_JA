@@ -6,12 +6,18 @@ package model;
  * @version 1.5
  */
 public class ShipBoardUpdater {
-  private Sea sea;
-  private Ship ship;
+  private PossiblePositions possiblePositions;
+  private ShipBoundariesPositions boundariesPositions;
+  private SeaCleaner seaCleaner;
+  private Ship lastShip;
 
-  public ShipBoardUpdater(Sea sea, Ship ship) {
-    this.sea = sea;
-    this.ship = ship;
+
+  public ShipBoardUpdater(PossiblePositions possiblePositions,
+                          ShipBoundariesPositions boundariesPositions,
+                          SeaCleaner seaCleaner) {
+    this.possiblePositions = possiblePositions;
+    this.boundariesPositions = boundariesPositions;
+    this.seaCleaner = seaCleaner;
   }
 
   /**
@@ -20,27 +26,31 @@ public class ShipBoardUpdater {
    * If ship is still in progress creates fields that can be clicked.
    *
    */
+  public void update(Ship ship) {
+    lastShip = ship;
+    update();
+  }
+
   public void update() {
-    if (ship.isShipDone()) {
+    if (lastShip.isShipDone()) {
       resetSeaFields();
-      makeBoundaries();
+      makeBoundaries(lastShip);
     } else {
       makeClickableNeighbours();
     }
   }
 
   private void makeClickableNeighbours() {
-    PossiblePositions possible = new PossiblePositions();
-    possible.findPositions(ship.lastMast(), sea).makePositionClickable();
+    possiblePositions.findPositions(lastShip.lastMast());
+    possiblePositions.makePositionClickable();
   }
 
   private void resetSeaFields() {
-    sea.clearSea();
+    seaCleaner.clean();
   }
 
-  private void makeBoundaries() {
-    ShipBoundariesPositions boundaries = new ShipBoundariesPositions();
-    boundaries.calculateShipBoundariesPositions(ship);
-    boundaries.markSeaAsBoundary(sea);
+  private void makeBoundaries(Ship ship) {
+    boundariesPositions.calculateShipBoundariesPositions(ship);
+    boundariesPositions.markSeaAsBoundary();
   }
 }

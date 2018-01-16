@@ -11,15 +11,17 @@ import java.util.List;
  *
  * @version 1.5
  */
-class PossiblePositions {
+public class PossiblePositions {
 
   private List<ClickableField> possible;
+  private Sea sea;
 
-  public PossiblePositions() {
+  public PossiblePositions(Sea sea) {
     possible = new ArrayList<>();
+    this.sea = sea;
   }
 
-  public PossiblePositions findPositions(Field field, Sea sea) {
+  public PossiblePositions findPositions(Field field) {
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;

@@ -98,8 +98,9 @@ public class FleetDropController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
 
     populateSeaWithActiveFields();
-    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+    addEventHandlerToConnectButton();
     addEventHandlersToShips();
+    setupShipBoardUpdater();
   }
 
   private void populateSeaWithActiveFields() {
@@ -121,6 +122,10 @@ public class FleetDropController implements Initializable {
     }
   }
 
+  private void addEventHandlerToConnectButton() {
+    connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, connectWhenClicked);
+  }
+
   private void addEventHandlersToShips() {
     List<Rectangle> ships = Arrays.asList(ship4, ship3, ship3a, ship2, ship2a,
         ship2b, ship1, ship1a, ship1b, ship1c);
@@ -134,6 +139,13 @@ public class FleetDropController implements Initializable {
         event.consume();
       });
     }
+  }
+
+  private void setupShipBoardUpdater() {
+    PossiblePositions possiblePositions = new PossiblePositions(sea);
+    ShipBoundariesPositions boundariesPositions = new ShipBoundariesPositions(sea);
+    SeaCleaner seaCleaner = new SeaCleaner(sea);
+    boardUpdater = new ShipBoardUpdater(possiblePositions, boundariesPositions, seaCleaner);
   }
 
   private final EventHandler<MouseEvent> connectWhenClicked =
@@ -220,12 +232,9 @@ public class FleetDropController implements Initializable {
 
   private void createShipWhenDragDone(int shipLength, Mast mast) {
     Ship ship = new Ship(shipLength);
-    boardUpdater = new ShipBoardUpdater(sea, ship);
     shipCreator = new ShipCreator(ship);
-
     shipCreator.addMastToShip(mast);
-    boardUpdater.update();
-
+    boardUpdater.update(ship);
     fleet.addShip(ship);
 
   }
