@@ -27,13 +27,15 @@ public class ShipBoardUpdaterTest {
   public void ifShipIsNotBuiltPossiblePositionsArePerform() {
 
     //given
+    Field mast = mock(Field.class);
     when(mockedShip.isShipDone()).thenReturn(false);
-    when(mockedShip.lastMast()).thenReturn(mock(Field.class));
+    when(mockedShip.lastMast()).thenReturn(mast);
 
     //when
     boardUpdater.update(mockedShip);
+
     //then
-    verify(possiblePositions).makePositionClickable();
+    verify(possiblePositions).findPositions(mast);
   }
 
   @Test

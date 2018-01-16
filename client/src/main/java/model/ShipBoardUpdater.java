@@ -1,5 +1,9 @@
 package model;
 
+import gui.fields.ClickableField;
+
+import java.util.List;
+
 /**
  * Updates board after users click, action depends on if ship is done or is still build.
  *
@@ -10,7 +14,6 @@ public class ShipBoardUpdater {
   private ShipBoundariesPositions boundariesPositions;
   private SeaCleaner seaCleaner;
   private Ship lastShip;
-
 
   public ShipBoardUpdater(PossiblePositions possiblePositions,
                           ShipBoundariesPositions boundariesPositions,
@@ -41,8 +44,8 @@ public class ShipBoardUpdater {
   }
 
   private void makeClickableNeighbours() {
-    possiblePositions.findPositions(lastShip.lastMast());
-    possiblePositions.makePositionClickable();
+    List<ClickableField> posibble = possiblePositions.findPositions(lastShip.lastMast());
+    possiblePositions.makePositionClickable(posibble);
   }
 
   private void resetSeaFields() {

@@ -12,16 +12,15 @@ import java.util.List;
  * @version 1.5
  */
 public class PossiblePositions {
-
-  private List<ClickableField> possible;
   private Sea sea;
 
   public PossiblePositions(Sea sea) {
-    possible = new ArrayList<>();
     this.sea = sea;
   }
 
-  public PossiblePositions findPositions(Field field) {
+  public List<ClickableField> findPositions(Field field) {
+    List<ClickableField> possible = new ArrayList<>();
+
     final int leftBoundary = 1;
     final int upperBoundary = 1;
     final int rightBoundary = 8;
@@ -38,10 +37,12 @@ public class PossiblePositions {
     if (field.getColumn() >= upperBoundary) {
       possible.add(sea.getSeaFieldByPosition(Position.left(field.position())));
     }
-    return this;
+    return possible;
   }
 
-  public void makePositionClickable() {
-    possible.stream().forEach(ClickableField::makeClickable);
+  public void makePositionClickable(List<ClickableField> possible) {
+    possible.forEach(ClickableField::makeClickable);
   }
+
+
 }
