@@ -19,7 +19,7 @@ public class ShipCreator {
     if (!ship.isShipDone()) {
       ship.addMast(mast);
     } else {
-      throw new IllegalStateException();
+      throw new IllegalStateException("Ship is already build");
     }
   }
 
