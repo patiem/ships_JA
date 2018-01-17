@@ -21,7 +21,7 @@ class Main {
 
   public static void main(String[] args) {
     try {
-      if(isIPvalid()){
+      if(isIpValid()){
         StartBoard.run(args);
       } else {
         LOGGER.log(Level.INFO,"Closing the game as the IP was not valid");
@@ -31,7 +31,7 @@ class Main {
     }
   }
 
-  private static boolean isIPvalid() throws IOException {
+  private static boolean isIpValid() throws IOException {
 
     String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -45,7 +45,10 @@ class Main {
 
     Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     Matcher matcher = pattern.matcher(retrievedIP);
-    return matcher.matches();
+
+    Pattern patternLocal = Pattern.compile("localhost", Pattern.CASE_INSENSITIVE);
+    Matcher matcherLocal = patternLocal.matcher(retrievedIP);
+    return matcher.matches() || matcherLocal.matches();
   }
 
 }
