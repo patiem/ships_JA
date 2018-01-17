@@ -2,6 +2,7 @@ package connection.chain;
 
 import gui.events.YouHitEvent;
 import gui.playing.DispatcherAdapter;
+import model.ShipModel;
 import model.Shot;
 import responses.Response;
 import responses.ResponseHeader;

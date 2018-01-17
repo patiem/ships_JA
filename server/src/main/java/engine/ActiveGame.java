@@ -10,6 +10,7 @@ import responses.MissedResponse;
 import responses.OpponentHitResponse;
 import responses.OpponentMissedResponse;
 import responses.PlayResponse;
+import responses.SunkResponse;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -40,7 +41,14 @@ public class ActiveGame implements GameRunnerState {
       ShotResult result = round.fireShot(fleetUnderFire, shot);
       logShotInfo(shot, result);
 
-      if (result == ShotResult.HIT) {
+      if (result == ShotResult.SUNK) {
+        sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
+        sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(shot.asInteger())), playerRegistry.getCurrentPlayer());
+        sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+        if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
+          return new FinishedGame(playerRegistry);
+        }
+      } else if (result == ShotResult.HIT) {
         sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
         sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
         if (referee.isVictory(fleetUnderFire) == GameState.WIN) {

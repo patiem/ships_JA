@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * It stores information on each shot.
  *
- * @author Bartosz Pieczara/Emilia Ciastek
  * @version 1.5
  */
 

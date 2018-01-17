@@ -2,9 +2,10 @@ package connection.chain;
 
 public class ChainConfigFactory {
 
-private ChainConfigFactory() {}
+  private ChainConfigFactory() {
+  }
 
-public static Chain configureChainOfResponsibilities() {
+  public static Chain configureChainOfResponsibilities() {
     Chain firstLinkInTheChain = new HitLink();
     Chain chain2 = new MissedLink();
     firstLinkInTheChain.setNextChain(chain2);
@@ -24,9 +25,12 @@ public static Chain configureChainOfResponsibilities() {
     Chain chain7 = new OpponentMissedLink();
     chain6.setNextChain(chain7);
 
-    Chain chain8 = new EndLink();
+    Chain chain8 = new SunkLink();
     chain7.setNextChain(chain8);
 
+    Chain chain9 = new EndLink();
+    chain8.setNextChain(chain9);
+
     return firstLinkInTheChain;
-    }
+  }
 }

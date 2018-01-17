@@ -2,8 +2,17 @@ package gui.playing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
-import gui.events.*;
+import connection.MessageProcessor;
+import gui.events.SunkShipEvent;
+import gui.events.UpdateWhenHitEvent;
+import gui.events.UpdateWhenMissedEvent;
+import gui.events.YouHitEvent;
+import gui.events.YouLostEvent;
+import gui.events.YouMissedEvent;
+import gui.events.YouWinEvent;
+import gui.events.YourTurnEvent;
 import gui.fields.Field;
+import gui.fields.FieldSize;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
@@ -15,18 +24,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
-import gui.fields.FieldSize;
-import connection.MessageProcessor;
 import model.Position;
+import model.Sea;
+import model.ShipBoundariesPositions;
 import responses.Response;
 import responses.ResponseHeader;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * It initializes and populates the playboard.
@@ -37,10 +48,12 @@ public class PlayBoardController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
+  private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
 
   private List<Position> positions;
   private SeaField lastField;
+  private Sea sea;
 
   @FXML
   private GridPane shipBoard;
@@ -68,6 +81,7 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouWinEvent.WIN, youWin);
     winning.addEventHandler(YouLostEvent.LOST, youLost);
     winning.addEventHandler(YouHitEvent.HIT, youHit);
+    winning.addEventHandler(SunkShipEvent.SUNK, shipSunk);
 
     makeMessageListenerThread();
   }
@@ -94,14 +108,19 @@ public class PlayBoardController implements Initializable {
   }
 
   private void populateSeaWithSeaFields() {
-    for (int i = 0; i < 10; i++) {
-      for (int n = 0; n < 10; n++) {
+    sea = new Sea();
+    int boardSize = 10;
+
+    for (int i = 0; i < boardSize; i++) {
+      for (int n = 0; n < boardSize; n++) {
         SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
           field.marked();
           lastField = field;
         });
+
+        sea.addSeaField(field);
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
@@ -166,6 +185,17 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
+
+  private final EventHandler<SunkShipEvent> shipSunk =
+      event -> {
+        String[] positionsAsString = event.getMessage().split(POSITIONS_SEPARATOR);
+        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
+
+        ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
+        shipBoundariesPositions
+            .calculateShipBoundariesPositions(sunkShipPositions)
+            .markSunkShip();
+      };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;

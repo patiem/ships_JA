@@ -1,7 +1,5 @@
 package model;
 
-import gui.fields.Field;
-
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -11,10 +9,10 @@ import java.util.List;
  */
 class MastBoundariesPositions {
 
-  private final Field field;
+  private final Position position;
 
-  MastBoundariesPositions(Field field) {
-    this.field = field;
+  MastBoundariesPositions(Position position) {
+    this.position = position;
   }
 
   public List<Position> countBoundariesForMast() {
@@ -23,13 +21,14 @@ class MastBoundariesPositions {
     int minRow = 0;
     int maxColumn = 9;
     int maxRow = 9;
+    int step = 1;
 
     List<Position> boundaries = new ArrayList<>();
 
-    for (int neighbourColumnValue = -1; neighbourColumnValue <= 1; neighbourColumnValue++) {
-      for (int neighbourRowValue = -1; neighbourRowValue <= 1; neighbourRowValue++) {
-        int newPositionX = field.getColumn() + neighbourColumnValue;
-        int newPositionY = field.getRow() + neighbourRowValue;
+    for (int neighbourColumnValue = -step; neighbourColumnValue <= step; neighbourColumnValue++) {
+      for (int neighbourRowValue = -step; neighbourRowValue <= step; neighbourRowValue++) {
+        int newPositionX = position.getColumn() + neighbourColumnValue;
+        int newPositionY = position.getRow() + neighbourRowValue;
         if (newPositionX >= minColumn && newPositionX <= maxColumn
             && newPositionY >= minRow && newPositionY <= maxRow) {
           boundaries.add(new Position(newPositionX, newPositionY));

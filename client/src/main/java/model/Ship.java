@@ -6,12 +6,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 /**
  * It holds information on a particular ship.
  *
  * @version 1.5
  */
-public class Ship implements Iterable<Field>{
+public class Ship implements Iterable<Field> {
 
   private final List<Field> masts;
   private final int shipLength;
@@ -26,7 +27,7 @@ public class Ship implements Iterable<Field>{
   }
 
   void addMast(Field field) {
-      masts.add(field);
+    masts.add(field);
   }
 
   List<Position> positionsOfAllMastInShip() {

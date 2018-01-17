@@ -32,6 +32,6 @@ public class Mast extends Rectangle implements Field {
   }
 
   public void markAsHit() {
-    setFill(Color.DEEPPINK);
+    setFill(Color.DARKRED);
   }
 }

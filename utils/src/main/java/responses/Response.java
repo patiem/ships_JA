@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import model.ShipModel;
 import model.Shot;
 
 import java.util.Optional;
@@ -17,13 +18,19 @@ import java.util.Optional;
     @JsonSubTypes.Type(value = OpponentHitResponse.class, name = "OpponentHitResponse"),
     @JsonSubTypes.Type(value = OpponentMissedResponse.class, name = "OpponentMissedResponse"),
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
-    @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse")}
+    @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),
+    @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse")}
 )
 public interface Response {
   ResponseHeader getHeader();
 
   @JsonProperty("shot")
   default Optional<Shot> getShot() {
+    return Optional.empty();
+  }
+
+  @JsonProperty("sunkShip")
+  default Optional<ShipModel> getSunkShip() {
     return Optional.empty();
   }
 }

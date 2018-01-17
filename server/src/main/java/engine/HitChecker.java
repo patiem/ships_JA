@@ -2,6 +2,8 @@ package engine;
 
 import fleet.Fleet;
 
+import java.util.List;
+
 /**
  * It checks if shots hit the target.
  *
@@ -22,7 +24,10 @@ public class HitChecker {
 
     if (!isHitAgain && isShipPosition) {
       fleet.hit(position);
-      return ShotResult.HIT;
+      List<Integer> shipPositions = fleet.getShipByPosition(position).getFields();
+      boolean isShipSunk = fleet.getHitFields().containsAll(shipPositions);
+
+      return isShipSunk ? ShotResult.SUNK : ShotResult.HIT;
     }
 
     return ShotResult.MISSED;

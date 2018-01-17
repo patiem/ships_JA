@@ -1,23 +1,38 @@
 package engine;
 
+import fleet.CustomFleet;
 import fleet.Fleet;
-import fleet.HardcodedFleet;
+import fleet.HardcodedFleetModel;
+import model.FleetModel;
+import model.ShipModel;
 import model.Shot;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
 
 public class RoundTest {
 
+  private Fleet fleetUnderFire;
+
+  @BeforeMethod
+  public void setUp() {
+    ShipModel firstShip = new ShipModel(Arrays.asList(0, 1));
+    ShipModel secondShip = new ShipModel(Arrays.asList(10, 11, 12, 13));
+    FleetModel fleetModel = new HardcodedFleetModel(Arrays.asList(firstShip, secondShip));
+    fleetUnderFire = new CustomFleet(fleetModel);
+  }
+
   @DataProvider(name = "shots on target")
   public Object[] getShotsOnTarget() {
-    return new Object[] {0, 3, 17, 44, 34, 99}; //HardcodedFleet positions
+    return new Object[] {0, 1, 10, 11, 12, 13};
   }
 
   @Test(dataProvider = "shots on target")
   public void givenShotOnTargetAndFleetWhenCheckShotTheReturnHitState(Integer shotPosition) {
-    Fleet fleetUnderFire = new HardcodedFleet();
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
@@ -34,7 +49,6 @@ public class RoundTest {
 
   @Test(dataProvider = "missed shots")
   public void givenMissedShotAndFleetWhenCheckShotTheReturnMissedState(Integer shotPosition) {
-    Fleet fleetUnderFire = new HardcodedFleet();
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
@@ -47,7 +61,6 @@ public class RoundTest {
   @Test
   public void givenShotAgainAndFleetWhenCheckShotThenReturnMissedState() {
     Integer shotPosition = 0;
-    Fleet fleetUnderFire = new HardcodedFleet();
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
