@@ -2,6 +2,7 @@ package model;
 
 import gui.fields.Field;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,11 +32,13 @@ public class ShipBoundariesPositions {
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(List<Integer> mastsPositionIndex) {
-
+    List<Position> shipPositions = new ArrayList<>();
     for (Integer index: mastsPositionIndex) {
-      boundariesForMast(new Position(index));
+      Position shipPosition = new Position(index);
+      boundariesForMast(shipPosition);
+      shipPositions.add(shipPosition);
     }
-    boundaries.removeAll(mastsPositionIndex);
+    boundaries.removeAll(shipPositions);
     return this;
   }
 
@@ -47,4 +50,9 @@ public class ShipBoundariesPositions {
   public void markSeaAsBoundary() {
     boundaries.forEach(sea::makeBoundary);
   }
+
+  public void markSunkShip() {
+    boundaries.forEach(b -> sea.getSeaFieldByPosition(b).markAsHit());
+  }
+
 }

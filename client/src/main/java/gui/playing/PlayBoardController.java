@@ -2,8 +2,17 @@ package gui.playing;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
-import gui.events.*;
+import connection.MessageProcessor;
+import gui.events.SunkShipEvent;
+import gui.events.UpdateWhenHitEvent;
+import gui.events.UpdateWhenMissedEvent;
+import gui.events.YouHitEvent;
+import gui.events.YouLostEvent;
+import gui.events.YouMissedEvent;
+import gui.events.YouWinEvent;
+import gui.events.YourTurnEvent;
 import gui.fields.Field;
+import gui.fields.FieldSize;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
@@ -15,10 +24,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
-import gui.fields.FieldSize;
-import connection.MessageProcessor;
 import model.Position;
-import model.Ship;
+import model.Sea;
 import model.ShipBoundariesPositions;
 import responses.Response;
 import responses.ResponseHeader;
@@ -45,6 +52,7 @@ public class PlayBoardController implements Initializable {
 
   private List<Position> positions;
   private SeaField lastField;
+  private Sea sea;
 
   @FXML
   private GridPane shipBoard;
@@ -99,6 +107,8 @@ public class PlayBoardController implements Initializable {
   }
 
   private void populateSeaWithSeaFields() {
+    sea = new Sea();
+
     for (int i = 0; i < 10; i++) {
       for (int n = 0; n < 10; n++) {
         SeaField field = new SeaField(i, n, FieldSize.BIG);
@@ -107,6 +117,8 @@ public class PlayBoardController implements Initializable {
           field.marked();
           lastField = field;
         });
+
+        sea.addSeaField(field);
         shipBoard.getChildren().add(field);
         GridPane.setConstraints(field, i, n);
       }
@@ -175,9 +187,12 @@ public class PlayBoardController implements Initializable {
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
         String[] positionsAsString = event.getMessage().split(",");
-        List<Integer> positions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
 
-        ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions();
+        ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
+        shipBoundariesPositions
+            .calculateShipBoundariesPositions(sunkShipPositions)
+            .markSunkShip();
       };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
