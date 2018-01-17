@@ -3,6 +3,7 @@ package model;
 import gui.fields.Field;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -23,11 +24,24 @@ public class ShipBoundariesPositions {
   public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
 
     for (Field mast : ship) {
-      MastBoundariesPositions mastBoundaries = new MastBoundariesPositions(mast);
-      boundaries.addAll(mastBoundaries.countBoundariesForMast());
+      boundariesForMast(mast.position());
     }
     boundaries.removeAll(ship.positionsOfAllMastInShip());
     return this;
+  }
+
+  public ShipBoundariesPositions calculateShipBoundariesPositions(List<Integer> mastsPositionIndex) {
+
+    for (Integer index: mastsPositionIndex) {
+      boundariesForMast(new Position(index));
+    }
+    boundaries.removeAll(mastsPositionIndex);
+    return this;
+  }
+
+  private void boundariesForMast(Position position) {
+    MastBoundariesPositions mastBoundaries = new MastBoundariesPositions(position);
+    boundaries.addAll(mastBoundaries.countBoundariesForMast());
   }
 
   public void markSeaAsBoundary() {
