@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
  * @version 1.5
  */
 class Main {
+
   private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
@@ -42,10 +43,15 @@ class Main {
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
     properties.load(config);
     String retrievedIP = properties.getProperty("IP");
+    int retrievedPort = Integer.parseInt(properties.getProperty("portNumber"));
 
     Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     Matcher matcher = pattern.matcher(retrievedIP);
-    return matcher.matches();
+    return matcher.matches() && isPortValid(retrievedPort);
+  }
+
+  private static boolean isPortValid(int portNumber) {
+    return portNumber > 1023 && portNumber < 65537;
   }
 
 }
