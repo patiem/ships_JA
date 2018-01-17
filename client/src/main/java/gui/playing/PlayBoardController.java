@@ -48,6 +48,7 @@ public class PlayBoardController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
+  private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
 
   private List<Position> positions;
@@ -108,9 +109,10 @@ public class PlayBoardController implements Initializable {
 
   private void populateSeaWithSeaFields() {
     sea = new Sea();
+    int boardSize = 10;
 
-    for (int i = 0; i < 10; i++) {
-      for (int n = 0; n < 10; n++) {
+    for (int i = 0; i < boardSize; i++) {
+      for (int n = 0; n < boardSize; n++) {
         SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
           client.sendMessage(field);
@@ -186,7 +188,7 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
-        String[] positionsAsString = event.getMessage().split(",");
+        String[] positionsAsString = event.getMessage().split(POSITIONS_SEPARATOR);
         List<Integer> sunkShipPositions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
 
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);

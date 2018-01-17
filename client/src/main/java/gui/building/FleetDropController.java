@@ -50,6 +50,7 @@ public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
+  private static final String EMPTY_FLEET_INFO = "You can't play with empty fleet";
   private final Sea sea;
   private Fleet fleet;
   private final Client client;
@@ -172,7 +173,7 @@ public class FleetDropController implements Initializable {
           fleetSender.sendFleetToServer();
           nextButton.fireEvent(new ConnectEvent());
         } else {
-          info.setText("You can't play with empty fleet");
+          info.setText(EMPTY_FLEET_INFO);
         }
         event.consume();
       };

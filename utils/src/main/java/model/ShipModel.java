@@ -35,7 +35,6 @@ public class ShipModel {
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();
-
     fields.forEach(position -> builder.append(String.valueOf(position)).append(","));
 
     return builder.toString();

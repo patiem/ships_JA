@@ -21,11 +21,12 @@ class MastBoundariesPositions {
     int minRow = 0;
     int maxColumn = 9;
     int maxRow = 9;
+    int step = 1;
 
     List<Position> boundaries = new ArrayList<>();
 
-    for (int neighbourColumnValue = -1; neighbourColumnValue <= 1; neighbourColumnValue++) {
-      for (int neighbourRowValue = -1; neighbourRowValue <= 1; neighbourRowValue++) {
+    for (int neighbourColumnValue = -step; neighbourColumnValue <= step; neighbourColumnValue++) {
+      for (int neighbourRowValue = -step; neighbourRowValue <= step; neighbourRowValue++) {
         int newPositionX = position.getColumn() + neighbourColumnValue;
         int newPositionY = position.getRow() + neighbourRowValue;
         if (newPositionX >= minColumn && newPositionX <= maxColumn
