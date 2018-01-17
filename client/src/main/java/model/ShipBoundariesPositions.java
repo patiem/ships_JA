@@ -4,18 +4,20 @@ import gui.fields.Field;
 
 import java.util.HashSet;
 import java.util.Set;
+
 /**
  * It marks the fields around a ship that are not available for ship deployment.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class ShipBoundariesPositions {
 
   private Set<Position> boundaries;
+  private Sea sea;
 
-  public ShipBoundariesPositions() {
+  public ShipBoundariesPositions(Sea sea) {
     this.boundaries = new HashSet<>();
+    this.sea = sea;
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
@@ -28,7 +30,7 @@ public class ShipBoundariesPositions {
     return this;
   }
 
-  public void markSeaAsBoundary(Sea sea) {
+  public void markSeaAsBoundary() {
     boundaries.forEach(sea::makeBoundary);
   }
 }

@@ -6,7 +6,6 @@ import javafx.scene.shape.Rectangle;
 /**
  * It represents the fields that are not available for ship deployment.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class BoundField extends Rectangle implements Field {

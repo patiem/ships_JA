@@ -47,7 +47,7 @@ public class SeaTest extends DataProvider {
     //given
     Integer row = 0;
     Integer col = 0;
-    ClickableField fieldOne = new DummyClickableFiled(row, col);
+    ClickableField fieldOne = new DummyClickableField(row, col);
     Position testPosition = new Position(index);
 
     //when
@@ -85,44 +85,6 @@ public class SeaTest extends DataProvider {
 
     //then
     verify(fieldOne, times(1)).markAsBound(true);
-  }
-
-  class DummyClickableFiled implements ClickableField {
-
-    private final Integer row;
-    private final Integer col;
-
-    public DummyClickableFiled(Integer row, Integer col) {
-      this.row = row;
-      this.col = col;
-    }
-
-    @Override
-    public void makeUnclickable() {
-    }
-
-    @Override
-    public void makeClickable() {
-    }
-
-    @Override
-    public void markAsBound(boolean isMarkedAsBound) {
-    }
-
-    @Override
-    public int getColumn() {
-      return col;
-    }
-
-    @Override
-    public int getRow() {
-      return row;
-    }
-
-    @Override
-    public void markAsHit() {
-
-    }
   }
 
 }

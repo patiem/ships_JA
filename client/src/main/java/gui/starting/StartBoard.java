@@ -1,6 +1,7 @@
 package gui.starting;
 
 import connection.Client;
+import connection.MessageProcessor;
 import connection.chain.ChainConfigFactory;
 import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
@@ -15,8 +16,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import connection.MessageProcessor;
+import model.Fleet;
 import model.Position;
+import model.Sea;
 
 import java.io.IOException;
 import java.util.List;
@@ -27,7 +29,6 @@ import java.util.logging.Logger;
 /**
  * It represtents the playboard.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class StartBoard extends Application {
@@ -82,7 +83,7 @@ public class StartBoard extends Application {
 
   private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
-    fleetDropController = new FleetDropController(client);
+    fleetDropController = new FleetDropController(client, new Sea(), new Fleet());
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);
@@ -108,8 +109,10 @@ public class StartBoard extends Application {
     Button connectButton = (Button) startBoard.lookup("#connectButton");
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
       String userName = ((TextField) startBoard.lookup("#userName")).getText();
+      String hostIp = ((TextField) startBoard.lookup("#ipNumber")).getText();
       ((TextField) buildBoard.lookup("#userName")).setText(userName);
       stage.setScene(buildScene);
+      client.setup(hostIp);
     });
   }
 

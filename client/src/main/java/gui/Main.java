@@ -5,7 +5,6 @@ import gui.starting.StartBoard;
 /**
  * It starts the gui.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 class Main {
