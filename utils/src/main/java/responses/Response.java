@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import model.ShipModel;
 import model.Shot;
 
 import java.util.Optional;
@@ -25,6 +26,11 @@ public interface Response {
 
   @JsonProperty("shot")
   default Optional<Shot> getShot() {
+    return Optional.empty();
+  }
+
+  @JsonProperty("sunkShip")
+  default Optional<ShipModel> getSunkShip() {
     return Optional.empty();
   }
 }

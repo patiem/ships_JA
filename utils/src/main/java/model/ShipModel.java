@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * It represents each of the ships that a fleet consists of.
+ *
  * @author Emilia Ciastek
  * @version 1.5
  */
@@ -19,7 +20,6 @@ public class ShipModel {
   public ShipModel(@JsonProperty("fields") List<Integer> fields) {
     this.fields.addAll(fields);
     this.numberOfMasts = this.fields.size();
-
   }
 
   @JsonProperty("numberOfMasts")
@@ -30,5 +30,17 @@ public class ShipModel {
   @JsonProperty("fields")
   public List<Integer> getFields() {
     return fields;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+
+    for (Integer position : fields) {
+      builder.append(String.valueOf(position));
+      builder.append(",");
+    }
+
+    return builder.toString();
   }
 }

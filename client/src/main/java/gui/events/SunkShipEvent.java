@@ -17,4 +17,4 @@ public class SunkShipEvent extends Event {
     super(SUNK);
     this.message = message;
   }
-  }
+}

@@ -25,10 +25,12 @@ import responses.ResponseHeader;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * It initializes and populates the playboard.
@@ -173,12 +175,10 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
-        Integer index = Integer.valueOf(event.getMessage());
+        String[] positionsAsString = event.getMessage().split(",");
+        List<Integer> positions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
+
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions();
-        Ship ship = new Ship()
-
-
-        shipBoundariesPositions.calculateShipBoundariesPositions().markSeaAsBoundary();
       };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
