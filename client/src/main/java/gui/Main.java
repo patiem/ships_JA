@@ -16,22 +16,23 @@ import java.util.regex.Pattern;
  * @version 1.5
  */
 class Main {
+
   private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   public static void main(String[] args) {
     try {
-      if(isIpValid()){
+      if(icServerConfigValid()){
         StartBoard.run(args);
       } else {
-        LOGGER.log(Level.INFO,"Closing the game as the IP was not valid");
+        LOGGER.log(Level.INFO,"Closing the game as the IP was not valid or port is invalid");
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
-  private static boolean isIpValid() throws IOException {
+  private static boolean icServerConfigValid() throws IOException {
 
     String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -42,13 +43,19 @@ class Main {
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
     properties.load(config);
     String retrievedIP = properties.getProperty("IP");
+    int retrievedPort = Integer.parseInt(properties.getProperty("portNumber"));
 
     Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
     Matcher matcher = pattern.matcher(retrievedIP);
 
     Pattern patternLocal = Pattern.compile("localhost", Pattern.CASE_INSENSITIVE);
     Matcher matcherLocal = patternLocal.matcher(retrievedIP);
-    return matcher.matches() || matcherLocal.matches();
+
+    return (matcher.matches() || matcherLocal.matches()) && isPortValid(retrievedPort);
+  }
+
+  private static boolean isPortValid(int portNumber) {
+    return portNumber > 1023 && portNumber < 65537;
   }
 
 }
