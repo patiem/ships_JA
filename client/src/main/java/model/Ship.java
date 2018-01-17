@@ -38,7 +38,7 @@ public class Ship implements Iterable<Field>{
   }
 
   Field lastMast() {
-    return masts.get(masts.size() -1);
+    return masts.get(masts.size() - 1);
   }
 
   @Override

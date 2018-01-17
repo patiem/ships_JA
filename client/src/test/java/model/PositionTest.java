@@ -70,7 +70,7 @@ public class PositionTest extends DataProvider{
   }
 
   @Test(dataProvider = "positions")
-  public void positionsThatHasDifferentColAndRowAreEquals(int index) {
+  public void positionsThatHasDifferentIndexAreEquals(int index) {
 
       //given
     Position positionOne = new Position(index);
