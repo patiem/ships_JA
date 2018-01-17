@@ -22,19 +22,19 @@ class Main {
 
   public static void main(String[] args) {
     try {
-      if(icServerConfigValid()){
+      if (isServerConfigValid()) {
         StartBoard.run(args);
       } else {
-        LOGGER.log(Level.INFO,"Closing the game as the IP was not valid or port is invalid");
+        LOGGER.log(Level.INFO, "Closing the game as the IP was not valid or port is invalid");
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
-  private static boolean icServerConfigValid() throws IOException {
+  private static boolean isServerConfigValid() throws IOException {
 
-    String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
+    String IP_ADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
         "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
@@ -45,7 +45,7 @@ class Main {
     String retrievedIP = properties.getProperty("IP");
     int retrievedPort = Integer.parseInt(properties.getProperty("portNumber"));
 
-    Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
+    Pattern pattern = Pattern.compile(IP_ADDRESS_PATTERN);
     Matcher matcher = pattern.matcher(retrievedIP);
 
     Pattern patternLocal = Pattern.compile("localhost", Pattern.CASE_INSENSITIVE);
