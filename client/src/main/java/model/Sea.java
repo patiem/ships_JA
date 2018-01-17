@@ -10,7 +10,6 @@ import java.util.Optional;
 /**
  * It represents the entire board where ships are deployed.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class Sea {

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 /**
  * It is responsible for receiving messages from the server.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class MessageIn implements Receiver {

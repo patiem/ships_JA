@@ -3,32 +3,48 @@ package model;
 import gui.fields.Field;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 /**
  * It marks the fields around a ship that are not available for ship deployment.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class ShipBoundariesPositions {
 
   private Set<Position> boundaries;
+  private Sea sea;
 
-  public ShipBoundariesPositions() {
+  public ShipBoundariesPositions(Sea sea) {
     this.boundaries = new HashSet<>();
+    this.sea = sea;
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
 
     for (Field mast : ship) {
-      MastBoundariesPositions mastBoundaries = new MastBoundariesPositions(mast);
-      boundaries.addAll(mastBoundaries.countBoundariesForMast());
+      boundariesForMast(mast.position());
     }
     boundaries.removeAll(ship.positionsOfAllMastInShip());
     return this;
   }
 
-  public void markSeaAsBoundary(Sea sea) {
+  public ShipBoundariesPositions calculateShipBoundariesPositions(List<Integer> mastsPositionIndex) {
+
+    for (Integer index: mastsPositionIndex) {
+      boundariesForMast(new Position(index));
+    }
+    boundaries.removeAll(mastsPositionIndex);
+    return this;
+  }
+
+  private void boundariesForMast(Position position) {
+    MastBoundariesPositions mastBoundaries = new MastBoundariesPositions(position);
+    boundaries.addAll(mastBoundaries.countBoundariesForMast());
+  }
+
+  public void markSeaAsBoundary() {
     boundaries.forEach(sea::makeBoundary);
   }
 }

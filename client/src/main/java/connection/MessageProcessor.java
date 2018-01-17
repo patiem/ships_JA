@@ -7,7 +7,6 @@ import responses.Response;
 /**
  * It calls different methods depending on the message that has been sent form the server.
  *
- * @author Patrycja Mikulska/Bartosz Pieczara
  * @version 1.5
  */
 public class MessageProcessor {

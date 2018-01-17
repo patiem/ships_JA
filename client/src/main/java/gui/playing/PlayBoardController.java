@@ -35,7 +35,6 @@ import java.util.stream.Collectors;
 /**
  * It initializes and populates the playboard.
  *
- * @author Patrycja Mikulska
  * @version 1.5
  */
 public class PlayBoardController implements Initializable {
