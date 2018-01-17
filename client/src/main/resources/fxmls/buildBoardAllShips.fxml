@@ -61,6 +61,11 @@
         </rowConstraints>
 
     </GridPane>
+    <TextField fx:id="info" editable="false" layoutX="468.0" layoutY="44.0" prefHeight="50.0" prefWidth="280.0">
+        <font>
+            <Font name="Garuda" size="18.0" />
+        </font>
+    </TextField>
 
     <Button fx:id="connectButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false"
             text="Play!">

@@ -26,4 +26,8 @@ public class Fleet {
         .flatMap(List::stream)
         .collect(Collectors.toList());
   }
+
+  public boolean isFleetEmpty() {
+    return ships.isEmpty();
+  }
 }

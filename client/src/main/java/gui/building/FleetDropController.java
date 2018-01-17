@@ -3,9 +3,9 @@ package gui.building;
 import connection.Client;
 import connection.FleetSender;
 import gui.fields.BoundField;
+import gui.fields.FieldSize;
 import gui.fields.Mast;
 import gui.fields.SeaField;
-import gui.fields.FieldSize;
 import gui.starting.ConnectEvent;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -16,12 +16,25 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.*;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import model.*;
+import model.Fleet;
+import model.Player;
+import model.Position;
+import model.PossiblePositions;
+import model.Sea;
+import model.SeaCleaner;
+import model.Ship;
+import model.ShipBoardUpdater;
+import model.ShipBoundariesPositions;
+import model.ShipCreator;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -70,6 +83,8 @@ public class FleetDropController implements Initializable {
   @FXML
   private TextField userName;
   @FXML
+  private TextField info;
+  @FXML
   private Button nextButton;
 
   private Rectangle buildShip;
@@ -79,7 +94,7 @@ public class FleetDropController implements Initializable {
   /**
    * Creates FleetDropController instance.
    *
-   * @param client  - client instance
+   * @param client - client instance
    */
 
   public FleetDropController(Client client, Sea sea, Fleet fleet) {
@@ -150,12 +165,16 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> connectWhenClicked =
       event -> {
-        connectButton.setVisible(false);
-        setupClient();
-        Player player = new Player(fleet , userName.getText());
-        FleetSender fleetSender = new FleetSender(getClient(), player);
-        fleetSender.sendFleetToServer();
-        nextButton.fireEvent(new ConnectEvent());
+        if (!fleet.isFleetEmpty()) {
+          setupClient();
+          Player player = new Player(fleet, userName.getText());
+          FleetSender fleetSender = new FleetSender(getClient(), player);
+          fleetSender.sendFleetToServer();
+          nextButton.fireEvent(new ConnectEvent());
+        } else {
+          info.setText("You can't play with empty fleet");
+        }
+        event.consume();
       };
 
   private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
