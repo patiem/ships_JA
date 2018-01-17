@@ -36,10 +36,7 @@ public class ShipModel {
   public String toString() {
     StringBuilder builder = new StringBuilder();
 
-    for (Integer position : fields) {
-      builder.append(String.valueOf(position));
-      builder.append(",");
-    }
+    fields.forEach(position -> builder.append(String.valueOf(position)).append(","));
 
     return builder.toString();
   }
