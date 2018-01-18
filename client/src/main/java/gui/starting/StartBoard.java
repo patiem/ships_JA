@@ -16,7 +16,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import messages.LanguageVersion;
 import model.Fleet;
 import model.Position;
 import model.Sea;

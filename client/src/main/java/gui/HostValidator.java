@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 public class HostValidator {
 
+  private HostValidator() {
+  }
+
   private static final Logger LOGGER = Logger.getLogger(HostValidator.class.getName());
 
   static boolean isServerConfigValid(String serverConfigFile) throws IOException {

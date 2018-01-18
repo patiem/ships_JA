@@ -3,12 +3,12 @@ package messages;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LanguageVersion {
 
-  private final String SERVER_CONFIG_FILE = "config.properties";
-  private String LANGUAGE_CONFIG;
-  private Properties properties;
+  private static final Logger LOGGER = Logger.getLogger(LanguageVersion.class.getName());
   private String name;
   private String wait;
   private String play;
@@ -22,24 +22,26 @@ public class LanguageVersion {
   }
 
   private void setLanguage() {
-    properties = new Properties();
-    InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
+    String serverConfigFile = "config.properties";
+    String languageConfig;
+    Properties properties = new Properties();
+    InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE,e.getMessage());
     }
     String languageVersion = properties.getProperty("languageVersion");
     if (languageVersion.equals("Polish")) {
-      LANGUAGE_CONFIG = "Polish.properties";
+      languageConfig = "Polish.properties";
     } else {
-      LANGUAGE_CONFIG = "English.properties";
+      languageConfig = "English.properties";
     }
-    InputStream language = ClassLoader.getSystemResourceAsStream(LANGUAGE_CONFIG);
+    InputStream language = ClassLoader.getSystemResourceAsStream(languageConfig);
     try {
       properties.load(language);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE,e.getMessage());
     }
     name = properties.getProperty("name");
     wait = properties.getProperty("wait");
