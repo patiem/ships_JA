@@ -41,7 +41,9 @@ public class HostValidator {
   }
 
   private static boolean isPortValid(int portNumber) {
-    boolean isPortValid = portNumber > 1023 && portNumber < 65537;
+    int minPort = 1023;
+    int maxPort = 65537;
+    boolean isPortValid = portNumber > minPort && portNumber < maxPort;
     if (!isPortValid) {
       LOGGER.log(Level.WARNING, "Closing the game as the PORT is invalid");
     }
