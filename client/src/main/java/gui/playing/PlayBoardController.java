@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
+import messages.LanguageVersion;
 import model.Position;
 import model.Sea;
 import model.ShipBoundariesPositions;
@@ -50,10 +51,11 @@ public class PlayBoardController implements Initializable {
   private final Client client;
   private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
-
   private List<Position> positions;
   private SeaField lastField;
   private Sea sea;
+  private LanguageVersion languageVersion = new LanguageVersion();
+
 
   @FXML
   private GridPane shipBoard;
@@ -71,7 +73,7 @@ public class PlayBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText("wait");
+    winning.setText(languageVersion.getWaitMessage());
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -165,25 +167,25 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText("play");
+        winning.setText(languageVersion.getPlayMessage());
         shipBoard.setDisable(false);
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText("wait");
+        winning.setText(languageVersion.getWaitMessage());
         shipBoard.setDisable(true);
       };
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText("You won");
+        winning.setText(languageVersion.getWinMessage());
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText("You lost");
+      event -> winning.setText(languageVersion.getLossMessage());
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
