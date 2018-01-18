@@ -1,58 +1,58 @@
 package connection.chain;
 
-import gui.events.UpdateWhenHitEvent;
+import gui.events.SunkShipEvent;
 import gui.playing.DispatcherAdapter;
 import model.DummyResponse;
-import model.Shot;
+import model.ShipModel;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import responses.OpponentHitResponse;
 import responses.Response;
-import responses.ResponseHeader;
+import responses.SunkResponse;
 
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-public class OpponentHitLinkTest {
+public class SunkLinkTest {
+
   private DispatcherAdapter dispatcherAdapter;
-  private OpponentHitLink opponentHitLink;
+  private SunkLink sunkLink;
   private int expectedInvocations;
 
   @BeforeTest
   public void setUp() {
     dispatcherAdapter = mock(DispatcherAdapter.class);
-    opponentHitLink = new OpponentHitLink();
+    sunkLink = new SunkLink();
     expectedInvocations = 1;
   }
 
   @Test
-  public void givenLossResponseWhenAnalyzeThenInvokeMethodOnDispatcher() {
+  public void givenHitResponseWhenAnalyzeThenInvokeMethodOnDispatcher() {
     //Arrange
-    Shot mockedShot = mock(Shot.class);
-    OpponentHitResponse opponentHitResponse = new OpponentHitResponse(mockedShot);
+    ShipModel mockedShipModel = mock(ShipModel.class);
+    Response sunkResponse = new SunkResponse(mockedShipModel);
 
     //Act
-    opponentHitLink.analyzeResponse(opponentHitResponse, dispatcherAdapter);
+    sunkLink.analyzeResponse(sunkResponse, dispatcherAdapter);
 
     //Assert
-    verify(dispatcherAdapter, times(expectedInvocations)).fireEvent(isA(UpdateWhenHitEvent.class));
+    verify(dispatcherAdapter, times(expectedInvocations)).fireEvent(isA(SunkShipEvent.class));
   }
 
   @Test
   public void givenNoneResponseWhenAnalyzeThenPassedItOnToTheNextLink() {
     //Arrange
     Chain mockedNextChain = mock(Chain.class);
-    opponentHitLink.setNextChain(mockedNextChain);
+    sunkLink.setNextChain(mockedNextChain);
     DummyResponse dummyResponse = new DummyResponse();
 
     //Act
-    opponentHitLink.analyzeResponse(dummyResponse, dispatcherAdapter);
+    sunkLink.analyzeResponse(dummyResponse, dispatcherAdapter);
 
     //Assert
     verify(mockedNextChain, times(expectedInvocations))
         .analyzeResponse(dummyResponse, dispatcherAdapter);
   }
+
 }

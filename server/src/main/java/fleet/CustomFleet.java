@@ -5,13 +5,11 @@ import model.ShipModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.function.Predicate;
 
 /**
  * It holds information on player's fleet.
- * @author Emilia Ciastek
+ *
  * @version 1.5
  */
 public class CustomFleet implements Fleet {
@@ -45,6 +43,5 @@ public class CustomFleet implements Fleet {
         .findFirst();
 
     return foundShip.orElse(new ShipModel(new ArrayList<>()));
-    //TODO: foundShip.orElseThrow(NoSuchElementException::new);
   }
 }

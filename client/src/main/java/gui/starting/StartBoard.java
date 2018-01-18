@@ -73,7 +73,7 @@ public class StartBoard extends Application {
   }
 
   private void createStartBoard(Group startRoot, Scene buildScene) throws IOException {
-    StartBoardController startBoardController = new StartBoardController(client);
+    StartBoardController startBoardController = new StartBoardController();
     FXMLLoader startLoader = new FXMLLoader(getClass().getResource(START_BOARD_URL));
     startLoader.setController(startBoardController);
     AnchorPane startingBoard = startLoader.load();
@@ -101,7 +101,8 @@ public class StartBoard extends Application {
     Node dispatcher = playRoot.lookup("#winning");
 
     DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
-    MessageProcessor processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
+    MessageProcessor processor = new MessageProcessor(
+        ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
     playBoardController.setMessageProcessor(processor);
   }
 

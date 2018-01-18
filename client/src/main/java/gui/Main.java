@@ -34,22 +34,22 @@ class Main {
 
   private static boolean isServerConfigValid() throws IOException {
 
-    String IP_ADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-        "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+    String ipPattern = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+        + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+        + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
+        + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
     properties.load(config);
-    String retrievedIP = properties.getProperty("IP");
+    String retrievedIp = properties.getProperty("IP");
     int retrievedPort = Integer.parseInt(properties.getProperty("portNumber"));
 
-    Pattern pattern = Pattern.compile(IP_ADDRESS_PATTERN);
-    Matcher matcher = pattern.matcher(retrievedIP);
+    Pattern pattern = Pattern.compile(ipPattern);
+    Matcher matcher = pattern.matcher(retrievedIp);
 
     Pattern patternLocal = Pattern.compile("localhost", Pattern.CASE_INSENSITIVE);
-    Matcher matcherLocal = patternLocal.matcher(retrievedIP);
+    Matcher matcherLocal = patternLocal.matcher(retrievedIp);
 
     return (matcher.matches() || matcherLocal.matches()) && isPortValid(retrievedPort);
   }

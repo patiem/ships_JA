@@ -1,7 +1,6 @@
 package connection.chain;
 
 import gui.events.SunkShipEvent;
-import gui.events.UpdateWhenMissedEvent;
 import gui.playing.DispatcherAdapter;
 import model.ShipModel;
 import responses.Response;

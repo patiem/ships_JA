@@ -31,9 +31,11 @@ public class ShipBoundariesPositions {
     return this;
   }
 
-  public ShipBoundariesPositions calculateShipBoundariesPositions(List<Integer> mastsPositionIndex) {
+  public ShipBoundariesPositions calculateShipBoundariesPositions(
+      List<Integer> mastsPositionIndex) {
+
     List<Position> shipPositions = new ArrayList<>();
-    for (Integer index: mastsPositionIndex) {
+    for (Integer index : mastsPositionIndex) {
       Position shipPosition = new Position(index);
       boundariesForMast(shipPosition);
       shipPositions.add(shipPosition);
