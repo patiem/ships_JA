@@ -32,8 +32,10 @@ public class Client {
    */
   public void run() {
     try {
-      int port = setUpPort();
-      Connector connector = SocketConnector.from(host, port);
+      String[] configValues = setUpGame();
+      int port = Integer.parseInt(configValues[1]);
+      String IP = String.valueOf(configValues[0]);
+      Connector connector = SocketConnector.from(IP, port);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
@@ -41,11 +43,14 @@ public class Client {
     }
   }
 
-  private int setUpPort() throws IOException {
+  private String[] setUpGame() throws IOException {
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
     properties.load(config);
-    return Integer.parseInt(properties.getProperty("portNumber"));
+    String[] configValues = new String[2];
+    configValues[0] = properties.getProperty("IP");
+    configValues[1] = properties.getProperty("portNumber");
+    return configValues;
   }
 
   /**

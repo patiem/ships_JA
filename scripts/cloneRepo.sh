@@ -10,7 +10,6 @@ echo so it begins....
 DIR=$1
 cd ~
 mkdir $DIR
-echo Dir parameter
 git clone https://github.com/patiem/ships_JA $DIR
 echo repo cloned
 

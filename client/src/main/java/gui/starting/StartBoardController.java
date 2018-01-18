@@ -20,8 +20,6 @@ class StartBoardController implements Initializable {
   @FXML
   private TextField userName;
 
-  @FXML
-  private TextField ipNumber;
 
   StartBoardController(Client client) {
     this.client = client;
@@ -31,7 +29,5 @@ class StartBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     String name = "Your name";
     this.userName.setText(name);
-    String localhost = "host ip here";
-    this.ipNumber.setText(localhost);
-  }
+    }
 }
