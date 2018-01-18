@@ -19,7 +19,8 @@ public class MessageIn implements Receiver {
   private final BufferedReader scanner;
 
   static MessageIn from(Connector connector) throws IOException {
-    return new MessageIn(new BufferedReader(new InputStreamReader(connector.getInStream(), StandardCharsets.UTF_8)));
+    return new MessageIn(new BufferedReader(
+        new InputStreamReader(connector.getInStream(), StandardCharsets.UTF_8)));
   }
 
   private MessageIn(BufferedReader scanner) {

@@ -1,12 +1,12 @@
 package engine;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import communication.MessageSender;
 import communication.PlayerRegistry;
 import json.JsonGeneratorAdapter;
 import responses.LossResponse;
 import responses.WinResponse;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +40,6 @@ public class FinishedGame implements GameRunnerState {
 
   @Override
   public GameRunnerState run() {
-   return new FinishedGame(playerRegistry);
+    return new FinishedGame(playerRegistry);
   }
-
 }

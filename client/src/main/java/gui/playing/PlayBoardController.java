@@ -97,7 +97,8 @@ public class PlayBoardController implements Initializable {
         String message = client.getMessage();
         JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
         try {
-          Response responseToProcess = jsonParserAdapter.parse(message, Response.class, new ObjectMapper());
+          Response responseToProcess = jsonParserAdapter.parse(
+              message, Response.class, new ObjectMapper());
           processor.processMessage(responseToProcess);
           ResponseHeader header = responseToProcess.getHeader();
 
@@ -161,7 +162,8 @@ public class PlayBoardController implements Initializable {
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        SeaField seaHit = new SeaField(
+            fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
         putFieldOnOpponentBoard(seaHit);
       };
 
@@ -193,7 +195,9 @@ public class PlayBoardController implements Initializable {
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
         String[] positionsAsString = event.getMessage().split(POSITIONS_SEPARATOR);
-        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString)
+            .map(Integer::parseInt)
+            .collect(Collectors.toList());
 
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
         shipBoundariesPositions

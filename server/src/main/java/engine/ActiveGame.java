@@ -13,6 +13,7 @@ import responses.PlayResponse;
 import responses.SunkResponse;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.logging.Logger;
 
 public class ActiveGame implements GameRunnerState {
@@ -35,7 +36,8 @@ public class ActiveGame implements GameRunnerState {
 
     while (true) {
       MessageReceiver messageReceiver = new MessageReceiver();
-      ShotMessage shotMessage = messageReceiver.receiveShotMessage(playerRegistry.getCurrentPlayer().getSocket());
+      Socket socket = playerRegistry.getCurrentPlayer().getSocket();
+      ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
       Shot shot = shotMessage.getShot();
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
       ShotResult result = round.fireShot(fleetUnderFire, shot);
@@ -43,7 +45,8 @@ public class ActiveGame implements GameRunnerState {
 
       if (result == ShotResult.SUNK) {
         sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-        sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(shot.asInteger())), playerRegistry.getCurrentPlayer());
+        sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(
+            shot.asInteger())), playerRegistry.getCurrentPlayer());
         sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
         if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
           return new FinishedGame(playerRegistry);

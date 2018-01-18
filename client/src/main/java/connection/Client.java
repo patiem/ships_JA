@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * It handles connection with server
+ * It handles connection with server.
  *
  * @version 1.5
  */
@@ -25,7 +25,6 @@ public class Client {
 
   private Sender out;
   private Receiver in;
-  private String host;
 
   /**
    * Allows the client to receive and send messages to the server.
@@ -34,8 +33,8 @@ public class Client {
     try {
       String[] configValues = setUpGame();
       int port = Integer.parseInt(configValues[1]);
-      String IP = String.valueOf(configValues[0]);
-      Connector connector = SocketConnector.from(IP, port);
+      String host = String.valueOf(configValues[0]);
+      Connector connector = SocketConnector.from(host, port);
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
@@ -43,6 +42,10 @@ public class Client {
     }
   }
 
+  /**
+   * It reads configuration of server from file and sets the port and IP.
+   *
+   */
   private String[] setUpGame() throws IOException {
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
@@ -51,15 +54,6 @@ public class Client {
     configValues[0] = properties.getProperty("IP");
     configValues[1] = properties.getProperty("portNumber");
     return configValues;
-  }
-
-  /**
-   * It sets the hostname.
-   *
-   * @param host - the hostname
-   */
-  public void setup(String host) {
-    this.host = host;
   }
 
   /**
