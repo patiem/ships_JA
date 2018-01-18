@@ -3,6 +3,7 @@ package gui.starting;
 import connection.Client;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -19,6 +20,9 @@ class StartBoardController implements Initializable {
 
   @FXML
   private TextField userName;
+
+  @FXML
+      private Label nameBox;
 
 
   StartBoardController(Client client) {

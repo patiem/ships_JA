@@ -16,12 +16,12 @@
         <Image url="@../images/bb35.png"/>
     </ImageView>
     <VBox fx:id="connectPanel" layoutX="476.0" layoutY="39.0" prefHeight="342.0" prefWidth="214.0">
-        <Label text="Name">
+        <Label  text="Name/imie">
             <padding>
                 <Insets bottom="10.0" top="10.0"/>
             </padding>
         </Label>
-        <TextField fx:id="userName">
+        <TextField fx:id="userName/imie">
             <padding>
                 <Insets bottom="10.0" top="10.0"/>
             </padding>

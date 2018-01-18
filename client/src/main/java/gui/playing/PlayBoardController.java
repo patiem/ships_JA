@@ -31,9 +31,11 @@ import responses.Response;
 import responses.ResponseHeader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +56,9 @@ public class PlayBoardController implements Initializable {
   private List<Position> positions;
   private SeaField lastField;
   private Sea sea;
+  private static final String SERVER_CONFIG_FILE = "config.properties";
+  private static String LANGUAGE_CONFIG;
+  private Properties properties;
 
   @FXML
   private GridPane shipBoard;
@@ -65,13 +70,14 @@ public class PlayBoardController implements Initializable {
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
     this.positions = positions;
+    setLanguage();
   }
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText("wait");
+    winning.setText(properties.getProperty("wait"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -84,6 +90,28 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(SunkShipEvent.SUNK, shipSunk);
 
     makeMessageListenerThread();
+  }
+
+  private void setLanguage()  {
+    properties = new Properties();
+    InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
+    try {
+      properties.load(config);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    String languageVersion = properties.getProperty("languageVersion");
+    if(languageVersion.equals("Polish")) {
+      LANGUAGE_CONFIG = "Polish.properties";
+    }else {
+      LANGUAGE_CONFIG = "English.properties";
+    }
+    InputStream language = ClassLoader.getSystemResourceAsStream(LANGUAGE_CONFIG);
+    try {
+      properties.load(language);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   private void makeMessageListenerThread() {
@@ -163,25 +191,25 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText("play");
+        winning.setText(properties.getProperty("play"));
         shipBoard.setDisable(false);
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText("wait");
+        winning.setText(properties.getProperty("wait"));
         shipBoard.setDisable(true);
       };
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText("You won");
+        winning.setText(properties.getProperty("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText("You lost");
+      event -> winning.setText(properties.getProperty("loss"));
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
