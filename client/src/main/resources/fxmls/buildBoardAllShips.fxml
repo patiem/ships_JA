@@ -76,7 +76,7 @@
     </Button>
     <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true"
                preserveRatio="true">
-        <Image fx:id="jpg" url="@../images/bb35.png"/>
+        <Image fx:id="jpg" url="@../images/wreck.png"/>
     </ImageView>
     <TextField fx:id="userName" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0"
                text="Battleships">
