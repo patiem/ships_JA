@@ -25,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import messages.LanguageVersion;
 import model.Fleet;
 import model.Player;
 import model.Position;
@@ -54,6 +55,7 @@ public class FleetDropController implements Initializable {
   private final Sea sea;
   private Fleet fleet;
   private final Client client;
+  private LanguageVersion languageVersion = new LanguageVersion();
 
   @FXML
   private Button connectButton;
@@ -117,6 +119,7 @@ public class FleetDropController implements Initializable {
     addEventHandlerToConnectButton();
     addEventHandlersToShips();
     setupShipBoardUpdater();
+    this.connectButton.setText(languageVersion.getPlay());
   }
 
   private void populateSeaWithActiveFields() {
