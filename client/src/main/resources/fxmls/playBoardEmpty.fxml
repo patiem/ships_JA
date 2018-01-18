@@ -76,9 +76,9 @@
         </font>
     </TextField>
     <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@../images/bb35.png" />
+        <Image url="@../images/wreck.png" />
     </ImageView>
-    <TextField fx:id="userName" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0" text="Battleships">
+    <TextField fx:id="userName" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0" text="Shipwrecks">
         <font>
             <Font name="FreeMono Bold" size="18.0" />
         </font>
