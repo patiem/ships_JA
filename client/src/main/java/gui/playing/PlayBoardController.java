@@ -32,11 +32,9 @@ import responses.Response;
 import responses.ResponseHeader;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -75,7 +73,7 @@ public class PlayBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText(languageVersion.getWait());
+    winning.setText(languageVersion.getWaitMessage());
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -169,25 +167,25 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText(languageVersion.getPlay());
+        winning.setText(languageVersion.getPlayMessage());
         shipBoard.setDisable(false);
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText(languageVersion.getWait());
+        winning.setText(languageVersion.getWaitMessage());
         shipBoard.setDisable(true);
       };
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText(languageVersion.getWin());
+        winning.setText(languageVersion.getWinMessage());
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText(languageVersion.getLoss());
+      event -> winning.setText(languageVersion.getLossMessage());
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();

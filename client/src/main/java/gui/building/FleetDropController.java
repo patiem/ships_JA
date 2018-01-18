@@ -119,7 +119,7 @@ public class FleetDropController implements Initializable {
     addEventHandlerToConnectButton();
     addEventHandlersToShips();
     setupShipBoardUpdater();
-    this.connectButton.setText(languageVersion.getPlay());
+    this.connectButton.setText(languageVersion.getPlayMessage());
   }
 
   private void populateSeaWithActiveFields() {
