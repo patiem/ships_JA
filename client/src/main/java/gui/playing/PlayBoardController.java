@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
+import messages.LanguageVersion;
 import model.Position;
 import model.Sea;
 import model.ShipBoundariesPositions;
@@ -31,9 +32,11 @@ import responses.Response;
 import responses.ResponseHeader;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,10 +53,11 @@ public class PlayBoardController implements Initializable {
   private final Client client;
   private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
-
   private List<Position> positions;
   private SeaField lastField;
   private Sea sea;
+  private LanguageVersion languageVersion = new LanguageVersion();
+
 
   @FXML
   private GridPane shipBoard;
@@ -71,7 +75,7 @@ public class PlayBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText("wait");
+    winning.setText(languageVersion.getWait());
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -93,7 +97,8 @@ public class PlayBoardController implements Initializable {
         String message = client.getMessage();
         JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
         try {
-          Response responseToProcess = jsonParserAdapter.parse(message, Response.class, new ObjectMapper());
+          Response responseToProcess = jsonParserAdapter.parse(
+              message, Response.class, new ObjectMapper());
           processor.processMessage(responseToProcess);
           ResponseHeader header = responseToProcess.getHeader();
 
@@ -157,31 +162,32 @@ public class PlayBoardController implements Initializable {
       event -> {
         Integer index = Integer.valueOf(event.getMessage());
         Position fieldPosition = new Position(index);
-        SeaField seaHit = new SeaField(fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
+        SeaField seaHit = new SeaField(
+            fieldPosition.getRow(), fieldPosition.getColumn(), FieldSize.SMALL);
         putFieldOnOpponentBoard(seaHit);
       };
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText("play");
+        winning.setText(languageVersion.getPlay());
         shipBoard.setDisable(false);
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText("wait");
+        winning.setText(languageVersion.getWait());
         shipBoard.setDisable(true);
       };
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText("You won");
+        winning.setText(languageVersion.getWin());
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText("You lost");
+      event -> winning.setText(languageVersion.getLoss());
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
@@ -189,7 +195,9 @@ public class PlayBoardController implements Initializable {
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
         String[] positionsAsString = event.getMessage().split(POSITIONS_SEPARATOR);
-        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> sunkShipPositions = Arrays.stream(positionsAsString)
+            .map(Integer::parseInt)
+            .collect(Collectors.toList());
 
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
         shipBoundariesPositions

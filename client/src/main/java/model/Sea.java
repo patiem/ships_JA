@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 /**
  * It represents the entire board where ships are deployed.
  *
@@ -24,32 +23,21 @@ public class Sea {
     seaFields.add(seaField);
   }
 
-  /**
-   * Finds seaField with given position
-   *
-   */
-  public ClickableField getSeaFieldByPosition(Position position) {
+  ClickableField getSeaFieldByPosition(Position position) {
 
-    Optional<ClickableField> field = seaFields.stream()
+    Optional<ClickableField> field = seaFields
+        .stream()
         .filter(s -> s.position().equals(position))
         .findFirst();
+
     return field.orElseThrow(IndexOutOfBoundsException::new);
   }
 
-  /**
-   * Removes eventHandlers from all SeaFields in sea, and change their color to default
-   *
-   */
-  public void clearSea() {
+  void clearSea() {
     seaFields.forEach(ClickableField::makeUnclickable);
   }
 
-  /**
-   * Marks seaField in given position as boundary
-   * - it blocks possibility to add another ship in this field
-   *
-   */
-  public void makeBoundary(Position position) {
+  void makeBoundary(Position position) {
     getSeaFieldByPosition(position).markAsBound(true);
   }
 }

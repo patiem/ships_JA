@@ -5,6 +5,7 @@ import communication.MessageSender;
 import communication.PlayerClient;
 import json.JsonGeneratorAdapter;
 import responses.Response;
+
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +26,8 @@ public interface GameRunnerState {
       logger.log(Level.SEVERE, e.getMessage());
     }
   }
-  void  sendFinalResponse();
+
+  void sendFinalResponse();
+
   GameRunnerState run() throws IOException;
 }

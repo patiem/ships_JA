@@ -20,7 +20,8 @@ public class MessageOut implements Sender {
   }
 
   public static MessageOut from(Connector connector) throws IOException {
-    return new MessageOut(new PrintWriter(new OutputStreamWriter(connector.getOutStream(), StandardCharsets.UTF_8)));
+    return new MessageOut(new PrintWriter(
+        new OutputStreamWriter(connector.getOutStream(), StandardCharsets.UTF_8)));
   }
 
   @Override

@@ -20,7 +20,7 @@ import java.util.Optional;
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
     @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),
     @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse")}
-)
+    )
 public interface Response {
   ResponseHeader getHeader();
 
