@@ -6,10 +6,9 @@ import java.util.Properties;
 
 public class LanguageVersion {
 
-  private static final String SERVER_CONFIG_FILE = "config.properties";
-  private static String LANGUAGE_CONFIG;
+  private final String SERVER_CONFIG_FILE = "config.properties";
+  private String LANGUAGE_CONFIG;
   private Properties properties;
-
   private String name;
   private String wait;
   private String play;

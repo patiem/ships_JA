@@ -68,7 +68,7 @@ public class StartBoard extends Application {
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot, playScene);
 
-    stage.setTitle("Battleships");
+    stage.setTitle("ShipWrecks");
     stage.setScene(startScene);
     stage.show();
   }
