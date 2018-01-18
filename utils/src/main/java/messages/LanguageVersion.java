@@ -51,31 +51,31 @@ public class LanguageVersion {
     connect = properties.getProperty("connect");
   }
 
-  public String getName() {
+  public String getNameMessage() {
     return name;
   }
 
-  public String getWait() {
+  public String getWaitMessage() {
     return wait;
   }
 
-  public String getPlay() {
+  public String getPlayMessage() {
     return play;
   }
 
-  public String getWin() {
+  public String getWinMessage() {
     return win;
   }
 
-  public String getLoss() {
+  public String getLossMessage() {
     return loss;
   }
 
-  public String getConnect() {
+  public String getConnectMessage() {
     return connect;
   }
 
-  public String getNameLabel() {
+  public String getNameLabelMessage() {
     return nameLabel;
   }
 }

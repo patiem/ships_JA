@@ -30,8 +30,8 @@ class StartBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.userName.setText(languageVersion.getName());
-    this.nameLabel.setText(languageVersion.getNameLabel());
-    this.connectButton.setText(languageVersion.getConnect());
+    this.userName.setText(languageVersion.getNameMessage());
+    this.nameLabel.setText(languageVersion.getNameLabelMessage());
+    this.connectButton.setText(languageVersion.getConnectMessage());
   }
 }
