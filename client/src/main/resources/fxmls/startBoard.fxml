@@ -13,7 +13,7 @@
             prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141">
     <ImageView fitHeight="381.0" fitWidth="662.0" layoutX="33.0" layoutY="188.0" pickOnBounds="true"
                preserveRatio="true">
-        <Image url="@../images/bb35.png"/>
+        <Image url="@../images/wreck.png"/>
     </ImageView>
     <VBox fx:id="connectPanel" layoutX="476.0" layoutY="39.0" prefHeight="342.0" prefWidth="214.0">
         <Label text="Name">
@@ -43,7 +43,7 @@
         </Button>
     </VBox>
     <TextField editable="false" layoutX="51.0" layoutY="67.0" prefHeight="69.0" prefWidth="313.0"
-               text="Battleships">
+               text="Shipwrecks">
         <font>
             <Font name="FreeMono Bold" size="40.0"/>
         </font>
