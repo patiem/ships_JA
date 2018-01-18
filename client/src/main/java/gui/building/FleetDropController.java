@@ -105,7 +105,7 @@ public class FleetDropController implements Initializable {
   }
 
   /**
-   * It implements the 'initialize' method from the Initializable interface
+   * It implements the 'initialize' method from the Initializable interface.
    *
    * @param location  - required to implement the method
    * @param resources - required to implement the method
@@ -262,7 +262,8 @@ public class FleetDropController implements Initializable {
   private final ChangeListener<Boolean> mastIsCreated =
       new ChangeListener<Boolean>() {
         @Override
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        public void changed(ObservableValue<? extends Boolean> observable,
+                            Boolean oldValue, Boolean newValue) {
           port.setDisable(true);
           SeaField field = (SeaField) ((BooleanProperty) observable).getBean();
           Integer column = field.getColumn();
@@ -278,7 +279,8 @@ public class FleetDropController implements Initializable {
   private final ChangeListener<Boolean> boundIsSetOnSea =
       new ChangeListener<Boolean>() {
         @Override
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+        public void changed(ObservableValue<? extends Boolean> observable,
+                            Boolean oldValue, Boolean newValue) {
           SeaField field = (SeaField) ((BooleanProperty) observable).getBean();
           Integer column = field.getColumn();
           Integer row = field.getRow();

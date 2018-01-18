@@ -6,7 +6,7 @@ public enum FieldSize {
 
   private int value;
 
-  FieldSize(int value){
+  FieldSize(int value) {
     this.value = value;
   }
 

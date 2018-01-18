@@ -11,7 +11,8 @@ import java.io.IOException;
  * @version 1.5
  */
 public class JsonParserAdapter {
-  public <T> T parse(String jsonMessage, Class<T> objectClass, ObjectMapper mapper) throws IOException {
+  public <T> T parse(String jsonMessage, Class<T> objectClass,
+                     ObjectMapper mapper) throws IOException {
     mapper.registerModule(new Jdk8Module());
     return mapper.readValue(jsonMessage, objectClass);
   }

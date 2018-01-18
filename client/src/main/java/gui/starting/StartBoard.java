@@ -101,7 +101,8 @@ public class StartBoard extends Application {
     Node dispatcher = playRoot.lookup("#winning");
 
     DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
-    MessageProcessor processor = new MessageProcessor(ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
+    MessageProcessor processor = new MessageProcessor(
+        ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
     playBoardController.setMessageProcessor(processor);
   }
 
