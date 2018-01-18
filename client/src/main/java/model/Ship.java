@@ -34,6 +34,10 @@ public class Ship implements Iterable<Field> {
     return masts.stream().map(Field::position).collect(Collectors.toList());
   }
 
+  public List<Field> getMasts() {
+    return masts;
+  }
+
   List<Integer> positionsOfAllMastInShipAsIntegers() {
     return masts.stream().map(Field::positionAsInteger).collect(Collectors.toList());
   }

@@ -1,5 +1,7 @@
 package model;
 
+import gui.fields.Field;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +25,13 @@ public class Fleet {
   public List<Position> mastsPositions() {
     return ships.stream()
         .map(Ship::positionsOfAllMastInShip)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+  }
+
+  public List<Field> getFields(){
+    return ships.stream()
+        .map(Ship::getMasts)
         .flatMap(List::stream)
         .collect(Collectors.toList());
   }

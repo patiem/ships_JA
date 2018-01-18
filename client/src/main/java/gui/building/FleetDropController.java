@@ -30,6 +30,7 @@ import model.Fleet;
 import model.Player;
 import model.Position;
 import model.PossiblePositions;
+import model.RandomFleetGenerator;
 import model.Sea;
 import model.SeaCleaner;
 import model.Ship;
@@ -89,6 +90,8 @@ public class FleetDropController implements Initializable {
   private TextField info;
   @FXML
   private Button nextButton;
+  @FXML
+  private Button randomFleet;
 
   private Rectangle buildShip;
   private ShipCreator shipCreator;
@@ -117,6 +120,8 @@ public class FleetDropController implements Initializable {
 
     populateSeaWithActiveFields();
     addEventHandlerToConnectButton();
+    randomFleet.addEventHandler(MouseEvent.MOUSE_CLICKED, randomizeFleet);
+
     addEventHandlersToShips();
     setupShipBoardUpdater();
     this.connectButton.setText(languageVersion.getPlayMessage());
@@ -178,6 +183,16 @@ public class FleetDropController implements Initializable {
         } else {
           info.setText(EMPTY_FLEET_INFO);
         }
+        event.consume();
+      };
+
+  private final EventHandler<MouseEvent> randomizeFleet =
+      event -> {
+          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator();
+          fleet = randomFleetGenerator.generateRandomFleet();
+
+          fleet.getFields().forEach( x ->
+              shipBoard.getChildren().add((Mast) x));
         event.consume();
       };
 

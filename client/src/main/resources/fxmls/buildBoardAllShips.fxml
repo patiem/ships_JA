@@ -70,6 +70,9 @@
     <Button fx:id="connectButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false"
             text="Play!">
     </Button>
+    <Button fx:id="randomFleet" contentDisplay="CENTER" layoutX="403.0" layoutY="100.0" mnemonicParsing="false"
+            text="Randomize fleet">
+    </Button>
 
     <Button fx:id="nextButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false"
             visible="false" text="Play!">
