@@ -73,7 +73,7 @@ public class PlayBoardController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText(languageVersion.getWaitMessage());
+    winning.setText(languageVersion.getMessage("wait"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -167,25 +167,25 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText(languageVersion.getPlayMessage());
+        winning.setText(languageVersion.getMessage("play"));
         shipBoard.setDisable(false);
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText(languageVersion.getWaitMessage());
+        winning.setText(languageVersion.getMessage("wait"));
         shipBoard.setDisable(true);
       };
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText(languageVersion.getWinMessage());
+        winning.setText(languageVersion.getMessage("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText(languageVersion.getLossMessage());
+      event -> winning.setText(languageVersion.getMessage("loss"));
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();

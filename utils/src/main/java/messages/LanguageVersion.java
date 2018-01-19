@@ -9,13 +9,7 @@ import java.util.logging.Logger;
 public class LanguageVersion {
 
   private static final Logger LOGGER = Logger.getLogger(LanguageVersion.class.getName());
-  private String name;
-  private String wait;
-  private String play;
-  private String win;
-  private String loss;
-  private String nameLabel;
-  private String connect;
+  private Properties properties;
 
   public LanguageVersion() {
     setLanguage();
@@ -24,7 +18,7 @@ public class LanguageVersion {
   private void setLanguage() {
     String serverConfigFile = "config.properties";
     String languageConfig;
-    Properties properties = new Properties();
+    properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
@@ -43,40 +37,9 @@ public class LanguageVersion {
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE,e.getMessage());
     }
-    name = properties.getProperty("name");
-    wait = properties.getProperty("wait");
-    play = properties.getProperty("play");
-    win = properties.getProperty("win");
-    loss = properties.getProperty("loss");
-    nameLabel = properties.getProperty("nameLabel");
-    connect = properties.getProperty("connect");
   }
 
-  public String getNameMessage() {
-    return name;
-  }
-
-  public String getWaitMessage() {
-    return wait;
-  }
-
-  public String getPlayMessage() {
-    return play;
-  }
-
-  public String getWinMessage() {
-    return win;
-  }
-
-  public String getLossMessage() {
-    return loss;
-  }
-
-  public String getConnectMessage() {
-    return connect;
-  }
-
-  public String getNameLabelMessage() {
-    return nameLabel;
+  public String getMessage(String message) {
+    return properties.getProperty(message);
   }
 }
