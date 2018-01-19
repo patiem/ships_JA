@@ -43,7 +43,7 @@
         </Button>
     </VBox>
     <TextField editable="false" layoutX="51.0" layoutY="67.0" prefHeight="69.0" prefWidth="313.0"
-               text="Shipwrecks">
+               text="ShipWrecks">
         <font>
             <Font name="FreeMono Bold" size="40.0"/>
         </font>

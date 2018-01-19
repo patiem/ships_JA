@@ -79,7 +79,7 @@
         <Image fx:id="jpg" url="@../images/wreck.png"/>
     </ImageView>
     <TextField fx:id="userName" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0"
-               text="Battleships">
+               text="ShipWrecks">
         <font>
             <Font name="FreeMono Bold" size="18.0"/>
         </font>
