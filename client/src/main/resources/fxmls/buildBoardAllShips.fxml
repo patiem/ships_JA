@@ -74,6 +74,10 @@
             text="Randomize fleet">
     </Button>
 
+    <Button fx:id="clear" contentDisplay="CENTER" layoutX="603.0" layoutY="100.0" mnemonicParsing="false"
+            text="Clear fleet">
+    </Button>
+
     <Button fx:id="nextButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false"
             visible="false" text="Play!">
     </Button>

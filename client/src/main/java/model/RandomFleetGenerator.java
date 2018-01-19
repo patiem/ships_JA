@@ -16,8 +16,10 @@ public class RandomFleetGenerator {
     Ship ship = new Ship(1);
 
     Random random = new Random();
-    int column = random.nextInt(9);
-    int row = random.nextInt(9);
+    int column = random.nextInt(10);
+    int row = random.nextInt(10);
+    System.out.println(column);
+    System.out.println(row);
     Field field = new Mast(column, row, FieldSize.BIG);
     ship.addMast(field);
 
