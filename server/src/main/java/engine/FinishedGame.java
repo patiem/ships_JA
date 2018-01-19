@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class FinishedGame implements GameRunnerState {
 
   private PlayerRegistry playerRegistry;
+  private boolean isGameRunning = true;
 
   FinishedGame(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
@@ -41,5 +42,17 @@ public class FinishedGame implements GameRunnerState {
   @Override
   public GameRunnerState run() {
     return new FinishedGame(playerRegistry);
+  }
+
+  @Override
+  public GameRunnerState runFixed() throws IOException {
+    sendFinalResponse();
+    isGameRunning = false;
+    return this;
+  }
+
+  @Override
+  public boolean isGameRunning() {
+    return isGameRunning;
   }
 }

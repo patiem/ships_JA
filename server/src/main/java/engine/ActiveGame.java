@@ -21,6 +21,7 @@ public class ActiveGame implements GameRunnerState {
   private final Round round = new Round();
   private PlayerRegistry playerRegistry;
   private final Referee referee = new Referee();
+  private MessageReceiver messageReceiver = new MessageReceiver();
 
   public ActiveGame(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
@@ -35,7 +36,6 @@ public class ActiveGame implements GameRunnerState {
   public GameRunnerState run() throws IOException {
 
     while (true) {
-      MessageReceiver messageReceiver = new MessageReceiver();
       Socket socket = playerRegistry.getCurrentPlayer().getSocket();
       ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
       Shot shot = shotMessage.getShot();
@@ -64,6 +64,24 @@ public class ActiveGame implements GameRunnerState {
         sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
       }
     }
+  }
+
+  public GameRunnerState runFixed() throws IOException {
+    sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+    Socket socket = playerRegistry.getCurrentPlayer().getSocket();
+    ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
+    Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
+    Shot shot = shotMessage.getShot();
+    ShotResult result = round.fireShot(fleetUnderFire, shot);
+    logShotInfo(shot, result);
+
+
+    result.sendResponses(playerRegistry, shot);
+
+    if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
+      return new FinishedGame(playerRegistry);
+    }
+    return this;
   }
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {

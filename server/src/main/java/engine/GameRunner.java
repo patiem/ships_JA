@@ -29,4 +29,12 @@ public class GameRunner {
 
     currentState.sendFinalResponse();
   }
+
+  public void runGameFixed() throws IOException {
+    do {
+      currentState = currentState.runFixed();
+      System.out.println(currentState.getClass().getName());
+    }
+    while (currentState.isGameRunning());
+  }
 }
