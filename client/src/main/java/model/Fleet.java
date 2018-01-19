@@ -27,7 +27,7 @@ public class Fleet {
         .collect(Collectors.toList());
   }
 
-  public boolean isFleetEmpty() {
-    return ships.isEmpty();
+  public boolean isFleetFullyBuilt() {
+    return ships.size() == 10;
   }
 }

@@ -33,7 +33,6 @@ import java.util.logging.Logger;
  */
 public class StartBoard extends Application {
 
-  private static final String GAME_NAME = "ShipWrecks";
   private static final String START_BOARD_URL = "/fxmls/startBoard.fxml";
   private static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
@@ -69,8 +68,6 @@ public class StartBoard extends Application {
 
     createStartBoard(startRoot, buildScene);
     createBuildBoard(buildRoot);
-    //createPlayBoard(playRoot, fleetDropController.listOfMasts());
-
 
     addNextButtonToBuildBoard(playScene);
 
@@ -119,7 +116,7 @@ public class StartBoard extends Application {
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
       String userName = ((TextField) startBoard.lookup("#userName")).getText();
       ((TextField) buildBoard.lookup("#userName"))
-          .setText(String.format("%s - %s", GAME_NAME, userName));
+          .setText(userName);
       stage.setScene(buildScene);
     });
   }
@@ -130,7 +127,6 @@ public class StartBoard extends Application {
 
       stage.setScene(playScene);
       try {
-//        playBoardController.fleetOnSmallBoard(fleetDropController.listOfMasts());
         createPlayBoard(playRoot, fleetDropController.listOfMasts());
       } catch (IOException e) {
         LOGGER.log(Level.SEVERE, e.getMessage());
