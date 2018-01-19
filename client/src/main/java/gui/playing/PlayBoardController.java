@@ -3,14 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
-import gui.events.SunkShipEvent;
-import gui.events.UpdateWhenHitEvent;
-import gui.events.UpdateWhenMissedEvent;
-import gui.events.YouHitEvent;
-import gui.events.YouLostEvent;
-import gui.events.YouMissedEvent;
-import gui.events.YouWinEvent;
-import gui.events.YourTurnEvent;
+import gui.events.*;
 import gui.fields.Field;
 import gui.fields.FieldSize;
 import gui.fields.Mast;
@@ -21,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
@@ -63,6 +57,10 @@ public class PlayBoardController implements Initializable {
   private GridPane targetBoard;
   @FXML
   private TextField winning;
+  @FXML
+  private ImageView jack;
+  @FXML
+  private ImageView sunk;
 
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
@@ -181,11 +179,17 @@ public class PlayBoardController implements Initializable {
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
+        suspend();
+        jack.setVisible(true);
         winning.setText(languageVersion.getWinMessage());
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText(languageVersion.getLossMessage());
+      event -> {
+        suspend();
+        sunk.setVisible(true);
+        winning.setText(languageVersion.getLossMessage());
+      };
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
@@ -205,6 +209,14 @@ public class PlayBoardController implements Initializable {
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;
+  }
+
+  private void suspend() {
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
 
