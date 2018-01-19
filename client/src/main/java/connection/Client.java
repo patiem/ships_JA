@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.fields.Field;
 import json.JsonGeneratorAdapter;
+import messages.LoggerWrapper;
 import messages.ShotMessage;
 import model.Shot;
 
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class Client {
 
-  private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+  private static final LoggerWrapper LOGGER = new LoggerWrapper();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;

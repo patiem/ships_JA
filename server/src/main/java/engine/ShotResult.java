@@ -6,5 +6,5 @@ package engine;
  * @version 1.5
  */
 public enum ShotResult {
-  HIT, MISSED, HIT_AGAIN,SUNK
+  HIT, MISSED, HIT_AGAIN,SUNK;
 }

@@ -20,7 +20,6 @@ class Main {
   private static final String SERVER_CONFIG_FILE = "config.properties";
   private static final String PATH_TO_PROPS = "utils/src/main/resources/";
 
-
   public static void main(String[] args) throws IOException {
 
     if (args.length > 0) {
