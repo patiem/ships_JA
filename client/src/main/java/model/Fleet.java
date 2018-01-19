@@ -3,10 +3,11 @@ package model;
 import gui.fields.Field;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Fleet {
+public class Fleet implements Iterable<Ship> {
 
   private List<Ship> ships;
 
@@ -38,5 +39,10 @@ public class Fleet {
 
   public boolean isFleetEmpty() {
     return ships.isEmpty();
+  }
+
+  @Override
+  public Iterator<Ship> iterator() {
+    return ships.iterator();
   }
 }

@@ -31,7 +31,7 @@ import model.Fleet;
 import model.Player;
 import model.Position;
 import model.PossiblePositions;
-import model.RandomFleetGenerator;
+import model.randomize.RandomFleetGenerator;
 import model.Sea;
 import model.SeaCleaner;
 import model.Ship;
@@ -54,7 +54,8 @@ public class FleetDropController implements Initializable {
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
   private static final String EMPTY_FLEET_INFO = "You can't play with empty fleet";
-  private final Sea sea;
+
+  private Sea sea;
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
@@ -189,7 +190,7 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> randomizeFleet =
       event -> {
-          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator();
+          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(sea);
           fleet = randomFleetGenerator.generateRandomFleet();
 
           fleet.getFields().forEach( x ->{
@@ -197,9 +198,6 @@ public class FleetDropController implements Initializable {
                 GridPane.setConstraints((Node) x, x.getColumn(), x.getRow());
               }
           );
-
-
-
         event.consume();
       };
 
