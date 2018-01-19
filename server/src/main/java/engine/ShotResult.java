@@ -27,44 +27,46 @@ import java.util.logging.Logger;
 public enum ShotResult {
   HIT {
     public void sendResponses(PlayerRegistry playerRegistry, Shot shot) {
-      sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-      sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+      MESSAGE_SENDER.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
+      MESSAGE_SENDER.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
 
     }
   },
   MISSED {
     public void sendResponses(PlayerRegistry playerRegistry, Shot shot) {
-      sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
-      sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
+      MESSAGE_SENDER.sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
+      MESSAGE_SENDER.sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
       playerRegistry.switchPlayers();
     }
   },
   SUNK {
     public void sendResponses(PlayerRegistry playerRegistry, Shot shot) {
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
-      sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-      sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(
+      MESSAGE_SENDER.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
+      MESSAGE_SENDER.sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(
           shot.asInteger())), playerRegistry.getCurrentPlayer());
-      sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+      MESSAGE_SENDER.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
     }
   };
+
+  private static final MessageSender MESSAGE_SENDER = new MessageSender();
 
   public abstract void sendResponses(PlayerRegistry playerRegistry, Shot shot);
 
 
-  private static void sendResponse(Response responseToSend, PlayerClient player) {
-    Logger logger = Logger.getLogger(GameRunnerState.class.getName());
-    try {
-      JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
-      MessageSender messageSender = new MessageSender();
-
-      String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
-      messageSender.sendMessageToPlayer(player, message);
-      String logMessage = String.format("Message has been send: %s", message);
-      logger.info(logMessage);
-    } catch (IOException e) {
-      logger.log(Level.SEVERE, e.getMessage());
-    }
-  }
+//  private static void sendResponse(Response responseToSend, PlayerClient player) {
+//    Logger logger = Logger.getLogger(GameRunnerState.class.getName());
+//    try {
+//      JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
+//      MessageSender messageSender = new MessageSender();
+//
+//      String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
+//      messageSender.sendMessageToPlayer(player, message);
+//      String logMessage = String.format("Message has been send: %s", message);
+//      logger.info(logMessage);
+//    } catch (IOException e) {
+//      logger.log(Level.SEVERE, e.getMessage());
+//    }
+//  }
 
 }
