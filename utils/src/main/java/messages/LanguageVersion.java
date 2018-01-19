@@ -22,17 +22,14 @@ public class LanguageVersion {
     InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
-    } catch (IOException e) {
-      LOGGER.log(Level.SEVERE,e.getMessage());
-    }
-    String languageVersion = properties.getProperty("languageVersion");
-    if (languageVersion.equals("Polish")) {
-      languageConfig = "Polish.properties";
-    } else {
-      languageConfig = "English.properties";
-    }
-    InputStream language = ClassLoader.getSystemResourceAsStream(languageConfig);
-    try {
+      String languageVersion = properties.getProperty("languageVersion");
+      
+      if (languageVersion.equals("Polish")) {
+        languageConfig = "Polish.properties";
+      } else {
+        languageConfig = "English.properties";
+      }
+      InputStream language = ClassLoader.getSystemResourceAsStream(languageConfig);
       properties.load(language);
     } catch (IOException e) {
       LOGGER.log(Level.SEVERE,e.getMessage());
