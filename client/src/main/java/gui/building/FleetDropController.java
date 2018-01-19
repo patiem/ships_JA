@@ -176,7 +176,7 @@ public class FleetDropController implements Initializable {
           fleetSender.sendFleetToServer();
           nextButton.fireEvent(new ConnectEvent());
         } else {
-          info.setText(EMPTY_FLEET_INFO);
+          info.setText(languageVersion.getMessage("emptyFleetInfo"));
         }
         event.consume();
       };

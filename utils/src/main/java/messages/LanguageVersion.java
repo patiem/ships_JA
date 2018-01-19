@@ -23,7 +23,6 @@ public class LanguageVersion {
     try {
       properties.load(config);
       String languageVersion = properties.getProperty("languageVersion");
-      
       if (languageVersion.equals("Polish")) {
         languageConfig = "Polish.properties";
       } else {
@@ -32,7 +31,7 @@ public class LanguageVersion {
       InputStream language = ClassLoader.getSystemResourceAsStream(languageConfig);
       properties.load(language);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE,e.getMessage());
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
