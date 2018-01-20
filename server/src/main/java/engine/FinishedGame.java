@@ -11,7 +11,10 @@ import java.util.logging.Logger;
 
 public class FinishedGame implements GameRunnerState {
 
+    private static final Logger LOGGER = Logger.getLogger(FinishedGame.class.getName());
+
     private final MessageSender messageSender;
+
     private PlayerRegistry playerRegistry;
     private boolean isGameRunning = true;
 
@@ -20,22 +23,17 @@ public class FinishedGame implements GameRunnerState {
         this.messageSender = messageSender;
     }
 
-    private void sendFinalResponse() {
-        Logger logger = Logger.getLogger(FinishedGame.class.getName());
-
+    @Override
+    public GameRunnerState runFixed() throws IOException {
         PlayerClient winner = playerRegistry.getCurrentPlayer();
         PlayerClient looser = playerRegistry.getWaitingPlayer();
 
         messageSender.sendResponse(new WinResponse(), winner);
         messageSender.sendResponse(new LossResponse(), looser);
-        String logMessage = String.format("Message has been send. Player %s won, player %s lost", winner, looser);
+        String logMessage = String.format("Message has been send. Player %s won, player %s lost",
+                winner, looser);
 
-        logger.info(logMessage);
-    }
-
-    @Override
-    public GameRunnerState runFixed() throws IOException {
-        sendFinalResponse();
+        LOGGER.info(logMessage);
         isGameRunning = false;
         return this;
     }

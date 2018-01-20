@@ -21,8 +21,7 @@ import java.util.logging.Logger;
  */
 public class SocketMessageSender implements MessageSender {
 
-  @Override
-  public void sendMessageToPlayer(PlayerClient playerClient,
+  private void sendMessageToPlayer(PlayerClient playerClient,
                                   String messageToSend) throws IOException {
     OutputStreamWriter writer = new OutputStreamWriter(
         playerClient.getSocket().getOutputStream(), StandardCharsets.UTF_8);

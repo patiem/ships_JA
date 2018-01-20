@@ -1,6 +1,7 @@
 package engine;
 
 import communication.MessageReceiver;
+import communication.MessageSender;
 import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import fleet.Fleet;
@@ -23,14 +24,17 @@ public class ActiveGame implements GameRunnerState {
     this.playerRegistry = playerRegistry;
   }
 
+  @Override
   public GameRunnerState runFixed() throws IOException {
-    sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+    MessageSender messageSender = new SocketMessageSender();
+    messageSender.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+
     Socket socket = playerRegistry.getCurrentPlayer().getSocket();
     ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
     Shot shot = shotMessage.getShot();
     IShotResult result = round.fireShotFixed(fleetUnderFire, shot);
-    //logShotInfo(shot, result);
+    logShotInfo(shot, result);
 
     result.notifyClients(playerRegistry, shot);
 
