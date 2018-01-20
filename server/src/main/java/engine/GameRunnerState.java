@@ -29,7 +29,6 @@ public interface GameRunnerState {
 
   void sendFinalResponse();
 
- // GameRunnerState run() throws IOException;
   GameRunnerState runFixed() throws IOException;
 
 

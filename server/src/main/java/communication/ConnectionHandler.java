@@ -26,7 +26,7 @@ class ConnectionHandler {
   }
 
   private void setUpGame() throws IOException {
-    GameRunner gameRunner = new GameRunner(playerRegistry, new ActiveGame(playerRegistry));
+    GameRunner gameRunner = new GameRunner(new ActiveGame(playerRegistry));
     gameRunner.runGameFixed();
   }
 

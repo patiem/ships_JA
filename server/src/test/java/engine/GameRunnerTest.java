@@ -25,7 +25,7 @@ public class GameRunnerTest {
   public void setUp() {
     activeGameMock = mock(GameRunnerState.class);
     playerRegistry = mock(PlayerRegistry.class);
-    gameRunner = new GameRunner(playerRegistry, activeGameMock);
+    gameRunner = new GameRunner(activeGameMock);
     finishedGameMock = mock(FinishedGame.class);
   }
 
@@ -70,12 +70,4 @@ public class GameRunnerTest {
 
     verify(activeGameMock, times(1)).runFixed();
   }
-//
-//  public void runGameFixed() throws IOException {
-//    do {
-//      currentState = currentState.runFixed();
-//      System.out.println(currentState.getClass().getName());
-//    }
-//    while (currentState.isGameRunning());
-//  }
 }

@@ -9,7 +9,7 @@ import responses.OpponentHitResponse;
 public class ShipHit implements IShotResult {
     private final MessageSender messageSender;
 
-    public ShipHit(MessageSender messageSender) {
+    ShipHit(MessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
@@ -17,5 +17,10 @@ public class ShipHit implements IShotResult {
     public void notifyClients(PlayerRegistry playerRegistry, Shot shot) {
         messageSender.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
         messageSender.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+    }
+
+    @Override
+    public String toString() {
+        return "Hit";
     }
 }

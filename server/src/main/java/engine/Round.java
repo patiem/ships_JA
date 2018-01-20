@@ -8,12 +8,12 @@ import model.Shot;
  * @author Bartosz Pieczara/Emilia Ciastek
  * @version 1.5
  */
-public class Round {
+class Round {
 
-  ShotResult fireShot(Fleet fleetUnderFire, Shot shot) {
+  IShotResult fireShotFixed(Fleet fleetUnderFire, Shot shot) {
     Integer shotPosition = shot.asInteger();
     HitChecker hitChecker = new HitChecker(fleetUnderFire);
 
-    return hitChecker.checkShot(shotPosition);
+    return hitChecker.checkShotFixed(shotPosition);
   }
 }

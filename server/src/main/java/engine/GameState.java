@@ -1,6 +1,5 @@
 package engine;
 
-
 /**
  * It holds the game states.
  * @author Bartosz Pieczara

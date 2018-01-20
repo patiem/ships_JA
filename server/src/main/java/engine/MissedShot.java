@@ -9,7 +9,7 @@ import responses.OpponentMissedResponse;
 public class MissedShot implements IShotResult {
     private final MessageSender messageSender;
 
-    public MissedShot(MessageSender messageSender) {
+    MissedShot(MessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
@@ -18,5 +18,10 @@ public class MissedShot implements IShotResult {
         messageSender.sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
         messageSender.sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
         playerRegistry.switchPlayers();
+    }
+
+    @Override
+    public String toString() {
+        return "Missed";
     }
 }

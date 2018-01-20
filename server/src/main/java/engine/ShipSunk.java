@@ -12,7 +12,7 @@ import responses.SunkResponse;
 public class ShipSunk implements IShotResult {
     private final MessageSender messageSender;
 
-    public ShipSunk(MessageSender messageSender) {
+    ShipSunk(MessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
@@ -23,5 +23,10 @@ public class ShipSunk implements IShotResult {
         messageSender.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
         messageSender.sendResponse(new SunkResponse(sunkShip), playerRegistry.getCurrentPlayer());
         messageSender.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+    }
+
+    @Override
+    public String toString() {
+        return "Sunk";
     }
 }

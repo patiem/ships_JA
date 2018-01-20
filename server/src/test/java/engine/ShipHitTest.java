@@ -26,4 +26,13 @@ public class ShipHitTest {
         int expectedInvocationNumber = 2;
         verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class), any(PlayerClient.class));
     }
+
+
+//    @Test
+//    public void shouldReturnCorrectStringWhenToString(){
+//        String expected = "Hit";
+//
+//        String actual =
+//
+//    }
 }
