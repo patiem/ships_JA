@@ -16,7 +16,7 @@ public class ShipHitTest {
     @Test
     public void shouldInvokeMethodOnMessageSenderWhenNotifyClients(){
         SocketMessageSender messageSender = mock(SocketMessageSender.class);
-        IShotResult shotResult = new ShipHit(messageSender);
+        ShotResult shotResult = new ShipHit(messageSender);
         PlayerRegistry playerRegistry = new PlayerRegistry();
         Integer shotPosition = 5;
         Shot shot = new Shot(shotPosition);
@@ -29,7 +29,7 @@ public class ShipHitTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        IShotResult shotResult = new ShipHit(new SocketMessageSender());
+        ShotResult shotResult = new ShipHit(new SocketMessageSender());
         String expected = "Hit";
 
         String actual = shotResult.toString();

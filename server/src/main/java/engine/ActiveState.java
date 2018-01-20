@@ -13,19 +13,18 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class ActiveGame implements GameRunnerState {
-  private static final Logger LOGGER = Logger.getLogger(ActiveGame.class.getName());
+public class ActiveState implements GameState {
+  private static final Logger LOGGER = Logger.getLogger(ActiveState.class.getName());
   private final Round round = new Round();
   private final PlayerRegistry playerRegistry;
-  private final Referee referee = new Referee();
   private MessageReceiver messageReceiver = new MessageReceiver();
 
-  public ActiveGame(PlayerRegistry playerRegistry) {
+  public ActiveState(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
   }
 
   @Override
-  public GameRunnerState runFixed() throws IOException {
+  public GameState run() throws IOException {
     MessageSender messageSender = new SocketMessageSender();
     messageSender.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
 
@@ -33,18 +32,19 @@ public class ActiveGame implements GameRunnerState {
     ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
     Shot shot = shotMessage.getShot();
-    IShotResult result = round.fireShotFixed(fleetUnderFire, shot);
+    ShotResult result = round.fireShotFixed(fleetUnderFire, shot);
     logShotInfo(shot, result);
 
     result.notifyClients(playerRegistry, shot);
 
-    if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
+    if(fleetUnderFire.isSunk()){
       return new FinishedGame(playerRegistry, new SocketMessageSender());
     }
+
     return this;
   }
 
-  private void logShotInfo(final Shot shot, final IShotResult shotResult) {
+  private void logShotInfo(final Shot shot, final ShotResult shotResult) {
     String messageTemplate = "Player: %s, shot: position: %s, shotState: %s;";
     String logMessage = String.format(messageTemplate, playerRegistry.currentPlayerName(),
         shot.asInteger(), shotResult.toString());

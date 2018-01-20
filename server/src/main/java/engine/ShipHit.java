@@ -6,7 +6,7 @@ import model.Shot;
 import responses.HitResponse;
 import responses.OpponentHitResponse;
 
-public class ShipHit implements IShotResult {
+public class ShipHit implements ShotResult {
     private final SocketMessageSender messageSender;
 
     ShipHit(SocketMessageSender messageSender) {

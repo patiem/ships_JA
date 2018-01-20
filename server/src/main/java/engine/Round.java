@@ -10,7 +10,7 @@ import model.Shot;
  */
 class Round {
 
-  IShotResult fireShotFixed(Fleet fleetUnderFire, Shot shot) {
+  ShotResult fireShotFixed(Fleet fleetUnderFire, Shot shot) {
     Integer shotPosition = shot.asInteger();
     HitChecker hitChecker = new HitChecker(fleetUnderFire);
 

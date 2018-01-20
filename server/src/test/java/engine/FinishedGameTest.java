@@ -19,7 +19,7 @@ public class FinishedGameTest {
     public void shouldSetIsRunningToFalse() throws IOException {
         MessageSender mockedMessageSender = mock(MessageSender.class);
         FinishedGame finishedGame = new FinishedGame(new PlayerRegistry(), mockedMessageSender);
-        finishedGame.runFixed();
+        finishedGame.run();
 
         assertFalse(finishedGame.isGameRunning());
     }
@@ -32,7 +32,7 @@ public class FinishedGameTest {
         when(playerRegistry.getCurrentPlayer()).thenReturn(mockedPlayer);
 
         FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
-        finishedGame.runFixed();
+        finishedGame.run();
 
         verify(mockedMessageSender).sendResponse(isA(WinResponse.class), eq(mockedPlayer));
     }
@@ -45,7 +45,7 @@ public class FinishedGameTest {
         when(playerRegistry.getWaitingPlayer()).thenReturn(mockedPlayer);
 
         FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
-        finishedGame.runFixed();
+        finishedGame.run();
 
         verify(mockedMessageSender).sendResponse(isA(LossResponse.class), eq(mockedPlayer));
     }

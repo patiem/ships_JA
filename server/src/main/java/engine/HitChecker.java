@@ -19,7 +19,7 @@ class HitChecker {
         this.fleet = fleet;
     }
 
-    IShotResult checkShotFixed(Integer shotPosition) {
+    ShotResult checkShotFixed(Integer shotPosition) {
         boolean isShipPosition = fleet.getFleetPositions().contains(shotPosition);
         boolean isHitAgain = fleet.getHitFields().contains(shotPosition);
 

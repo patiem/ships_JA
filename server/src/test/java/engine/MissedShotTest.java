@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 
 public class MissedShotTest {
     private SocketMessageSender messageSender;
-    private IShotResult shotResult;
+    private ShotResult shotResult;
     private PlayerRegistry playerRegistry;
     private Shot shot;
 
@@ -44,7 +44,7 @@ public class MissedShotTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        IShotResult shotResult = new MissedShot(new SocketMessageSender());
+        ShotResult shotResult = new MissedShot(new SocketMessageSender());
         String expected = "Missed";
 
         String actual = shotResult.toString();

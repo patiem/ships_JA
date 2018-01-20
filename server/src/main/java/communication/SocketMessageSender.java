@@ -1,7 +1,7 @@
 package communication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import engine.GameRunnerState;
+import engine.GameState;
 import json.JsonGeneratorAdapter;
 import responses.Response;
 
@@ -34,7 +34,7 @@ public class SocketMessageSender implements MessageSender {
 
   @Override
   public void sendResponse(Response responseToSend, PlayerClient player) {
-    Logger logger = Logger.getLogger(GameRunnerState.class.getName());
+    Logger logger = Logger.getLogger(GameState.class.getName());
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
 

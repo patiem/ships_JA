@@ -11,15 +11,15 @@ import java.io.IOException;
 
 public class GameRunner {
 
-  private GameRunnerState currentState;
+  private GameState currentState;
 
-  public GameRunner(GameRunnerState gameRunnerState) {
-    this.currentState = gameRunnerState;
+  public GameRunner(GameState gameState) {
+    this.currentState = gameState;
   }
 
   public void runGameFixed() throws IOException {
     do {
-      currentState = currentState.runFixed();
+      currentState = currentState.run();
     }
     while (currentState.isGameRunning());
   }

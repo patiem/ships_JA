@@ -9,7 +9,7 @@ import responses.WinResponse;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-public class FinishedGame implements GameRunnerState {
+public class FinishedGame implements GameState {
 
     private static final Logger LOGGER = Logger.getLogger(FinishedGame.class.getName());
 
@@ -24,7 +24,7 @@ public class FinishedGame implements GameRunnerState {
     }
 
     @Override
-    public GameRunnerState runFixed() throws IOException {
+    public GameState run() throws IOException {
         PlayerClient winner = playerRegistry.getCurrentPlayer();
         PlayerClient looser = playerRegistry.getWaitingPlayer();
 

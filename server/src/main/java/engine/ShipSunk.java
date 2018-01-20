@@ -9,7 +9,7 @@ import responses.HitResponse;
 import responses.OpponentHitResponse;
 import responses.SunkResponse;
 
-public class ShipSunk implements IShotResult {
+public class ShipSunk implements ShotResult {
     private final SocketMessageSender messageSender;
 
     ShipSunk(SocketMessageSender messageSender) {

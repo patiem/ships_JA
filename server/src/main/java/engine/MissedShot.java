@@ -6,7 +6,7 @@ import model.Shot;
 import responses.MissedResponse;
 import responses.OpponentMissedResponse;
 
-public class MissedShot implements IShotResult {
+public class MissedShot implements ShotResult {
     private final SocketMessageSender messageSender;
 
     MissedShot(SocketMessageSender messageSender) {

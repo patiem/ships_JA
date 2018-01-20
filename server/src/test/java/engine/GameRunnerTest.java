@@ -1,10 +1,8 @@
 package engine;
 
-import communication.PlayerClient;
 import communication.PlayerRegistry;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import responses.PlayResponse;
 
 import java.io.IOException;
 
@@ -16,14 +14,14 @@ import static org.mockito.Mockito.when;
 
 public class GameRunnerTest {
 
-  private GameRunnerState activeGameMock;
+  private GameState activeGameMock;
   private FinishedGame finishedGameMock;
   private PlayerRegistry playerRegistry;
   private GameRunner gameRunner;
 
   @BeforeMethod
   public void setUp() {
-    activeGameMock = mock(GameRunnerState.class);
+    activeGameMock = mock(GameState.class);
     playerRegistry = mock(PlayerRegistry.class);
     gameRunner = new GameRunner(activeGameMock);
     finishedGameMock = mock(FinishedGame.class);
@@ -64,10 +62,10 @@ public class GameRunnerTest {
   @Test
   public void shouldInvokeRunMethodOnProvidedState() throws IOException {
     when(activeGameMock.isGameRunning()).thenReturn(false);
-    when(activeGameMock.runFixed()).thenReturn(activeGameMock);
+    when(activeGameMock.run()).thenReturn(activeGameMock);
 
     gameRunner.runGameFixed();
 
-    verify(activeGameMock, times(1)).runFixed();
+    verify(activeGameMock, times(1)).run();
   }
 }
