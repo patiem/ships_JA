@@ -29,37 +29,37 @@ public class GameRunnerTest {
     finishedGameMock = mock(FinishedGame.class);
   }
 
-  @Test
-  public void whenTheRunMethodIsCalledLaunchTheGame() throws Exception {
-    // Arrange
-    when(activeGameMock.run()).thenReturn(finishedGameMock);
-    // Act
-    gameRunner.runGame();
-    // Assert
-    verify(activeGameMock, times(1)).run();
-  }
-
-  @Test
-  public void whenTheRunMethodIsCalledThenInvokeTheSendResponseMethod() throws Exception {
-    // Arrange
-    when(activeGameMock.run()).thenReturn(finishedGameMock);
-    // Act
-    gameRunner.runGame();
-    // Assert
-    verify(finishedGameMock, times(1)).sendFinalResponse();
-  }
-
-  @Test
-  public void whenTheRunMethodIsCalledThenInvokeTheSendResponseMethodWithArguments() throws Exception {
-    // Arrange
-    PlayerClient playerClient = mock(PlayerClient.class);
-    when(playerRegistry.getCurrentPlayer()).thenReturn(playerClient);
-    when(activeGameMock.run()).thenReturn(finishedGameMock);
-    // Act
-    gameRunner.runGame();
-    // Assert
-    verify(activeGameMock, times(1)).sendResponse(any(PlayResponse.class),any(PlayerClient.class));
-  }
+//  @Test
+//  public void whenTheRunMethodIsCalledLaunchTheGame() throws Exception {
+//    // Arrange
+//    when(activeGameMock.run()).thenReturn(finishedGameMock);
+//    // Act
+//    gameRunner.runGame();
+//    // Assert
+//    verify(activeGameMock, times(1)).run();
+//  }
+//
+//  @Test
+//  public void whenTheRunMethodIsCalledThenInvokeTheSendResponseMethod() throws Exception {
+//    // Arrange
+//    when(activeGameMock.run()).thenReturn(finishedGameMock);
+//    // Act
+//    gameRunner.runGame();
+//    // Assert
+//    verify(finishedGameMock, times(1)).sendFinalResponse();
+//  }
+//
+//  @Test
+//  public void whenTheRunMethodIsCalledThenInvokeTheSendResponseMethodWithArguments() throws Exception {
+//    // Arrange
+//    PlayerClient playerClient = mock(PlayerClient.class);
+//    when(playerRegistry.getCurrentPlayer()).thenReturn(playerClient);
+//    when(activeGameMock.run()).thenReturn(finishedGameMock);
+//    // Act
+//    gameRunner.runGame();
+//    // Assert
+//    verify(activeGameMock, times(1)).sendResponse(any(PlayResponse.class),any(PlayerClient.class));
+//  }
 
   @Test
   public void shouldInvokeRunMethodOnProvidedState() throws IOException {

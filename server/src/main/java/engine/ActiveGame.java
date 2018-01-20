@@ -32,36 +32,36 @@ public class ActiveGame implements GameRunnerState {
     throw new UnsupportedOperationException();
   }
 
-  @Override
-  public GameRunnerState run() throws IOException {
-
-    while (true) {
-      Socket socket = playerRegistry.getCurrentPlayer().getSocket();
-      ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
-      Shot shot = shotMessage.getShot();
-      Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
-      ShotResult result = round.fireShot(fleetUnderFire, shot);
-      logShotInfo(shot, result);
-
-      if (result == ShotResult.SUNK) {
-        sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-        sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(
-            shot.asInteger())), playerRegistry.getCurrentPlayer());
-        sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
-        if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
-          return new FinishedGame(playerRegistry);
-        }
-      } else if (result == ShotResult.HIT) {
-        sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-        sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
-      } else {
-        sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
-        sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
-        playerRegistry.switchPlayers();
-        sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
-      }
-    }
-  }
+//  @Override
+//  public GameRunnerState run() throws IOException {
+//
+//    while (true) {
+//      Socket socket = playerRegistry.getCurrentPlayer().getSocket();
+//      ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
+//      Shot shot = shotMessage.getShot();
+//      Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
+//      ShotResult result = round.fireShot(fleetUnderFire, shot);
+//      logShotInfo(shot, result);
+//
+//      if (result == ShotResult.SUNK) {
+//        sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
+//        sendResponse(new SunkResponse(fleetUnderFire.getShipByPosition(
+//            shot.asInteger())), playerRegistry.getCurrentPlayer());
+//        sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+//        if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
+//          return new FinishedGame(playerRegistry);
+//        }
+//      } else if (result == ShotResult.HIT) {
+//        sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
+//        sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+//      } else {
+//        sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
+//        sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
+//        playerRegistry.switchPlayers();
+//        sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+//      }
+//    }
+//  }
 
   public GameRunnerState runFixed() throws IOException {
     sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
@@ -71,7 +71,6 @@ public class ActiveGame implements GameRunnerState {
     Shot shot = shotMessage.getShot();
     ShotResult result = round.fireShot(fleetUnderFire, shot);
     logShotInfo(shot, result);
-
 
     result.sendResponses(playerRegistry, shot);
 

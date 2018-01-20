@@ -10,7 +10,7 @@ import responses.OpponentHitResponse;
 import responses.SunkResponse;
 
 public class ShipSunk implements IShotResult {
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
 
     public ShipSunk(MessageSender messageSender) {
         this.messageSender = messageSender;

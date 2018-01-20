@@ -7,7 +7,7 @@ import responses.HitResponse;
 import responses.OpponentHitResponse;
 
 public class ShipHit implements IShotResult {
-    private MessageSender messageSender;
+    private final MessageSender messageSender;
 
     public ShipHit(MessageSender messageSender) {
         this.messageSender = messageSender;

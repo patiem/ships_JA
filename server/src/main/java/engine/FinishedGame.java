@@ -39,10 +39,10 @@ public class FinishedGame implements GameRunnerState {
     }
   }
 
-  @Override
-  public GameRunnerState run() {
-    return new FinishedGame(playerRegistry);
-  }
+//  @Override
+//  public GameRunnerState run() {
+//    return new FinishedGame(playerRegistry);
+//  }
 
   @Override
   public GameRunnerState runFixed() throws IOException {

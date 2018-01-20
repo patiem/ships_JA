@@ -22,13 +22,13 @@ public class GameRunner {
     this.currentState = gameRunnerState;
   }
 
-  public void runGame() throws IOException {
-    currentState.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
-
-    currentState = currentState.run();
-
-    currentState.sendFinalResponse();
-  }
+//  public void runGame() throws IOException {
+//    currentState.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+//
+//    currentState = currentState.run();
+//
+//    currentState.sendFinalResponse();
+//  }
 
   public void runGameFixed() throws IOException {
     do {
