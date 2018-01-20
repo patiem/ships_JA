@@ -1,6 +1,6 @@
 package engine;
 
-import communication.SocketMessageSender;
+import communication.PlayerClient;
 import communication.PlayerRegistry;
 import fleet.Fleet;
 import model.ShipModel;
@@ -10,19 +10,16 @@ import responses.OpponentHitResponse;
 import responses.SunkResponse;
 
 public class ShipSunk implements ShotResult {
-    private final SocketMessageSender messageSender;
-
-    ShipSunk(SocketMessageSender messageSender) {
-        this.messageSender = messageSender;
-    }
 
     @Override
     public void notifyClients(PlayerRegistry playerRegistry, Shot shot) {
+        PlayerClient currentPlayer = playerRegistry.getCurrentPlayer();
+        PlayerClient waitingPlayer = playerRegistry.getWaitingPlayer();
         Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
         ShipModel sunkShip = fleetUnderFire.getShipByPosition(shot.asInteger());
-        messageSender.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
-        messageSender.sendResponse(new SunkResponse(sunkShip), playerRegistry.getCurrentPlayer());
-        messageSender.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
+        currentPlayer.sendResponse(new HitResponse());
+        currentPlayer.sendResponse(new SunkResponse(sunkShip));
+        waitingPlayer.sendResponse(new OpponentHitResponse(shot));
     }
 
     @Override

@@ -29,12 +29,12 @@ class HitChecker {
             boolean isShipSunk = fleet.getHitFields().containsAll(shipPositions);
 
             if (isShipSunk) {
-                return new ShipSunk(new SocketMessageSender());
+                return new ShipSunk();
             }
 
-            return new ShipHit(new SocketMessageSender());
+            return new ShipHit();
         }
 
-        return new MissedShot(new SocketMessageSender());
+        return new MissedShot();
     }
 }

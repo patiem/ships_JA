@@ -13,14 +13,11 @@ public class FinishedGame implements GameState {
 
     private static final Logger LOGGER = Logger.getLogger(FinishedGame.class.getName());
 
-    private final MessageSender messageSender;
-
     private PlayerRegistry playerRegistry;
     private boolean isGameRunning = true;
 
-    FinishedGame(PlayerRegistry playerRegistry, MessageSender messageSender) {
+    FinishedGame(PlayerRegistry playerRegistry) {
         this.playerRegistry = playerRegistry;
-        this.messageSender = messageSender;
     }
 
     @Override
@@ -28,8 +25,8 @@ public class FinishedGame implements GameState {
         PlayerClient winner = playerRegistry.getCurrentPlayer();
         PlayerClient looser = playerRegistry.getWaitingPlayer();
 
-        messageSender.sendResponse(new WinResponse(), winner);
-        messageSender.sendResponse(new LossResponse(), looser);
+        winner.sendResponse(new WinResponse());
+        looser.sendResponse(new LossResponse());
         String logMessage = String.format("Message has been send. Player %s won, player %s lost",
                 winner, looser);
 

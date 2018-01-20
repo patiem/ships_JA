@@ -32,15 +32,11 @@ class ConnectionHandler {
 
   private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
     Socket socket = serverSocket.accept();
-    PlayerClient playerClient = createClient(socket);
-    playerRegistry.registerPlayer(playerClient);
-  }
 
-  private PlayerClient createClient(final Socket socket) throws IOException {
-    MessageReceiver messageReceiver = new MessageReceiver();
-    ConnectionMessage connectionMessage = messageReceiver.receiveConnectionMessage(socket);
-    String playerName = connectionMessage.getName();
-    Fleet playerFleet = new CustomFleet(connectionMessage.getFleetModel());
-    return new PlayerClient(playerName, socket, playerFleet);
+    MessageReceiver messageReceiver = new SocketMessageReceiver(socket);
+    MessageSender messageSender = new SocketMessageSender(socket);
+    ClientCreator clientCreator = new ClientCreator(messageReceiver, messageSender);
+    PlayerClient playerClient = clientCreator.createClient();
+    playerRegistry.registerPlayer(playerClient);
   }
 }

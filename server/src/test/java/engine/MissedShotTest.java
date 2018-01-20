@@ -21,7 +21,7 @@ public class MissedShotTest {
     @BeforeMethod
     public void setUp(){
         messageSender = mock(SocketMessageSender.class);
-        shotResult = new MissedShot(messageSender);
+        shotResult = new MissedShot();
         playerRegistry = mock(PlayerRegistry.class);
         Integer shotPosition = 5;
         shot = new Shot(shotPosition);
@@ -32,7 +32,7 @@ public class MissedShotTest {
         shotResult.notifyClients(playerRegistry, shot);
 
         int expectedInvocationNumber = 2;
-        verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class), any(PlayerClient.class));
+        verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class MissedShotTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        ShotResult shotResult = new MissedShot(new SocketMessageSender());
+        ShotResult shotResult = new MissedShot();
         String expected = "Missed";
 
         String actual = shotResult.toString();

@@ -1,9 +1,6 @@
 package engine;
 
-import communication.MessageReceiver;
-import communication.MessageSender;
-import communication.SocketMessageSender;
-import communication.PlayerRegistry;
+import communication.*;
 import fleet.Fleet;
 import messages.ShotMessage;
 import model.Shot;
@@ -17,7 +14,6 @@ public class ActiveState implements GameState {
   private static final Logger LOGGER = Logger.getLogger(ActiveState.class.getName());
   private final Round round = new Round();
   private final PlayerRegistry playerRegistry;
-  private MessageReceiver messageReceiver = new MessageReceiver();
 
   public ActiveState(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
@@ -25,11 +21,10 @@ public class ActiveState implements GameState {
 
   @Override
   public GameState run() throws IOException {
-    MessageSender messageSender = new SocketMessageSender();
-    messageSender.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
+    PlayerClient currentPlayer = playerRegistry.getCurrentPlayer();
+    currentPlayer.sendResponse(new PlayResponse());
 
-    Socket socket = playerRegistry.getCurrentPlayer().getSocket();
-    ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
+    ShotMessage shotMessage = currentPlayer.receiveShotMessage();
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
     Shot shot = shotMessage.getShot();
     ShotResult result = round.fireShotFixed(fleetUnderFire, shot);
@@ -38,7 +33,7 @@ public class ActiveState implements GameState {
     result.notifyClients(playerRegistry, shot);
 
     if(fleetUnderFire.isSunk()){
-      return new FinishedGame(playerRegistry, new SocketMessageSender());
+      return new FinishedGame(playerRegistry);
     }
 
     return this;

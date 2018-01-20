@@ -17,7 +17,7 @@ public class ShipSunkTest {
     @Test
     public void shouldInvokeMethodOnMessageSenderWhenNotifyClients() {
         SocketMessageSender messageSender = mock(SocketMessageSender.class);
-        ShotResult shotResult = new ShipSunk(messageSender);
+        ShotResult shotResult = new ShipSunk();
         PlayerRegistry playerRegistry = mock(PlayerRegistry.class);
         when(playerRegistry.getFleetUnderFire()).thenReturn(new HardcodedFleet());
 
@@ -27,12 +27,12 @@ public class ShipSunkTest {
         shotResult.notifyClients(playerRegistry, shot);
 
         int expectedInvocationNumber = 3;
-        verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class), any(PlayerClient.class));
+        verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class));
     }
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        ShotResult shotResult = new ShipSunk(new SocketMessageSender());
+        ShotResult shotResult = new ShipSunk();
         String expected = "Sunk";
 
         String actual = shotResult.toString();

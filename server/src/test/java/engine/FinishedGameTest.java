@@ -17,8 +17,7 @@ import static org.testng.Assert.assertFalse;
 public class FinishedGameTest {
     @Test
     public void shouldSetIsRunningToFalse() throws IOException {
-        MessageSender mockedMessageSender = mock(MessageSender.class);
-        FinishedGame finishedGame = new FinishedGame(new PlayerRegistry(), mockedMessageSender);
+        FinishedGame finishedGame = new FinishedGame(new PlayerRegistry());
         finishedGame.run();
 
         assertFalse(finishedGame.isGameRunning());
@@ -31,10 +30,10 @@ public class FinishedGameTest {
         PlayerClient mockedPlayer = mock(PlayerClient.class);
         when(playerRegistry.getCurrentPlayer()).thenReturn(mockedPlayer);
 
-        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
+        FinishedGame finishedGame = new FinishedGame(playerRegistry);
         finishedGame.run();
 
-        verify(mockedMessageSender).sendResponse(isA(WinResponse.class), eq(mockedPlayer));
+        verify(mockedMessageSender).sendResponse(isA(WinResponse.class));
     }
 
     @Test
@@ -44,9 +43,9 @@ public class FinishedGameTest {
         PlayerClient mockedPlayer = mock(PlayerClient.class);
         when(playerRegistry.getWaitingPlayer()).thenReturn(mockedPlayer);
 
-        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
+        FinishedGame finishedGame = new FinishedGame(playerRegistry);
         finishedGame.run();
 
-        verify(mockedMessageSender).sendResponse(isA(LossResponse.class), eq(mockedPlayer));
+        verify(mockedMessageSender).sendResponse(isA(LossResponse.class));
     }
 }

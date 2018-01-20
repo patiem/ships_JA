@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +22,15 @@ import java.util.logging.Logger;
  */
 public class SocketMessageSender implements MessageSender {
 
-  private void sendMessageToPlayer(PlayerClient playerClient,
-                                  String messageToSend) throws IOException {
+  private final Socket socket;
+
+  public SocketMessageSender(Socket socket) {
+    this.socket = socket;
+  }
+
+  private void sendMessageToPlayer(String messageToSend) throws IOException {
     OutputStreamWriter writer = new OutputStreamWriter(
-        playerClient.getSocket().getOutputStream(), StandardCharsets.UTF_8);
+        socket.getOutputStream(), StandardCharsets.UTF_8);
     PrintWriter printWriter = new PrintWriter(writer, true);
     BufferedWriter bufferedWriter = new BufferedWriter(printWriter);
     bufferedWriter.write(messageToSend);
@@ -33,13 +39,13 @@ public class SocketMessageSender implements MessageSender {
   }
 
   @Override
-  public void sendResponse(Response responseToSend, PlayerClient player) {
+  public void sendResponse(Response responseToSend) {
     Logger logger = Logger.getLogger(GameState.class.getName());
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
 
       String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
-      sendMessageToPlayer(player, message);
+      sendMessageToPlayer(message);
       String logMessage = String.format("Message has been send: %s", message);
       logger.info(logMessage);
     } catch (IOException e) {

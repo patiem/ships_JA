@@ -1,5 +1,6 @@
 package engine;
 
+import communication.PlayerClient;
 import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import model.Shot;
@@ -7,16 +8,12 @@ import responses.MissedResponse;
 import responses.OpponentMissedResponse;
 
 public class MissedShot implements ShotResult {
-    private final SocketMessageSender messageSender;
-
-    MissedShot(SocketMessageSender messageSender) {
-        this.messageSender = messageSender;
-    }
-
     @Override
     public void notifyClients(PlayerRegistry playerRegistry, Shot shot) {
-        messageSender.sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
-        messageSender.sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
+       PlayerClient currentPlayer = playerRegistry.getCurrentPlayer();
+       PlayerClient waitingPlayer = playerRegistry.getWaitingPlayer();
+        currentPlayer.sendResponse(new MissedResponse());
+        waitingPlayer.sendResponse(new OpponentMissedResponse(shot));
         playerRegistry.switchPlayers();
     }
 
