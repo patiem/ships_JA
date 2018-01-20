@@ -1,15 +1,15 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import model.Shot;
 import responses.MissedResponse;
 import responses.OpponentMissedResponse;
 
 public class MissedShot implements IShotResult {
-    private final MessageSender messageSender;
+    private final SocketMessageSender messageSender;
 
-    MissedShot(MessageSender messageSender) {
+    MissedShot(SocketMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 

@@ -1,16 +1,12 @@
 package engine;
 
 import communication.MessageReceiver;
+import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import fleet.Fleet;
 import messages.ShotMessage;
 import model.Shot;
-import responses.HitResponse;
-import responses.MissedResponse;
-import responses.OpponentHitResponse;
-import responses.OpponentMissedResponse;
 import responses.PlayResponse;
-import responses.SunkResponse;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -27,11 +23,6 @@ public class ActiveGame implements GameRunnerState {
     this.playerRegistry = playerRegistry;
   }
 
-  @Override
-  public void sendFinalResponse() {
-    throw new UnsupportedOperationException();
-  }
-
   public GameRunnerState runFixed() throws IOException {
     sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
     Socket socket = playerRegistry.getCurrentPlayer().getSocket();
@@ -44,7 +35,7 @@ public class ActiveGame implements GameRunnerState {
     result.notifyClients(playerRegistry, shot);
 
     if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
-      return new FinishedGame(playerRegistry);
+      return new FinishedGame(playerRegistry, new SocketMessageSender());
     }
     return this;
   }

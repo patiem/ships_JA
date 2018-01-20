@@ -1,6 +1,6 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import fleet.Fleet;
 import model.ShipModel;
@@ -10,9 +10,9 @@ import responses.OpponentHitResponse;
 import responses.SunkResponse;
 
 public class ShipSunk implements IShotResult {
-    private final MessageSender messageSender;
+    private final SocketMessageSender messageSender;
 
-    ShipSunk(MessageSender messageSender) {
+    ShipSunk(SocketMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 

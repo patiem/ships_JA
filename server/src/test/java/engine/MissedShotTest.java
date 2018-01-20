@@ -1,6 +1,6 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
 import model.Shot;
@@ -13,14 +13,14 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 public class MissedShotTest {
-    private MessageSender messageSender;
+    private SocketMessageSender messageSender;
     private IShotResult shotResult;
     private PlayerRegistry playerRegistry;
     private Shot shot;
 
     @BeforeMethod
     public void setUp(){
-        messageSender = mock(MessageSender.class);
+        messageSender = mock(SocketMessageSender.class);
         shotResult = new MissedShot(messageSender);
         playerRegistry = mock(PlayerRegistry.class);
         Integer shotPosition = 5;
@@ -44,7 +44,7 @@ public class MissedShotTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        IShotResult shotResult = new MissedShot(new MessageSender());
+        IShotResult shotResult = new MissedShot(new SocketMessageSender());
         String expected = "Missed";
 
         String actual = shotResult.toString();

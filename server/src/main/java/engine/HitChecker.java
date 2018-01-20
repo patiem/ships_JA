@@ -1,6 +1,6 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import fleet.Fleet;
 
 import java.util.List;
@@ -29,12 +29,12 @@ class HitChecker {
             boolean isShipSunk = fleet.getHitFields().containsAll(shipPositions);
 
             if (isShipSunk) {
-                return new ShipSunk(new MessageSender());
+                return new ShipSunk(new SocketMessageSender());
             }
 
-            return new ShipHit(new MessageSender());
+            return new ShipHit(new SocketMessageSender());
         }
 
-        return new MissedShot(new MessageSender());
+        return new MissedShot(new SocketMessageSender());
     }
 }

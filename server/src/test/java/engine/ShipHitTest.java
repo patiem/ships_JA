@@ -1,6 +1,6 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
 import model.Shot;
@@ -15,7 +15,7 @@ public class ShipHitTest {
 
     @Test
     public void shouldInvokeMethodOnMessageSenderWhenNotifyClients(){
-        MessageSender messageSender = mock(MessageSender.class);
+        SocketMessageSender messageSender = mock(SocketMessageSender.class);
         IShotResult shotResult = new ShipHit(messageSender);
         PlayerRegistry playerRegistry = new PlayerRegistry();
         Integer shotPosition = 5;
@@ -29,7 +29,7 @@ public class ShipHitTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        IShotResult shotResult = new ShipHit(new MessageSender());
+        IShotResult shotResult = new ShipHit(new SocketMessageSender());
         String expected = "Hit";
 
         String actual = shotResult.toString();

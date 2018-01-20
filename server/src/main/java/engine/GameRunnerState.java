@@ -1,7 +1,7 @@
 package engine;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerClient;
 import json.JsonGeneratorAdapter;
 import responses.Response;
@@ -16,7 +16,7 @@ public interface GameRunnerState {
     Logger logger = Logger.getLogger(GameRunnerState.class.getName());
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
-      MessageSender messageSender = new MessageSender();
+      SocketMessageSender messageSender = new SocketMessageSender();
 
       String message = jsonGeneratorAdapter.createJson(responseToSend, new ObjectMapper());
       messageSender.sendMessageToPlayer(player, message);
@@ -27,10 +27,7 @@ public interface GameRunnerState {
     }
   }
 
-  void sendFinalResponse();
-
   GameRunnerState runFixed() throws IOException;
-
 
   default boolean isGameRunning(){
     return true;

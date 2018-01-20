@@ -1,15 +1,15 @@
 package engine;
 
-import communication.MessageSender;
+import communication.SocketMessageSender;
 import communication.PlayerRegistry;
 import model.Shot;
 import responses.HitResponse;
 import responses.OpponentHitResponse;
 
 public class ShipHit implements IShotResult {
-    private final MessageSender messageSender;
+    private final SocketMessageSender messageSender;
 
-    ShipHit(MessageSender messageSender) {
+    ShipHit(SocketMessageSender messageSender) {
         this.messageSender = messageSender;
     }
 
