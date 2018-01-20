@@ -189,7 +189,9 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> randomizeFleet =
       event -> {
-          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator();
+          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(getSea());
+          sea = new Sea();
+          populateSeaWithActiveFields();
           fleet = randomFleetGenerator.generateRandomFleet();
 
           fleet.getFields().forEach( x ->{
@@ -197,9 +199,6 @@ public class FleetDropController implements Initializable {
                 GridPane.setConstraints((Node) x, x.getColumn(), x.getRow());
               }
           );
-
-
-
         event.consume();
       };
 
@@ -323,6 +322,8 @@ public class FleetDropController implements Initializable {
   private Client getClient() {
     return client;
   }
+
+  private Sea getSea() { return sea; }
 
   private void setupClient() {
     client.run();
