@@ -1,5 +1,6 @@
 package gui.starting;
 
+import gui.OutputChannelDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import java.util.ResourceBundle;
 class StartBoardController implements Initializable {
 
   private LanguageVersion languageVersion = new LanguageVersion();
+  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
 
   @FXML
   private TextField userName;
@@ -30,8 +32,16 @@ class StartBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.userName.setText(languageVersion.getMessage("name"));
-    this.nameLabel.setText(languageVersion.getMessage("nameLabel"));
-    this.connectButton.setText(languageVersion.getMessage("connect"));
+    String nameMessage = languageVersion.getMessage("name");
+    String nameLabel = languageVersion.getMessage("nameLabel");
+    String connect = languageVersion.getMessage("connect");
+
+    this.userName.setText(nameMessage);
+    this.nameLabel.setText(nameLabel);
+    this.connectButton.setText(connect);
+
+    outputChannelDispatcher.printToDesiredOutput(nameMessage);
+    outputChannelDispatcher.printToDesiredOutput(nameLabel);
+    outputChannelDispatcher.printToDesiredOutput(connect);
   }
 }

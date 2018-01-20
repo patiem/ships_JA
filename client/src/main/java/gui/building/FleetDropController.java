@@ -2,6 +2,7 @@ package gui.building;
 
 import connection.Client;
 import connection.FleetSender;
+import gui.OutputChannelDispatcher;
 import gui.fields.BoundField;
 import gui.fields.FieldSize;
 import gui.fields.Mast;
@@ -55,6 +56,7 @@ public class FleetDropController implements Initializable {
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
+  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
 
   @FXML
   private Button connectButton;
@@ -175,7 +177,9 @@ public class FleetDropController implements Initializable {
           fleetSender.sendFleetToServer();
           nextButton.fireEvent(new ConnectEvent());
         } else {
+//          String emptyFleetMessage = languageVersion.getMessage("emptyFleetInfo");
           info.setText(languageVersion.getMessage("emptyFleetInfo"));
+         outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("emptyFleetInfo"));
         }
         event.consume();
       };

@@ -3,6 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
+import gui.OutputChannelDispatcher;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
 import gui.events.UpdateWhenMissedEvent;
@@ -55,6 +56,7 @@ public class PlayBoardController implements Initializable {
   private SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
+  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
 
 
   @FXML
@@ -71,9 +73,11 @@ public class PlayBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
     winning.setText(languageVersion.getMessage("wait"));
+    outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -166,26 +170,35 @@ public class PlayBoardController implements Initializable {
       };
 
   private final EventHandler<YourTurnEvent> enableBoard =
-      event -> {
-        winning.setText(languageVersion.getMessage("play"));
-        shipBoard.setDisable(false);
-      };
+          event -> {
+            winning.setText(languageVersion.getMessage("play"));
+            shipBoard.setDisable(false);
+            outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("play"));
+          };
 
   private final EventHandler<YouMissedEvent> youMissed =
-      event -> {
-        lastField.missed();
-        winning.setText(languageVersion.getMessage("wait"));
-        shipBoard.setDisable(true);
-      };
+          event -> {
+            lastField.missed();
+            winning.setText(languageVersion.getMessage("wait"));
+            shipBoard.setDisable(true);
+            outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
+          };
+
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
+
         lastField.hit();
         winning.setText(languageVersion.getMessage("win"));
+        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText(languageVersion.getMessage("loss"));
+      event -> {
+
+        winning.setText(languageVersion.getMessage("loss"));
+        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("loss"));
+      };
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();

@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class Client {
 
-  private static final LoggerWrapper LOGGER = new LoggerWrapper();
+//  private static final LoggerWrapper LOGGER = new LoggerWrapper();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;
@@ -39,7 +39,7 @@ public class Client {
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+//      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
@@ -79,9 +79,9 @@ public class Client {
           new ShotMessage(shotToSend), new ObjectMapper());
       sendMessage(message);
       String logMessage = String.format("Message has benn send: %s", message);
-      LOGGER.info(logMessage);
+//      LOGGER.info(logMessage);
     } catch (JsonProcessingException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+//      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
