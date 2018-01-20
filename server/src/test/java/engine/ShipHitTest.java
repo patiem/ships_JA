@@ -3,11 +3,11 @@ package engine;
 import communication.MessageSender;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
-import fleet.HardcodedFleet;
 import model.Shot;
 import org.testng.annotations.Test;
 import responses.Response;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -27,12 +27,13 @@ public class ShipHitTest {
         verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class), any(PlayerClient.class));
     }
 
+    @Test
+    public void shouldReturnCorrectStringWhenToString(){
+        IShotResult shotResult = new ShipHit(new MessageSender());
+        String expected = "Hit";
 
-//    @Test
-//    public void shouldReturnCorrectStringWhenToString(){
-//        String expected = "Hit";
-//
-//        String actual =
-//
-//    }
+        String actual = shotResult.toString();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

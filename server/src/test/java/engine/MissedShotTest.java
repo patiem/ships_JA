@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import responses.Response;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -39,5 +40,15 @@ public class MissedShotTest {
         shotResult.notifyClients(playerRegistry, shot);
 
         verify(playerRegistry).switchPlayers();
+    }
+
+    @Test
+    public void shouldReturnCorrectStringWhenToString(){
+        IShotResult shotResult = new MissedShot(new MessageSender());
+        String expected = "Missed";
+
+        String actual = shotResult.toString();
+
+        assertThat(actual).isEqualTo(expected);
     }
 }
