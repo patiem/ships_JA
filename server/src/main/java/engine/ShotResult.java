@@ -29,7 +29,6 @@ public enum ShotResult {
     public void sendResponses(PlayerRegistry playerRegistry, Shot shot) {
       MESSAGE_SENDER.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
       MESSAGE_SENDER.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
-
     }
   },
   MISSED {

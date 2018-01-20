@@ -6,6 +6,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import responses.PlayResponse;
 
+import java.io.IOException;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -58,4 +60,22 @@ public class GameRunnerTest {
     // Assert
     verify(activeGameMock, times(1)).sendResponse(any(PlayResponse.class),any(PlayerClient.class));
   }
+
+  @Test
+  public void shouldInvokeRunMethodOnProvidedState() throws IOException {
+    when(activeGameMock.isGameRunning()).thenReturn(false);
+    when(activeGameMock.runFixed()).thenReturn(activeGameMock);
+
+    gameRunner.runGameFixed();
+
+    verify(activeGameMock, times(1)).runFixed();
+  }
+//
+//  public void runGameFixed() throws IOException {
+//    do {
+//      currentState = currentState.runFixed();
+//      System.out.println(currentState.getClass().getName());
+//    }
+//    while (currentState.isGameRunning());
+//  }
 }

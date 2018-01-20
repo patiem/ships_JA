@@ -54,9 +54,6 @@ public class ActiveGame implements GameRunnerState {
       } else if (result == ShotResult.HIT) {
         sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
         sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
-        if (referee.isVictory(fleetUnderFire) == GameState.WIN) {
-          return new FinishedGame(playerRegistry);
-        }
       } else {
         sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
         sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());

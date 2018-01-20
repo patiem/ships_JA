@@ -70,6 +70,4 @@ public class RoundTest {
 
     assertEquals(actualShotResult, expectedResult);
   }
-
-
 }
