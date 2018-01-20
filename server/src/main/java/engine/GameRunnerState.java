@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public interface GameRunnerState {
 
   default void sendResponse(Response responseToSend, PlayerClient player) {
-    LoggerWrapper logger = new LoggerWrapper();
+    LoggerWrapper logger = LoggerWrapper.getInstance();
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();

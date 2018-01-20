@@ -17,7 +17,7 @@ import java.net.Socket;
 
 public class ActiveGame implements GameRunnerState {
 
-  private LoggerWrapper loggerWrapper = new LoggerWrapper();
+  private LoggerWrapper loggerWrapper = LoggerWrapper.getInstance();
   private final Round round = new Round();
   private PlayerRegistry playerRegistry;
   private final Referee referee = new Referee();

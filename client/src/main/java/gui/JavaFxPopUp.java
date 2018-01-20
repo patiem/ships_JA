@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.scene.control.Alert;
+
 public class JavaFxPopUp implements OutputSelector {
 
     OutputChannelDispatcher outputChannelDispatcher;
@@ -10,6 +12,8 @@ public class JavaFxPopUp implements OutputSelector {
 
     @Override
     public void printToDesiredOutput(String message) {
+      Alert alert = new Alert(Alert.AlertType.INFORMATION, message);
+      alert.show();
 
     }
 }

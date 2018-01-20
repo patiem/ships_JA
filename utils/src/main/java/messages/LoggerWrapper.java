@@ -14,9 +14,22 @@ public class LoggerWrapper {
   private Properties properties;
   private FileHandler fileHandler;
   private boolean fileOutput;
+  private static LoggerWrapper instance = null;
 
-  public LoggerWrapper() {
+  {
     configureLogOutput();
+
+  }
+
+  private LoggerWrapper() {
+
+  }
+
+  public static LoggerWrapper getInstance() {
+    if(instance == null) {
+      instance = new LoggerWrapper();
+    }
+    return instance;
   }
 
   private void configureLogOutput() {
@@ -35,7 +48,7 @@ public class LoggerWrapper {
   }
 
   private void configureLoggingToFile() throws IOException {
-    fileHandler = new FileHandler("ShipWrecks.log", true);
+    fileHandler = new FileHandler("ShipWrecks.log", false);
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();
     fileHandler.setFormatter(formatter);
