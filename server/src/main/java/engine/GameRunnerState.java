@@ -4,17 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import communication.MessageSender;
 import communication.PlayerClient;
 import json.JsonGeneratorAdapter;
-import messages.LoggerWrapper;
+import messages.ServerLogger;
 import responses.Response;
 
 import java.io.IOException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public interface GameRunnerState {
 
   default void sendResponse(Response responseToSend, PlayerClient player) {
-    LoggerWrapper logger = LoggerWrapper.getInstance();
+    ServerLogger logger = ServerLogger.getInstance();
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();

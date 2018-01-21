@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.fields.Field;
 import json.JsonGeneratorAdapter;
-import messages.LoggerWrapper;
+import messages.ClientLogger;
 import messages.ShotMessage;
 import model.Shot;
 
@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * It handles connection with server.
@@ -21,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Client {
 
-//  private static final LoggerWrapper LOGGER = new LoggerWrapper();
+  private  final ClientLogger LOGGER = ClientLogger.getInstance();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;
@@ -39,7 +38,7 @@ public class Client {
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
-//      LOGGER.log(Level.SEVERE, e.getMessage());
+     LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
@@ -79,9 +78,9 @@ public class Client {
           new ShotMessage(shotToSend), new ObjectMapper());
       sendMessage(message);
       String logMessage = String.format("Message has benn send: %s", message);
-//      LOGGER.info(logMessage);
+     LOGGER.info(logMessage);
     } catch (JsonProcessingException e) {
-//      LOGGER.log(Level.SEVERE, e.getMessage());
+    LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 

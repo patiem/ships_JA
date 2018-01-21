@@ -3,7 +3,7 @@ package engine;
 import communication.MessageReceiver;
 import communication.PlayerRegistry;
 import fleet.Fleet;
-import messages.LoggerWrapper;
+import messages.ServerLogger;
 import messages.ShotMessage;
 import model.Shot;
 import responses.HitResponse;
@@ -17,7 +17,7 @@ import java.net.Socket;
 
 public class ActiveGame implements GameRunnerState {
 
-  private LoggerWrapper loggerWrapper = LoggerWrapper.getInstance();
+  private ServerLogger serverLogger = ServerLogger.getInstance();
   private final Round round = new Round();
   private PlayerRegistry playerRegistry;
   private final Referee referee = new Referee();
@@ -42,7 +42,7 @@ public class ActiveGame implements GameRunnerState {
       Shot shot = shotMessage.getShot();
       Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
       ShotResult result = round.fireShot(fleetUnderFire, shot);
-      loggerWrapper.logShotInfo(shot.toString(), result.name(), playerRegistry.currentPlayerName().toString());
+      serverLogger.logShotInfo(shot.toString(), result.name(), playerRegistry.currentPlayerName().toString());
 
       if (result == ShotResult.SUNK) {
         sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());

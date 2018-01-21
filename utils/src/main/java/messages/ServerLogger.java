@@ -8,26 +8,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class LoggerWrapper {
+public class ServerLogger {
 
-  private static final Logger LOGGER = Logger.getLogger(LoggerWrapper.class.getName());
+  private static final Logger LOGGER = Logger.getLogger(ServerLogger.class.getName());
   private Properties properties;
   private FileHandler fileHandler;
-  private boolean fileOutput;
-  private static LoggerWrapper instance = null;
+  private static ServerLogger instance = null;
 
   {
     configureLogOutput();
-
   }
 
-  private LoggerWrapper() {
+  private ServerLogger() { }
 
-  }
-
-  public static LoggerWrapper getInstance() {
+  public static ServerLogger getInstance() {
     if(instance == null) {
-      instance = new LoggerWrapper();
+      instance = new ServerLogger();
     }
     return instance;
   }
@@ -39,7 +35,6 @@ public class LoggerWrapper {
     try {
       properties.load(config);
       if(properties.getProperty("logsToFile").equals("yes")){
-        fileOutput = true;
         configureLoggingToFile();
       }
     } catch (IOException e) {
@@ -48,7 +43,7 @@ public class LoggerWrapper {
   }
 
   private void configureLoggingToFile() throws IOException {
-    fileHandler = new FileHandler("ShipWrecks.log", false);
+    fileHandler = new FileHandler("ServerLogs.log", false);
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();
     fileHandler.setFormatter(formatter);
@@ -67,5 +62,9 @@ public class LoggerWrapper {
 
   public void log(Level level, String logMessage) {
     LOGGER.log(level,logMessage);
+  }
+
+  public FileHandler getFileHandler() {
+    return fileHandler;
   }
 }
