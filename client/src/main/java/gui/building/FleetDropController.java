@@ -2,6 +2,7 @@ package gui.building;
 
 import connection.Client;
 import connection.FleetSender;
+import gui.OutputChannelDispatcher;
 import gui.fields.BoundField;
 import gui.fields.FieldSize;
 import gui.fields.Mast;
@@ -51,11 +52,11 @@ public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
-  private static final String EMPTY_FLEET_INFO = "You can't play with empty fleet";
   private final Sea sea;
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
+  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
 
   @FXML
   private Button connectButton;
@@ -119,7 +120,7 @@ public class FleetDropController implements Initializable {
     addEventHandlerToConnectButton();
     addEventHandlersToShips();
     setupShipBoardUpdater();
-    this.connectButton.setText(languageVersion.getPlayMessage());
+    this.connectButton.setText(languageVersion.getMessage("play"));
   }
 
   private void populateSeaWithActiveFields() {
@@ -169,15 +170,16 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> connectWhenClicked =
       event -> {
-//        if (fleet.isFleetFullyBuilt()) {
+        if (fleet.isFleetFullyBuilt()) {
           setupClient();
           Player player = new Player(fleet, userName.getText());
           FleetSender fleetSender = new FleetSender(getClient(), player);
           fleetSender.sendFleetToServer();
           nextButton.fireEvent(new ConnectEvent());
-//        } else {
-//          info.setText(EMPTY_FLEET_INFO);
-//        }
+        } else {
+          info.setText(languageVersion.getMessage("emptyFleetInfo"));
+          outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("emptyFleetInfo"));
+        }
         event.consume();
       };
 

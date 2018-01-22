@@ -3,6 +3,7 @@ package gui.starting;
 import connection.Client;
 import connection.MessageProcessor;
 import connection.chain.ChainConfigFactory;
+import gui.OutputChannelDispatcher;
 import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
 import gui.playing.PlayBoardController;
@@ -37,7 +38,6 @@ public class StartBoard extends Application {
   private static final String BUILD_BOARD_URL = "/fxmls/buildBoardAllShips.fxml";
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
   private static final Logger LOGGER = Logger.getLogger(StartBoard.class.getName());
-
 
   private final Client client = new Client();
   private Stage stage;

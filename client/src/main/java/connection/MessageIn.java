@@ -1,5 +1,7 @@
 package connection;
 
+import messages.ClientLogger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,8 +16,7 @@ import java.util.logging.Logger;
  */
 public class MessageIn implements Receiver {
 
-  private static final Logger LOGGER = Logger.getLogger(MessageIn.class.getName());
-
+  private final ClientLogger LOGGER = ClientLogger.getInstance();
   private final BufferedReader scanner;
 
   static MessageIn from(Connector connector) throws IOException {
