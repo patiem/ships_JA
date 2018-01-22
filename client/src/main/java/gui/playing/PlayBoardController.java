@@ -233,6 +233,7 @@ public class PlayBoardController implements Initializable {
       Thread.sleep(1500);
     } catch (InterruptedException e) {
       LOGGER.log(Level.WARNING, e.getMessage());
+      Thread.currentThread().interrupt();
     }
   }
 }
