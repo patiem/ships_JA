@@ -20,7 +20,6 @@ public class GameRunner {
   public void runGameFixed() throws IOException {
     do {
       currentState = currentState.run();
-    }
-    while (currentState.isGameRunning());
+    } while (currentState.isGameRunning());
   }
 }
