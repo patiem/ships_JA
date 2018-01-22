@@ -170,7 +170,7 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> connectWhenClicked =
       event -> {
-        if (!fleet.isFleetEmpty()) {
+        if (fleet.isFleetFullyBuilt()) {
           setupClient();
           Player player = new Player(fleet, userName.getText());
           FleetSender fleetSender = new FleetSender(getClient(), player);
