@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.testng.Assert.assertEquals;
 
 public class RoundTest {
@@ -32,14 +33,13 @@ public class RoundTest {
   }
 
   @Test(dataProvider = "shots on target")
-  public void givenShotOnTargetAndFleetWhenCheckShotTheReturnHitState(Integer shotPosition) {
+  public void givenShotOnTargetAndFleetWhenCheckShotTheReturnShipHit(Integer shotPosition) {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
     ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
-    ShotResult expectedResult = ShotResult.HIT;
 
-    assertEquals(actualShotResult, expectedResult);
+    assertThat(actualShotResult).isInstanceOf(ShipHit.class);
   }
 
   @DataProvider(name = "missed shots")
@@ -53,23 +53,31 @@ public class RoundTest {
     Round round = new Round();
 
     ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
-    ShotResult expectedResult = ShotResult.MISSED;
 
-    assertEquals(actualShotResult, expectedResult);
+    assertThat(actualShotResult).isInstanceOf(MissedShot.class);
   }
 
   @Test
-  public void givenShotAgainAndFleetWhenCheckShotThenReturnMissedState() {
+  public void givenShotAgainAndFleetWhenCheckShotThenReturnMissedState() { //TODO: change to Hit again
     Integer shotPosition = 0;
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
     round.fireShot(fleetUnderFire, shot);
     ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
-    ShotResult expectedResult = ShotResult.MISSED;
 
-    assertEquals(actualShotResult, expectedResult);
+    assertThat(actualShotResult).isInstanceOf(MissedShot.class);
   }
 
+  @Test
+  public void givenFleetAndShipPositionsWhenIsHitReturnSunkShip() { //TODO: change to Hit again
+    Shot firstShot = new Shot(0);
+    Shot secondShot = new Shot(1);
+    Round round = new Round();
 
+    round.fireShot(fleetUnderFire, firstShot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, secondShot);
+
+    assertThat(actualShotResult).isInstanceOf(ShipSunk.class);
+  }
 }

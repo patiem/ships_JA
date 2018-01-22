@@ -18,16 +18,18 @@ public class ServerLogger {
     configureLoggingToFile();
   }
 
-  private ServerLogger() { }
+  private ServerLogger() {
+  }
 
   public static ServerLogger getInstance() {
-    if(instance == null) {
+    if (instance == null) {
       instance = new ServerLogger();
     }
     return instance;
   }
 
   private void configureLoggingToFile() {
+
     try {
       fileHandler = new FileHandler("ServerLogs.log", true);
     } catch (IOException e) {
@@ -38,19 +40,12 @@ public class ServerLogger {
     fileHandler.setFormatter(formatter);
   }
 
-  public void logShotInfo(final String shot, final String shotResult, String playerName) {
-    String messageTemplate = "Player: %s, shot: position: %s, shotState: %s;";
-    String logMessage = String.format(messageTemplate, playerName,
-        shot, shotResult);
-    LOGGER.log(Level.INFO,logMessage);
-  }
-
   public void info(String logMessage) {
-    LOGGER.log(Level.INFO,logMessage);
+    LOGGER.log(Level.INFO, logMessage);
   }
 
   public void log(Level level, String logMessage) {
-    LOGGER.log(level,logMessage);
+    LOGGER.log(level, logMessage);
   }
 
   public FileHandler getFileHandler() {

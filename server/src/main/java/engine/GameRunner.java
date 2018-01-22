@@ -1,8 +1,5 @@
 package engine;
 
-import communication.PlayerRegistry;
-import responses.PlayResponse;
-
 import java.io.IOException;
 
 /**
@@ -14,19 +11,15 @@ import java.io.IOException;
 
 public class GameRunner {
 
-  private final PlayerRegistry playerRegistry;
-  private GameRunnerState currentState;
+  private GameState currentState;
 
-  public GameRunner(final PlayerRegistry playerRegistry, GameRunnerState gameRunnerState) {
-    this.playerRegistry = playerRegistry;
-    this.currentState = gameRunnerState;
+  public GameRunner(GameState gameState) {
+    this.currentState = gameState;
   }
 
   public void runGame() throws IOException {
-    currentState.sendResponse(new PlayResponse(), playerRegistry.getCurrentPlayer());
-
-    currentState = currentState.run();
-
-    currentState.sendFinalResponse();
+    do {
+      currentState = currentState.run();
+    } while (currentState.isGameRunning());
   }
 }

@@ -8,7 +8,7 @@ import model.Shot;
  * @author Bartosz Pieczara/Emilia Ciastek
  * @version 1.5
  */
-public class Round {
+class Round {
 
   ShotResult fireShot(Fleet fleetUnderFire, Shot shot) {
     Integer shotPosition = shot.asInteger();

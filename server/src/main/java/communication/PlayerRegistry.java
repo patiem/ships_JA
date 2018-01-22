@@ -5,7 +5,6 @@ import messages.ServerLogger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.logging.Logger;
 
 /**
  * It adds players to the game.

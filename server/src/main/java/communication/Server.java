@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * It starts listening for connections on the specified port.

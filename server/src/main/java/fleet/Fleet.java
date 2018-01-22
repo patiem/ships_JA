@@ -22,5 +22,4 @@ public interface Fleet {
   default boolean isSunk() {
     return getHitFields().containsAll(getFleetPositions());
   }
-
 }
