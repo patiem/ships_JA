@@ -11,12 +11,11 @@ import java.util.logging.SimpleFormatter;
 public class ServerLogger {
 
   private static final Logger LOGGER = Logger.getLogger(ServerLogger.class.getName());
-  private Properties properties;
   private FileHandler fileHandler;
   private static ServerLogger instance = null;
 
   {
-    configureLogOutput();
+    configureLoggingToFile();
   }
 
   private ServerLogger() { }
@@ -28,22 +27,12 @@ public class ServerLogger {
     return instance;
   }
 
-  private void configureLogOutput() {
-    String serverConfigFile = "config.properties";
-    properties = new Properties();
-    InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
+  private void configureLoggingToFile() {
     try {
-      properties.load(config);
-      if(properties.getProperty("logsToFile").equals("yes")){
-        configureLoggingToFile();
-      }
+      fileHandler = new FileHandler("ServerLogs.log", true);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+      e.printStackTrace();
     }
-  }
-
-  private void configureLoggingToFile() throws IOException {
-    fileHandler = new FileHandler("ServerLogs.log", true);
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();
     fileHandler.setFormatter(formatter);
