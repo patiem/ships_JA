@@ -28,6 +28,7 @@ public class Fleet {
   }
 
   public boolean isFleetFullyBuilt() {
-    return ships.size() == 10;
+    int numberOfShipsInFleet = 10;
+    return ships.size() == numberOfShipsInFleet;
   }
 }
