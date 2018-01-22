@@ -219,9 +219,8 @@ public class PlayBoardController implements Initializable {
             .collect(Collectors.toList());
 
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
-        shipBoundariesPositions
-            .calculateShipBoundariesPositions(sunkShipPositions)
-            .markSunkShip();
+        shipBoundariesPositions.calculateShipBoundariesPositions(sunkShipPositions);
+        shipBoundariesPositions.markSunkShip();
       };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {

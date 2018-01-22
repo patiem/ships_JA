@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class DataProvider {
@@ -70,5 +71,19 @@ public class DataProvider {
       positionsIndexes[i] = new Object[] {index};
     }
     return positionsIndexes;
+  }
+
+  @org.testng.annotations.DataProvider(name = "shipInCenter")
+  public static Object[][] shipInCenter() {
+
+    Object[][] boundaries = {
+        //Ships in center
+        {Arrays.asList(25, 26, 36, 46), Arrays.asList(14, 15, 16, 17, 24, 27, 34, 35, 37, 45, 47, 55, 56, 57)},
+        {Arrays.asList(33, 42, 43, 44), Arrays.asList(22, 23, 24, 31, 32, 34, 35, 41, 45, 51, 52, 53, 54, 55)},
+        //Ships in corners
+        {Arrays.asList(8, 9, 19, 29), Arrays.asList(7, 17, 18, 28, 38, 39)},
+        {Arrays.asList(71, 80, 81, 91), Arrays.asList(60, 61, 62, 70, 72, 82, 90, 92)}};
+
+    return boundaries;
   }
 }
