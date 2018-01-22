@@ -94,7 +94,7 @@ public class PlayBoardController implements Initializable {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
     winning.setText(messageMap.get("waitMessage"));
-    outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("waitMessage"));
+    outputChannelDispatcher.printToDesiredOutput(messageMap.get("waitMessage"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
