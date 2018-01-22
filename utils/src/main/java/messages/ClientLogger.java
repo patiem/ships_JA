@@ -30,7 +30,7 @@ public class ClientLogger {
     try {
       fileHandler = new FileHandler("ClientLogs.log", false);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();

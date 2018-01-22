@@ -3,7 +3,6 @@ package gui.starting;
 import connection.Client;
 import connection.MessageProcessor;
 import connection.chain.ChainConfigFactory;
-import gui.OutputChannelDispatcher;
 import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
 import gui.playing.PlayBoardController;

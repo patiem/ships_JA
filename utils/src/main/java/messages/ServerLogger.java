@@ -33,7 +33,7 @@ public class ServerLogger {
     try {
       fileHandler = new FileHandler("ServerLogs.log", true);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();

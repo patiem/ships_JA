@@ -2,7 +2,7 @@ package gui.building;
 
 import connection.Client;
 import connection.FleetSender;
-import gui.OutputChannelDispatcher;
+import connection.OutputChannelDispatcher;
 import gui.fields.BoundField;
 import gui.fields.FieldSize;
 import gui.fields.Mast;
