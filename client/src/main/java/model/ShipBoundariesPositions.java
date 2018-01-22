@@ -22,13 +22,13 @@ public class ShipBoundariesPositions {
     this.sea = sea;
   }
 
-  public ShipBoundariesPositions calculateShipBoundariesPositions(Ship ship) {
+  public Set<Position> calculateShipBoundariesPositions(Ship ship) {
 
     for (Field mast : ship) {
       boundariesForMast(mast.position());
     }
     boundaries.removeAll(ship.positionsOfAllMastInShip());
-    return this;
+    return boundaries;
   }
 
   public ShipBoundariesPositions calculateShipBoundariesPositions(

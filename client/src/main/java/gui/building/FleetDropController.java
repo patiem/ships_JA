@@ -18,27 +18,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import messages.LanguageVersion;
-import model.Fleet;
-import model.Player;
-import model.Position;
-import model.PossiblePositions;
-import model.randomize.RandomFleetGenerator;
-import model.Sea;
-import model.SeaCleaner;
-import model.Ship;
-import model.ShipBoardUpdater;
-import model.ShipBoundariesPositions;
-import model.ShipCreator;
+import model.*;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -193,14 +179,17 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> randomizeFleet =
       event -> {
-          RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(sea);
-          fleet = randomFleetGenerator.generateRandomFleet();
+        sea = new Sea();
+        populateSeaWithActiveFields();
 
-          fleet.getFields().forEach( x ->{
-              shipBoard.getChildren().add((Mast) x) ;
-                GridPane.setConstraints((Node) x, x.getColumn(), x.getRow());
-              }
-          );
+        RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(getSea());
+        fleet = randomFleetGenerator.generateRandomFleet();
+
+        fleet.getFields().forEach(x -> {
+              shipBoard.getChildren().add((Mast) x);
+              GridPane.setConstraints((Node) x, x.getColumn(), x.getRow());
+            }
+        );
         event.consume();
       };
 
@@ -323,6 +312,10 @@ public class FleetDropController implements Initializable {
 
   private Client getClient() {
     return client;
+  }
+
+  private Sea getSea() {
+    return sea;
   }
 
   private void setupClient() {
