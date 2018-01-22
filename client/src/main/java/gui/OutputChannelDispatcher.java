@@ -1,11 +1,16 @@
 package gui;
 
+import messages.ServerLogger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
 
 public class OutputChannelDispatcher {
 
+
+  private ServerLogger serverLogger = ServerLogger.getInstance();
   private Properties properties;
   private OutputSelector systemErr = new SystemErr(this);
   private OutputSelector sysOut = new SysOut(this);
@@ -23,7 +28,7 @@ public class OutputChannelDispatcher {
         currentSelection = sysOut;
       }
     } catch (IOException e) {
-//      LOGGER.log(Level.SEVERE, e.getMessage());
+    serverLogger.log(Level.SEVERE, e.getMessage());
     }
   }
  public void printToDesiredOutput(String message) {
