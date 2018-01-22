@@ -1,6 +1,6 @@
 package fleet;
 
-import model.ShipModel;
+import common.model.ShipModel;
 
 import java.util.List;
 

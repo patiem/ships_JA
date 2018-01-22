@@ -7,7 +7,7 @@ import communication.SocketMessageSender;
 import fleet.Fleet;
 import messages.ServerLogger;
 import messages.ShotMessage;
-import model.Shot;
+import common.model.Shot;
 import responses.PlayResponse;
 
 import java.io.IOException;

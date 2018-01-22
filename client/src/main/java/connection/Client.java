@@ -6,7 +6,7 @@ import gui.fields.Field;
 import json.JsonGeneratorAdapter;
 import messages.ClientLogger;
 import messages.ShotMessage;
-import model.Shot;
+import common.model.Shot;
 
 import java.io.IOException;
 import java.io.InputStream;

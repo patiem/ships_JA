@@ -46,6 +46,7 @@
             **/responses/**/*,
             **/gui/**/**/*,
             **/messages/**/*,
+            **/common/**/*
         </sonar.coverage.exclusions>
     </properties>
 
