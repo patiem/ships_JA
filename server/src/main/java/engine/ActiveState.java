@@ -2,8 +2,8 @@ package engine;
 
 import communication.MessageReceiver;
 import communication.MessageSender;
-import communication.SocketMessageSender;
 import communication.PlayerRegistry;
+import communication.SocketMessageSender;
 import fleet.Fleet;
 import messages.ShotMessage;
 import model.Shot;
@@ -37,7 +37,7 @@ public class ActiveState implements GameState {
 
     result.notifyClients(playerRegistry, shot);
 
-    if(fleetUnderFire.isSunk()){
+    if (fleetUnderFire.isSunk()) {
       return new FinishedGame(playerRegistry, new SocketMessageSender());
     }
 

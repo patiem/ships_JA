@@ -4,5 +4,5 @@ import responses.Response;
 
 public interface MessageSender {
 
-    void sendResponse(Response responseToSend, PlayerClient player);
+  void sendResponse(Response responseToSend, PlayerClient player);
 }
