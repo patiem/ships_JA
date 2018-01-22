@@ -3,7 +3,7 @@ package connection.chain;
 import gui.events.SunkShipEvent;
 import gui.playing.DispatcherAdapter;
 import model.DummyResponse;
-import model.ShipModel;
+import common.model.ShipModel;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import responses.Response;

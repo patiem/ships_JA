@@ -3,7 +3,7 @@ package connection.chain;
 import gui.events.HitAgainEvent;
 import gui.playing.DispatcherAdapter;
 import model.DummyResponse;
-import model.Shot;
+import common.model.Shot;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import responses.HitAgainResponse;

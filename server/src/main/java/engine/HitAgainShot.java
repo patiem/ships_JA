@@ -2,7 +2,7 @@ package engine;
 
 import communication.PlayerRegistry;
 import communication.SocketMessageSender;
-import model.Shot;
+import common.model.Shot;
 import responses.HitAgainResponse;
 
 public class HitAgainShot implements ShotResult {

@@ -3,18 +3,15 @@ package connection.chain;
 import gui.events.UpdateWhenMissedEvent;
 import gui.playing.DispatcherAdapter;
 import model.DummyResponse;
-import model.Shot;
+import common.model.Shot;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import responses.OpponentMissedResponse;
-import responses.Response;
-import responses.ResponseHeader;
 
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 public class OpponentMissedLinkTest {
   private DispatcherAdapter dispatcherAdapter;

@@ -1,5 +1,6 @@
 package model;
 
+import common.model.ShipModel;
 import gui.fields.Field;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;

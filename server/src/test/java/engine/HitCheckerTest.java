@@ -3,8 +3,8 @@ package engine;
 import fleet.CustomFleet;
 import fleet.Fleet;
 import fleet.HardcodedFleetModel;
-import model.FleetModel;
-import model.ShipModel;
+import common.model.FleetModel;
+import common.model.ShipModel;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

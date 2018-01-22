@@ -1,12 +1,11 @@
 package fleet;
 
-import model.ShipModel;
+import common.model.ShipModel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * This class is used for tests

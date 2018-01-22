@@ -1,5 +1,7 @@
 package model;
 
+import common.model.ShipModel;
+
 import java.util.List;
 
 /**
