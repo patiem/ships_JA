@@ -1,5 +1,6 @@
 package gui.starting;
 
+import gui.OutputChannelDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -30,8 +31,8 @@ class StartBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    this.userName.setText(languageVersion.getNameMessage());
-    this.nameLabel.setText(languageVersion.getNameLabelMessage());
-    this.connectButton.setText(languageVersion.getConnectMessage());
+    this.userName.setText(languageVersion.getMessage("name"));
+    this.nameLabel.setText(languageVersion.getMessage("nameLabel"));
+    this.connectButton.setText(languageVersion.getMessage("connect"));
   }
 }

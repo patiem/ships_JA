@@ -3,6 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
+import gui.OutputChannelDispatcher;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
 import gui.events.UpdateWhenMissedEvent;
@@ -21,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
@@ -55,6 +57,7 @@ public class PlayBoardController implements Initializable {
   private SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
+  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
 
 
   @FXML
@@ -63,6 +66,10 @@ public class PlayBoardController implements Initializable {
   private GridPane targetBoard;
   @FXML
   private TextField winning;
+  @FXML
+  private ImageView jack;
+  @FXML
+  private ImageView sunk;
 
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
@@ -71,9 +78,11 @@ public class PlayBoardController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText(languageVersion.getWaitMessage());
+    winning.setText(languageVersion.getMessage("wait"));
+    outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -166,26 +175,38 @@ public class PlayBoardController implements Initializable {
       };
 
   private final EventHandler<YourTurnEvent> enableBoard =
-      event -> {
-        winning.setText(languageVersion.getPlayMessage());
-        shipBoard.setDisable(false);
-      };
+          event -> {
+            winning.setText(languageVersion.getMessage("play"));
+            shipBoard.setDisable(false);
+            outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("play"));
+          };
 
   private final EventHandler<YouMissedEvent> youMissed =
-      event -> {
-        lastField.missed();
-        winning.setText(languageVersion.getWaitMessage());
-        shipBoard.setDisable(true);
-      };
+          event -> {
+            lastField.missed();
+            winning.setText(languageVersion.getMessage("wait"));
+            shipBoard.setDisable(true);
+            outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
+          };
+
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
+
         lastField.hit();
-        winning.setText(languageVersion.getWinMessage());
+        suspend();
+        jack.setVisible(true);
+        winning.setText(languageVersion.getMessage("win"));
+        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
-      event -> winning.setText(languageVersion.getLossMessage());
+      event -> {
+        suspend();
+        sunk.setVisible(true);
+        winning.setText(languageVersion.getMessage("loss"));
+        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("loss"));
+      };
 
   private final EventHandler<YouHitEvent> youHit =
       event -> lastField.hit();
@@ -205,6 +226,14 @@ public class PlayBoardController implements Initializable {
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;
+  }
+
+  private void suspend() {
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
 

@@ -37,8 +37,8 @@ public class Fleet implements Iterable<Ship> {
         .collect(Collectors.toList());
   }
 
-  public boolean isFleetEmpty() {
-    return ships.isEmpty();
+  public boolean isFleetFullyBuilt() {
+    return ships.size() == 10;
   }
 
   @Override

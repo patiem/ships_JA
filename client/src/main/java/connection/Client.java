@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.fields.Field;
 import json.JsonGeneratorAdapter;
+import messages.ClientLogger;
 import messages.ShotMessage;
 import model.Shot;
 
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * It handles connection with server.
@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class Client {
 
-  private static final Logger LOGGER = Logger.getLogger(Client.class.getName());
+  private final ClientLogger LOGGER = ClientLogger.getInstance();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;
@@ -44,7 +44,6 @@ public class Client {
 
   /**
    * It reads configuration of server from file and sets the port and IP.
-   *
    */
   private String[] setUpGame() throws IOException {
     Properties properties = new Properties();

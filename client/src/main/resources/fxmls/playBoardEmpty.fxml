@@ -70,17 +70,32 @@
          </GridPane>
         </AnchorPane>
     </SplitPane>
-    <TextField fx:id="winning" editable="false" layoutX="468.0" layoutY="44.0" prefHeight="85.0" prefWidth="206.0">
+   <ImageView fx:id="jack" fitHeight="363.0" fitWidth="377.0" layoutX="27.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../images/jack.gif" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="sunk" fitHeight="315.0" fitWidth="366.0" layoutX="23.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../images/loose.gif" />
+      </image>
+   </ImageView>
+    <TextField fx:id="winning" alignment="CENTER" editable="false" layoutX="404.0" layoutY="44.0" prefHeight="85.0" prefWidth="300.0">
         <font>
             <Font name="Garuda" size="30.0" />
         </font>
     </TextField>
+    <TextField fx:id="userName" alignment="CENTER" editable="false" layoutX="562.0" layoutY="524.0" prefHeight="31.0" prefWidth="152.0">
+        <font>
+            <Font name="FreeMono Bold" size="16.0" />
+        </font>
+    </TextField>
+   <TextField fx:id="userName1" alignment="CENTER" editable="false" layoutX="412.0" layoutY="524.0" prefHeight="31.0" prefWidth="152.0" text="ShipWrecks - ">
+      <font>
+         <Font name="FreeMono Bold" size="16.0" />
+      </font>
+   </TextField>
     <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/wreck.png" />
     </ImageView>
-    <TextField fx:id="userName" editable="false" layoutX="564.0" layoutY="524.0" prefHeight="26.0" prefWidth="154.0" text="Shipwrecks">
-        <font>
-            <Font name="FreeMono Bold" size="18.0" />
-        </font>
-    </TextField>
 </AnchorPane>

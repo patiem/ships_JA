@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 public class HostValidator {
 
+  private HostValidator() {
+  }
+
   private static final Logger LOGGER = Logger.getLogger(HostValidator.class.getName());
 
   static boolean isServerConfigValid(String serverConfigFile) throws IOException {
@@ -24,17 +27,17 @@ public class HostValidator {
     InputStream config = new FileInputStream(serverConfigFile);
     properties.load(config);
 
-    String retrievedIP = properties.getProperty("IP");
+    String retrievedIp = properties.getProperty("IP");
     int retrievedPort = Integer.parseInt(properties.getProperty("portNumber"));
 
     Pattern pattern = Pattern.compile(ipPattern);
-    Matcher matcher = pattern.matcher(retrievedIP);
+    Matcher matcher = pattern.matcher(retrievedIp);
 
     Pattern patternLocal = Pattern.compile("localhost", Pattern.CASE_INSENSITIVE);
-    Matcher matcherLocal = patternLocal.matcher(retrievedIP);
+    Matcher matcherLocal = patternLocal.matcher(retrievedIp);
 
     boolean isIpValid = matcher.matches() || matcherLocal.matches();
-    if(!isIpValid) {
+    if (!isIpValid) {
       LOGGER.log(Level.WARNING, "Closing the game as the host IP is invalid");
     }
     return isIpValid && isPortValid(retrievedPort);

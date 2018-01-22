@@ -3,6 +3,7 @@ package gui.starting;
 import connection.Client;
 import connection.MessageProcessor;
 import connection.chain.ChainConfigFactory;
+import gui.OutputChannelDispatcher;
 import gui.building.FleetDropController;
 import gui.playing.DispatcherAdapter;
 import gui.playing.PlayBoardController;
@@ -16,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import messages.LanguageVersion;
 import model.Fleet;
 import model.Position;
 import model.Sea;
@@ -39,12 +39,13 @@ public class StartBoard extends Application {
   private static final String PLAY_BOARD_URL = "/fxmls/playBoardEmpty.fxml";
   private static final Logger LOGGER = Logger.getLogger(StartBoard.class.getName());
 
-
   private final Client client = new Client();
   private Stage stage;
   private AnchorPane buildBoard;
+  private AnchorPane playBoard;
   private Group playRoot;
   private FleetDropController fleetDropController;
+  private PlayBoardController playBoardController;
 
   public static void run(String[] args) {
     Application.launch(args);
@@ -66,9 +67,11 @@ public class StartBoard extends Application {
     final Scene playScene = new Scene(playRoot, sceneWidth, sceneHeight);
 
     createStartBoard(startRoot, buildScene);
-    createBuildBoard(buildRoot, playScene);
+    createBuildBoard(buildRoot);
 
-    stage.setTitle("Battleships");
+    addNextButtonToBuildBoard(playScene);
+
+    stage.setTitle("ShipWrecks");
     stage.setScene(startScene);
     stage.show();
   }
@@ -82,25 +85,26 @@ public class StartBoard extends Application {
     addNextButtonToStartBoard(buildScene, startingBoard);
   }
 
-  private void createBuildBoard(Group buildRoot, Scene playScene) throws IOException {
+  private void createBuildBoard(Group buildRoot) throws IOException {
     FXMLLoader buildLoader = new FXMLLoader(getClass().getResource(BUILD_BOARD_URL));
     fleetDropController = new FleetDropController(client, new Sea(), new Fleet());
     buildLoader.setController(fleetDropController);
     buildBoard = buildLoader.load();
     buildRoot.getChildren().addAll(buildBoard);
-    addNextButtonToBuildBoard(playScene, buildBoard);
   }
 
   private void createPlayBoard(Group playRoot, List<Position> positions) throws IOException {
     FXMLLoader playLoader = new FXMLLoader(getClass().getResource(PLAY_BOARD_URL));
 
-    PlayBoardController playBoardController = new PlayBoardController(client, positions);
+    playBoardController = new PlayBoardController(client, positions);
     playLoader.setController(playBoardController);
-    AnchorPane playBoard = playLoader.load();
+    playBoard = playLoader.load();
     playRoot.getChildren().addAll(playBoard);
 
     Node dispatcher = playRoot.lookup("#winning");
 
+    String label = ((TextField) buildBoard.lookup("#userName")).getText();
+    ((TextField) playBoard.lookup("#userName")).setText(label);
     DispatcherAdapter dispatcherAdapter = new DispatcherAdapter(dispatcher);
     MessageProcessor processor = new MessageProcessor(
         ChainConfigFactory.configureChainOfResponsibilities(), dispatcherAdapter);
@@ -111,14 +115,16 @@ public class StartBoard extends Application {
     Button connectButton = (Button) startBoard.lookup("#connectButton");
     connectButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
       String userName = ((TextField) startBoard.lookup("#userName")).getText();
-      ((TextField) buildBoard.lookup("#userName")).setText(userName);
+      ((TextField) buildBoard.lookup("#userName"))
+          .setText(userName);
       stage.setScene(buildScene);
     });
   }
 
-  private void addNextButtonToBuildBoard(Scene playScene, AnchorPane buildBoard) {
+  private void addNextButtonToBuildBoard(Scene playScene) {
     Button buttonNext = (Button) buildBoard.lookup("#nextButton");
     buttonNext.addEventHandler(ConnectEvent.CONNECT, event -> {
+
       stage.setScene(playScene);
       try {
         createPlayBoard(playRoot, fleetDropController.listOfMasts());
