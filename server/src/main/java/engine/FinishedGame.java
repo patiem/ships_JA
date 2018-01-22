@@ -1,50 +1,46 @@
 package engine;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import communication.MessageSender;
+import communication.PlayerClient;
 import communication.PlayerRegistry;
-import json.JsonGeneratorAdapter;
 import messages.ServerLogger;
 import responses.LossResponse;
 import responses.WinResponse;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class FinishedGame implements GameRunnerState {
+public class FinishedGame implements GameState {
+
+
+  private final MessageSender messageSender;
 
   private PlayerRegistry playerRegistry;
+  private boolean isGameRunning = true;
   private ServerLogger serverLogger = ServerLogger.getInstance();
 
-  FinishedGame(PlayerRegistry playerRegistry) {
+  FinishedGame(PlayerRegistry playerRegistry, MessageSender messageSender) {
     this.playerRegistry = playerRegistry;
+    this.messageSender = messageSender;
   }
 
   @Override
-  public void sendFinalResponse() {
+  public GameState run() throws IOException {
+    PlayerClient winner = playerRegistry.getCurrentPlayer();
+    PlayerClient looser = playerRegistry.getWaitingPlayer();
 
-    try {
-      JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
-      MessageSender messageSender = new MessageSender();
+    messageSender.sendResponse(new WinResponse(), winner);
+    messageSender.sendResponse(new LossResponse(), looser);
+    String logMessage = String.format("Message has been send. Player %s won, player %s lost",
+        winner, looser);
 
-      String winMessage = jsonGeneratorAdapter.createJson(new WinResponse(), new ObjectMapper());
-      String lossMessage = jsonGeneratorAdapter.createJson(new LossResponse(), new ObjectMapper());
-      messageSender.sendMessageToPlayer(playerRegistry.getCurrentPlayer(), winMessage);
-      messageSender.sendMessageToPlayer(playerRegistry.getWaitingPlayer(), lossMessage);
-
-      String logMessage = String.format("Message has been send: %s", winMessage);
-      String logMessage2 = String.format("Message has been send: %s", lossMessage);
-      serverLogger.info(logMessage);
-      serverLogger.info(logMessage2);
-      serverLogger.getFileHandler().close();
-    } catch (IOException e) {
-      serverLogger.log(Level.SEVERE, e.getMessage());
-    }
+    serverLogger.info(logMessage);
+    serverLogger.getFileHandler().close();
+    isGameRunning = false;
+    return this;
   }
 
   @Override
-  public GameRunnerState run() {
-    return new FinishedGame(playerRegistry);
+  public boolean isGameRunning() {
+    return isGameRunning;
   }
 }

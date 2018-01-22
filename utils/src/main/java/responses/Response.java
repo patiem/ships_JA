@@ -33,4 +33,8 @@ public interface Response {
   default Optional<ShipModel> getSunkShip() {
     return Optional.empty();
   }
+
+  default void send(){
+
+  }
 }
