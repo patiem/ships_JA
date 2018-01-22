@@ -44,7 +44,6 @@ public class MissedShotTest {
 
     @Test
     public void shouldReturnCorrectStringWhenToString(){
-        ShotResult shotResult = new MissedShot(new SocketMessageSender());
         String expected = "Missed";
 
         String actual = shotResult.toString();
