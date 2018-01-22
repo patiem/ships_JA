@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import communication.MessageSender;
 import communication.PlayerRegistry;
 import json.JsonGeneratorAdapter;
+import messages.ServerLogger;
 import responses.LossResponse;
 import responses.WinResponse;
 
@@ -14,6 +15,7 @@ import java.util.logging.Logger;
 public class FinishedGame implements GameRunnerState {
 
   private PlayerRegistry playerRegistry;
+  private ServerLogger serverLogger = ServerLogger.getInstance();
 
   FinishedGame(PlayerRegistry playerRegistry) {
     this.playerRegistry = playerRegistry;
@@ -21,7 +23,7 @@ public class FinishedGame implements GameRunnerState {
 
   @Override
   public void sendFinalResponse() {
-    Logger logger = Logger.getLogger(FinishedGame.class.getName());
+
     try {
       JsonGeneratorAdapter jsonGeneratorAdapter = new JsonGeneratorAdapter();
       MessageSender messageSender = new MessageSender();
@@ -32,9 +34,12 @@ public class FinishedGame implements GameRunnerState {
       messageSender.sendMessageToPlayer(playerRegistry.getWaitingPlayer(), lossMessage);
 
       String logMessage = String.format("Message has been send: %s", winMessage);
-      logger.info(logMessage);
+      String logMessage2 = String.format("Message has been send: %s", lossMessage);
+      serverLogger.info(logMessage);
+      serverLogger.info(logMessage2);
+      serverLogger.getFileHandler().close();
     } catch (IOException e) {
-      logger.log(Level.SEVERE, e.getMessage());
+      serverLogger.log(Level.SEVERE, e.getMessage());
     }
   }
 

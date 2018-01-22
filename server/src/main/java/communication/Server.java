@@ -1,5 +1,7 @@
 package communication;
 
+import messages.ServerLogger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -15,20 +17,20 @@ import java.util.logging.Logger;
  */
 public class Server {
 
-  private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
+  private ServerLogger serverLogger = ServerLogger.getInstance();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   void runServer() {
-    LOGGER.info("Server running!");
+
+    serverLogger.info("Server running!");
     ConnectionHandler connectionHandler = new ConnectionHandler();
     try {
       int portNumber = setUpServerConfig();
       ServerSocket serverSocket = new ServerSocket(portNumber);
       connectionHandler.acceptConnections(serverSocket);
     } catch (IOException e) {
-      LOGGER.log(Level.SEVERE, e.getMessage());
+      serverLogger.log(Level.SEVERE, e.getMessage());
     }
-
   }
 
   private int setUpServerConfig() throws IOException {
