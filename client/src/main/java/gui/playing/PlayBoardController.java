@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import json.JsonParserAdapter;
@@ -65,6 +66,10 @@ public class PlayBoardController implements Initializable {
   private GridPane targetBoard;
   @FXML
   private TextField winning;
+  @FXML
+  private ImageView jack;
+  @FXML
+  private ImageView sunk;
 
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
@@ -190,13 +195,16 @@ public class PlayBoardController implements Initializable {
 
         lastField.hit();
         winning.setText(languageVersion.getMessage("win"));
+        suspend();
+        jack.setVisible(true);
         outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
       event -> {
-
         winning.setText(languageVersion.getMessage("loss"));
+        suspend();
+        sunk.setVisible(true);
         outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("loss"));
       };
 
@@ -218,6 +226,15 @@ public class PlayBoardController implements Initializable {
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;
+  }
+
+  private void suspend() {
+    try {
+      Thread.sleep(1500);
+    } catch (InterruptedException e) {
+      LOGGER.log(Level.WARNING, e.getMessage());
+      Thread.currentThread().interrupt();
+    }
   }
 }
 
