@@ -1,6 +1,7 @@
 package communication;
 
 import fleet.Fleet;
+import messages.ServerLogger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -13,12 +14,12 @@ import java.util.logging.Logger;
  * @version 1.5
  */
 public class PlayerRegistry {
-  private static final Logger LOGGER = Logger.getLogger(PlayerRegistry.class.getName());
+  private ServerLogger serverLogger = ServerLogger.getInstance();
   private final Deque<PlayerClient> players = new ArrayDeque<>();
 
   void registerPlayer(PlayerClient newPlayer) {
     addPlayer(newPlayer);
-    LOGGER.info("PlayerClient added: " + newPlayer.getName());
+    serverLogger.info("PlayerClient added: " + newPlayer.getName());
   }
 
   private void addPlayer(PlayerClient playerClient) {

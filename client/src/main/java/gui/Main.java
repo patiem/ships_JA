@@ -1,6 +1,7 @@
 package gui;
 
 import gui.starting.StartBoard;
+import messages.ClientLogger;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
  */
 class Main {
 
-  private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+  private static final ClientLogger LOGGER = ClientLogger.getInstance();
   private static final String SERVER_CONFIG_FILE = "config.properties";
   private static final String PATH_TO_PROPS = "utils/src/main/resources/";
 

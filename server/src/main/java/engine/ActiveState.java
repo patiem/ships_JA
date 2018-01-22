@@ -5,16 +5,16 @@ import communication.MessageSender;
 import communication.PlayerRegistry;
 import communication.SocketMessageSender;
 import fleet.Fleet;
+import messages.ServerLogger;
 import messages.ShotMessage;
 import model.Shot;
 import responses.PlayResponse;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Logger;
 
 public class ActiveState implements GameState {
-  private static final Logger LOGGER = Logger.getLogger(ActiveState.class.getName());
+  private ServerLogger serverLogger = ServerLogger.getInstance();
   private final Round round = new Round();
   private final PlayerRegistry playerRegistry;
   private MessageReceiver messageReceiver = new MessageReceiver();
@@ -48,6 +48,6 @@ public class ActiveState implements GameState {
     String messageTemplate = "Player: %s, shot: position: %s, shotState: %s;";
     String logMessage = String.format(messageTemplate, playerRegistry.currentPlayerName(),
         shot.asInteger(), shotResult.toString());
-    LOGGER.info(logMessage);
+    serverLogger.info(logMessage);
   }
 }

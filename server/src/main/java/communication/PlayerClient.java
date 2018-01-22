@@ -33,4 +33,6 @@ public class PlayerClient {
   public Socket getSocket() {
     return socket;
   }
+
+  //TODO: override method toString()
 }
