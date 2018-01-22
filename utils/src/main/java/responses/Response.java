@@ -19,7 +19,8 @@ import java.util.Optional;
     @JsonSubTypes.Type(value = OpponentMissedResponse.class, name = "OpponentMissedResponse"),
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
     @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),
-    @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse")}
+    @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse"),
+    @JsonSubTypes.Type(value = HitAgainResponse.class, name = "HitAgainResponse")}
     )
 public interface Response {
   ResponseHeader getHeader();
@@ -32,9 +33,5 @@ public interface Response {
   @JsonProperty("sunkShip")
   default Optional<ShipModel> getSunkShip() {
     return Optional.empty();
-  }
-
-  default void send(){
-
   }
 }

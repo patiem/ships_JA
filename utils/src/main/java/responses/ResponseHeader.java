@@ -21,5 +21,6 @@ public enum ResponseHeader {
   WIN,
   @JsonProperty("sunk")
   SUNK,
-
+  @JsonProperty("hit_again")
+  HIT_AGAIN
 }
