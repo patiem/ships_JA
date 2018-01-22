@@ -1,4 +1,4 @@
-package gui;
+package connection;
 
 import messages.ServerLogger;
 

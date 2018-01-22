@@ -1,4 +1,7 @@
-package gui;
+package connection;
+
+import connection.OutputChannelDispatcher;
+import connection.OutputSelector;
 
 public class SystemErr implements OutputSelector {
 

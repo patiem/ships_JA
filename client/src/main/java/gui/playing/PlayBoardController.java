@@ -3,7 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
-import gui.OutputChannelDispatcher;
+import connection.OutputChannelDispatcher;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
 import gui.events.UpdateWhenMissedEvent;
