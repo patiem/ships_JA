@@ -37,7 +37,7 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    ShotResult actualShotResult = round.fireShotFixed(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
 
     assertThat(actualShotResult).isInstanceOf(ShipHit.class);
   }
@@ -52,7 +52,7 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    ShotResult actualShotResult = round.fireShotFixed(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
 
     assertThat(actualShotResult).isInstanceOf(MissedShot.class);
   }
@@ -63,8 +63,8 @@ public class RoundTest {
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
 
-    round.fireShotFixed(fleetUnderFire, shot);
-    ShotResult actualShotResult = round.fireShotFixed(fleetUnderFire, shot);
+    round.fireShot(fleetUnderFire, shot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
 
     assertThat(actualShotResult).isInstanceOf(MissedShot.class);
   }
@@ -75,8 +75,8 @@ public class RoundTest {
     Shot secondShot = new Shot(1);
     Round round = new Round();
 
-    round.fireShotFixed(fleetUnderFire, firstShot);
-    ShotResult actualShotResult = round.fireShotFixed(fleetUnderFire, secondShot);
+    round.fireShot(fleetUnderFire, firstShot);
+    ShotResult actualShotResult = round.fireShot(fleetUnderFire, secondShot);
 
     assertThat(actualShotResult).isInstanceOf(ShipSunk.class);
   }

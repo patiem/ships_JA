@@ -30,7 +30,7 @@ public class HitCheckerTest {
   public void givenFleetAndMastPositionWhenIsHitReturnHit() {
     int position = 10;
 
-    ShotResult actualShotResult = hitChecker.checkShotFixed(position);
+    ShotResult actualShotResult = hitChecker.checkShot(position);
     assertThat(actualShotResult).isInstanceOf(ShipHit.class);
   }
 
@@ -38,7 +38,7 @@ public class HitCheckerTest {
   public void givenFleetIncorrectMastPositionWhenIsHitReturnMissedShot() {
     int position = 0;
 
-    ShotResult actualShotResult = hitChecker.checkShotFixed(position);
+    ShotResult actualShotResult = hitChecker.checkShot(position);
     assertThat(actualShotResult).isInstanceOf(MissedShot.class);
   }
 
@@ -49,7 +49,7 @@ public class HitCheckerTest {
 
     fleet.hit(position);
 
-    ShotResult actualShotResult = hitChecker.checkShotFixed(position);
+    ShotResult actualShotResult = hitChecker.checkShot(position);
     assertThat(actualShotResult).isInstanceOf(MissedShot.class); //TODO: add MissedAgain!
   }
 
@@ -61,7 +61,7 @@ public class HitCheckerTest {
 
     fleet.hit(firstShotPosition);
 
-    ShotResult actualShotResult = hitChecker.checkShotFixed(secondShotPosition);
+    ShotResult actualShotResult = hitChecker.checkShot(secondShotPosition);
     assertThat(actualShotResult).isInstanceOf(ShipSunk.class);
   }
 }

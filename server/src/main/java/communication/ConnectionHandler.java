@@ -27,7 +27,7 @@ class ConnectionHandler {
 
   private void setUpGame() throws IOException {
     GameRunner gameRunner = new GameRunner(new ActiveState(playerRegistry));
-    gameRunner.runGameFixed();
+    gameRunner.runGame();
   }
 
   private void acceptPlayer(final ServerSocket serverSocket) throws IOException {

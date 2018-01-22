@@ -32,7 +32,7 @@ public class ActiveState implements GameState {
     ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
     Shot shot = shotMessage.getShot();
-    ShotResult result = round.fireShotFixed(fleetUnderFire, shot);
+    ShotResult result = round.fireShot(fleetUnderFire, shot);
     logShotInfo(shot, result);
 
     result.notifyClients(playerRegistry, shot);

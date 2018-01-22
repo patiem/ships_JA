@@ -17,7 +17,7 @@ public class GameRunner {
     this.currentState = gameState;
   }
 
-  public void runGameFixed() throws IOException {
+  public void runGame() throws IOException {
     do {
       currentState = currentState.run();
     } while (currentState.isGameRunning());

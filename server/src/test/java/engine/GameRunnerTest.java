@@ -64,7 +64,7 @@ public class GameRunnerTest {
     when(activeGameMock.isGameRunning()).thenReturn(false);
     when(activeGameMock.run()).thenReturn(activeGameMock);
 
-    gameRunner.runGameFixed();
+    gameRunner.runGame();
 
     verify(activeGameMock, times(1)).run();
   }
