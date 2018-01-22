@@ -40,7 +40,6 @@ public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
-  private static final String EMPTY_FLEET_INFO = "You can't play with empty fleet";
 
   private Sea sea;
   private Fleet fleet;
@@ -81,7 +80,9 @@ public class FleetDropController implements Initializable {
   @FXML
   private Button nextButton;
   @FXML
-  private Button randomFleet;
+  private Button random;
+  @FXML
+  private Button clear;
 
   private Rectangle buildShip;
   private ShipCreator shipCreator;
@@ -110,14 +111,20 @@ public class FleetDropController implements Initializable {
 
     populateSeaWithActiveFields();
     addEventHandlerToConnectButton();
-    randomFleet.addEventHandler(MouseEvent.MOUSE_CLICKED, randomizeFleet);
+    addEventHandlersForRandomization();
 
     addEventHandlersToShips();
     setupShipBoardUpdater();
     this.connectButton.setText(languageVersion.getMessage("play"));
   }
 
+  private void addEventHandlersForRandomization() {
+    random.addEventHandler(MouseEvent.MOUSE_CLICKED, randomizeFleet);
+    clear.addEventHandler(MouseEvent.MOUSE_CLICKED, clearFleet);
+  }
+
   private void populateSeaWithActiveFields() {
+    sea = new Sea();
     for (int column = 0; column < GRID_SIZE; column++) {
       for (int row = 0; row < GRID_SIZE; row++) {
         SeaField field = new SeaField(column, row, FieldSize.BIG);
@@ -179,9 +186,8 @@ public class FleetDropController implements Initializable {
 
   private final EventHandler<MouseEvent> randomizeFleet =
       event -> {
-        sea = new Sea();
+        port.setDisable(true);
         populateSeaWithActiveFields();
-
         RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(getSea());
         fleet = randomFleetGenerator.generateRandomFleet();
 
@@ -192,6 +198,13 @@ public class FleetDropController implements Initializable {
         );
         event.consume();
       };
+
+  private EventHandler<MouseEvent> clearFleet =
+      event -> {
+      populateSeaWithActiveFields();
+      port.setDisable(false);
+      };
+
 
   private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {

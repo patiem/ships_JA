@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
@@ -62,12 +61,10 @@
 
     <Button fx:id="connectButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false" text="Play!">
     </Button>
-    <Button fx:id="randomFleet" contentDisplay="CENTER" layoutX="403.0" layoutY="100.0" mnemonicParsing="false"
-            text="Randomize fleet">
+    <Button fx:id="random" contentDisplay="CENTER" layoutX="401.0" layoutY="239.0" mnemonicParsing="false" text="Randomize fleet">
     </Button>
 
-    <Button fx:id="clear" contentDisplay="CENTER" layoutX="603.0" layoutY="100.0" mnemonicParsing="false"
-            text="Clear fleet">
+    <Button fx:id="clear" contentDisplay="CENTER" layoutX="400.0" layoutY="274.0" mnemonicParsing="false" text="Clear fleet">
     </Button>
 
     <Button fx:id="nextButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false" text="Play!" visible="false">
@@ -85,5 +82,4 @@
             <Font name="FreeMono Bold" size="16.0" />
         </font>
     </TextField>
-    <VBox fx:id="connectPanel" layoutX="593.0" layoutY="37.0" prefHeight="200.0" prefWidth="100.0" />
 </AnchorPane>
