@@ -23,7 +23,9 @@ class HitChecker {
     boolean isShipPosition = fleet.getFleetPositions().contains(shotPosition);
     boolean isHitAgain = fleet.getHitFields().contains(shotPosition);
 
-    if (!isHitAgain && isShipPosition) {
+    if (isHitAgain) {
+      return new HitAgainShot(new SocketMessageSender());
+    } else if (isShipPosition) {
       fleet.hit(shotPosition);
       List<Integer> shipPositions = fleet.getShipByPosition(shotPosition).getFields();
       boolean isShipSunk = fleet.getHitFields().containsAll(shipPositions);

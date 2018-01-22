@@ -43,14 +43,14 @@ public class HitCheckerTest {
   }
 
   @Test
-  public void givenFleetAndMastPositionAlreadyHitWhenIsHitReturnMissed() {
+  public void givenFleetAndMastPositionAlreadyHitWhenIsHitReturnHitAgain() {
     HitChecker hitChecker = new HitChecker(fleet);
     int position = 2;
 
     fleet.hit(position);
 
     ShotResult actualShotResult = hitChecker.checkShot(position);
-    assertThat(actualShotResult).isInstanceOf(MissedShot.class); //TODO: add MissedAgain!
+    assertThat(actualShotResult).isInstanceOf(HitAgainShot.class);
   }
 
   @Test

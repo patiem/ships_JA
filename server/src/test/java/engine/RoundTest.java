@@ -58,7 +58,7 @@ public class RoundTest {
   }
 
   @Test
-  public void givenShotAgainAndFleetWhenCheckShotThenReturnMissedState() { //TODO: change to Hit again
+  public void givenShotAgainAndFleetWhenCheckShotThenReturnHitAgainShot() {
     Integer shotPosition = 0;
     Shot shot = new Shot(shotPosition);
     Round round = new Round();
@@ -66,11 +66,11 @@ public class RoundTest {
     round.fireShot(fleetUnderFire, shot);
     ShotResult actualShotResult = round.fireShot(fleetUnderFire, shot);
 
-    assertThat(actualShotResult).isInstanceOf(MissedShot.class);
+    assertThat(actualShotResult).isInstanceOf(HitAgainShot.class);
   }
 
   @Test
-  public void givenFleetAndShipPositionsWhenIsHitReturnSunkShip() { //TODO: change to Hit again
+  public void givenFleetAndShipPositionsWhenIsHitReturnSunkShip() {
     Shot firstShot = new Shot(0);
     Shot secondShot = new Shot(1);
     Round round = new Round();
