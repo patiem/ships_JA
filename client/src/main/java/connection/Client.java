@@ -20,7 +20,7 @@ import java.util.logging.Level;
  */
 public class Client {
 
-  private  final ClientLogger LOGGER = ClientLogger.getInstance();
+  private final ClientLogger LOGGER = ClientLogger.getInstance();
   private static final String SERVER_CONFIG_FILE = "config.properties";
 
   private Sender out;
@@ -38,13 +38,12 @@ public class Client {
       in = MessageIn.from(connector);
       out = MessageOut.from(connector);
     } catch (IOException e) {
-     LOGGER.log(Level.SEVERE, e.getMessage());
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 
   /**
    * It reads configuration of server from file and sets the port and IP.
-   *
    */
   private String[] setUpGame() throws IOException {
     Properties properties = new Properties();
@@ -78,9 +77,9 @@ public class Client {
           new ShotMessage(shotToSend), new ObjectMapper());
       sendMessage(message);
       String logMessage = String.format("Message has benn send: %s", message);
-     LOGGER.info(logMessage);
+      LOGGER.info(logMessage);
     } catch (JsonProcessingException e) {
-    LOGGER.log(Level.SEVERE, e.getMessage());
+      LOGGER.log(Level.SEVERE, e.getMessage());
     }
   }
 

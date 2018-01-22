@@ -22,18 +22,16 @@ public class Server {
 
   void runServer() {
 
-      serverLogger.info("Server running!");
-      ConnectionHandler connectionHandler = new ConnectionHandler();
-      try {
-        int portNumber = setUpServerConfig();
-        ServerSocket serverSocket = new ServerSocket(portNumber);
-        while(true) {
-          connectionHandler.acceptConnections(serverSocket);
-        }
-      } catch (IOException e) {
-        serverLogger.log(Level.SEVERE, e.getMessage());
-      }
+    serverLogger.info("Server running!");
+    ConnectionHandler connectionHandler = new ConnectionHandler();
+    try {
+      int portNumber = setUpServerConfig();
+      ServerSocket serverSocket = new ServerSocket(portNumber);
+      connectionHandler.acceptConnections(serverSocket);
+    } catch (IOException e) {
+      serverLogger.log(Level.SEVERE, e.getMessage());
     }
+  }
 
   private int setUpServerConfig() throws IOException {
     Properties properties = new Properties();

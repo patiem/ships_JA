@@ -2,6 +2,6 @@ package gui;
 
 public interface OutputSelector {
 
-    void printToDesiredOutput(String message);
+  void printToDesiredOutput(String message);
 
 }

@@ -43,7 +43,7 @@ public class ServerLogger {
   }
 
   private void configureLoggingToFile() throws IOException {
-    fileHandler = new FileHandler("ServerLogs.log", false);
+    fileHandler = new FileHandler("ServerLogs.log", true);
     LOGGER.addHandler(fileHandler);
     SimpleFormatter formatter = new SimpleFormatter();
     fileHandler.setFormatter(formatter);
