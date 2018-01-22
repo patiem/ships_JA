@@ -60,7 +60,7 @@ public class FleetDropController implements Initializable {
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
-  private OutputChannelDispatcher outputChannelDispatcher = new  OutputChannelDispatcher();
+  private OutputChannelDispatcher outputChannelDispatcher = new OutputChannelDispatcher();
 
   @FXML
   private Button connectButton;

@@ -194,17 +194,17 @@ public class PlayBoardController implements Initializable {
       event -> {
 
         lastField.hit();
+        winning.setText(languageVersion.getMessage("win"));
         suspend();
         jack.setVisible(true);
-        winning.setText(languageVersion.getMessage("win"));
         outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("win"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
       event -> {
+        winning.setText(languageVersion.getMessage("loss"));
         suspend();
         sunk.setVisible(true);
-        winning.setText(languageVersion.getMessage("loss"));
         outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("loss"));
       };
 
@@ -232,7 +232,8 @@ public class PlayBoardController implements Initializable {
     try {
       Thread.sleep(1500);
     } catch (InterruptedException e) {
-      e.printStackTrace();
+      LOGGER.log(Level.WARNING, e.getMessage());
+      Thread.currentThread().interrupt();
     }
   }
 }
