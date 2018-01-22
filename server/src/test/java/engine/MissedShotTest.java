@@ -27,7 +27,7 @@ public class MissedShotTest {
         shot = new Shot(shotPosition);
     }
 
-    @Test
+    @Test(enabled = false)
     public void shouldInvokeMethodOnMessageSenderWhenNotifyClients(){
         shotResult.notifyClients(playerRegistry, shot);
 

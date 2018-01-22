@@ -41,6 +41,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -111,23 +113,26 @@ public class PlayBoardController implements Initializable {
   }
 
   private void makeMessageListenerThread() {
+    //ExecutorService executorService = new Executors.newFixedThreadPool()
+
     new Thread(() -> {
       boolean isGameRunning = true;
       while (isGameRunning) {
-        String message = client.getMessage();
-        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
-        try {
-          Response responseToProcess = jsonParserAdapter.parse(
-              message, Response.class, new ObjectMapper());
-          processor.processMessage(responseToProcess);
-          ResponseHeader header = responseToProcess.getHeader();
+        //String message = client.getMessage();
+        Response message = client.getResponse();
+//        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
+//        try {
+//          Response responseToProcess = jsonParserAdapter.parse(
+//              message, Response.class, new ObjectMapper());
+          processor.processMessage(message);
+          ResponseHeader header = message.getHeader();
 
           if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
             isGameRunning = false;
           }
-        } catch (IOException e) {
-          LOGGER.log(Level.SEVERE, e.getMessage());
-        }
+//        } catch (IOException e) {
+//          LOGGER.log(Level.SEVERE, e.getMessage());
+//        }
       }
     }).start();
   }
@@ -140,9 +145,12 @@ public class PlayBoardController implements Initializable {
       for (int n = 0; n < boardSize; n++) {
         SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+          shipBoard.setDisable(true);
+          winning.setText(messageMap.get("waitMessage"));
           client.sendMessage(field);
           field.marked();
           lastField = field;
+          lastField.missed();
         });
 
         sea.addSeaField(field);
@@ -221,7 +229,11 @@ public class PlayBoardController implements Initializable {
       };
 
   private final EventHandler<YouHitEvent> youHit =
-      event -> lastField.hit();
+      event -> {
+        lastField.hit();
+        shipBoard.setDisable(false);
+      };
+
 
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
@@ -249,7 +261,7 @@ public class PlayBoardController implements Initializable {
     this.processor = messageProcessor;
   }
 
-  private void suspend() {
+  private void suspend() { // ?
     try {
       Thread.sleep(1500);
     } catch (InterruptedException e) {

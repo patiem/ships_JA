@@ -15,8 +15,8 @@ public class MissedShot implements ShotResult {
 
   @Override
   public void notifyClients(PlayerRegistry playerRegistry, Shot shot) {
-    messageSender.sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
-    messageSender.sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
+//    messageSender.sendResponse(new MissedResponse(), playerRegistry.getCurrentPlayer());
+//    messageSender.sendResponse(new OpponentMissedResponse(shot), playerRegistry.getWaitingPlayer());
     playerRegistry.switchPlayers();
   }
 
