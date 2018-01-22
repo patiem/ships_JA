@@ -35,7 +35,7 @@ class Main {
     }
   }
 
-  public static void setupNewIpForHost(String newIpForHost) throws IOException {
+  private static void setupNewIpForHost(String newIpForHost) throws IOException {
 
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(SERVER_CONFIG_FILE);
