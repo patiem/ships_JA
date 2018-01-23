@@ -20,8 +20,10 @@ class ConnectionHandler {
   private final PlayerRegistry playerRegistry = new PlayerRegistry();
 
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
-    acceptPlayer(serverSocket);
-    acceptPlayer(serverSocket);
+    TranscriptPanel panel = new TranscriptPanel();
+
+    acceptPlayer(serverSocket, panel);
+    acceptPlayer(serverSocket, panel);
     setUpGame();
   }
 
@@ -30,10 +32,10 @@ class ConnectionHandler {
     gameRunner.runGame();
   }
 
-  private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
+  private void acceptPlayer(final ServerSocket serverSocket, TranscriptPanel panel) throws IOException {
     Socket socket = serverSocket.accept();
     PlayerClient playerClient = createClient(socket);
-    playerRegistry.registerPlayer(playerClient);
+    playerRegistry.registerPlayer(playerClient, panel);
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {

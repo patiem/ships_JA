@@ -17,10 +17,11 @@ public class PlayerRegistryTest {
     when(mockedFirstPlayer.getName()).thenReturn(firstPlayerName);
     PlayerClient mockedSecondPlayer = mock(PlayerClient.class);
     when(mockedSecondPlayer.getName()).thenReturn(secondPlayerName);
+    TranscriptPanel panel = mock(TranscriptPanel.class);
 
     PlayerRegistry playerRegistry = new PlayerRegistry();
-    playerRegistry.registerPlayer(mockedFirstPlayer);
-    playerRegistry.registerPlayer(mockedSecondPlayer);
+    playerRegistry.registerPlayer(mockedFirstPlayer, panel);
+    playerRegistry.registerPlayer(mockedSecondPlayer, panel);
 
     //When
     playerRegistry.switchPlayers();
