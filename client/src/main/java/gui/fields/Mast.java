@@ -2,6 +2,7 @@ package gui.fields;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import model.Position;
 
 /**
  * It represents a mast of a ship.
@@ -17,8 +18,12 @@ public class Mast extends Rectangle implements Field {
     super(column, row, size.getValue(), size.getValue());
     this.column = column;
     this.row = row;
-    setFill(Color.FUCHSIA);
+    setFill(Color.DARKGREEN);
     setStroke(Color.GREEN);
+  }
+
+  public Mast(Position position, FieldSize size) {
+    this(position.getColumn(), position.getRow(), size);
   }
 
   @Override

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import json.JsonGeneratorAdapter;
 import messages.ConnectionMessage;
 import model.FleetMapper;
-import model.FleetModel;
+import common.model.FleetModel;
 import model.Player;
 
 import java.util.logging.Level;

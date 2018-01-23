@@ -37,7 +37,9 @@ import responses.ResponseHeader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,7 +61,7 @@ public class PlayBoardController implements Initializable {
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
   private OutputChannelDispatcher outputChannelDispatcher = new OutputChannelDispatcher();
-
+  private Map<String,String> messageMap = new HashMap<>();
 
   @FXML
   private GridPane shipBoard;
@@ -75,6 +77,15 @@ public class PlayBoardController implements Initializable {
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
     this.positions = positions;
+    populateMap();
+  }
+
+  private void populateMap() {
+    messageMap.put("hitAgainMessage",languageVersion.getMessage("hit_again"));
+    messageMap.put("waitMessage",languageVersion.getMessage("wait"));
+    messageMap.put("playMessage",languageVersion.getMessage("play"));
+    messageMap.put("winMessage",languageVersion.getMessage("win"));
+    messageMap.put("lossMessage",languageVersion.getMessage("loss"));
   }
 
   @Override
@@ -82,8 +93,8 @@ public class PlayBoardController implements Initializable {
 
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
-    winning.setText(languageVersion.getMessage("wait"));
-    outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
+    winning.setText(messageMap.get("waitMessage"));
+    outputChannelDispatcher.printToDesiredOutput(messageMap.get("waitMessage"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -178,35 +189,35 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<YourTurnEvent> enableBoard =
       event -> {
-        winning.setText(languageVersion.getMessage("play"));
+        winning.setText(messageMap.get("playMessage"));
         shipBoard.setDisable(false);
-        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("play"));
+        outputChannelDispatcher.printToDesiredOutput(messageMap.get("playMessage"));
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
       event -> {
         lastField.missed();
-        winning.setText(languageVersion.getMessage("wait"));
+        winning.setText(messageMap.get("waitMessage"));
         shipBoard.setDisable(true);
-        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("wait"));
+        outputChannelDispatcher.printToDesiredOutput(messageMap.get("waitMessage"));
       };
 
 
   private final EventHandler<YouWinEvent> youWin =
       event -> {
         lastField.hit();
-        winning.setText(languageVersion.getMessage("win"));
+        winning.setText(messageMap.get("winMessage"));
         suspend();
         jack.setVisible(true);
-        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("win"));
+        outputChannelDispatcher.printToDesiredOutput(messageMap.get("winMessage"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
       event -> {
-        winning.setText(languageVersion.getMessage("loss"));
+        winning.setText(messageMap.get("lossMessage"));
         suspend();
         sunk.setVisible(true);
-        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("loss"));
+        outputChannelDispatcher.printToDesiredOutput(messageMap.get("lossMessage"));
       };
 
   private final EventHandler<YouHitEvent> youHit =
@@ -220,17 +231,17 @@ public class PlayBoardController implements Initializable {
             .collect(Collectors.toList());
 
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
-        shipBoundariesPositions
-            .calculateShipBoundariesPositions(sunkShipPositions)
-            .markSunkShip();
+        shipBoundariesPositions.calculateShipBoundariesPositions(sunkShipPositions);
+        shipBoundariesPositions.markSunkShip();
       };
 
   private final EventHandler<HitAgainEvent> hitAgain =
       event -> {
         lastField.hit();
-        winning.setText(languageVersion.getMessage("hit_again"));
+
+        winning.setText(messageMap.get("hitAgainMessage"));
         shipBoard.setDisable(true);
-        outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("hit_again"));
+        outputChannelDispatcher.printToDesiredOutput(messageMap.get("hitAgainMessage"));
       };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {

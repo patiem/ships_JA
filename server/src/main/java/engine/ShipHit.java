@@ -2,7 +2,7 @@ package engine;
 
 import communication.PlayerRegistry;
 import communication.SocketMessageSender;
-import model.Shot;
+import common.model.Shot;
 import responses.HitResponse;
 import responses.OpponentHitResponse;
 

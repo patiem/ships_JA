@@ -5,7 +5,7 @@ import gui.fields.ClickableField;
 import java.util.List;
 
 /**
- * Updates board after users click, action depends on if ship is done or is still build.
+ * Updates board after users click, action depends on if ship is done or is still randomize.
  *
  * @version 1.5
  */
@@ -24,7 +24,7 @@ public class ShipBoardUpdater {
   }
 
   /**
-   * Updates board. Action depends on if ship is done or is still build.
+   * Updates board. Action depends on if ship is done or is still randomize.
    * If ship is done reset fields and creates boundaries around ship.
    * If ship is still in progress creates fields that can be clicked.
    *

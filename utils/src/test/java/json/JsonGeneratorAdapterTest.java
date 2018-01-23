@@ -2,7 +2,7 @@ package json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.ShipModel;
+import common.model.ShipModel;
 import org.testng.annotations.Test;
 
 import static org.mockito.Mockito.mock;

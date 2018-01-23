@@ -3,7 +3,7 @@ package engine;
 import communication.SocketMessageSender;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
-import model.Shot;
+import common.model.Shot;
 import org.testng.annotations.Test;
 import responses.Response;
 

@@ -14,29 +14,17 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import messages.LanguageVersion;
-import model.Fleet;
-import model.Player;
-import model.Position;
-import model.PossiblePositions;
-import model.Sea;
-import model.SeaCleaner;
-import model.Ship;
-import model.ShipBoardUpdater;
-import model.ShipBoundariesPositions;
-import model.ShipCreator;
+import model.*;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -52,7 +40,8 @@ public class FleetDropController implements Initializable {
 
   private static final int FIELD_SIZE = 30;
   private static final int GRID_SIZE = 10;
-  private final Sea sea;
+
+  private Sea sea;
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
@@ -90,6 +79,9 @@ public class FleetDropController implements Initializable {
   private TextField info;
   @FXML
   private Button nextButton;
+  @FXML
+  private Button random;
+
 
   private Rectangle buildShip;
   private ShipCreator shipCreator;
@@ -118,12 +110,19 @@ public class FleetDropController implements Initializable {
 
     populateSeaWithActiveFields();
     addEventHandlerToConnectButton();
+    addEventHandlersForRandomization();
+
     addEventHandlersToShips();
     setupShipBoardUpdater();
     this.connectButton.setText(languageVersion.getMessage("play"));
   }
 
+  private void addEventHandlersForRandomization() {
+    random.addEventHandler(MouseEvent.MOUSE_CLICKED, randomizeFleet);
+  }
+
   private void populateSeaWithActiveFields() {
+    sea = new Sea();
     for (int column = 0; column < GRID_SIZE; column++) {
       for (int row = 0; row < GRID_SIZE; row++) {
         SeaField field = new SeaField(column, row, FieldSize.BIG);
@@ -180,6 +179,21 @@ public class FleetDropController implements Initializable {
           info.setText(languageVersion.getMessage("emptyFleetInfo"));
           outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("emptyFleetInfo"));
         }
+        event.consume();
+      };
+
+  private final EventHandler<MouseEvent> randomizeFleet =
+      event -> {
+        port.setDisable(true);
+        populateSeaWithActiveFields();
+        RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(getSea());
+        fleet = randomFleetGenerator.generateRandomFleet();
+
+        fleet.getFields().forEach(x -> {
+              shipBoard.getChildren().add((Mast) x);
+              GridPane.setConstraints((Node) x, x.getColumn(), x.getRow());
+            }
+        );
         event.consume();
       };
 
@@ -302,6 +316,10 @@ public class FleetDropController implements Initializable {
 
   private Client getClient() {
     return client;
+  }
+
+  private Sea getSea() {
+    return sea;
   }
 
   private void setupClient() {

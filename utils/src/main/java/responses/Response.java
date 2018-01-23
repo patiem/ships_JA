@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import model.ShipModel;
-import model.Shot;
+import common.model.ShipModel;
+import common.model.Shot;
 
 import java.util.Optional;
 

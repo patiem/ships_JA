@@ -26,7 +26,7 @@ public class ShipCreatorTest {
   }
 
   @Test(expectedExceptions = IllegalStateException.class,
-      expectedExceptionsMessageRegExp = "Ship is already build")
+      expectedExceptionsMessageRegExp = "Ship is already randomize")
   public void whenShipIsFullyBuildAddingNextMastThrowsEx() {
 
     //given

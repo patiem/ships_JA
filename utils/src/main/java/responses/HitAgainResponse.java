@@ -2,7 +2,7 @@ package responses;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.Shot;
+import common.model.Shot;
 
 import java.util.Optional;
 

@@ -24,7 +24,6 @@ public class Sea {
   }
 
   ClickableField getSeaFieldByPosition(Position position) {
-
     Optional<ClickableField> field = seaFields
         .stream()
         .filter(s -> s.position().equals(position))

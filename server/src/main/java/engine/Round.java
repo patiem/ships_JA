@@ -1,7 +1,7 @@
 package engine;
 
 import fleet.Fleet;
-import model.Shot;
+import common.model.Shot;
 
 /**
  * It returns the shot result.

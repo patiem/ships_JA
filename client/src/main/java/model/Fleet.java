@@ -1,10 +1,14 @@
 package model;
 
+import gui.fields.Field;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Fleet {
+
+public class Fleet implements Iterable<Ship>{
 
   private List<Ship> ships;
 
@@ -27,8 +31,20 @@ public class Fleet {
         .collect(Collectors.toList());
   }
 
+  public List<Field> getFields(){
+    return ships.stream()
+        .map(Ship::getMasts)
+        .flatMap(List::stream)
+        .collect(Collectors.toList());
+  }
+
   public boolean isFleetFullyBuilt() {
     int numberOfShipsInFleet = 10;
     return ships.size() == numberOfShipsInFleet;
+  }
+
+  @Override
+  public Iterator<Ship> iterator() {
+    return ships.iterator();
   }
 }
