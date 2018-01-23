@@ -35,20 +35,20 @@ public class RandomFleetGenerator {
 
   private void buildShipsInFleet() {
     for (Ship ship : randomFleet) {
-      new ShipBuilder(ship).build();
+      new RandomShipCreator(ship).randomize();
     }
   }
 
-  private class ShipBuilder {
+  private class RandomShipCreator {
     private Ship ship;
     private Set<Position> possiblePositionsForShip;
 
-    ShipBuilder(Ship ship) {
+    RandomShipCreator(Ship ship) {
       this.ship = ship;
       possiblePositionsForShip = new HashSet<>();
     }
 
-    void build() {
+    void randomize() {
       findFirstMast();
 
       while (!ship.isShipDone()) {

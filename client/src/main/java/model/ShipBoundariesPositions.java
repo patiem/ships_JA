@@ -21,7 +21,6 @@ public class ShipBoundariesPositions {
   }
 
   public Set<Position> calculateShipBoundariesPositions(Ship ship) {
-//    boundaries.removeAll(ship.positionsOfAllMastInShip());
     return calculateShipBoundariesPositions(ship.positionsOfAllMastInShipAsIntegers());
   }
 

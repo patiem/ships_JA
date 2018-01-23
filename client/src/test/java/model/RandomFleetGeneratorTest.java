@@ -9,12 +9,12 @@ import static org.mockito.Mockito.when;
 
 public class RandomFleetGeneratorTest {
 
-  SoftAssert softAssert = new SoftAssert();
+  private SoftAssert softAssert = new SoftAssert();
 
   @Test
   public void returnsFleetWithTenShipsThatAllAreFullyBuilt() {
 
-      //given
+    //given
     Sea sea = generateSea();
     RandomFleetGenerator randomFleetGenerator = new RandomFleetGenerator(sea);
 
@@ -33,7 +33,7 @@ public class RandomFleetGeneratorTest {
 
   private Sea generateSea() {
     Sea sea = new Sea();
-    for(int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; i++) {
       ClickableField field = mock(ClickableField.class);
       when(field.position()).thenReturn(new Position(i));
       sea.addSeaField(field);
