@@ -21,7 +21,7 @@ public class MissedShotTest {
     @BeforeMethod
     public void setUp(){
         messageSender = mock(SocketMessageSender.class);
-        shotResult = new MissedShot(messageSender);
+        shotResult = new MissedShot();
         playerRegistry = mock(PlayerRegistry.class);
         Integer shotPosition = 5;
         shot = new Shot(shotPosition);

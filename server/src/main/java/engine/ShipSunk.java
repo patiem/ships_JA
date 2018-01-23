@@ -1,11 +1,10 @@
 package engine;
 
+import common.model.ShipModel;
+import common.model.Shot;
 import communication.PlayerRegistry;
 import communication.SocketMessageSender;
 import fleet.Fleet;
-import common.model.ShipModel;
-import common.model.Shot;
-import responses.HitResponse;
 import responses.OpponentHitResponse;
 import responses.SunkResponse;
 
@@ -20,7 +19,6 @@ public class ShipSunk implements ShotResult {
   public void notifyClients(PlayerRegistry playerRegistry, Shot shot) {
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
     ShipModel sunkShip = fleetUnderFire.getShipByPosition(shot.asInteger());
-    messageSender.sendResponse(new HitResponse(), playerRegistry.getCurrentPlayer());
     messageSender.sendResponse(new SunkResponse(sunkShip), playerRegistry.getCurrentPlayer());
     messageSender.sendResponse(new OpponentHitResponse(shot), playerRegistry.getWaitingPlayer());
   }

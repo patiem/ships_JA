@@ -2,7 +2,6 @@ package connection.chain;
 
 import gui.events.UpdateWhenHitEvent;
 import gui.playing.DispatcherAdapter;
-import model.DummyResponse;
 import common.model.Shot;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;

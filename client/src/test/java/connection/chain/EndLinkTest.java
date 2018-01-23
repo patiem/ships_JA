@@ -1,13 +1,9 @@
 package connection.chain;
 
 import gui.playing.DispatcherAdapter;
-import model.DummyResponse;
 import org.testng.annotations.Test;
-import responses.Response;
-import responses.ResponseHeader;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class EndLinkTest {
 

@@ -1,10 +1,9 @@
 package gui.playing;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
-import gui.events.HitAgainEvent;
 import connection.OutputChannelDispatcher;
+import gui.events.HitAgainEvent;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
 import gui.events.UpdateWhenMissedEvent;
@@ -26,7 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import json.JsonParserAdapter;
 import messages.LanguageVersion;
 import model.Position;
 import model.Sea;
@@ -34,15 +32,12 @@ import model.ShipBoundariesPositions;
 import responses.Response;
 import responses.ResponseHeader;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -56,14 +51,13 @@ public class PlayBoardController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
-  private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
   private List<Position> positions;
   private SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
   private OutputChannelDispatcher outputChannelDispatcher = new OutputChannelDispatcher();
-  private Map<String,String> messageMap = new HashMap<>();
+  private Map<String, String> messageMap = new HashMap<>();
 
   @FXML
   private GridPane shipBoard;
@@ -83,11 +77,11 @@ public class PlayBoardController implements Initializable {
   }
 
   private void populateMap() {
-    messageMap.put("hitAgainMessage",languageVersion.getMessage("hit_again"));
-    messageMap.put("waitMessage",languageVersion.getMessage("wait"));
-    messageMap.put("playMessage",languageVersion.getMessage("play"));
-    messageMap.put("winMessage",languageVersion.getMessage("win"));
-    messageMap.put("lossMessage",languageVersion.getMessage("loss"));
+    messageMap.put("hitAgainMessage", languageVersion.getMessage("hit_again"));
+    messageMap.put("waitMessage", languageVersion.getMessage("wait"));
+    messageMap.put("playMessage", languageVersion.getMessage("play"));
+    messageMap.put("winMessage", languageVersion.getMessage("win"));
+    messageMap.put("lossMessage", languageVersion.getMessage("loss"));
   }
 
   @Override
@@ -113,26 +107,16 @@ public class PlayBoardController implements Initializable {
   }
 
   private void makeMessageListenerThread() {
-    //ExecutorService executorService = new Executors.newFixedThreadPool()
-
     new Thread(() -> {
       boolean isGameRunning = true;
       while (isGameRunning) {
-        //String message = client.getMessage();
         Response message = client.getResponse();
-//        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
-//        try {
-//          Response responseToProcess = jsonParserAdapter.parse(
-//              message, Response.class, new ObjectMapper());
-          processor.processMessage(message);
-          ResponseHeader header = message.getHeader();
+        processor.processMessage(message);
+        ResponseHeader header = message.getHeader();
 
-          if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
-            isGameRunning = false;
-          }
-//        } catch (IOException e) {
-//          LOGGER.log(Level.SEVERE, e.getMessage());
-//        }
+        if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
+          isGameRunning = false;
+        }
       }
     }).start();
   }
@@ -237,7 +221,8 @@ public class PlayBoardController implements Initializable {
 
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
-        String[] positionsAsString = event.getMessage().split(POSITIONS_SEPARATOR);
+        String positionsSeparator = ",";
+        String[] positionsAsString = event.getMessage().split(positionsSeparator);
         List<Integer> sunkShipPositions = Arrays.stream(positionsAsString)
             .map(Integer::parseInt)
             .collect(Collectors.toList());
@@ -246,6 +231,7 @@ public class PlayBoardController implements Initializable {
         shipBoundariesPositions
             .calculateShipBoundariesPositions(sunkShipPositions)
             .markSunkShip();
+        lastField.hit();
       };
 
   private final EventHandler<HitAgainEvent> hitAgain =
@@ -261,7 +247,7 @@ public class PlayBoardController implements Initializable {
     this.processor = messageProcessor;
   }
 
-  private void suspend() { // ?
+  private void suspend() {
     try {
       Thread.sleep(1500);
     } catch (InterruptedException e) {
