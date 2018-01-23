@@ -1,6 +1,6 @@
 package fleet;
 
-import model.ShipModel;
+import common.model.ShipModel;
 
 import java.util.List;
 
@@ -22,5 +22,4 @@ public interface Fleet {
   default boolean isSunk() {
     return getHitFields().containsAll(getFleetPositions());
   }
-
 }

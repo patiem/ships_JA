@@ -1,6 +1,5 @@
 package gui.starting;
 
-import gui.OutputChannelDispatcher;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

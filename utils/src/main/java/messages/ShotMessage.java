@@ -2,7 +2,7 @@ package messages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.Shot;
+import common.model.Shot;
 
 /**
  * It represents the message containing information about shot.

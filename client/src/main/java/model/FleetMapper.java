@@ -1,5 +1,8 @@
 package model;
 
+import common.model.FleetModel;
+import common.model.ShipModel;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,7 +1,7 @@
 package connection.chain;
 
 import gui.playing.DispatcherAdapter;
-import model.Shot;
+import common.model.Shot;
 import responses.Response;
 
 public abstract class Chain {

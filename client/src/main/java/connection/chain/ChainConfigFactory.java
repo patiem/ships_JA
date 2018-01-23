@@ -6,31 +6,34 @@ public class ChainConfigFactory {
   }
 
   public static Chain configureChainOfResponsibilities() {
-    Chain firstLinkInTheChain = new HitLink();
-    Chain chain2 = new MissedLink();
-    firstLinkInTheChain.setNextChain(chain2);
+    Chain hitLink = new HitLink();
+    Chain missedLink = new MissedLink();
+    hitLink.setNextChain(missedLink);
 
-    Chain chain3 = new WinLink();
-    chain2.setNextChain(chain3);
+    Chain winLink = new WinLink();
+    missedLink.setNextChain(winLink);
 
-    Chain chain4 = new PlayLink();
-    chain3.setNextChain(chain4);
+    Chain playLink = new PlayLink();
+    winLink.setNextChain(playLink);
 
-    Chain chain5 = new LostLink();
-    chain4.setNextChain(chain5);
+    Chain lostLink = new LostLink();
+    playLink.setNextChain(lostLink);
 
-    Chain chain6 = new OpponentHitLink();
-    chain5.setNextChain(chain6);
+    Chain opponentHitLink = new OpponentHitLink();
+    lostLink.setNextChain(opponentHitLink);
 
-    Chain chain7 = new OpponentMissedLink();
-    chain6.setNextChain(chain7);
+    Chain opponentMissedLink = new OpponentMissedLink();
+    opponentHitLink.setNextChain(opponentMissedLink);
 
-    Chain chain8 = new SunkLink();
-    chain7.setNextChain(chain8);
+    Chain hitAgainLink = new HitAgainLink();
+    opponentMissedLink.setNextChain(hitAgainLink);
 
-    Chain chain9 = new EndLink();
-    chain8.setNextChain(chain9);
+    Chain sunkLink = new SunkLink();
+    hitAgainLink.setNextChain(sunkLink);
 
-    return firstLinkInTheChain;
+    Chain endLink = new EndLink();
+    sunkLink.setNextChain(endLink);
+
+    return hitLink;
   }
 }

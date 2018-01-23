@@ -1,5 +1,6 @@
 package engine;
 
+import communication.SocketMessageSender;
 import fleet.Fleet;
 
 import java.util.List;
@@ -10,26 +11,32 @@ import java.util.List;
  * @author Emilia Ciastek
  * @version 1.5
  */
-public class HitChecker {
+class HitChecker {
 
   private final Fleet fleet;
 
-  public HitChecker(final Fleet fleet) {
+  HitChecker(final Fleet fleet) {
     this.fleet = fleet;
   }
 
-  public ShotResult checkShot(final int position) {
-    boolean isShipPosition = fleet.getFleetPositions().contains(position);
-    boolean isHitAgain = fleet.getHitFields().contains(position);
+  ShotResult checkShot(Integer shotPosition) {
+    boolean isShipPosition = fleet.getFleetPositions().contains(shotPosition);
+    boolean isHitAgain = fleet.getHitFields().contains(shotPosition);
 
-    if (!isHitAgain && isShipPosition) {
-      fleet.hit(position);
-      List<Integer> shipPositions = fleet.getShipByPosition(position).getFields();
+    if (isHitAgain) {
+      return new HitAgainShot(new SocketMessageSender());
+    } else if (isShipPosition) {
+      fleet.hit(shotPosition);
+      List<Integer> shipPositions = fleet.getShipByPosition(shotPosition).getFields();
       boolean isShipSunk = fleet.getHitFields().containsAll(shipPositions);
 
-      return isShipSunk ? ShotResult.SUNK : ShotResult.HIT;
+      if (isShipSunk) {
+        return new ShipSunk(new SocketMessageSender());
+      }
+
+      return new ShipHit(new SocketMessageSender());
     }
 
-    return ShotResult.MISSED;
+    return new MissedShot(new SocketMessageSender());
   }
 }

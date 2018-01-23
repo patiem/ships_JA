@@ -1,6 +1,6 @@
 package communication;
 
-import engine.ActiveGame;
+import engine.ActiveState;
 import engine.GameRunner;
 import fleet.CustomFleet;
 import fleet.Fleet;
@@ -26,7 +26,7 @@ class ConnectionHandler {
   }
 
   private void setUpGame() throws IOException {
-    GameRunner gameRunner = new GameRunner(playerRegistry, new ActiveGame(playerRegistry));
+    GameRunner gameRunner = new GameRunner(new ActiveState(playerRegistry));
     gameRunner.runGame();
   }
 

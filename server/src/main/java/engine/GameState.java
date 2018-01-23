@@ -1,11 +1,11 @@
 package engine;
 
+import java.io.IOException;
 
-/**
- * It holds the game states.
- * @author Bartosz Pieczara
- * @version 1.5
- */
-public enum GameState {
-  ACTIVE, WIN
+public interface GameState {
+  GameState run() throws IOException;
+
+  default boolean isGameRunning() {
+    return true;
+  }
 }

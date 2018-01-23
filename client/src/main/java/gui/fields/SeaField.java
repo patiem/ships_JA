@@ -35,12 +35,11 @@ public class SeaField extends Rectangle implements ClickableField {
   }
 
   public void marked() {
-    setFill(Color.GREEN);
     setStroke(Color.GRAY);
   }
 
   public void missed() {
-    setFill(Color.BLACK);
+    setFill(Color.BLUE);
   }
 
   @Override

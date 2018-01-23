@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import model.ShipModel;
-import model.Shot;
+import common.model.ShipModel;
+import common.model.Shot;
 
 import java.util.Optional;
 
@@ -19,7 +19,8 @@ import java.util.Optional;
     @JsonSubTypes.Type(value = OpponentMissedResponse.class, name = "OpponentMissedResponse"),
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
     @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),
-    @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse")}
+    @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse"),
+    @JsonSubTypes.Type(value = HitAgainResponse.class, name = "HitAgainResponse")}
     )
 public interface Response {
   ResponseHeader getHeader();

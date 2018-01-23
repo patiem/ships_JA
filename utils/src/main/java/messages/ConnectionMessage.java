@@ -2,7 +2,7 @@ package messages;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.FleetModel;
+import common.model.FleetModel;
 
 /**
  * It represents the initial message sent from GUI to the server.

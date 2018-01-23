@@ -1,20 +1,19 @@
 #!/usr/bin/env bash
 
-
 # This script launches the client
 
 SC=`echo $PWD | grep scripts | wc -l`
-if [[ $SC -ne 1 ]];
+if [ $SC -ne 1 ];
     then echo 'Please start script from scripts folder'
     exit 0
 fi
 
-if [[ $# -ne 1 ]] ; then
+if [ $# -eq 0 ] ; then
     echo 'Provide server Ip or localhost'
     exit 0
 fi
 
-./setupServerIp.sh $1
+./setupServerConfig.sh $1 $2 $3
 
 set -e
 cd ..

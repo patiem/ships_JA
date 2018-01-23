@@ -18,7 +18,7 @@ public class Mast extends Rectangle implements Field {
     super(column, row, size.getValue(), size.getValue());
     this.column = column;
     this.row = row;
-    setFill(Color.FUCHSIA);
+    setFill(Color.DARKGREEN);
     setStroke(Color.GREEN);
   }
 
