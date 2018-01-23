@@ -4,29 +4,27 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class FileOutput implements Output {
-private File file;
-private BufferedWriter bufferedWriter;
+  private File file;
+
   public FileOutput() throws IOException {
-     file = new File("logs" + File.separator +"gameFlow.txt");
-     bufferedWriter = new BufferedWriter(new FileWriter(file));
+    File directory = new File("logs");
+    directory.mkdir();
+    file = new File(directory.getPath() + File.separator + "gameFlow.txt");
   }
 
   @Override
-  public void writeMessage(String message) {
+  public void transcript(String message) {
 
-  try {
-bufferedWriter.append(message);
-bufferedWriter.newLine();
-  }catch (IOException e) {
-    //TODO: add logger
-    e.printStackTrace();
-  }
+    try (FileWriter fw = new FileWriter(file, true);
+         BufferedWriter bw = new BufferedWriter(fw);
+         PrintWriter out = new PrintWriter(bw)) {
+      out.println(message);
 
-
-
-    //System.out.println(message);
-
+    } catch (IOException e) {
+      //TODO: add Logger
+    }
   }
 }

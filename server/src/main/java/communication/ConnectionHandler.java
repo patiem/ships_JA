@@ -40,7 +40,7 @@ class ConnectionHandler {
     Socket socket = serverSocket.accept();
     PlayerClient playerClient = createClient(socket);
     playerRegistry.registerPlayer(playerClient);
-    output.writeMessage("New player: " + playerClient.getName() + " has joined the game");
+    output.transcript("New player: " + playerClient.getName() + " has joined the game");
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {

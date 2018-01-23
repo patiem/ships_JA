@@ -36,7 +36,7 @@ public class FinishedGame implements GameState {
     String logMessage = String.format("Message has been send. Player %s won, player %s lost",
         winner, looser);
 
-    output.writeMessage("Player %s won, player %s lost");
+    output.transcript("Player %s won, player %s lost");
 
     serverLogger.info(logMessage);
     serverLogger.getFileHandler().close();

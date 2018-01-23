@@ -2,6 +2,6 @@ package communication;
 
 public interface Output {
 
-  void writeMessage(String message);
+  void transcript(String message);
 
 }
