@@ -81,8 +81,7 @@ public class FleetDropController implements Initializable {
   private Button nextButton;
   @FXML
   private Button random;
-  @FXML
-  private Button clear;
+
 
   private Rectangle buildShip;
   private ShipCreator shipCreator;
@@ -120,7 +119,6 @@ public class FleetDropController implements Initializable {
 
   private void addEventHandlersForRandomization() {
     random.addEventHandler(MouseEvent.MOUSE_CLICKED, randomizeFleet);
-    clear.addEventHandler(MouseEvent.MOUSE_CLICKED, clearFleet);
   }
 
   private void populateSeaWithActiveFields() {
@@ -198,13 +196,6 @@ public class FleetDropController implements Initializable {
         );
         event.consume();
       };
-
-  private EventHandler<MouseEvent> clearFleet =
-      event -> {
-      populateSeaWithActiveFields();
-      port.setDisable(false);
-      };
-
 
   private final EventHandler<DragEvent> seaFieldAcceptEventDraggedOver =
       event -> {

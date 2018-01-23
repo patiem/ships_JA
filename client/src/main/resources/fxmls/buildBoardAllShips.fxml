@@ -64,9 +64,6 @@
     <Button fx:id="random" contentDisplay="CENTER" layoutX="401.0" layoutY="239.0" mnemonicParsing="false" text="Randomize fleet">
     </Button>
 
-    <Button fx:id="clear" contentDisplay="CENTER" layoutX="400.0" layoutY="274.0" mnemonicParsing="false" text="Clear fleet">
-    </Button>
-
     <Button fx:id="nextButton" contentDisplay="CENTER" layoutX="403.0" layoutY="334.0" mnemonicParsing="false" text="Play!" visible="false">
     </Button>
     <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
