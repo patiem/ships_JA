@@ -14,15 +14,12 @@ import java.util.Deque;
 public class PlayerRegistry {
 
   private final Deque<PlayerClient> players = new ArrayDeque<>();
-  private TranscriptPanel panel;
 
-  void registerPlayer(PlayerClient newPlayer, TranscriptPanel panel) {
-    this.panel = panel;
+  void registerPlayer(PlayerClient newPlayer) {
     addPlayer(newPlayer);
   }
 
   private void addPlayer(PlayerClient playerClient) {
-    panel.write("Player Added");
     players.add(playerClient);
   }
 

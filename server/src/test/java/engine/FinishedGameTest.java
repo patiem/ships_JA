@@ -1,6 +1,7 @@
 package engine;
 
 import communication.MessageSender;
+import communication.Output;
 import communication.PlayerClient;
 import communication.PlayerRegistry;
 import org.testng.annotations.Test;
@@ -18,7 +19,8 @@ public class FinishedGameTest {
     @Test
     public void shouldSetIsRunningToFalse() throws IOException {
         MessageSender mockedMessageSender = mock(MessageSender.class);
-        FinishedGame finishedGame = new FinishedGame(new PlayerRegistry(), mockedMessageSender);
+        Output output = mock(Output.class);
+        FinishedGame finishedGame = new FinishedGame(new PlayerRegistry(), mockedMessageSender, output);
         finishedGame.run();
 
         assertFalse(finishedGame.isGameRunning());
@@ -26,12 +28,13 @@ public class FinishedGameTest {
 
     @Test
     public void shouldSendWinResponseToCurrentPlayer() throws IOException {
+        Output output = mock(Output.class);
         MessageSender mockedMessageSender = mock(MessageSender.class);
         PlayerRegistry playerRegistry = mock(PlayerRegistry.class);
         PlayerClient mockedPlayer = mock(PlayerClient.class);
         when(playerRegistry.getCurrentPlayer()).thenReturn(mockedPlayer);
 
-        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
+        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender, output);
         finishedGame.run();
 
         verify(mockedMessageSender).sendResponse(isA(WinResponse.class), eq(mockedPlayer));
@@ -39,12 +42,13 @@ public class FinishedGameTest {
 
     @Test
     public void shouldSendLossResponseToSecondPlayer() throws IOException {
+        Output output = mock(Output.class);
         MessageSender mockedMessageSender = mock(MessageSender.class);
         PlayerRegistry playerRegistry = mock(PlayerRegistry.class);
         PlayerClient mockedPlayer = mock(PlayerClient.class);
         when(playerRegistry.getWaitingPlayer()).thenReturn(mockedPlayer);
 
-        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender);
+        FinishedGame finishedGame = new FinishedGame(playerRegistry, mockedMessageSender, output);
         finishedGame.run();
 
         verify(mockedMessageSender).sendResponse(isA(LossResponse.class), eq(mockedPlayer));

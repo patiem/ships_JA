@@ -1,4 +1,4 @@
-package connection;
+package communication;
 
 import messages.ServerLogger;
 
@@ -7,30 +7,24 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 
-public class OutputChannelDispatcher {
+public class OutputSelector {
 
-  private ServerLogger serverLogger = ServerLogger.getInstance();
-  private OutputSelector systemErr = new SystemErr(this);
-  private OutputSelector sysOut = new SysOut(this);
-  private OutputSelector currentSelection;
+  private static ServerLogger serverLogger = ServerLogger.getInstance();
 
-  {
+  public static Output getOutput() throws IOException {
     String serverConfigFile = "config.properties";
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
       if (properties.getProperty("outputChannel").equals("err")) {
-        currentSelection = systemErr;
+        return new TranscriptPanel();
       } else {
-        currentSelection = sysOut;
+        return new FileOutput();
       }
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());
+      return new FileOutput();
     }
-  }
-
-  public void printToDesiredOutput(String message) {
-    currentSelection.printToDesiredOutput(message);
   }
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
 import gui.events.HitAgainEvent;
-import connection.OutputChannelDispatcher;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
 import gui.events.UpdateWhenMissedEvent;
@@ -60,7 +59,6 @@ public class PlayBoardController implements Initializable {
   private SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
-  private OutputChannelDispatcher outputChannelDispatcher = new OutputChannelDispatcher();
   private Map<String,String> messageMap = new HashMap<>();
 
   @FXML
@@ -94,7 +92,6 @@ public class PlayBoardController implements Initializable {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
     winning.setText(messageMap.get("waitMessage"));
-    outputChannelDispatcher.printToDesiredOutput(messageMap.get("waitMessage"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -191,7 +188,6 @@ public class PlayBoardController implements Initializable {
       event -> {
         winning.setText(messageMap.get("playMessage"));
         shipBoard.setDisable(false);
-        outputChannelDispatcher.printToDesiredOutput(messageMap.get("playMessage"));
       };
 
   private final EventHandler<YouMissedEvent> youMissed =
@@ -199,7 +195,6 @@ public class PlayBoardController implements Initializable {
         lastField.missed();
         winning.setText(messageMap.get("waitMessage"));
         shipBoard.setDisable(true);
-        outputChannelDispatcher.printToDesiredOutput(messageMap.get("waitMessage"));
       };
 
 
@@ -209,7 +204,6 @@ public class PlayBoardController implements Initializable {
         winning.setText(messageMap.get("winMessage"));
         suspend();
         jack.setVisible(true);
-        outputChannelDispatcher.printToDesiredOutput(messageMap.get("winMessage"));
       };
 
   private final EventHandler<YouLostEvent> youLost =
@@ -217,7 +211,6 @@ public class PlayBoardController implements Initializable {
         winning.setText(messageMap.get("lossMessage"));
         suspend();
         sunk.setVisible(true);
-        outputChannelDispatcher.printToDesiredOutput(messageMap.get("lossMessage"));
       };
 
   private final EventHandler<YouHitEvent> youHit =
@@ -241,7 +234,6 @@ public class PlayBoardController implements Initializable {
 
         winning.setText(messageMap.get("hitAgainMessage"));
         shipBoard.setDisable(true);
-        outputChannelDispatcher.printToDesiredOutput(messageMap.get("hitAgainMessage"));
       };
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {

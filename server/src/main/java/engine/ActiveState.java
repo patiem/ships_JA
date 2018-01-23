@@ -2,6 +2,7 @@ package engine;
 
 import communication.MessageReceiver;
 import communication.MessageSender;
+import communication.Output;
 import communication.PlayerRegistry;
 import communication.SocketMessageSender;
 import fleet.Fleet;
@@ -17,10 +18,12 @@ public class ActiveState implements GameState {
   private ServerLogger serverLogger = ServerLogger.getInstance();
   private final Round round = new Round();
   private final PlayerRegistry playerRegistry;
+  private final Output output;
   private MessageReceiver messageReceiver = new MessageReceiver();
 
-  public ActiveState(PlayerRegistry playerRegistry) {
+  public ActiveState(PlayerRegistry playerRegistry, Output output) {
     this.playerRegistry = playerRegistry;
+    this.output = output;
   }
 
   @Override
@@ -36,11 +39,11 @@ public class ActiveState implements GameState {
 
     ShotResult result = round.fireShot(fleetUnderFire, shot);
     logShotInfo(shot, result);
-
+    output.transcript("Player: " + playerRegistry.currentPlayerName() + " fired a shot: " + shot.asInteger() + " ; it's a " + result.toString());
     result.notifyClients(playerRegistry, shot);
 
     if (fleetUnderFire.isSunk()) {
-      return new FinishedGame(playerRegistry, new SocketMessageSender());
+      return new FinishedGame(playerRegistry, new SocketMessageSender(), output);
     }
 
     return this;
