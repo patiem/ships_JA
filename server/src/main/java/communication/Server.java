@@ -22,8 +22,8 @@ public class Server {
   void runServer() {
 
     serverLogger.info("Server running!");
-    ConnectionHandler connectionHandler = new ConnectionHandler();
     try {
+      ConnectionHandler connectionHandler = new ConnectionHandler();
       int portNumber = setUpServerConfig();
       ServerSocket serverSocket = new ServerSocket(portNumber);
       connectionHandler.acceptConnections(serverSocket);

@@ -1,7 +1,6 @@
 package fleet;
 
 import common.model.ShipModel;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +42,6 @@ public class HardcodedFleet implements Fleet {
       return new ShipModel(Arrays.asList(positionToSearch));
     }
 
-    throw new NotImplementedException();
+    throw new UnsupportedOperationException();
   }
 }

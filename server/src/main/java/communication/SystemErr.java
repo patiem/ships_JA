@@ -1,6 +1,6 @@
 package communication;
 
-public class SystemErr implements OutputSelector {
+public class SystemErr implements Output {
 
   @Override
   public void writeMessage(String message) {
