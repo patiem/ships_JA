@@ -22,6 +22,7 @@ class ConnectionHandler {
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
     acceptPlayer(serverSocket);
     acceptPlayer(serverSocket);
+
     setUpGame();
   }
 
