@@ -113,6 +113,7 @@ public class FleetDropController implements Initializable {
     addEventHandlersToShips();
     setupShipBoardUpdater();
     this.connectButton.setText(languageVersion.getMessage("play"));
+    this.random.setText(languageVersion.getMessage("random_fleet"));
   }
 
   private void addEventHandlersForRandomization() {

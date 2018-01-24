@@ -1,12 +1,17 @@
 package communication;
 
+import messages.ServerLogger;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 
 public class FileOutput implements Output {
+  private static ServerLogger serverLogger = ServerLogger.getInstance();
+
   private File file;
 
   public FileOutput() throws IOException {
@@ -22,7 +27,7 @@ public class FileOutput implements Output {
          PrintWriter out = new PrintWriter(bw)) {
       out.println(message);
     } catch (IOException e) {
-      //TODO: add Logger
+      serverLogger.log(Level.SEVERE, e.getMessage());
     }
   }
 }
