@@ -42,7 +42,8 @@ class ConnectionHandler {
     PlayerClient playerClient = createClient(socket);
 
     playerRegistry.registerPlayer(playerClient);
-    output.transcript("New player: " + playerClient.getName() + " has joined the game");
+    String transcriptMessage = "New player: %s has joined the game";
+    output.transcript(String.format(transcriptMessage, playerClient.getName()));
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {

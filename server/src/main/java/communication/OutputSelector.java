@@ -19,10 +19,10 @@ public class OutputSelector {
     InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
-      if (properties.getProperty("outputChannel").equals("graphical")) {
-        return new GraphicalOutput();
-      } else {
+      if (properties.getProperty("outputChannel").equals("file")) {
         return new FileOutput();
+      } else {
+        return new GraphicalOutput();
       }
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());

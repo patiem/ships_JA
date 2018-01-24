@@ -32,8 +32,12 @@ public class PlayerRegistry {
     players.addLast(current);
   }
 
-  public String currentPlayerName() {
+  public String getCurrentPlayerName() {
     return players.peekFirst().getName();
+  }
+
+  public String getWaitingPlayerName() {
+    return players.peekLast().getName();
   }
 
   public PlayerClient getCurrentPlayer() {

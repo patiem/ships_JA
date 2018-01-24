@@ -22,7 +22,7 @@ public class PlayerClient {
     this.fleet = playerFleet;
   }
 
-  String getName() {
+  public String getName() {
     return playerName;
   }
 
@@ -33,6 +33,4 @@ public class PlayerClient {
   public Socket getSocket() {
     return socket;
   }
-
-  //TODO: override method toString()
 }

@@ -29,14 +29,16 @@ public class FinishedGame implements GameState {
   @Override
   public GameState run() throws IOException {
     PlayerClient winner = playerRegistry.getCurrentPlayer();
-    PlayerClient looser = playerRegistry.getWaitingPlayer();
+    PlayerClient loser = playerRegistry.getWaitingPlayer();
 
     messageSender.sendResponse(new WinResponse(), winner);
-    messageSender.sendResponse(new LossResponse(), looser);
+    messageSender.sendResponse(new LossResponse(), loser);
     String logMessage = String.format("Message has been send. Player %s won, player %s lost",
-        winner, looser);
+        winner, loser);
 
-    output.transcript("Player %s won, player %s lost");
+    String transcriptMessage = "Player %s won, player %s lost";
+    output.transcript(String.format(transcriptMessage, playerRegistry.getCurrentPlayerName(),
+        playerRegistry.getWaitingPlayerName()));
 
     serverLogger.info(logMessage);
     serverLogger.getFileHandler().close();

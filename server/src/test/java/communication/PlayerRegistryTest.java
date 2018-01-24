@@ -26,7 +26,7 @@ public class PlayerRegistryTest {
     playerRegistry.switchPlayers();
 
     //Then
-    assertEquals(playerRegistry.currentPlayerName(), secondPlayerName);
+    assertEquals(playerRegistry.getCurrentPlayerName(), secondPlayerName);
   }
 
 }

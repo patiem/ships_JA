@@ -39,7 +39,9 @@ public class ActiveState implements GameState {
 
     ShotResult result = round.fireShot(fleetUnderFire, shot);
     logShotInfo(shot, result);
-    output.transcript("Player: " + playerRegistry.currentPlayerName() + " fired a shot: " + shot.asInteger() + " ; it's a " + result.toString());
+    String transcriptMessage = "Player: %s fired a shot: %d; it's a %s";
+    output.transcript(String.format(transcriptMessage, playerRegistry.getCurrentPlayerName(),
+        shot.asInteger(), result.toString()));
     result.notifyClients(playerRegistry, shot);
 
     if (fleetUnderFire.isSunk()) {
@@ -51,7 +53,7 @@ public class ActiveState implements GameState {
 
   private void logShotInfo(final Shot shot, final ShotResult shotResult) {
     String messageTemplate = "Player: %s, shot: position: %s, shotState: %s;";
-    String logMessage = String.format(messageTemplate, playerRegistry.currentPlayerName(),
+    String logMessage = String.format(messageTemplate, playerRegistry.getCurrentPlayerName(),
         shot.asInteger(), shotResult.toString());
     serverLogger.info(logMessage);
   }
