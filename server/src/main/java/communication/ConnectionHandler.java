@@ -25,6 +25,7 @@ class ConnectionHandler {
   }
 
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
+
     acceptPlayer(serverSocket);
     acceptPlayer(serverSocket);
 
@@ -39,6 +40,7 @@ class ConnectionHandler {
   private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
     Socket socket = serverSocket.accept();
     PlayerClient playerClient = createClient(socket);
+
     playerRegistry.registerPlayer(playerClient);
     output.transcript("New player: " + playerClient.getName() + " has joined the game");
   }

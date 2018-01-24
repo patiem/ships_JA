@@ -17,12 +17,10 @@ public class FileOutput implements Output {
 
   @Override
   public void transcript(String message) {
-
     try (FileWriter fw = new FileWriter(file, true);
          BufferedWriter bw = new BufferedWriter(fw);
          PrintWriter out = new PrintWriter(bw)) {
       out.println(message);
-
     } catch (IOException e) {
       //TODO: add Logger
     }

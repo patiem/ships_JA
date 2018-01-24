@@ -1,7 +1,6 @@
 package communication;
 
 import fleet.Fleet;
-import messages.ServerLogger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

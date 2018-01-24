@@ -34,7 +34,9 @@ public class ActiveState implements GameState {
     Socket socket = playerRegistry.getCurrentPlayer().getSocket();
     ShotMessage shotMessage = messageReceiver.receiveShotMessage(socket);
     Fleet fleetUnderFire = playerRegistry.getFleetUnderFire();
+
     Shot shot = shotMessage.getShot();
+
     ShotResult result = round.fireShot(fleetUnderFire, shot);
     logShotInfo(shot, result);
     output.transcript("Player: " + playerRegistry.currentPlayerName() + " fired a shot: " + shot.asInteger() + " ; it's a " + result.toString());

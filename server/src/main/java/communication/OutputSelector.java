@@ -11,14 +11,16 @@ public class OutputSelector {
 
   private static ServerLogger serverLogger = ServerLogger.getInstance();
 
+  private OutputSelector(){}
+
   public static Output getOutput() throws IOException {
     String serverConfigFile = "config.properties";
     Properties properties = new Properties();
     InputStream config = ClassLoader.getSystemResourceAsStream(serverConfigFile);
     try {
       properties.load(config);
-      if (properties.getProperty("outputChannel").equals("err")) {
-        return new SystemErr();
+      if (properties.getProperty("outputChannel").equals("graphical")) {
+        return new GraphicalOutput();
       } else {
         return new FileOutput();
       }
