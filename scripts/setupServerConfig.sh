@@ -1,7 +1,7 @@
 #!/bin/bash
 
 command1='English'
-command2='out'
+command2='graphical'
 
 if [ $# -eq 0 ] ; then
     echo 'Please provide the server Ip or localhost. Optionally you can provide the language (English or Polish) as well as the output channel(err or out)'

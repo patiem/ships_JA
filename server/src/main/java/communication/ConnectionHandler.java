@@ -18,22 +18,32 @@ import java.net.Socket;
  */
 class ConnectionHandler {
   private final PlayerRegistry playerRegistry = new PlayerRegistry();
+  private final Output output;
+
+  public ConnectionHandler() throws IOException {
+    output = OutputSelector.getOutput();
+  }
 
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
+
     acceptPlayer(serverSocket);
     acceptPlayer(serverSocket);
+
     setUpGame();
   }
 
   private void setUpGame() throws IOException {
-    GameRunner gameRunner = new GameRunner(new ActiveState(playerRegistry));
+    GameRunner gameRunner = new GameRunner(new ActiveState(playerRegistry, output));
     gameRunner.runGame();
   }
 
   private void acceptPlayer(final ServerSocket serverSocket) throws IOException {
     Socket socket = serverSocket.accept();
     PlayerClient playerClient = createClient(socket);
+
     playerRegistry.registerPlayer(playerClient);
+    String transcriptMessage = "New player: %s has joined the game";
+    output.transcript(String.format(transcriptMessage, playerClient.getName()));
   }
 
   private PlayerClient createClient(final Socket socket) throws IOException {

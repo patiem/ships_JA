@@ -2,7 +2,6 @@ package gui.building;
 
 import connection.Client;
 import connection.FleetSender;
-import connection.OutputChannelDispatcher;
 import gui.fields.BoundField;
 import gui.fields.FieldSize;
 import gui.fields.Mast;
@@ -45,7 +44,6 @@ public class FleetDropController implements Initializable {
   private Fleet fleet;
   private final Client client;
   private LanguageVersion languageVersion = new LanguageVersion();
-  private OutputChannelDispatcher outputChannelDispatcher = new OutputChannelDispatcher();
 
   @FXML
   private Button connectButton;
@@ -115,6 +113,7 @@ public class FleetDropController implements Initializable {
     addEventHandlersToShips();
     setupShipBoardUpdater();
     this.connectButton.setText(languageVersion.getMessage("play"));
+    this.random.setText(languageVersion.getMessage("random_fleet"));
   }
 
   private void addEventHandlersForRandomization() {
@@ -177,7 +176,6 @@ public class FleetDropController implements Initializable {
           nextButton.fireEvent(new ConnectEvent());
         } else {
           info.setText(languageVersion.getMessage("emptyFleetInfo"));
-          outputChannelDispatcher.printToDesiredOutput(languageVersion.getMessage("emptyFleetInfo"));
         }
         event.consume();
       };
