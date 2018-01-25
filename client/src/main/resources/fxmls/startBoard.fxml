@@ -10,7 +10,7 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
             prefHeight="600.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141">
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.101">
     <ImageView fitHeight="381.0" fitWidth="662.0" layoutX="33.0" layoutY="188.0" pickOnBounds="true"
                preserveRatio="true">
         <Image url="@../images/wreck.png"/>
