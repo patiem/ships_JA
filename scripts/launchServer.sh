@@ -7,6 +7,9 @@ if [[ $SC -ne 1 ]];
     then echo 'Please start script from scripts folder'
     exit 0
 fi
+
+./setupServerConfig.sh $1
+
 set -e
 cd ..
 mvn clean install -q
