@@ -13,7 +13,7 @@ if [ $# -eq 0 ] ; then
     exit 0
 fi
 
-./setupServerConfig.sh $1 $2 $3
+./setupClientConfig.sh $1 $2 $3
 
 set -e
 cd ..
