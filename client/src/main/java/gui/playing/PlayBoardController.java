@@ -41,7 +41,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -55,13 +54,14 @@ public class PlayBoardController implements Initializable {
   private static final Logger LOGGER = Logger.getLogger(PlayBoardController.class.getName());
 
   private final Client client;
-  private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
   private List<Position> positions;
   private  SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
-  private Map<String,String> messageMap = new HashMap<>();
+  private Map<String, String> messageMap = new HashMap<>();
+  private static final String POSITIONS_SEPARATOR = ",";
+
 
   @FXML
   private GridPane shipBoard;
@@ -81,11 +81,11 @@ public class PlayBoardController implements Initializable {
   }
 
   private void populateMap() {
-    messageMap.put("hitAgainMessage",languageVersion.getMessage("hit_again"));
-    messageMap.put("waitMessage",languageVersion.getMessage("wait"));
-    messageMap.put("playMessage",languageVersion.getMessage("play"));
-    messageMap.put("winMessage",languageVersion.getMessage("win"));
-    messageMap.put("lossMessage",languageVersion.getMessage("loss"));
+    messageMap.put("hitAgainMessage", languageVersion.getMessage("hit_again"));
+    messageMap.put("waitMessage", languageVersion.getMessage("wait"));
+    messageMap.put("playMessage", languageVersion.getMessage("play"));
+    messageMap.put("winMessage", languageVersion.getMessage("win"));
+    messageMap.put("lossMessage", languageVersion.getMessage("loss"));
   }
 
   @Override
@@ -150,9 +150,12 @@ public class PlayBoardController implements Initializable {
       for (int n = 0; n < boardSize; n++) {
         SeaField field = new SeaField(i, n, FieldSize.BIG);
         field.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+          shipBoard.setDisable(true);
+          winning.setText(messageMap.get("waitMessage"));
           client.sendMessage(field);
           field.marked();
           lastField = field;
+          lastField.missed();
         });
 
         sea.addSeaField(field);
@@ -227,7 +230,13 @@ public class PlayBoardController implements Initializable {
       };
 
   private final EventHandler<YouHitEvent> youHit =
-      event -> lastField.hit();
+      event -> {
+        lastField.hit();
+        shipBoard.setDisable(false);
+      };
+
+
+
 
   private final EventHandler<SunkShipEvent> shipSunk =
       event -> {
@@ -239,6 +248,7 @@ public class PlayBoardController implements Initializable {
         ShipBoundariesPositions shipBoundariesPositions = new ShipBoundariesPositions(sea);
         shipBoundariesPositions.calculateShipBoundariesPositions(sunkShipPositions);
         shipBoundariesPositions.markSunkShip();
+        lastField.hit();
       };
 
   private final EventHandler<HitAgainEvent> hitAgain =

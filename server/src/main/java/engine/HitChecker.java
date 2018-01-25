@@ -37,6 +37,6 @@ class HitChecker {
       return new ShipHit(new SocketMessageSender());
     }
 
-    return new MissedShot(new SocketMessageSender());
+    return new MissedShot();
   }
 }

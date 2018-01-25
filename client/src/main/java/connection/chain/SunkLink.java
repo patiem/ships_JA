@@ -1,8 +1,8 @@
 package connection.chain;
 
+import common.model.ShipModel;
 import gui.events.SunkShipEvent;
 import gui.playing.DispatcherAdapter;
-import common.model.ShipModel;
 import responses.Response;
 import responses.ResponseHeader;
 

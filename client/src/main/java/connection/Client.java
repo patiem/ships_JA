@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import gui.fields.Field;
 import json.JsonGeneratorAdapter;
+import json.JsonParserAdapter;
 import messages.ClientLogger;
 import messages.ShotMessage;
 import common.model.Shot;
+import responses.Response;
+import responses.ResponseHeader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -89,4 +92,22 @@ public class Client {
   public String getMessage() {
     return in.readMessage();
   }
+
+  public Response getResponse() {
+    Response responseToProcess = null;
+    try {
+      String message = in.readMessage();
+
+      JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
+
+       responseToProcess = jsonParserAdapter.parse(
+          message, Response.class, new ObjectMapper());
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return responseToProcess;
+
+  }
+
 }

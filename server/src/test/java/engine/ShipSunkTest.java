@@ -26,7 +26,7 @@ public class ShipSunkTest {
 
         shotResult.notifyClients(playerRegistry, shot);
 
-        int expectedInvocationNumber = 3;
+        int expectedInvocationNumber = 2;
         verify(messageSender, times(expectedInvocationNumber)).sendResponse(any(Response.class), any(PlayerClient.class));
     }
 

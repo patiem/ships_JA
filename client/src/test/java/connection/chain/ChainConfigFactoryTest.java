@@ -11,6 +11,6 @@ public class ChainConfigFactoryTest {
     // Act
     Chain firstChain = ChainConfigFactory.configureChainOfResponsibilities();
     // Assert
-    assertThat(firstChain).isInstanceOf(HitLink.class);
+    assertThat(firstChain).isInstanceOf(PlayLink.class);
   }
 }

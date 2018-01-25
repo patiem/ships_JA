@@ -14,9 +14,7 @@ import java.util.Optional;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = HitResponse.class, name = "HitResponse"),
     @JsonSubTypes.Type(value = LossResponse.class, name = "LossResponse"),
-    @JsonSubTypes.Type(value = MissedResponse.class, name = "MissedResponse"),
     @JsonSubTypes.Type(value = OpponentHitResponse.class, name = "OpponentHitResponse"),
-    @JsonSubTypes.Type(value = OpponentMissedResponse.class, name = "OpponentMissedResponse"),
     @JsonSubTypes.Type(value = PlayResponse.class, name = "PlayResponse"),
     @JsonSubTypes.Type(value = WinResponse.class, name = "WinResponse"),
     @JsonSubTypes.Type(value = SunkResponse.class, name = "SunkResponse"),

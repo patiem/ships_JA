@@ -1,4 +1,4 @@
-package model;
+package connection.chain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import responses.Response;
