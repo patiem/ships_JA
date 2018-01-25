@@ -47,7 +47,7 @@ public class StartBoard extends Application {
   private PlayBoardController playBoardController;
 
   public static void run(String[] args) {
-    Application.launch(args);
+    Application.launch(StartBoard.class);
   }
 
   @Override
