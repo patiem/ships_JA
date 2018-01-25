@@ -1,5 +1,6 @@
 package gui.playing;
 
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.scene.Node;
 
@@ -11,6 +12,6 @@ public class DispatcherAdapter {
   }
 
   public void fireEvent(Event event) {
-    dispatcher.fireEvent(event);
+    Platform.runLater(() -> dispatcher.fireEvent(event));
   }
 }

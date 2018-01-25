@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Configure application.
@@ -21,17 +20,19 @@ class Main {
   private static final String SERVER_CONFIG_FILE = "config.properties";
   private static final String PATH_TO_PROPS = "utils/src/main/resources/";
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args)  {
 
-    if (args.length > 0) {
+    try {
+
+      if (args.length > 0) {
       setupNewIpForHost(args[0]);
     }
-    try {
       if (HostValidator.isServerConfigValid(PATH_TO_PROPS + SERVER_CONFIG_FILE)) {
         StartBoard.run(args);
       }
-    } catch (IOException e) {
+    } catch (Exception e) {
       LOGGER.log(Level.SEVERE, e.getMessage());
+      e.printStackTrace();
     }
   }
 
