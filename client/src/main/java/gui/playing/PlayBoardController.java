@@ -17,6 +17,7 @@ import gui.fields.FieldSize;
 import gui.fields.Mast;
 import gui.fields.SeaField;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -56,7 +58,7 @@ public class PlayBoardController implements Initializable {
   private static final String POSITIONS_SEPARATOR = ",";
   private MessageProcessor processor;
   private List<Position> positions;
-  private SeaField lastField;
+  private  SeaField lastField;
   private Sea sea;
   private LanguageVersion languageVersion = new LanguageVersion();
   private Map<String,String> messageMap = new HashMap<>();
@@ -108,28 +110,39 @@ public class PlayBoardController implements Initializable {
   }
 
   private void makeMessageListenerThread() {
-    new Thread(() -> {
-      boolean isGameRunning = true;
-      while (isGameRunning) {
-        String message = client.getMessage();
-        JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
-        try {
-          Response responseToProcess = jsonParserAdapter.parse(
-              message, Response.class, new ObjectMapper());
-          processor.processMessage(responseToProcess);
-          ResponseHeader header = responseToProcess.getHeader();
 
-          if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
-            isGameRunning = false;
+    Task<Void> task = new Task<Void>() {
+      @Override protected Void call() throws Exception {
+        boolean isGameRunning = true;
+        while (isGameRunning) {
+          String message = client.getMessage();
+          JsonParserAdapter jsonParserAdapter = new JsonParserAdapter();
+          try {
+            Response responseToProcess = jsonParserAdapter.parse(
+                message, Response.class, new ObjectMapper());
+            processor.processMessage(responseToProcess);
+            ResponseHeader header = responseToProcess.getHeader();
+
+            if (header == ResponseHeader.WIN || header == ResponseHeader.LOST) {
+              isGameRunning = false;
+            }
+          } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
           }
-        } catch (IOException e) {
-          LOGGER.log(Level.SEVERE, e.getMessage());
         }
+        return null;
       }
-    }).start();
+    };
+
+    Thread th = new Thread(task);
+
+    th.setDaemon(true);
+
+    th.start();
+
   }
 
-  private void populateSeaWithSeaFields() {
+  private synchronized void populateSeaWithSeaFields() {
     sea = new Sea();
     int boardSize = 10;
 
