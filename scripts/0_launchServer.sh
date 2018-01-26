@@ -8,7 +8,20 @@ if [[ $SC -ne 1 ]];
     exit 0
 fi
 
-./setupServerConfig.sh $1
+output='graphical'
+
+if [ $# -eq 1 ] ; then
+    output=$1
+fi
+
+cd ..
+cd utils/src/main/resources
+
+echo "IP= localhost" > config.properties
+echo "portNumber= 1234" >> config.properties
+echo "languageVersion= English" >> config.properties
+echo "outputChannel= ${output}" >> config.properties
+
 
 set -e
 cd ..

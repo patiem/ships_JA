@@ -4,8 +4,29 @@ This is a battleships game that allows two players to play one game on a 10 x 10
 
 ## Getting Started
 
-In order to launch the game, please download the cloneRepo.sh script, go to the created folder and launch the launchGame.sh script to start the server and both clients.
-You can start the server by typing sh launchServer.sh and launch the client by typing sh launchClient.sh.
+In order to launch the game, please download the cloneRepo.sh script.
+Launch this script with folder name in which you want to have project.
+When cloning is finished navigate yourself to ~/<yourFolderName>.
+
+###If you want start only server on your computer:
+1.Run script 0_launchServer.sh . 
+2.If you want to change default graphical transcript output to file run script with argument 'file'. For graphical transcript is 'graphical'.
+
+###If you want start only client on your computer:
+1.Run script 0_launchClient.sh with server ip parameter (or 'localhost' for localhost). 
+2.For change default language from English provide second parameter 'Polish'. Back to english provide "English" parameter after ip.
+
+
+###If you want start server and one client on your computer:
+
+1.If you want to change default parameters: server transcript - graphical and language - English, 
+ run 1_setupClientAndServer.sh with two parameters: first output:'file'/'graphical, second language 'Polish'/'English'.
+
+###If you want start server and two clients on your computer:
+
+1.Go to "If you want start server and one client on your computer"
+2.Then go to "If you want start only client on your computer"
+
 
 ## Running the tests
 
