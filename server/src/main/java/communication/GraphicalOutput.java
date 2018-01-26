@@ -15,7 +15,7 @@ public class GraphicalOutput extends JFrame implements Output {
         JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
     add(scroll);
     setVisible (true);
-    setEnabled(false);
+    textArea.setEditable(false);
   }
 
   @Override
