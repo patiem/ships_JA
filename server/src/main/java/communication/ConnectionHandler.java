@@ -17,19 +17,22 @@ import java.net.Socket;
  * @version 1.5
  */
 class ConnectionHandler {
-  private final PlayerRegistry playerRegistry = new PlayerRegistry();
+  private PlayerRegistry playerRegistry;
   private final Output output;
+  private boolean isServerRunning = true;
 
   public ConnectionHandler() throws IOException {
     output = OutputSelector.getOutput();
   }
 
   void acceptConnections(final ServerSocket serverSocket) throws IOException {
+    while (isServerRunning) {
+      playerRegistry = new PlayerRegistry();
+      acceptPlayer(serverSocket);
+      acceptPlayer(serverSocket);
 
-    acceptPlayer(serverSocket);
-    acceptPlayer(serverSocket);
-
-    setUpGame();
+      setUpGame();
+    }
   }
 
   private void setUpGame() throws IOException {
