@@ -24,7 +24,7 @@ echo "outputChannel= ${output}" >> config.properties
 
 
 set -e
-cd ..
+cd ../../../..
 mvn clean install -q
 echo "Server has been installed, server launch in progress"
 java -jar ./server/target/server*.jar

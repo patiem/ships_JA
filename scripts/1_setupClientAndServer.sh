@@ -29,7 +29,7 @@ echo "languageVersion= ${language}" >> config.properties
 echo "outputChannel= ${output}" >> config.properties
 
 set -e
-cd ..
+cd ../../../..
 mvn clean package
 
 java -jar ./client/target/client*.jar &
