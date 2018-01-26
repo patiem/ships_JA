@@ -5,32 +5,29 @@ This is a battleships game that allows two players to play one game on a 10 x 10
 ## Getting Started
 
 In order to launch the game, please download the cloneRepo.sh script.
-Launch this script with folder name in which you want to have project.
-When cloning is finished navigate yourself to ~/<yourFolderName>.
+Launch this script providing as argument the folder name where you wish the project to be placed.
+Once cloning is finished, navigate to ~/<yourFolderName>.
+All the remaining scripts are supposed to be launched while in the '/scripts' folder of the cloned project.
 
-###If you want start only server on your computer:
+### If you want start only server on your computer:
 1.Run script 0_launchServer.sh . 
-2.If you want to change default graphical transcript output to file run script with argument 'file'. For graphical transcript is 'graphical'.
+2.If you want to have the transcript saved in a file, run the above script with the argument 'file'. 
+For the graphical transcript option  the argument is 'graphical'.
 
-###If you want start only client on your computer:
-1.Run script 0_launchClient.sh with server ip parameter (or 'localhost' for localhost). 
-2.For change default language from English provide second parameter 'Polish'. Back to english provide "English" parameter after ip.
+### If you wish to only start the client:
+1.Run script 0_launchClient.sh with the server IP address as the first argument (or 'localhost' for localhost). 
+2.In order to change the language (default is English) provide 'Polish' as the second argument.
 
+### If you want to start the server together with one of the clients:
 
-###If you want start server and one client on your computer:
+1.If you wish to change the default arguments:  
+ run 1_setupClientAndServer.sh with one of the provided options as arguments: 'file' or 'graphical' | 'Polish' or 'English'.
 
-1.If you want to change default parameters: server transcript - graphical and language - English, 
- run 1_setupClientAndServer.sh with two parameters: first output:'file'/'graphical, second language 'Polish'/'English'.
+### If you want to start the server alongside both of the clients on the same machine:
 
-###If you want start server and two clients on your computer:
+1. Refer to *"If you want start server and one client on your computer"*
+2. Refer go to *"If you want start only client on your computer"*
 
-1.Go to "If you want start server and one client on your computer"
-2.Then go to "If you want start only client on your computer"
-
-
-## Running the tests
-
-The tests will be run upon launching the cloneRepo.sh script.
 
 ## License
 
