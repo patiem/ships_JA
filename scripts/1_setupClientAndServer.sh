@@ -30,7 +30,7 @@ echo "outputChannel= ${output}" >> config.properties
 
 set -e
 cd ../../../..
-mvn clean package
+mvn clean package -q
 
 java -jar ./client/target/client*.jar &
 java -jar ./server/target/server*.jar
