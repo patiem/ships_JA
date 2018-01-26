@@ -1,6 +1,7 @@
 package communication;
 
 import javax.swing.*;
+import java.util.Date;
 
 public class GraphicalOutput extends JFrame implements Output {
 
@@ -16,6 +17,8 @@ public class GraphicalOutput extends JFrame implements Output {
     add(scroll);
     setVisible (true);
     textArea.setEditable(false);
+    textArea.append(new Date().toString());
+    textArea.append("\n");
   }
 
   @Override
