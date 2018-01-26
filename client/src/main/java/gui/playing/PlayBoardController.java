@@ -202,14 +202,12 @@ public class PlayBoardController implements Initializable {
       event -> {
         lastField.hit();
         winning.setText(messageMap.get("winMessage"));
-        suspend();
         jack.setVisible(true);
       };
 
   private final EventHandler<YouLostEvent> youLost =
       event -> {
         winning.setText(messageMap.get("lossMessage"));
-        suspend();
         sunk.setVisible(true);
       };
 
@@ -238,15 +236,6 @@ public class PlayBoardController implements Initializable {
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;
-  }
-
-  private void suspend() {
-    try {
-      Thread.sleep(1500);
-    } catch (InterruptedException e) {
-      LOGGER.log(Level.WARNING, e.getMessage());
-      Thread.currentThread().interrupt();
-    }
   }
 }
 
