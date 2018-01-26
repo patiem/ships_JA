@@ -9,11 +9,11 @@ if [ $SC -ne 1 ];
 fi
 
 if [ $# -eq 0 ] ; then
-    echo 'Provide server Ip or localhost'
+    echo 'Provide server Ip or localhost and optionally language: "Polish"/"English"'
     exit 0
 fi
 
-./setupClientConfig.sh $1 $2 $3
+./2_setupClient.sh $1 $2
 
 set -e
 cd ..
