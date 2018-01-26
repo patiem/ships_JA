@@ -9,7 +9,7 @@ Launch this script providing as argument the folder name where you wish the proj
 Once cloning is finished, navigate to ~/<yourFolderName>.
 All the remaining scripts are supposed to be launched while in the '/scripts' folder of the cloned project.
 
-### If you want start only server on your computer:
+### If you wish to start only the server:
 1.Run script 0_launchServer.sh . 
 2.If you want to have the transcript saved in a file, run the above script with the argument 'file'. 
 For the graphical transcript option  the argument is 'graphical'.
