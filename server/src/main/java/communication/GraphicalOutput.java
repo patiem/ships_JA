@@ -7,10 +7,15 @@ public class GraphicalOutput extends JFrame implements Output {
   private JTextArea  textArea;
 
   public GraphicalOutput() {
+
     textArea = new JTextArea();
     add(textArea);
     this.setSize(500, 2000);
-    setVisible(true);
+    JScrollPane scroll = new JScrollPane (textArea,
+        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    add(scroll);
+    setVisible (true);
+    setEnabled(false);
   }
 
   @Override
