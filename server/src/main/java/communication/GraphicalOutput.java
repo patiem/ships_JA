@@ -23,6 +23,7 @@ public class GraphicalOutput extends JFrame implements Output {
 
   @Override
   public void transcript(String message) {
+    //todo write to database
     textArea.append(message);
     textArea.append("\n");
   }

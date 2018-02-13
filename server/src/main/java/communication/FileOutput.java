@@ -27,6 +27,7 @@ public class FileOutput implements Output {
     try (FileWriter fw = new FileWriter(file, true);
          PrintWriter out = new PrintWriter(new BufferedWriter(fw))) {
       out.println(message);
+      //todo write to database
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());
     }
@@ -35,6 +36,7 @@ public class FileOutput implements Output {
   public void transcript(Date message) {
     try (FileWriter fw = new FileWriter(file, false);
          PrintWriter out = new PrintWriter(new BufferedWriter(fw))) {
+      //todo write to database
       out.println(message.toString());
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());
