@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import persistence.transcript.model.Transcript;
 
+import java.util.List;
 
 /**
  * class which will handle persistence queries like save,update,delete,read for Transcript class
@@ -37,30 +38,28 @@ public class TranscriptDao implements GenericDao<Transcript> {
 
     @Override
     public void update(Transcript transcript) {
-        try (Session session = sf.openSession()) {
-            session.beginTransaction();
-            session.update(transcript);
-            session.getTransaction().commit();
-        }
+        openCurrentSessionWithTransaction().update(transcript);
+        currentTransaction.commit();
     }
 
     @Override
     public Transcript findById(long id) {
-        return null;
+        return openCurrentSession().get(Transcript.class, id);
     }
 
     @Override
-    public void delete(Transcript obj) {
-
+    public void delete(Transcript transcript) {
+        openCurrentSessionWithTransaction().delete(transcript);
     }
 
     @Override
-    public void getAllData() {
-
+    public List<Transcript> getAllData() {
+        return openCurrentSession().createQuery("FROM transcript", Transcript.class).list();
     }
 
     @Override
-    public void clearTable() {
-
+    public void clearAllData() {
+        //todo created named query for this (portable issue)
+        openCurrentSessionWithTransaction().createNativeQuery("truncate table transcript");
     }
 }

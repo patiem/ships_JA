@@ -4,6 +4,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import persistence.scores.model.GameResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * class which will handle persistence queries like save,update,delete,read for GameResults class
  */
@@ -38,12 +41,12 @@ public class GameResultDao implements GenericDao<GameResult>{
     }
 
     @Override
-    public void getAllData() {
-
+    public List<GameResult> getAllData() {
+        return new ArrayList<>();
     }
 
     @Override
-    public void clearTable() {
+    public void clearAllData() {
 
     }
 }
