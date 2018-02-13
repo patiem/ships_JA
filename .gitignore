@@ -91,5 +91,8 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
+# Database
+db.mv.db
+
 # End of https://www.gitignore.io/api/java,maven,intellij
 
