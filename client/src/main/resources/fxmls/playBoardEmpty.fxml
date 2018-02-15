@@ -96,6 +96,7 @@
          <Font name="FreeMono Bold" size="16.0" />
       </font>
    </TextField>
+
     <ImageView fitHeight="92.0" fitWidth="154.0" layoutX="566.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/wreck.png" />
     </ImageView>

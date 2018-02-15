@@ -19,12 +19,12 @@ public class TranscriptDao implements GenericDao<Transcript> {
         this.sf = sf;
     }
 
-    public Session openCurrentSession() {
+    private Session openCurrentSession() {
         currentSession = sf.openSession();
         return currentSession;
     }
 
-    public Session openCurrentSessionWithTransaction() {
+    private Session openCurrentSessionWithTransaction() {
         currentSession = openCurrentSession();
         currentTransaction = currentSession.beginTransaction();
         return currentSession;
@@ -50,6 +50,7 @@ public class TranscriptDao implements GenericDao<Transcript> {
     @Override
     public void delete(Transcript transcript) {
         openCurrentSessionWithTransaction().delete(transcript);
+        currentTransaction.commit();
     }
 
     @Override
@@ -60,6 +61,7 @@ public class TranscriptDao implements GenericDao<Transcript> {
     @Override
     public void clearAllData() {
         //todo created named query for this (portable issue)
-        openCurrentSessionWithTransaction().createNativeQuery("truncate table transcript");
+        openCurrentSessionWithTransaction().createNativeQuery("TRUNCATE TABLE transcript").executeUpdate();
+        currentTransaction.commit();
     }
 }

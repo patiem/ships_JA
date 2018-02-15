@@ -21,6 +21,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -71,6 +72,8 @@ public class PlayBoardController implements Initializable {
   private ImageView jack;
   @FXML
   private ImageView sunk;
+  @FXML
+  private Button transcriptBtn;
 
   public PlayBoardController(Client client, List<Position> positions) {
     this.client = client;
@@ -92,6 +95,7 @@ public class PlayBoardController implements Initializable {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
     winning.setText(messageMap.get("waitMessage"));
+    transcriptBtn.setText(languageVersion.getMessage("Save transcript"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);

@@ -1,6 +1,9 @@
 package communication;
 
 import messages.ServerLogger;
+import persistence.database.query.dao.TranscriptDao;
+import persistence.session.factory.configuration.SessionFactoryProvider;
+import persistence.transcript.model.Transcript;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,11 +14,14 @@ import java.util.Date;
 import java.util.logging.Level;
 
 public class FileOutput implements Output {
+  private static final String START_OF_THE_TRANSCRIPT_WRITTEN_TO_FILE = "Start of the Transcript written to File";
   private static ServerLogger serverLogger = ServerLogger.getInstance();
 
   private File file;
+  private TranscriptDao transcriptDao;
 
-  public FileOutput() throws IOException {
+  FileOutput() throws IOException {
+    transcriptDao = new TranscriptDao(SessionFactoryProvider.provide());
     File directory = new File("logs");
     directory.mkdir();
     file = new File(directory.getPath() + File.separator + "gameFlow.txt");
@@ -27,7 +33,7 @@ public class FileOutput implements Output {
     try (FileWriter fw = new FileWriter(file, true);
          PrintWriter out = new PrintWriter(new BufferedWriter(fw))) {
       out.println(message);
-      //todo write to database
+      transcriptDao.save(new Transcript(message, new Date()));
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());
     }
@@ -36,8 +42,8 @@ public class FileOutput implements Output {
   public void transcript(Date message) {
     try (FileWriter fw = new FileWriter(file, false);
          PrintWriter out = new PrintWriter(new BufferedWriter(fw))) {
-      //todo write to database
       out.println(message.toString());
+      transcriptDao.save(new Transcript(START_OF_THE_TRANSCRIPT_WRITTEN_TO_FILE, message));
     } catch (IOException e) {
       serverLogger.log(Level.SEVERE, e.getMessage());
     }

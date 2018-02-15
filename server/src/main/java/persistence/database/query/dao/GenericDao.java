@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * generic interface which will provide methods to implement for queries like save,update,delete,read
  */
-public interface GenericDao<T> {
+interface GenericDao<T> {
     void save(T obj);
 
     void update(T obj);
