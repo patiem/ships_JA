@@ -9,7 +9,7 @@ public class TranscriptLink extends Chain {
     @Override
     public void analyzeResponse(Response response, DispatcherAdapter dispatcherAdapter) {
         if (response.getHeader() == ResponseHeader.TRANSCRIPT) {
-            dispatcherAdapter.fireEvent(new TranscriptEvent());
+            dispatcherAdapter.fireEvent(new TranscriptEvent(response.getTranscriptDTOs()));
         } else {
             nextInChain.analyzeResponse(response, dispatcherAdapter);
         }

@@ -21,4 +21,9 @@ public class TranscriptResponse implements Response {
     public ResponseHeader getHeader() {
         return header;
     }
+
+    @Override
+    public List<TranscriptDTO> getTranscriptDTOs() {
+        return transcriptDTOs;
+    }
 }

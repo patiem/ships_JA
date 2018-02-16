@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import common.model.ShipModel;
 import common.model.Shot;
+import dto.TranscriptDTO;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -34,5 +37,10 @@ public interface Response {
   @JsonProperty("sunkShip")
   default Optional<ShipModel> getSunkShip() {
     return Optional.empty();
+  }
+
+  @JsonProperty("transcriptDTOs")
+  default List<TranscriptDTO> getTranscriptDTOs() {
+    return new ArrayList<>();
   }
 }
