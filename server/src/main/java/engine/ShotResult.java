@@ -5,4 +5,7 @@ import common.model.Shot;
 
 public interface ShotResult {
   void notifyClients(PlayerRegistry playerRegistry, Shot shot);
+  default void notifyClients(PlayerRegistry playerRegistry, String msg) {
+
+  }
 }

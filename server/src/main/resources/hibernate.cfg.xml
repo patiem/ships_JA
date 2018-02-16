@@ -11,7 +11,7 @@
         <property name="connection.url">jdbc:h2:./db</property>
         <property name="connection.username">marek</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">create-drop</property>
 
         <mapping class="persistence.transcript.model.Transcript"/>
         <mapping class="persistence.scores.model.GameResult"/>

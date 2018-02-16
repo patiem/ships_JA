@@ -3,6 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
+import file.FileWriter;
 import gui.events.HitAgainEvent;
 import gui.events.SunkShipEvent;
 import gui.events.UpdateWhenHitEvent;
@@ -95,7 +96,6 @@ public class PlayBoardController implements Initializable {
     populateSeaWithSeaFields();
     shipBoard.setDisable(true);
     winning.setText(messageMap.get("waitMessage"));
-    transcriptBtn.setText(languageVersion.getMessage("Save transcript"));
     populateOpponentBoardWithFleet();
 
     winning.addEventHandler(UpdateWhenHitEvent.UPDATE, updateBoardWhenHit);
@@ -107,6 +107,9 @@ public class PlayBoardController implements Initializable {
     winning.addEventHandler(YouHitEvent.HIT, youHit);
     winning.addEventHandler(SunkShipEvent.SUNK, shipSunk);
     winning.addEventHandler(HitAgainEvent.HIT_AGAIN, hitAgain);
+
+    transcriptBtn.setText("Save transcript");
+    addEventHandlerToTranscriptBtn();
 
     makeMessageListenerThread();
   }
@@ -237,6 +240,15 @@ public class PlayBoardController implements Initializable {
         winning.setText(messageMap.get("hitAgainMessage"));
         shipBoard.setDisable(true);
       };
+
+    private void addEventHandlerToTranscriptBtn() {
+        transcriptBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            client.sendMessage("transcript");
+            String transcript = "";
+            FileWriter.write(transcript);
+//            event.consume();
+        });
+    }
 
   public void setMessageProcessor(MessageProcessor messageProcessor) {
     this.processor = messageProcessor;

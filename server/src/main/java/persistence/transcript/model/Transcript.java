@@ -15,7 +15,7 @@ public class Transcript implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "message", length = 45)
+    @Column(name = "message", length = 60)
     private String message;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -33,6 +33,10 @@ public class Transcript implements Serializable {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public Date getDate() {
+        return date;
     }
 
     Transcript() {

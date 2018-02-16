@@ -1,5 +1,6 @@
 package responses;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public enum ResponseHeader {
@@ -22,5 +23,7 @@ public enum ResponseHeader {
   @JsonProperty("sunk")
   SUNK,
   @JsonProperty("hit_again")
-  HIT_AGAIN
+  HIT_AGAIN,
+  @JsonProperty("transcript")
+  TRANSCRIPT
 }
