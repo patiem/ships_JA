@@ -10,7 +10,7 @@ public class TranscriptResponse implements Response {
     private List<TranscriptDTO> transcriptDTOs;
 
     @JsonCreator
-    public TranscriptResponse(@JsonProperty("transcripts") List<TranscriptDTO> transcriptDTOs) {
+    public TranscriptResponse(@JsonProperty("transcriptDTOs") List<TranscriptDTO> transcriptDTOs) {
         this.transcriptDTOs = transcriptDTOs;
     }
 

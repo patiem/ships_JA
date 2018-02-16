@@ -3,11 +3,10 @@ package converter.dto.converter;
 import dto.TranscriptDTO;
 import persistence.transcript.model.Transcript;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TranscriptConverter implements Serializable{
+public class TranscriptConverter {
 
     private TranscriptConverter() {
     }

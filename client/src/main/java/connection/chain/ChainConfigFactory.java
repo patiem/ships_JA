@@ -31,8 +31,11 @@ public class ChainConfigFactory {
     Chain sunkLink = new SunkLink();
     hitAgainLink.setNextChain(sunkLink);
 
+    Chain transcriptLink = new TranscriptLink();
+    sunkLink.setNextChain(transcriptLink);
+
     Chain endLink = new EndLink();
-    sunkLink.setNextChain(endLink);
+    transcriptLink.setNextChain(endLink);
 
     return hitLink;
   }
