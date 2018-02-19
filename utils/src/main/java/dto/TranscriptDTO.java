@@ -33,4 +33,9 @@ public class TranscriptDTO implements Serializable {
     public Date getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return String.format("message=%s, date=%s", message, date);
+    }
 }

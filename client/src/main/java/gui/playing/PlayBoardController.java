@@ -3,6 +3,7 @@ package gui.playing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import connection.Client;
 import connection.MessageProcessor;
+import dto.TranscriptDTO;
 import file.FileWriter;
 import gui.events.HitAgainEvent;
 import gui.events.SunkShipEvent;
@@ -123,6 +124,10 @@ public class PlayBoardController implements Initializable {
         try {
           Response responseToProcess = jsonParserAdapter.parse(
               message, Response.class, new ObjectMapper());
+          if(!responseToProcess.getTranscriptDTOs().isEmpty()){
+              String transcript = responseToProcess.getTranscriptDTOs().stream().map(TranscriptDTO::toString).collect(Collectors.joining("\n"));
+              FileWriter.write(transcript);
+          }
           processor.processMessage(responseToProcess);
           ResponseHeader header = responseToProcess.getHeader();
 
@@ -244,9 +249,8 @@ public class PlayBoardController implements Initializable {
     private void addEventHandlerToTranscriptBtn() {
         transcriptBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             client.sendMessage("transcript");
-            String transcript = "";
-            FileWriter.write(transcript);
-//            event.consume();
+//            String transcript = "";
+//            FileWriter.write(transcript);
         });
     }
 
